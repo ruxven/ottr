@@ -9,19 +9,6 @@
 
 using namespace ottr;
 
-static std::string write_temp_file(const std::string& rel_name, const std::string& contents) {
-    std::string path = std::string("/tmp/") + rel_name;
-    std::ofstream f(path);
-    f << contents;
-    f.close();
-    return path;
-}
-
-static std::string normalize_ws(const std::string& s) {
-    std::ostringstream out; bool in_space=false; for(char c: s){ if(c==' '){ if(!in_space){ out<<' '; in_space=true; } } else { out<<c; in_space=false; } }
-    return out.str();
-}
-
 TEST(Engine, DirectAndTaskAllocationAndFilter) {
     std::string txt =
         "cn C1 \"A\" 10 0\n"
@@ -36,9 +23,9 @@ TEST(Engine, DirectAndTaskAllocationAndFilter) {
         "day 09/02\n"
         "log 9.0 t\n"
         "log 10.5\n";
-    std::string err; World w; std::string path = write_temp_file("eng.txt", txt);
-    ASSERT_TRUE(parse_file(path, w, err)) << err;
-    ASSERT_TRUE(validate_world(path, w).empty());
+    std::string err; World w; std::istringstream iss(txt);
+    ASSERT_TRUE(parse_istream(iss, "mem:eng", w, err)) << err;
+    ASSERT_TRUE(validate_world("mem:eng", w).empty());
 
     EngineOptions opts{}; opts.filter.has_start=true; opts.filter.start.raw="09/01"; opts.filter.start.ord=901;
     Aggregation agg; std::string emsg; ASSERT_TRUE(process_world(w, opts, agg, emsg));
@@ -62,9 +49,9 @@ TEST(Report, FullAndSingleDayTables) {
         "day 09/01\n"
         "log 9.0 t\n"
         "log 10.0\n";
-    std::string err; World w; std::string path = write_temp_file("rep.txt", txt);
-    ASSERT_TRUE(parse_file(path, w, err)) << err;
-    ASSERT_TRUE(validate_world(path, w).empty());
+    std::string err; World w; std::istringstream iss(txt);
+    ASSERT_TRUE(parse_istream(iss, "mem:rep", w, err)) << err;
+    ASSERT_TRUE(validate_world("mem:rep", w).empty());
 
     EngineOptions opts{}; opts.filter.has_start=true; opts.filter.start.raw="09/01"; opts.filter.start.ord=901;
     Aggregation agg; std::string emsg; ASSERT_TRUE(process_world(w, opts, agg, emsg));
