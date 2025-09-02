@@ -1,0 +1,296 @@
+OTTR Timecard CLI - Design Document
+
+Purpose
+- Translate SPEC.txt into a concrete, implementable design with clear component boundaries.
+- Provide a cross-reference from SPEC sections to implementation components.
+- Offer language-neutral structure plus guidance for Go and C++.
+
+High-level data flow
+1) CLI parses arguments and builds a date filter and input path.
+2) Parser reads the file, builds in-memory model (charges, tasks, days, logs) with line numbers.
+3) Validator verifies structural and referential integrity.
+4) Processor iterates days and log slices, delegates allocation to Allocator, updates Aggregator.
+5) Reporter renders one or two tables per the CLI filter.
+
+Core components
+
+Component: CLI (Command entrypoint)
+- Responsibilities
+  - Parse argv: input file path, optional START_DATE, optional END_DATE.
+  - Build date filter: none (all), single (D == START_DATE), range (START_DATE <= D <= END_DATE).
+  - Orchestrate the pipeline: parse -> validate -> process -> report.
+  - Manage exit codes (0 on success; non-zero on error).
+- Public API (language-agnostic)
+  - int main(int argc, char** argv)
+- Key behaviors
+  - Sorting of days is chronological (MM/DD -> integer MM*100 + DD).
+  - When a single date is provided, request Reporter to emit both full and compact tables.
+
+Component: Model (Domain types)
+- Types
+  - Tick: integer representing 0.1 hour units.
+  - Date: string in MM/DD; for ordering, also store Ordinal = MM*100 + DD.
+  - ChargeNumber
+    - id: string
+    - description: string
+    - budget_ticks: Tick (declared hours * 10)
+    - priority: int (default 0)
+    - charged_by_day: map<Date, Tick>
+    - total_charged_ticks: Tick
+  - Task
+    - name: string
+    - description: string
+    - weights: map<charge_id, int> (sum of multiple wt lines per charge)
+  - Day
+    - date: string (MM/DD)
+    - ordinal: int (MM*100 + DD)
+    - logs: vector<Log>
+  - Log
+    - time_ticks: Tick (time in tenths-of-hour since 00:00)
+    - kind: enum { none, task, charge }
+    - ref_id: string (task name or charge id; empty if kind == none)
+    - description: string (optional)
+    - line_no: int (for diagnostics)
+  - World (top-level aggregate)
+    - charges: map<id, ChargeNumber>
+    - tasks: map<name, Task>
+    - days: vector<Day> (in file order; must be non-decreasing by date)
+
+Component: Parser
+- Responsibilities
+  - Read UTF-8 text file, handle comments (# to end-of-line).
+  - Tokenize respecting double-quoted strings and escapes (\").
+  - Recognize directives: cn, task, wt, day, log.
+  - Maintain current day context.
+  - Populate Model with line numbers for error reporting.
+- Tokenization rules
+  - Split on whitespace outside of quotes.
+  - A token beginning with '"' continues until the matching unescaped '"'. Support escaping inside strings (\" -> ").
+  - Everything after '#' is ignored.
+- Directive parsers
+  - parseCn(line_no, tokens)
+    - tokens: ["cn", id, description_str, hours_str, [priority_str]]
+    - Convert hours_str to double; budget_ticks = floor(hours * 10 + 1e-9).
+    - priority default 0 if omitted.
+    - Enforce unique id; error on duplicate.
+  - parseTask(line_no, tokens)
+    - tokens: ["task", name, description_str]
+    - Enforce unique name; error on duplicate.
+  - parseWt(line_no, tokens)
+    - tokens: ["wt", task_name, charge_id, weight_str]
+    - weight > 0 integer.
+    - Task and charge must exist (or defer to validation if choosing two-pass).
+    - Accumulate into task.weights[charge_id] += weight.
+  - parseDay(line_no, tokens)
+    - tokens: ["day", date_str]
+    - If previous day exists and not closed (last log kind != none), error.
+    - Parse date_str MM/DD; ordinal = MM*100 + DD; ensure non-decreasing relative to previous days.
+    - Start a new Day and push to model.days.
+  - parseLog(line_no, tokens)
+    - Syntax C (uncharged): ["log", time_str]
+    - Syntax A/B: ["log", time_str, ref_id, [description_str]]
+    - time_ticks = floor(hours * 10 + 1e-9). Must be strictly increasing within current day.
+    - If no current day: error.
+    - If ref_id matches a task name -> kind=task; else if matches a charge id -> kind=charge; else -> if present, error; if absent, kind=none.
+    - A final uncharged log (kind=none) is required to close the day.
+
+Component: Validator
+- Responsibilities
+  - Structural checks not enforced during parse or to double-check parser results.
+- Validations
+  - Unknown directive (handled at parse time).
+  - Duplicate cn id or task name (parse time recommended).
+  - wt refers to unknown task or charge.
+  - Logs before any day.
+  - Non-increasing times in a day.
+  - Day with fewer than 2 logs.
+  - day encountered while previous day is not closed by a final uncharged log.
+  - log references unknown task/charge (if not detected in parse).
+  - Malformed numbers/strings/dates (parse time recommended).
+- Warnings (non-fatal)
+  - Task declared but never referenced in any log.
+  - Charge declared but never allocated any time.
+
+Component: Processor (Engine)
+- Responsibilities
+  - Iterate days in chronological order (by ordinal) applying date filters.
+  - Convert logs to slices: for i in 0..n-2, duration_ticks = max(0, logs[i+1].time_ticks - logs[i].time_ticks).
+  - Route each slice to Allocator according to the log[i] kind.
+  - Maintain running per-charge totals (Aggregator) to support budget-aware tie-breakers.
+- Processing order
+  - For included dates only: increasing by ordinal; within a day: log order.
+  - charged_to_date used in tie-breakers is the cumulative charged ticks within the current run over the included date window.
+
+Component: Allocator
+- Responsibilities
+  - Implement deterministic allocation in ticks of 0.1h.
+- Direct charge allocation
+  - Given charge_id and slice_ticks, add all slice_ticks to that charge (drop any sub-tenth; slice_ticks are already in ticks).
+- Weighted task allocation
+  - Inputs: slice_ticks, task.weights (map<charge_id, w>), charges map, aggregator state.
+  - Precondition: sumW = sum(w) > 0; if 0, treat as uncharged (no allocation).
+  - Compute ideal per-charge ticks using integer arithmetic to avoid floating error:
+    - For each charge j: ideal_numer_j = slice_ticks * w_j (integer), denom = sumW.
+    - base_j = ideal_numer_j / denom (integer division).
+    - frac_numer_j = ideal_numer_j % denom (0..denom-1).
+  - Compute remainder = slice_ticks - sum(base_j). (Guaranteed 0 <= remainder < number_of_charges.)
+  - Remainder distribution loop (while remainder > 0):
+    - Choose a winner among charges with a fixed comparator:
+      1) Higher priority first (charge.priority).
+      2) Larger remaining budget: (charge.budget_ticks - aggregator.total_ticks(charge)).
+      3) Larger frac_numer_j.
+      4) Lexicographically smaller charge.id.
+    - Increment allocated_j by 1 tick; decrement remainder.
+  - Update Aggregator for each charge with base_j + bonus_j ticks.
+
+Component: Aggregator
+- Responsibilities
+  - Maintain per-charge per-day tick totals, overall per-charge totals, and per-day sums for the Total row.
+- API
+  - add(date, charge_id, ticks)
+  - get_total(charge_id) -> Tick
+  - get_by_day(charge_id, date) -> Tick
+  - get_day_sum(date) -> Tick
+  - get_all_days() -> ordered list of included dates
+
+Component: Reporter
+- Responsibilities
+  - Produce tables per SPEC, respecting the date filter.
+- Formatting rules
+  - One decimal place for all numeric fields (ticks -> hours via ticks / 10.0).
+  - Column widths are dynamic: width = max(header length, max cell width for the column).
+  - Charge column left-aligned; numeric columns right-aligned.
+  - Column order: Charge | day1 | day2 | ... | Total |   Rem |
+  - Rows sorted by charge id (lexicographic ascending).
+  - Final Total row: per-day sums and grand total; Rem column blank.
+- Single-day compact table (optional when one date is specified)
+  - Columns: Charge | <MM/DD>
+  - Same sorting and alignment.
+
+Component: Utils
+- Date utilities
+  - parse_mmdd(str) -> (mm:int, dd:int) or error; ordinal = mm*100 + dd.
+- Ticks utilities
+  - hours_to_ticks(h) = floor(h*10 + 1e-9)
+  - time_string_to_hours("9.5") -> 9.5 -> ticks=95
+  - ticks_to_string(t) -> fixed 1 decimal (e.g., "  8.0") per requested width
+- String utilities
+  - Tokenizer handling quotes and escapes; comment stripping.
+- Sorting
+  - Comparator for charge rows by id; comparator for remainder distribution as defined above.
+- Error handling
+  - Formatting errors with file path and line no: "FILE:LINE: message".
+
+Error reporting and control flow
+- Parser accumulates errors and stops on the first fatal error; return non-zero.
+- Validator can accumulate multiple errors; on any fatal error, return non-zero.
+- CLI prints the first error encountered with context and exits with non-zero.
+
+Performance considerations
+- Let S be the number of slices and K be the average number of charge numbers per task.
+- Base allocation is O(S*K).
+- Remainder distribution is O(S*K) in the worst case because remainder < K per slice; each remainder step uses a linear scan with a fixed comparator.
+- Memory use is dominated by per-day and per-charge maps; all structures are bounded by input size.
+
+Cross-reference: SPEC -> Component mapping
+- Command-line interface -> CLI, Reporter (for single-day extra table signal)
+- Input file format -> Parser, Utils (tokenizer, quoted strings)
+- Directives (cn, task, wt, day, log) -> Parser, Model
+- Semantics and computation -> Processor (slicing), Allocator (distribution), Aggregator (totals)
+- Validation and error handling -> Validator, Parser (early checks), Utils (error formatting)
+- Sorting and presentation -> Reporter, Utils (sorting, formatting)
+- Single-day quick table -> Reporter
+- Numerical notes and precision -> Utils (ticks), Allocator (integer arithmetic)
+- Special identifiers (nc, direct charge) -> Parser (classification), Processor (uncharged handling), Allocator (direct allocation)
+- Implementation outline -> All components as defined above
+- Testing guidance -> Test plan (below)
+
+Testing plan
+- Parser tests
+  - Accept cn/task/wt/day/log with/without optional fields; quoted strings; escapes.
+  - Reject unknown directives; malformed numbers and dates; logs before day.
+- Validator tests
+  - Duplicates; unresolved wt references; non-increasing times; missing closing uncharged log; day with <2 logs.
+- Allocator tests
+  - Weighted split with exact tenths (no remainder) -> deterministic exact allocation.
+  - Weighted split with remainder -> priority and tie-break order verified.
+  - Direct charge allocation correctness.
+  - Budget-aware tie-break: prefer larger remaining budget.
+- Processor tests
+  - Multiple days in and out of filter; ensure per-day and totals align.
+- Reporter tests
+  - Column widths and alignment; one-decimal formatting; sorted rows.
+  - Single-day compact table emission.
+- Golden file tests
+  - Use demo_timecard.txt and assert exact expected tables.
+
+Language-specific guidance
+
+Go
+- Suggested package layout
+  - cmd/ottr/main.go (CLI)
+  - internal/parser, internal/model, internal/engine, internal/alloc, internal/report, internal/validate, internal/util
+- Key types
+  - type Tick int
+  - type Date struct { Raw string; Ord int }
+  - Use bufio.Scanner for line reading (increase buffer if needed), or bufio.Reader for custom lexing.
+  - Sorting: sort.Slice with custom less funcs.
+  - Formatting: fmt.Sprintf with width controls, or a small table builder to precompute column widths.
+
+C++
+- Suggested layout
+  - src/main.cpp (CLI)
+  - src/parser.{h,cpp}, src/model.{h,cpp}, src/engine.{h,cpp}, src/alloc.{h,cpp}, src/report.{h,cpp}, src/validate.{h,cpp}, src/util.{h,cpp}
+- Key types
+  - using Tick = int64_t;
+  - Date { std::string raw; int ord; }
+  - Use std::getline and a simple tokenizer state machine for quotes/escapes.
+  - Containers: std::vector, std::unordered_map, std::map (for ordered days if preferred); custom comparators for sorting.
+  - Formatting: iostreams or fmtlib; dynamic width with iomanip.
+
+Detailed algorithms and pseudo-APIs
+
+Tokenizer (simplified finite-state)
+- States: Default, InString
+- For each char c:
+  - If Default: '#' -> break; '"' -> state=InString, start token; whitespace -> delimiter; else append to current token.
+  - If InString: '"' preceded by '\\' -> treat as '"'; unescaped '"' -> end string token; else append.
+- Emit tokens as vector<string>.
+
+Remainder comparator inputs (for weighted allocation)
+- For each candidate charge j:
+  - prio_j = charges[j].priority
+  - rem_budget_j = charges[j].budget_ticks - aggregator.total(j)
+  - frac_j = frac_numer_j (computed against sumW)
+  - id_j = charges[j].id
+- Comparator order (descending for first three, ascending for id):
+  - prio_j, rem_budget_j, frac_j, id_j
+
+Date handling
+- parse_mmdd: split at '/', parse ints, validate 1<=mm<=12, 1<=dd<=31; ord=mm*100+dd.
+- Note: no year; ordering assumes same year context.
+
+Time handling
+- time string is decimal hours-of-day (e.g., 9.5 == 9:30). Convert to ticks via floor(h*10 + 1e-9).
+- Enforce strictly increasing within a day: previous.time_ticks < current.time_ticks.
+
+Reporter column sizing
+- Compute set of days included -> ordered by ord.
+- Build a matrix of strings (charge rows) for each column, pre-rendering numbers with one decimal.
+- Column width = max over header and all cells for that column.
+- Render with borders: "| " + padded cell + " |".
+
+Diagnostics examples
+- FILE:12: duplicate charge id: 1234.a
+- FILE:33: day started before previous day closed (missing final uncharged log)
+- FILE:46: log time 10.0 not greater than previous 10.0
+- FILE:57: unknown task or charge: alpha2
+
+Extensibility notes
+- Adding year support: extend Date to include year and adjust ordering and filters.
+- Alternate rounding policies: isolate hours_to_ticks and allocation strategy behind an interface.
+- CSV/JSON exporters: additional Reporter implementations.
+
+Open decisions (captured)
+- Remaining budget in tie-break uses only allocations within the current run over the included date window (charged_to_date resets to 0 at run start). This ensures deterministic behavior consistent with filtered reports.
+- slice_ticks are derived from discrete time_ticks difference, guaranteeing integer tick counts and eliminating sub-tenth bleed.

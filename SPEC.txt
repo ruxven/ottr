@@ -1,0 +1,181 @@
+Timecard CLI specification (for C, C++, or Go implementation)
+
+Goal
+- Read a plain-text timecard file (see demo_timecard.txt) that defines charge numbers, tasks, weights, days, and log entries.
+- Produce a table of hours charged per charge number for each day appearing in the file, plus per-charge totals and remaining budget hours.
+- Optionally, when a single day is requested, also emit a compact two-column table for quick copy/paste into a time entry system.
+
+Command-line interface
+- Program name: ottr (or any chosen name; below we refer to it as ottr).
+- Usage:
+  - ottr FILE
+  - ottr FILE START_DATE
+  - ottr FILE START_DATE END_DATE
+- Parameters:
+  - FILE: path to the timecard source file.
+  - START_DATE, END_DATE: date filters in MM/DD format; when only START_DATE is provided, it behaves as a single-day filter; when both are provided, include all days D such that START_DATE <= D <= END_DATE (inclusive). If no dates are provided, include all days in the file.
+- Exit codes:
+  - 0 on success.
+  - Non-zero on validation or parsing errors.
+
+Input file format
+- The file is UTF-8 text, read line by line. Lines may be blank.
+- Comments start with # and run to end of line; comments may appear on their own line or after tokens (inline comment).
+- Tokens are separated by whitespace. Quoted strings use double-quotes; inner quotes must be escaped as \".
+- Identifiers (charge number IDs and task names) are case-sensitive and may contain [A-Za-z0-9_.-].
+
+Directives
+- Charge number declaration (cn):
+  - Syntax: cn <id> "<description>" <hours> [<priority>]
+  - id: string identifier (e.g., 1234.a, illness)
+  - description: free-form string
+  - hours: non-negative number representing the budget or remaining allowed hours
+  - priority: optional integer (default 0). Higher value = higher priority for remainder allocation (see allocation rules).
+  - Example: cn 1234.b "Charge Task B" 20 1
+
+- Task declaration (task):
+  - Syntax: task <name> "<description>"
+  - name: task identifier
+  - description: free-form string
+  - A task may have zero or more weights (wt) linking it to charge numbers.
+
+- Weight mapping (wt):
+  - Syntax: wt <task_name> <charge_number_id> <weight>
+  - Associates a task with a charge number and an integer weight (>0). Multiple wt lines for the same task are allowed; their weights are summed per unique charge number id.
+  - The relative weights define the proportion of time (before rounding) that goes to each charge number when the task is logged.
+
+- Day declaration (day):
+  - Syntax: day <MM/DD>
+  - Starts a new day context. Days must be in non-decreasing order within the file.
+  - Each day consists of one or more log entries which must be strictly increasing by time within the day.
+
+- Log entry (log):
+  - Syntax A (task): log <time> <task_name> ["<description>"]
+  - Syntax B (charge): log <time> <charge_number_id> ["<description>"]
+  - Syntax C (uncharged/end marker): log <time>
+  - time: decimal hours-of-day in local time; examples: 9.5 (09:30), 10.0 (10:00), 17.5 (17:30). Times must be strictly increasing within a day.
+  - task_name may equal a declared task OR a declared charge number id; if a charge number id is used, 100% of the time slice is charged to that charge number (subject to rounding).
+  - A log without a task/charge parameter denotes an uncharged slice and is also used as the last entry of a day to close the day; the slice that begins at the previous log time ends at this time. The final (last) log entry of a day must be uncharged (Syntax C) before the next day can start.
+  - Special case: a task without any weights (or a literal task name "nc") is treated as uncharged.
+
+Semantics and computation
+- Time slicing:
+  - For each day, consider the ordered sequence of log times. Each non-final log L[i] defines the start of a slice; the next log L[i+1] defines its end. The duration is (L[i+1].time - L[i].time) hours.
+  - The slice is associated with L[i]’s task/charge (if present) or is uncharged (if absent or if the task has no weights or equals nc).
+
+- Aggregation scope:
+  - Compute per-day, per-charge-number allocated hours for all days included by the CLI date filter (or all days if no filter).
+  - The per-charge "Total" is the sum of allocated hours across the included days only.
+  - The per-charge "Rem" is defined as (declared hours) - (per-charge Total). If a charge number is not declared (e.g., referenced by log but missing cn), this is an error.
+
+- Weighted allocation for task-based slices:
+  - Let duration D (in hours) and task T have weights { (cn_j, w_j) } with W = sum(w_j).
+  - The ideal (continuous) share for cn_j is S_j = D * w_j / W.
+  - All allocations are performed in integer ticks of 0.1 hours to avoid floating-point drift:
+    - ticks_total = round(D * 10) if the implementation wishes to support nearest rounding, or floor(D * 10) if truncation is desired. Required: use floor to exactly match tenth-hour accounting, i.e., ticks_total = floor(D * 10 + 1e-9).
+    - base_ticks_j = floor(S_j * 10 + 1e-9).
+    - allocated_ticks = sum(base_ticks_j).
+    - remainder = ticks_total - allocated_ticks.
+  - Remainder distribution (repeat while remainder > 0):
+    1) Consider only charge numbers in the task (cn_j).
+    2) Rank by priority (higher numeric priority first; default 0).
+    3) Break ties by larger remaining budget hours: (cn_j.hours - charged_to_date_j). If no budgets differ, continue.
+    4) Break ties by larger fractional remainder of S_j*10 - base_ticks_j.
+    5) Final tie-break: lexicographically smaller charge id.
+    - Grant one tick (0.1h) to the highest-ranked charge number; decrement remainder and repeat.
+  - The final allocated hours for cn_j is allocated_ticks_j / 10.0.
+
+- Direct charge allocation for charge-based slices:
+  - If a log references a charge number id directly, allocate the entire slice to that charge number using ticks_total = floor(D*10 + 1e-9) and no weighting. Any fractional remainder < 0.1h is dropped.
+
+- Uncharged slices:
+  - Slices whose originating log has no task/charge parameter, or whose task has zero weights, or whose task name is "nc" are not allocated to any charge number and do not appear in the per-charge totals.
+
+Validation and error handling
+- The following conditions are errors and must be reported with line number and a descriptive message; processing should stop with a non-zero exit code:
+  - Unknown directive (not one of cn, task, wt, day, log).
+  - Duplicate cn id declarations.
+  - Duplicate task declarations.
+  - wt references a non-existent task or charge number.
+  - day encountered while the previous day has not been closed by a final uncharged log.
+  - Logs before any day declaration.
+  - Non-increasing log times within a day.
+  - A day with fewer than 2 logs (cannot form a slice).
+  - A log that references a non-existent task and is not a valid charge number id.
+  - String literal not closed, malformed numbers, or invalid date format.
+- Warnings (non-fatal; continue processing):
+  - Task declared but never used.
+  - Charge number declared but never allocated any time.
+
+Sorting and presentation
+- Charge rows are sorted by charge number id ascending (lexicographic).
+- Day columns are ordered in ascending date order as they appear or sorted by date; implementations must ensure deterministic ordering.
+- Numeric formatting: print with one decimal place (tenths of an hour). Trailing zeros are kept (e.g., 0.0, 8.0).
+- Multi-day table format:
+  - Header: | Charge  | <MM/DD> ... | Total |   Rem |
+  - One row per charge number.
+  - Per-day columns show hours allocated to that charge on that day (0.0 if none).
+  - Total = sum across included days. Rem = declared hours - Total (blank if not declared; but declarations are required for all referenced charge numbers, so this cell should exist).
+  - Final row: | Total   | <sum per day> ... | <grand total> |       |
+    - Per-day sums are the sum across charges for that day (i.e., total charged hours per day, excluding uncharged slices).
+    - Grand total is the sum of the per-charge Total column.
+
+Single-day quick table (when a single date is specified)
+- After the full table, also print a compact table:
+  - Header: | Charge  | <MM/DD> |
+  - One row per charge number with the charge for just that day.
+  - Final row: | Total   | <sum for that day> |
+- This mirrors the example in demo_timecard.txt for fast entry.
+
+Numerical notes and precision
+- Use integer math in ticks (0.1h units) for all allocations to avoid floating point rounding errors.
+- Convert times (e.g., 9.5) to ticks by ticks = floor(hours * 10 + 1e-9).
+- For weighted allocations use base ticks and a deterministic remainder distribution as specified.
+
+Special identifiers and behaviors
+- The literal task name nc (no charge) is treated as uncharged.
+- The task parameter in a log may also be a charge number id; in that case, allocate the entire slice to that charge.
+
+Implementation outline
+- Data structures:
+  - ChargeNumber { id, description, budget_hours (ticks), priority, charged_ticks_by_day: map[date]int, total_charged_ticks:int }
+  - Task { name, description, weights: map[charge_id]int }
+  - Day { date: string, logs: []Log }
+  - Log { time_ticks:int, ref_kind: enum{none, task, charge}, ref_id:string, description:string }
+- Parsing:
+  - One pass over lines creating/decorating the above structures; keep current day when parsing logs.
+- Processing:
+  - For each day: iterate logs i from 0..n-2, build slice [i, i+1), compute duration ticks, allocate according to ref_kind.
+- Aggregation:
+  - Maintain per-day allocation per charge; at end compute totals and remaining.
+- Output:
+  - Emit tables as described with fixed-width column padding (implementation-defined, but must align and include one decimal place).
+
+Assumptions clarified from demo_timecard.txt
+- Priorities are used only for remainder (0.1h ticks) allocation when a weighted split cannot be exactly represented in tenths; higher numeric priority wins.
+- If priorities tie, the charge number with the larger remaining budget (declared hours minus charged so far in the included date window) is preferred; next tie-break is larger fractional part of the ideal split; final tie-break is lexicographic id.
+- The example comments include illustrative notes; implement the rules above as the source of truth when comments and arithmetic appear inconsistent.
+
+Examples (non-normative excerpts)
+- Declaring charges and tasks:
+  - cn 1234.a "Charge Task A" 100
+  - cn 1234.b "Charge Task B" 20 1
+  - task team "Alpha and Bravo Team"
+  - wt team 1234.a 100
+  - wt team 1234.b 20
+  - wt team 1234.c 80
+- Day and logs:
+  - day 09/02
+  - log 9.5 team "tag up"
+  - log 10.0 alpha "work on ALPHA-1234"
+  - ...
+  - log 17.5  # final uncharged sentinel closes the day
+
+Testing guidance
+- Provide unit tests for:
+  - Parsing and validation of each directive, including errors.
+  - Weighted allocation and remainder distribution determinism.
+  - Priority tie-break behavior.
+  - Direct charge logs vs task logs.
+  - Date filtering and totals.
+- Golden-file tests comparing produced tables against known-good outputs are recommended.

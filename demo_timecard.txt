@@ -1,0 +1,90 @@
+# This is a timecard file
+
+# cn is short for Charge Number
+# 1st paramter is a shorthand name, typically the identifier found in the charge code system
+# 2nd parameter is a description of the charge number
+# 3rd parameter is the number of hours
+# 4th parameter is an optional priority, default is 0.
+#   when deciding which tenth of an hour to deduct from,
+#   the charge number at the highest priority with the most hours is chosen.
+cn 1234.a "Charge Task A" 100 
+cn 1234.b "Charge Task B"  20 1
+cn 1234.c "Charge Task C"  80
+cn illness "Illness" 120
+
+# task is made up of zero or more Charge Numbers
+task alpha "Alpha Task"
+task bravo "Bravo Task"
+task team "Alpha and Bravo Team"
+task lunch "Lunchtime"
+
+# assign charge numbes
+wt alpha 1234.a 1
+
+# weight charge numbers between 
+wt bravo 1234.b 8
+wt bravo 1234.c 2
+
+wt team 1234.a 100
+wt team 1234.b 20
+wt team 1234.c 80
+
+# start a day entry with "day"
+day 09/02
+
+# start a log entry for the current day
+log 9.5 team "tag up"
+log 10.0 alpha "work on ALPHA-1234"
+# 1234.a: 0.2 1234.b: 0.0 1234.c: 0.2
+# total time: 0.5 rem 0.4
+# 1234.b has priority 1, charge 0.1 to b
+# otherwise 1234.a would have received the remainder 0.1
+log 12.0 bravo "finalize BRAVO-5678"
+# 1234.a: 2.0
+log 13.0 lunch "break time"
+# 1234.b: 0.2 1234.c: 0.8
+log 14.0 team "sprint planning"
+# lunch: 1.0
+log 15.0 nc "nap"
+# total time: 1.0
+# 1234.a: 0.5 1234.b: 0.1 1234.c: 0.4
+# no remainder, no extra 0.1 hours to assign
+log 16.0 alpha "wrap up"
+# no task parameter - assume uncharged
+log 17.5
+# 1234.a: 1.5
+# last entry must be uncharged before next day can start.
+
+ day 09/03
+
+# no task parameter - assume uncharged
+log 9.5
+log 17.5
+
+ day 09/04
+# task parameter can also match charge numbers
+log 9.5 illness "out sick"
+log 17.5
+
+# expected output of command: ottr timecard.txt
+# | Charge  | 09/02 | 09/03 | 09/04 | Total |   Rem |
+# | 1234.a  |   4.2 |   0.0 |   0.0 |   1.0 |  99.0 |   
+# | 1234.b  |   0.4 |   0.0 |   0.0 |   0.8 |  19.2 | 
+# | 1234.c  |   1.4 |   0.0 |   0.0 |   0.2 |  89.8 |
+# | illness |   0.0 |   0.0 |   8.0 |   8.0 | 112.0 |
+# | Total   |   6.0 |   0.0 |   8.0 |  12.8 |       |
+
+# expected output of command ottr timecard.txt "09/02"
+# | Charge  | 09/02 | 09/03 | 09/04 | Total |   Rem |
+# | 1234.a  |   4.2 |   0.0 |   0.0 |   1.0 |  99.0 |   
+# | 1234.b  |   0.4 |   0.0 |   0.0 |   0.8 |  19.2 | 
+# | 1234.c  |   1.4 |   0.0 |   0.0 |   0.2 |  89.8 |
+# | illness |   0.0 |   0.0 |   8.0 |   8.0 | 112.0 |
+# | Total   |   6.0 |   0.0 |   8.0 |  12.8 |       |
+#
+# | Charge  | 09/02 |
+# | 1234.a  |   4.2 |
+# | 1234.b  |   0.4 |
+# | 1234.c  |   1.4 |
+# | illness |   0.0 |
+# | Total   |   6.0 |
