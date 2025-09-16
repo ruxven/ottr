@@ -1,0 +1,234 @@
+---
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run weekly security scans
+    - cron: '0 2 * * 1'
+env:
+  BUILD_TYPE: Debug
+  CMAKE_BUILD_PARALLEL_LEVEL: 4
+
+jobs:
+  # Build and Test Job
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          cmake \
+          ninja-build \
+          llvm \
+          clang \
+          clang-tidy \
+          clang-format \
+          lcov \
+          libgtest-dev \
+          libgmock-dev
+
+    - name: Configure CMake
+      run: |
+        cmake -S . -B build \
+          -G Ninja \
+          -DCMAKE_CXX_COMPILER=clang++ \
+          -DCMAKE_C_COMPILER=clang \
+          -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} \
+          -DCMAKE_CXX_FLAGS="--coverage -fprofile-instr-generate -fcoverage-mapping" \
+          -DCMAKE_C_FLAGS="--coverage -fprofile-instr-generate -fcoverage-mapping" \
+          -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+    - name: Build
+      run: cmake --build build --config ${{env.BUILD_TYPE}}
+
+    - name: Run clang-tidy
+      run: |
+        find src include -name "*.cpp" -o -name "*.hpp" | xargs clang-tidy -p build/ --quiet
+      continue-on-error: true
+    
+    - name: Check code formatting
+      run: |
+        find src include -name "*.cpp" -o -name "*.hpp" | xargs clang-format --dry-run --Werror
+      continue-on-error: true
+
+    - name: Run tests
+      run: |
+        cd build
+        LLVM_PROFILE_FILE="coverage-%p.profraw" ctest --output-on-failure --verbose
+
+    - name: Generate coverage report
+      run: |
+        cd build
+        # Merge profile data
+        llvm-profdata merge -sparse coverage-*.profraw -o coverage.profdata
+        # Find test executables
+        TEST_BINARIES=$(find . -name "*test*" -type f -perm -111 | tr '\n' ' ')
+        # Generate coverage report (text)
+        llvm-cov show $TEST_BINARIES -instr-profile=coverage.profdata -format=text > coverage.txt
+        llvm-cov report $TEST_BINARIES -instr-profile=coverage.profdata
+        # Generate HTML report
+        llvm-cov show $TEST_BINARIES -instr-profile=coverage.profdata -format=html -output-dir=coverage_html
+        # Generate lcov format for codecov
+        llvm-cov export $TEST_BINARIES -instr-profile=coverage.profdata -format=lcov > coverage.lcov
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        files: ./build/coverage.lcov
+        fail_ci_if_error: false
+        verbose: true
+        token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Upload coverage HTML report
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: build/coverage_html/
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts
+        path: |
+          build/
+          !build/coverage_html/
+          !build/*.profraw
+          !build/*.profdata
+      
+  # Static Analysis with Semgrep
+  semgrep:
+    runs-on: ubuntu-latest
+    name: Semgrep Security Scan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/security-audit
+            p/cpp
+            p/cwe-top-25
+            p/owasp-top-ten
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+  # CodeQL Analysis
+  codeql:
+    name: CodeQL Security Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'cpp' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended,security-and-quality
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build libgtest-dev libgmock-dev
+
+      - name: Build for CodeQL
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+
+  # Dependency Vulnerability Scan
+  dependency-scan:
+    runs-on: ubuntu-latest
+    name: Dependency Vulnerability Scan
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: trivy-results.sarif
+
+  # Release Job (only on tags)
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [build-and-test, semgrep, codeql]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build libgtest-dev libgmock-dev
+      - name: Build Release
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          cmake --build build
+          cmake --build build --target package
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            build/*.tar.gz
+            build/*.deb
+            build/*.rpm
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Documentation Job
+  docs:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install Doxygen
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      
+      - name: Generate documentation
+        run: |
+          doxygen Doxyfile || echo "No Doxyfile found, skipping docs"
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/html

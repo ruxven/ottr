@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <fstream>
+// #include <fstream> // no longer needed; test uses in-memory strings
 #include <sstream>
 #include <string>
 #include "parser.hpp"
@@ -73,12 +73,28 @@ TEST(Report, FullAndSingleDayTables) {
     EXPECT_EQ(single, exp2.str());
 }
 
-TEST(Smoke, DemoTimecardParsesIfPresent) {
-#ifdef OTTR_SOURCE_DIR
-    std::string demo = std::string(OTTR_SOURCE_DIR) + "/ottr/demo_timecard.txt";
-    std::ifstream f(demo);
-    if (!f.good()) GTEST_SKIP() << "demo_timecard.txt not present";
-    World w; std::string err; ASSERT_TRUE(parse_file(demo, w, err)) << err;
-    EXPECT_TRUE(validate_world(demo, w).empty());
-#endif
+TEST(Smoke, DemoTimecardInMemoryParses) {
+    // Minimal smoke sample inspired by demo_timecard.txt, but kept in-memory
+    const char* txt = R"(
+cn 1234.a "Charge Task A" 100
+cn 1234.b "Charge Task B"  20 1
+cn illness "Illness" 120
+
+# tasks
+task alpha "Alpha Task"
+task lunch "Lunchtime"
+
+# weights
+wt alpha 1234.a 1
+
+# a single valid day with a closing uncharged log
+ day 09/02
+ log 9.5 alpha "tag up"
+ log 10.0 lunch "break time"
+ log 11.0
+)";
+
+    World w; std::string err; std::istringstream iss(txt);
+    ASSERT_TRUE(parse_istream(iss, "mem:demo", w, err)) << err;
+    EXPECT_TRUE(validate_world("mem:demo", w).empty());
 }
