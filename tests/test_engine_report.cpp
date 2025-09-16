@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-// #include <fstream> // no longer needed; test uses in-memory strings
 #include <sstream>
 #include <string>
 #include "parser.hpp"
