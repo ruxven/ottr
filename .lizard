@@ -1,0 +1,36 @@
+# Lizard configuration file for OTTR project
+# This file configures code complexity analysis settings
+
+# File extensions to analyze
+extensions = cpp,hpp,c,h
+
+# Exclude patterns (directories/files to ignore)
+exclude_patterns = 
+    */build/*
+    */tests/*
+    */.git/*
+    */third_party/*
+    */external/*
+
+# Complexity thresholds
+# Functions with cyclomatic complexity > 15 will be flagged
+ccn_threshold = 15
+
+# Functions with > 100 lines will be flagged  
+length_threshold = 100
+
+# Functions with > 5 parameters will be flagged
+arguments_threshold = 5
+
+# Enable warnings for functions exceeding thresholds
+warnings_only = false
+
+# Output format options
+# Supported: text, html, xml, csv
+output_format = html
+
+# Sort results by complexity (descending)
+sort = cyclomatic_complexity
+
+# Show detailed information
+verbose = true
