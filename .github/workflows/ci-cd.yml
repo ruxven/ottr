@@ -89,6 +89,7 @@ jobs:
         fail_ci_if_error: false
         verbose: true
         token: ${{ secrets.CODECOV_TOKEN }}
+        exclude: "tests/**"
 
     - name: Upload coverage HTML report
       uses: actions/upload-artifact@v4
