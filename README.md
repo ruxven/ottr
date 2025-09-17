@@ -121,7 +121,6 @@ Which will output a table of values, organized by charge code id and day:
 | Charge  | 09/02 | 09/03 | 09/04 |  Rem |
 | 1234.01 |   4.2 |   2.3 |   6.3 | 99.0 |
 | 1234.02 |   0.4 |   1.2 |   2.2 | 80 0 |
-| lunch   |   1.2 |   0.5 |   1.0 |  0.0 |
 | Total   |   6.0 |   4.0 |   9.5 |      |
 ```
 
@@ -135,7 +134,6 @@ ottr my_timecard-2025.09.01.txt 09/03
 | Charge  | 09/03 |
 | 1234.01 |   2.3 |
 | 1234.02 |   1.2 |
-| lunch   |   0.5 |
 | Total   |   4.0 |
 ```
 
@@ -157,4 +155,6 @@ cp ottr ~/.local/bin/ottr
 - Summarize task data charges per day or per event.
 - Generate a timecard using a specified date range.
 - Audit mode: show the per-day allocation and remainder assignments per event or per day.
+- Display uncharged tasks in output for timecard
+- Task summary mode: display summary of time spent on tasks, breakdown of charge codes applied.
 - Add a command to directly add time to a charge code, as a feature of last resort.
