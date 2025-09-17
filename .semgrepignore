@@ -1,0 +1,5 @@
+# Ignore generated third-party dependencies by CMake (FetchContent/ExternalProject)
+# See: https://semgrep.dev/docs/ignoring-files-folders-code/
+
+build/_deps/
+**/build/_deps/
