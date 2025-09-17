@@ -31,13 +31,20 @@ var NAVTREE =
       [ "Usage: No really, how do I use it?", "md_README.html#autotoc_md3", null ],
       [ "Building", "md_README.html#autotoc_md4", null ],
       [ "TODO", "md_README.html#autotoc_md5", null ]
+    ] ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"aggregator_8cpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
