@@ -2,6 +2,8 @@
 
 *O*ne *T*enth *T*ime *R*eporter
 
+[![codecov](https://codecov.io/gh/ruxven/ottr/branch/main/graph/badge.svg?token=M9PNOZXP6D)](https://codecov.io/gh/ruxven/ottr)
+
 ## What is this?
 
 A tool for tracking time for timecard charging,
