@@ -220,13 +220,15 @@ jobs:
     name: Generate Documentation
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Install Doxygen
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
-      
+
       - name: Generate documentation
         run: |
           doxygen Doxyfile || echo "No Doxyfile found, skipping docs"
