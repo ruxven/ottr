@@ -1,6 +1,4 @@
-# O T T R
-
-*O*ne *T*enth *T*ime *R*eporter
+# OTTR - One Tenth Time Reporter
 
 [![codecov](https://codecov.io/gh/ruxven/ottr/branch/main/graph/badge.svg?token=M9PNOZXP6D)](https://codecov.io/gh/ruxven/ottr)
 
@@ -18,7 +16,7 @@ TL;DR: `ottr ./demo_timecard.txt 09/02`
 
 Have fun :)
 
-## Usage: No really, how do I use it?
+## No really, how do I use it?
 
 `ottr` uses a plain text file that defines:
 
@@ -156,6 +154,8 @@ cp ottr ~/.local/bin/ottr
 - Add configuration options
 - Summarize task data charges per day or per event.
 - Generate a timecard using a specified date range.
+- Configure rounding to either truncation, normal rounding, or cieling
+- Handle cases where decihours need to be deducted from total time on task for event or day.
 - Audit mode: show the per-day allocation and remainder assignments per event or per day.
 - Display uncharged tasks in output for timecard
 - Task summary mode: display summary of time spent on tasks, breakdown of charge codes applied.
