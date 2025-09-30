@@ -106,6 +106,7 @@ jobs:
           !build/coverage_html/
           !build/*.profraw
           !build/*.profdata
+          
   # Code Complexity Analysis
   code-complexity:
     name: Code Complexity Analysis
@@ -116,68 +117,75 @@ jobs:
       with:
         submodules: true
 
-    - name: Install Lizard
+    - name: Install Lizard and bc
       run: |
+        sudo apt-get update
+        sudo apt-get install -y bc
         python3 -m pip install --upgrade pip
         pip3 install lizard
 
     - name: Run Lizard complexity analysis
       run: |
-        # Create output directory
         mkdir -p complexity-reports
 
-        # Run Lizard with configuration file and various output formats
-        # Generate HTML report
-        lizard src/ -H -o complexity-reports/complexity.html --config .lizard
+        # HTML report
+        lizard src/ \
+          -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
+          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
+          -H -o complexity-reports/complexity.html
 
-        # Generate XML report for potential CI integration
-        lizard src/ -X -o complexity-reports/complexity.xml --config .lizard
+        # XML report
+        lizard src/ \
+          -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
+          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
+          -X -o complexity-reports/complexity.xml
 
-        # Generate detailed text report
-        lizard src/ -l cpp -w -s cyclomatic_complexity -o complexity-reports/complexity.txt --config .lizard
+        # Text (full) report
+        lizard src/ \
+          -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
+          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
+          > complexity-reports/complexity.txt
 
-        # Generate CSV report for data analysis
-        lizard src/ --csv -o complexity-reports/complexity.csv --config .lizard
+        # CSV report
+        lizard src/ \
+          -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
+          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
+          --csv -o complexity-reports/complexity.csv
 
-        # Generate a summary report with statistics
-        lizard src/ -l cpp -s cyclomatic_complexity > complexity-reports/summary.txt
-
-        # Show summary in console
         echo "=== Code Complexity Summary ==="
-        lizard src/ -l cpp -s cyclomatic_complexity --config .lizard
-
-        # Show summary in console
-        echo "=== Code Complexity Summary ==="
-        lizard src/ -l cpp -s cyclomatic_complexity
+        lizard src/ \
+          -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
+          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*'
 
     - name: Generate complexity badge
       run: |
-        # Extract average complexity from Lizard output
-        AVG_COMPLEXITY=$(lizard src/ -l cpp | grep "Average complexity" | awk '{print $3}' | cut -d'(' -f1)
+        # Extract Avg CCN from the summary table
+        AVG_COMPLEXITY=$$(
+          lizard src/ \
+            -l cpp -C 15 -L 100 -a 5 -s cyclomatic_complexity \
+            -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
+          | awk '/^Total NLOC/{getline; print $$3; exit}'
+        )
 
-        # Create a simple badge data file
         mkdir -p complexity-reports/badges
 
-        # Determine badge color based on complexity
-        if (( $(echo "$AVG_COMPLEXITY > 10" | bc -l) )); then
+        if (( $$(echo "$$AVG_COMPLEXITY > 10" | bc -l) )); then
           COLOR="red"
-        elif (( $(echo "$AVG_COMPLEXITY > 5" | bc -l) )); then
+        elif (( $$(echo "$$AVG_COMPLEXITY > 5" | bc -l) )); then
           COLOR="yellow"
         else
           COLOR="green"
         fi
 
-        # Create badge JSON for shields.io
         cat > complexity-reports/badges/complexity.json << EOF
         {
           "schemaVersion": 1,
           "label": "complexity",
-          "message": "${AVG_COMPLEXITY}",
-          "color": "${COLOR}"
+          "message": "$${AVG_COMPLEXITY}",
+          "color": "$${COLOR}"
         }
         EOF
-
-        echo "Generated complexity badge with average complexity: $AVG_COMPLEXITY"
+        echo "Generated complexity badge with average CCN: $$AVG_COMPLEXITY"
 
     - name: Upload complexity reports
       uses: actions/upload-artifact@v4
@@ -187,22 +195,21 @@ jobs:
 
     - name: Check complexity thresholds
       run: |
-        # Set complexity thresholds (adjust as needed)
         MAX_COMPLEXITY=15
         MAX_LINES=100
-
-        # Check if any function exceeds thresholds
-        echo "Checking for functions exceeding complexity threshold of $MAX_COMPLEXITY..."
-        if lizard src/ -l cpp -w -C $MAX_COMPLEXITY -L $MAX_LINES | grep -q "!!"; then
-          echo "⚠️  Warning: Some functions exceed complexity thresholds"
-          lizard src/ -l cpp -w -C $MAX_COMPLEXITY -L $MAX_LINES
+        echo "Checking for functions exceeding complexity thresholds..."
+        if lizard src/ -l cpp -w -C $$MAX_COMPLEXITY -L $$MAX_LINES \
+             -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
+           | grep -q "!!"; then
+          echo "⚠️ Warning: Some functions exceed complexity thresholds"
+          lizard src/ -l cpp -w -C $$MAX_COMPLEXITY -L $MAX_LINES \
+            -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*'
           echo "Consider refactoring complex functions for better maintainability"
         else
           echo "✅ All functions are within acceptable complexity limits"
         fi
       continue-on-error: true
 
-  # Static Analysis with Semgrep
   semgrep:
     runs-on: ubuntu-latest
     name: Semgrep Security Scan
