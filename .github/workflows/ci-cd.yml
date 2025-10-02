@@ -129,28 +129,32 @@ jobs:
         mkdir -p complexity-reports
 
         # HTML report
+        echo "Generating HTML complexity report..."
         lizard src/ \
           -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
           -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
-          -H -o complexity-reports/complexity.html
+          -H -o complexity-reports/complexity.html || true
 
         # XML report
+        echo "Generating XML complexity report..."
         lizard src/ \
           -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
           -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
-          -X -o complexity-reports/complexity.xml
+          -X -o complexity-reports/complexity.xml || true
 
         # Text (full) report
+        echo "Generating text complexity report..."
         lizard src/ \
           -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
           -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
-          > complexity-reports/complexity.txt
+          > complexity-reports/complexity.txt || true
 
         # CSV report
+        echo "Generating CSV complexity report..."
         lizard src/ \
           -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
           -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
-          --csv -o complexity-reports/complexity.csv
+          --csv -o complexity-reports/complexity.csv || true
 
         echo "=== Code Complexity Summary ==="
         lizard src/ \
