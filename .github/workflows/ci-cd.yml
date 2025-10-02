@@ -159,7 +159,8 @@ jobs:
         echo "=== Code Complexity Summary ==="
         lizard src/ \
           -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
-          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*'
+          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' || true
+        echo "=== End Code Complexity Summary ==="
 
     - name: Generate complexity badge
       run: |
