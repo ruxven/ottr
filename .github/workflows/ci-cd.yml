@@ -165,18 +165,18 @@ jobs:
     - name: Generate complexity badge
       run: |
         # Extract Avg CCN from the summary table
-        AVG_COMPLEXITY=$$(
+        AVG_COMPLEXITY=$(
           lizard src/ \
             -l cpp -C 15 -L 100 -a 5 -s cyclomatic_complexity \
             -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
-          | awk '/^Total NLOC/{getline; print $$3; exit}'
+          | tail -n 1 | tr -s " " | sed 's/ /,/g' | cut -d, -f4
         )
 
         mkdir -p complexity-reports/badges
 
-        if (( $$(echo "$$AVG_COMPLEXITY > 10" | bc -l) )); then
+        if [[ $(echo "$AVG_COMPLEXITY > 10" | bc -l) -eq 1 ]]; then
           COLOR="red"
-        elif (( $$(echo "$$AVG_COMPLEXITY > 5" | bc -l) )); then
+        elif [[ $(echo "$AVG_COMPLEXITY > 5" | bc -l) -eq 1 ]]; then
           COLOR="yellow"
         else
           COLOR="green"
@@ -186,11 +186,11 @@ jobs:
         {
           "schemaVersion": 1,
           "label": "complexity",
-          "message": "$${AVG_COMPLEXITY}",
-          "color": "$${COLOR}"
+          "message": "${AVG_COMPLEXITY}",
+          "color": "${COLOR}"
         }
         EOF
-        echo "Generated complexity badge with average CCN: $$AVG_COMPLEXITY"
+        echo "Generated complexity badge with average CCN: $AVG_COMPLEXITY"
 
     - name: Upload complexity reports
       uses: actions/upload-artifact@v4
@@ -203,12 +203,12 @@ jobs:
         MAX_COMPLEXITY=15
         MAX_LINES=100
         echo "Checking for functions exceeding complexity thresholds..."
-        if lizard src/ -l cpp -w -C $$MAX_COMPLEXITY -L $$MAX_LINES \
+        if lizard src/ -l cpp -w -C $MAX_COMPLEXITY -L $MAX_LINES \
              -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
            | grep -q "!!"; then
           echo "⚠️ Warning: Some functions exceed complexity thresholds"
-          lizard src/ -l cpp -w -C $$MAX_COMPLEXITY -L $MAX_LINES \
-            -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*'
+          lizard src/ -l cpp -w -C $MAX_COMPLEXITY -L $MAX_LINES \
+            -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' || echo oops > /dev/null
           echo "Consider refactoring complex functions for better maintainability"
         else
           echo "✅ All functions are within acceptable complexity limits"
