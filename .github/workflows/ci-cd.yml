@@ -394,8 +394,8 @@ jobs:
                   <h1>OTTR Project Documentation</h1>
                   <p>Comprehensive documentation and analysis reports for the OTTR project</p>
                   <div class="badges">
-                      <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/USERNAME/REPO/gh-pages/complexity/badges/complexity.json" alt="Code Complexity">
-                      <img src="https://img.shields.io/github/workflow/status/USERNAME/REPO/CI%2FCD%20Pipeline" alt="Build Status">
+                      <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/complexity/badges/complexity.json" alt="Code Complexity">
+                      <img src="https://img.shields.io/github/workflow/status/ruxven/ottr/CI%2FCD%20Pipeline" alt="Build Status">
                   </div>
               </div>
 
