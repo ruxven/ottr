@@ -216,22 +216,17 @@ jobs:
       continue-on-error: true
 
   semgrep:
+    name: semgrep/ci
     runs-on: ubuntu-latest
-    name: Semgrep Security Scan
+    permissions:
+      contents: read
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: semgrep/semgrep
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Semgrep
-        uses: returntocorp/semgrep-action@v1
-        with:
-          config: >-
-            p/security-audit
-            p/cpp
-            p/cwe-top-25
-            p/owasp-top-ten
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+      - uses: actions/checkout@v4
+      - run: semgrep ci
 
   # CodeQL Analysis
   codeql:
