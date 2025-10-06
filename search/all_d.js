@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['what_20is_20this_0',['What is this?',['../md_README.html#autotoc_md1',1,'']]],
-  ['workitem_1',['WorkItem',['../structottr_1_1WorkItem.html',1,'ottr']]],
-  ['world_2',['World',['../structottr_1_1World.html',1,'ottr']]]
+  ['usage_0',['Local Usage',['../md_COMPLEXITY.html#autotoc_md5',1,'']]],
+  ['use_20it_1',['use it',['../md_README.html#autotoc_md9',1,'How do I use it?'],['../md_README.html#autotoc_md10',1,'No really, how do I use it?']]]
 ];

@@ -25,12 +25,20 @@
 var NAVTREE =
 [
   [ "OTTR - One Tenth Time Reporter", "index.html", [
-    [ "O T T R", "md_README.html", [
-      [ "What is this?", "md_README.html#autotoc_md1", null ],
-      [ "How do I use it?", "md_README.html#autotoc_md2", null ],
-      [ "Usage: No really, how do I use it?", "md_README.html#autotoc_md3", null ],
-      [ "Building", "md_README.html#autotoc_md4", null ],
-      [ "TODO", "md_README.html#autotoc_md5", null ]
+    [ "Code Complexity Analysis", "md_COMPLEXITY.html", [
+      [ "Configuration", "md_COMPLEXITY.html#autotoc_md1", null ],
+      [ "Reports Generated", "md_COMPLEXITY.html#autotoc_md2", null ],
+      [ "Accessing Reports", "md_COMPLEXITY.html#autotoc_md3", null ],
+      [ "Complexity Guidelines", "md_COMPLEXITY.html#autotoc_md4", null ],
+      [ "Local Usage", "md_COMPLEXITY.html#autotoc_md5", null ],
+      [ "Integration with Development Workflow", "md_COMPLEXITY.html#autotoc_md6", null ]
+    ] ],
+    [ "OTTR - One Tenth Time Reporter", "md_README.html", [
+      [ "What is this?", "md_README.html#autotoc_md8", null ],
+      [ "How do I use it?", "md_README.html#autotoc_md9", null ],
+      [ "No really, how do I use it?", "md_README.html#autotoc_md10", null ],
+      [ "Building", "md_README.html#autotoc_md11", null ],
+      [ "TODO", "md_README.html#autotoc_md12", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

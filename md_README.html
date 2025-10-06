@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OTTR - One Tenth Time Reporter: O T T R</title>
+<title>OTTR - One Tenth Time Reporter: OTTR - One Tenth Time Reporter</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -90,21 +90,20 @@ $(document).ready(function(){initNavTree('md_README.html',''); initResizable(); 
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">O T T R</div></div>
+  <div class="headertitle"><div class="title">OTTR - One Tenth Time Reporter</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> *O*ne *T*enth *T*ime *R*eporter</p>
-<p><a href="https://codecov.io/gh/ruxven/ottr"><img src="https://codecov.io/gh/ruxven/ottr/branch/main/graph/badge.svg?token=M9PNOZXP6D" alt="codecov" style="pointer-events: none;" class="inline"/></a></p>
-<h1><a class="anchor" id="autotoc_md1"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md7"></a> <a href="https://codecov.io/gh/ruxven/ottr"><img src="https://codecov.io/gh/ruxven/ottr/branch/main/graph/badge.svg?token=M9PNOZXP6D" alt="codecov" style="pointer-events: none;" class="inline"/></a></p>
+<h1><a class="anchor" id="autotoc_md8"></a>
 What is this?</h1>
 <p>A tool for tracking time for timecard charging, especially if instructed to charge to multiple charge codes with varying percentages (for example, a a 65%/35% split).</p>
 <p>It is intended to work with time increments no smaller than the <em>tenth</em> of an hour, which is common in contracting and time charging systems.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 How do I use it?</h1>
 <p>TL;DR: <code>ottr ./demo_timecard.txt 09/02</code></p>
 <p>Have fun :)</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
-Usage: No really, how do I use it?</h1>
+<h1><a class="anchor" id="autotoc_md10"></a>
+No really, how do I use it?</h1>
 <p><code>ottr</code> uses a plain text file that defines:</p>
 <ul>
 <li>Charge Numbers</li>
@@ -171,7 +170,7 @@ Usage: No really, how do I use it?</h1>
 <div class="line">| 1234.01 |   2.3 |</div>
 <div class="line">| 1234.02 |   1.2 |</div>
 <div class="line">| Total   |   4.0 |</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md11"></a>
 Building</h1>
 <p><code>ottr</code> is built using CMake and can be installed locally:</p>
 <div class="fragment"><div class="line">mkdir build</div>
@@ -179,12 +178,14 @@ Building</h1>
 <div class="line">cmake ..</div>
 <div class="line">make</div>
 <div class="line">cp ottr ~/.local/bin/ottr</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md12"></a>
 TODO</h1>
 <ul>
 <li>Add configuration options</li>
 <li>Summarize task data charges per day or per event.</li>
 <li>Generate a timecard using a specified date range.</li>
+<li>Configure rounding to either truncation, normal rounding, or cieling</li>
+<li>Handle cases where decihours need to be deducted from total time on task for event or day.</li>
 <li>Audit mode: show the per-day allocation and remainder assignments per event or per day.</li>
 <li>Display uncharged tasks in output for timecard</li>
 <li>Task summary mode: display summary of time spent on tasks, breakdown of charge codes applied.</li>

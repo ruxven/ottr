@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['o_20t_20t_20r_0',['O T T R',['../md_README.html',1,'']]]
+  ['analysis_0',['Code Complexity Analysis',['../md_COMPLEXITY.html',1,'']]]
 ];
