@@ -179,10 +179,10 @@
 		</item>
 		<item name="main( int argc , char ** argv) at src/main.cpp:20">
 			<value>29</value>
-			<value>43</value>
+			<value>44</value>
 			<value>14</value>
 		</item>
-		<average label="NCSS" value="20.137931034482758"/>
+		<average label="NCSS" value="20.17241379310345"/>
 		<average label="CCN" value="7.206896551724138"/>
 	</measure>
 	<measure type="File">
@@ -290,17 +290,17 @@
 		</item>
 		<item name="src/main.cpp">
 			<value>17</value>
-			<value>59</value>
+			<value>60</value>
 			<value>15</value>
 			<value>2</value>
 		</item>
-		<average label="NCSS" value="45.64705882352941"/>
+		<average label="NCSS" value="45.705882352941174"/>
 		<average label="CCN" value="12.294117647058824"/>
 		<average label="Functions" value="1.7058823529411764"/>
-		<sum label="NCSS" value="776"/>
+		<sum label="NCSS" value="777"/>
 		<sum label="CCN" value="209"/>
 		<sum label="Functions" value="29"/>
-		<average label="NCSS" value="20.137931034482758"/>
+		<average label="NCSS" value="20.17241379310345"/>
 		<average label="CCN" value="7.206896551724138"/>
 	</measure>
 </cppncss>

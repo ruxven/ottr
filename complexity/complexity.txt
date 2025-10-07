@@ -29,7 +29,7 @@
       69     26    616      1      84 ottr::allocate_weighted@13-96@src/alloc.cpp
        5      1     46      1       6 ottr::hours_to_ticks@12-17@src/util.hpp
        6      1     37      1       6 print_usage@13-18@src/main.cpp
-      43     14    329      2      54 main@20-73@src/main.cpp
+      44     14    334      2      56 main@20-75@src/main.cpp
 17 file analyzed.
 ==============================================================
 NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
@@ -50,7 +50,7 @@ NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
      79      69.0    26.0      616.0         1     src/alloc.cpp
      55       0.0     0.0        0.0         0     src/model.hpp
      13       5.0     1.0       46.0         1     src/util.hpp
-     59      24.5     7.5      183.0         2     src/main.cpp
+     60      25.0     7.5      185.5         2     src/main.cpp
 
 ========================================================================================================
 !!!! Warnings (cyclomatic_complexity > 15 or length > 100 or nloc > 1000000 or parameter_count > 5) !!!!
@@ -64,4 +64,4 @@ NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
 ==========================================================================================
 Total nloc   Avg.NLOC  AvgCCN  Avg.token   Fun Cnt  Warning cnt   Fun Rt   nloc Rt
 ------------------------------------------------------------------------------------------
-       776      20.1     7.2      206.3       29            4      0.14    0.47
+       777      20.2     7.2      206.5       29            4      0.14    0.47

@@ -27,4 +27,4 @@ NLOC,CCN,token,PARAM,length,location,file,function,long_name,start,end
 69,26,616,1,84,"ottr::allocate_weighted@13-96@src/alloc.cpp","src/alloc.cpp","ottr::allocate_weighted","ottr::allocate_weighted( const AllocationRequest & req)",13,96
 5,1,46,1,6,"ottr::hours_to_ticks@12-17@src/util.hpp","src/util.hpp","ottr::hours_to_ticks","ottr::hours_to_ticks( double h)",12,17
 6,1,37,1,6,"print_usage@13-18@src/main.cpp","src/main.cpp","print_usage","print_usage( const char * prog)",13,18
-43,14,329,2,54,"main@20-73@src/main.cpp","src/main.cpp","main","main( int argc , char ** argv)",20,73
+44,14,334,2,56,"main@20-75@src/main.cpp","src/main.cpp","main","main( int argc , char ** argv)",20,75
