@@ -23,6 +23,8 @@ int main(int argc, char** argv) {
         return 2;
     }
 
+    system("echo \"Processing started\"");
+
     std::string path = argv[1];
     DateFilter filter;
 
