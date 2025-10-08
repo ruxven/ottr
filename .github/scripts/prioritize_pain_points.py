@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+
+import json
+import os
+from collections import defaultdict
+
+server_url = os.getenv("GITHUB_SERVER_URL", "https://github.com")
+repo = os.getenv("GITHUB_REPOSITORY", "")
+sha = os.getenv("GITHUB_SHA", "")
+
+# Load complexity data (function-level from Lizard JSON)
+with open("complexity.json") as f:
+    complexity_data = json.load(f)
+
+# Parse coverage data (simplified LCOV parsing)
+file_coverage = defaultdict(lambda: 0.0)
+line_coverage = defaultdict(dict)  # file -> {line_num: hit_count}
+
+with open("coverage.lcov") as f:
+    current_file = None
+    for line in f:
+        if line.startswith("SF:"):
+            current_file = line.strip().split(":", 1)[1]
+        elif line.startswith("DA:") and current_file:
+            # DA:line_number,hit_count
+            parts = line.strip().split(":", 1)[1].split(",")
+            line_num, hits = int(parts[0]), int(parts[1])
+            line_coverage[current_file][line_num] = hits
+        elif line.startswith("LF:") and current_file:
+            total = int(line.split(":")[1])
+        elif line.startswith("LH:") and current_file:
+            hit = int(line.split(":")[1])
+            file_coverage[current_file] = 100.0 * hit / total if total else 0.0
+
+# Load Semgrep SARIF results
+with open("semgrep.sarif") as f:
+    semgrep = json.load(f)
+
+critical_findings = defaultdict(list)
+for result in semgrep["runs"][0]["results"]:
+    location = result["locations"][0]["physicalLocation"]
+    file_path = location["artifactLocation"]["uri"]
+    rule = result["ruleId"]
+    level = result.get("level", "warning")
+    line_num = location.get("region", {}).get("startLine", 1)
+
+    if level == "error":
+        critical_findings[file_path].append({"rule": rule, "line": line_num})
+
+
+def estimate_function_coverage(filename, start_line, end_line):
+    """Estimate coverage for a function based on line coverage data"""
+    if filename not in line_coverage:
+        return 0.0
+
+    lines_in_function = line_coverage[filename]
+    covered_lines = 0
+    total_lines = 0
+
+    for line_num in range(
+        start_line, min(end_line + 1, max(lines_in_function.keys()) + 1)
+    ):
+        if line_num in lines_in_function:
+            total_lines += 1
+            if lines_in_function[line_num] > 0:
+                covered_lines += 1
+
+    return 100.0 * covered_lines / total_lines if total_lines > 0 else 0.0
+
+
+print("# Developer Pain Point Report\n")
+
+high_risk_functions = []
+security_risk_functions = []
+
+# Analyze each function
+for file_data in complexity_data:
+    filename = file_data["filename"]
+
+    for func in file_data.get("function_list", []):
+        func_name = func["name"]
+        ccn = func["cyclomatic_complexity"]
+        start_line = func["start_line"]
+        end_line = func["end_line"]
+
+        # Estimate function-level coverage
+        func_coverage = estimate_function_coverage(filename, start_line, end_line)
+
+        # Create permalink to specific function
+        permalink = (
+            f"{server_url}/{repo}/blob/{sha}/{filename}#L{start_line}-L{end_line}"
+        )
+
+        # Check for critical findings in this function's range
+        func_findings = []
+        for finding in critical_findings.get(filename, []):
+            if start_line <= finding["line"] <= end_line:
+                func_findings.append(finding["rule"])
+
+        # High complexity + low coverage = high risk
+        if ccn >= 15 and func_coverage < 50:
+            high_risk_functions.append(
+                {
+                    "name": func_name,
+                    "file": filename,
+                    "permalink": permalink,
+                    "ccn": ccn,
+                    "coverage": func_coverage,
+                    "findings": func_findings,
+                }
+            )
+
+        # Has coverage but critical security findings
+        elif func_findings and func_coverage > 0:
+            security_risk_functions.append(
+                {
+                    "name": func_name,
+                    "file": filename,
+                    "permalink": permalink,
+                    "coverage": func_coverage,
+                    "findings": func_findings,
+                }
+            )
+
+# Output prioritized report
+if high_risk_functions:
+    print("## 🚨 High Risk Functions (Complex + Untested)\n")
+    for func in sorted(high_risk_functions, key=lambda x: x["ccn"], reverse=True):
+        print(f"- **[`{func['name']}()`]({func['permalink']})** in `{func['file']}`")
+        print(f"  - Complexity: **{func['ccn']}** (high)")
+        print(f"  - Coverage: **{func['coverage']:.1f}%** (low)")
+        if func["findings"]:
+            print(f"  - Critical findings: `{', '.join(func['findings'])}`")
+        print()
+
+if security_risk_functions:
+    print("## 🔒 Security Risk Functions (Tested but Vulnerable)\n")
+    for func in security_risk_functions:
+        print(f"- **[`{func['name']}()`]({func['permalink']})** in `{func['file']}`")
+        print(f"  - Coverage: **{func['coverage']:.1f}%**")
+        print(f"  - Critical findings: `{', '.join(func['findings'])}`")
+        print()
+
+if not high_risk_functions and not security_risk_functions:
+    print("## ✅ No Critical Pain Points Detected\n")
+    print(
+        "All functions have acceptable complexity/coverage ratios and no critical security findings."
+    )

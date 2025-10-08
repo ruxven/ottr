@@ -263,6 +263,164 @@ jobs:
           name: semgrep-reports
           path: security-reports/
 
+  # Pain Point Analysis
+  pain-point-analysis:
+    name: Pain Point Analysis
+    runs-on: ubuntu-latest
+    needs: [build-and-test, code-complexity, semgrep]
+    if: always() && (needs.build-and-test.result == 'success' || needs.code-complexity.result == 'success' || needs.semgrep.result == 'success')
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip jq
+        pip3 install lizard
+
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-artifacts
+        path: build/
+      continue-on-error: true
+
+    - name: Download complexity reports
+      uses: actions/download-artifact@v4
+      with:
+        name: complexity-reports
+        path: complexity-reports/
+      continue-on-error: true
+
+    - name: Download semgrep reports
+      uses: actions/download-artifact@v4
+      with:
+        name: semgrep-reports
+        path: security-reports/
+      continue-on-error: true
+
+    - name: Generate required data formats
+      run: |
+        # Generate JSON complexity data (required by script)
+        echo "Generating JSON complexity report..."
+        lizard src/ \
+          -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
+          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
+          --json -o complexity.json || echo "[]" > complexity.json
+
+        # Copy coverage.lcov if it exists
+        if [ -f "build/coverage.lcov" ]; then
+          cp build/coverage.lcov coverage.lcov
+        else
+          echo "No coverage data found, creating empty file"
+          touch coverage.lcov
+        fi
+
+        # Convert semgrep JSON to SARIF format (required by script)
+        if [ -f "security-reports/semgrep-results.json" ]; then
+          # Create a basic SARIF structure from semgrep JSON
+          python3 -c "
+import json
+import sys
+
+try:
+    with open('security-reports/semgrep-results.json') as f:
+        semgrep_data = json.load(f)
+
+    # Convert to SARIF format
+    sarif = {
+        'version': '2.1.0',
+        'runs': [{
+            'tool': {
+                'driver': {
+                    'name': 'semgrep'
+                }
+            },
+            'results': []
+        }]
+    }
+
+    for result in semgrep_data.get('results', []):
+        sarif_result = {
+            'ruleId': result.get('check_id', 'unknown'),
+            'level': 'error' if result.get('extra', {}).get('severity') == 'ERROR' else 'warning',
+            'message': {
+                'text': result.get('extra', {}).get('message', 'Security finding')
+            },
+            'locations': [{
+                'physicalLocation': {
+                    'artifactLocation': {
+                        'uri': result.get('path', '')
+                    },
+                    'region': {
+                        'startLine': result.get('start', {}).get('line', 1)
+                    }
+                }
+            }]
+        }
+        sarif['runs'][0]['results'].append(sarif_result)
+
+    with open('semgrep.sarif', 'w') as f:
+        json.dump(sarif, f, indent=2)
+
+except Exception as e:
+    print(f'Error converting semgrep to SARIF: {e}')
+    # Create empty SARIF file
+    with open('semgrep.sarif', 'w') as f:
+        json.dump({'version': '2.1.0', 'runs': [{'tool': {'driver': {'name': 'semgrep'}}, 'results': []}]}, f)
+"
+        else
+          echo "No semgrep results found, creating empty SARIF file"
+          echo '{"version": "2.1.0", "runs": [{"tool": {"driver": {"name": "semgrep"}}, "results": []}]}' > semgrep.sarif
+        fi
+
+    - name: Run pain point analysis
+      run: |
+        echo "Running pain point analysis..."
+        python3 .github/scripts/prioritize_pain_points.py > pain_points_report.md
+
+        echo "Pain point analysis complete. Report contents:"
+        cat pain_points_report.md
+
+    - name: Upload pain point report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pain-point-analysis
+        path: |
+          pain_points_report.md
+          complexity.json
+          coverage.lcov
+          semgrep.sarif
+
+    - name: Comment on PR with pain points
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+
+          try {
+            const report = fs.readFileSync('pain_points_report.md', 'utf8');
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🔍 Pain Point Analysis\n\n${report}`
+            });
+          } catch (error) {
+            console.log('Could not post pain point analysis:', error);
+          }
+# ... existing code ...
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    strategy:
+      fail-fast: false
+
   # CodeQL Analysis
   codeql:
     name: CodeQL Security Analysis
@@ -421,6 +579,10 @@ jobs:
           # Copy security reports and badges to documentation
           cp -r security-reports/* docs/html/security-reports/ || echo "No security reports found"
 
+          # Copy pain point analysis to documentation
+          mkdir -p docs/html/pain-points
+          cp -r pain-point-analysis/* docs/html/pain-points/ || echo "No pain point analysis found"
+
           # Create an index page that includes links to all reports
           cat > docs/html/index.html << 'EOF'
           <!DOCTYPE html>
@@ -482,10 +644,32 @@ jobs:
                           <p>Lines of code, function counts, and maintainability metrics</p>
                           <a href="./complexity/complexity.xml">View XML Report →</a>
                       </div>
-                  </div>
-              </div>
+                       </div>
+                   </div>
+               </div>
 
-              <div class="section">
+               <div class="section">
+                   <h2>🎯 Pain Point Analysis</h2>
+                   <div class="reports-grid">
+                       <div class="report-card">
+                           <h3>🚨 Developer Pain Points</h3>
+                           <p>Prioritized analysis of high-risk functions based on complexity, coverage, and security findings</p>
+                           <div class="metrics">
+                               <h4>Analysis Criteria</h4>
+                               <p>Functions with high complexity (≥15) and low coverage (&lt;50%) are flagged as high-risk pain points.</p>
+                           </div>
+                           <a href="./pain-points/pain_points_report.md">View Pain Point Report →</a>
+                       </div>
+                   </div>
+               </div>
+
+               <div class="section">
+                  <h2>🔗 Quick Links</h2>
+                  <ul>
+                      <li><a href="./files.html">File List</a> - Browse all documented files</li>
+                      <li><a href="./classes.html">Class Index</a> - All classes and structures</li>
+                      <li><a href="./functions.html">Function Index</a> - All functions and methods</li>
+                      <li><a href="./globals.html">Global Symbols</a> - Global variables and definitions</li>
                   <h2>🔗 Quick Links</h2>
                   <ul>
                       <li><a href="./files.html">File List</a> - Browse all documented files</li>
