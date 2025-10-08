@@ -225,8 +225,9 @@ jobs:
     container:
       image: semgrep/semgrep
     steps:
-      - name: Run semgrep
+      - name: Checkout
         uses: actions/checkout@v4
+      - name: Run semgrep
         run: semgrep ci --json --output=semgrep-results.json || true
       - name: Generate semgrep badge
         run: |
