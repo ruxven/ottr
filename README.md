@@ -4,7 +4,6 @@
 [![complexity](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/complexity/badges/complexity.json)](https://ruxven.github.io/ottr/complexity/complexity.html)
 [![semgrep](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/security-reports/badges/semgrep.json)](https://github.com/ruxven/ottr/security)
 [![codeql](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/security-reports/badges/codeql.json)](https://github.com/ruxven/ottr/security)
-[![trivy](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/security-reports/badges/trivy.json)](https://github.com/ruxven/ottr/security)
 
 ## What is this?
 
