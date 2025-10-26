@@ -342,65 +342,7 @@ jobs:
           echo "No coverage data found, creating empty file"
           touch coverage.lcov
         fi
-
-        # Convert semgrep JSON to SARIF format (required by script)
-        if [ -f "security-reports/semgrep-results.json" ]; then
-          # Create a basic SARIF structure from semgrep JSON
-          python3 -c "
-import json
-import sys
-
-try:
-    with open('security-reports/semgrep-results.json') as f:
-        semgrep_data = json.load(f)
-
-    # Convert to SARIF format
-    sarif = {
-        'version': '2.1.0',
-        'runs': [{
-            'tool': {
-                'driver': {
-                    'name': 'semgrep'
-                }
-            },
-            'results': []
-        }]
-    }
-
-    for result in semgrep_data.get('results', []):
-        sarif_result = {
-            'ruleId': result.get('check_id', 'unknown'),
-            'level': 'error' if result.get('extra', {}).get('severity') == 'ERROR' else 'warning',
-            'message': {
-                'text': result.get('extra', {}).get('message', 'Security finding')
-            },
-            'locations': [{
-                'physicalLocation': {
-                    'artifactLocation': {
-                        'uri': result.get('path', '')
-                    },
-                    'region': {
-                        'startLine': result.get('start', {}).get('line', 1)
-                    }
-                }
-            }]
-        }
-        sarif['runs'][0]['results'].append(sarif_result)
-
-    with open('semgrep.sarif', 'w') as f:
-        json.dump(sarif, f, indent=2)
-
-except Exception as e:
-    print(f'Error converting semgrep to SARIF: {e}')
-    # Create empty SARIF file
-    with open('semgrep.sarif', 'w') as f:
-        json.dump({'version': '2.1.0', 'runs': [{'tool': {'driver': {'name': 'semgrep'}}, 'results': []}]}, f)
-"
-        else
-          echo "No semgrep results found, creating empty SARIF file"
-          echo '{"version": "2.1.0", "runs": [{"tool": {"driver": {"name": "semgrep"}}, "results": []}]}' > semgrep.sarif
-        fi
-
+          
     - name: Run pain point analysis
       run: |
         echo "Running pain point analysis..."
