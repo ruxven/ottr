@@ -312,11 +312,11 @@ jobs:
         path: complexity-reports/
       continue-on-error: true
 
-    - name: Download coverage reports
+    - name: Download coverage report
       uses: actions/download-artifact@v4
       with:
-        name: coverage-reports
-        path: coverage-reports/
+        name: coverage-report
+        path: coverage-report/
       continue-on-error: true
 
     - name: Download semgrep reports
