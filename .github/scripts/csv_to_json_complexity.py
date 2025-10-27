@@ -21,7 +21,7 @@ def convert_csv_to_json(csv_file, json_file):
             filename = row.get('file', '')
             if filename not in files:
                 files[filename] = {
-                    'file': filename,
+                    'filename': filename,
                     'function_list': []
                 }
             
