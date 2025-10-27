@@ -330,7 +330,7 @@ jobs:
       run: |
         cp complexity-reports/complexity.json .
         cp security-reports/semgrep.sarif .
-        cp coverage-reports/build/coverage.lcov .
+        cp coverage-reports/coverage.lcov .
 
         echo "Running pain point analysis..."
         python3 .github/scripts/prioritize_pain_points.py \
