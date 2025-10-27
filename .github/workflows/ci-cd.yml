@@ -328,6 +328,7 @@ jobs:
           
     - name: Run pain point analysis
       run: |
+        find . -type f -print
         cp complexity-reports/complexity.json .
         cp security-reports/semgrep.sarif .
         cp coverage-reports/coverage.lcov .
