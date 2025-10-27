@@ -334,7 +334,7 @@ jobs:
 
         echo "Running pain point analysis..."
         python3 .github/scripts/prioritize_pain_points.py \
-          --lizard complexity.json \
+          --complexity complexity.json \
           --sarif semgrep.sarif \
           --coverage coverage.lcov \
           > pain_points_report.md
