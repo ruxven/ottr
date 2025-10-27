@@ -303,7 +303,6 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y python3-pip jq
-        pip3 install lizard
 
     - name: Download build artifacts
       uses: actions/download-artifact@v4
@@ -325,23 +324,6 @@ jobs:
         name: semgrep-reports
         path: security-reports/
       continue-on-error: true
-
-    - name: Generate required data formats
-      run: |
-        # Generate JSON complexity data (required by script)
-        echo "Generating JSON complexity report..."
-        lizard src/ \
-          -l cpp -V -C 15 -L 100 -a 5 -s cyclomatic_complexity \
-          -x '*/build/*' -x '*/tests/*' -x '*/.git/*' -x '*/third_party/*' -x '*/external/*' \
-          --json -o complexity.json || echo "[]" > complexity.json
-
-        # Copy coverage.lcov if it exists
-        if [ -f "build/coverage.lcov" ]; then
-          cp build/coverage.lcov coverage.lcov
-        else
-          echo "No coverage data found, creating empty file"
-          touch coverage.lcov
-        fi
           
     - name: Run pain point analysis
       run: |
