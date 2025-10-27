@@ -16,14 +16,14 @@ argp.add_argument("-s","--sarif",help="Location of SARIF file")
 argr = argp.parse_args()
 
 # Load complexity data (function-level from Lizard JSON)
-with open(argr.lizard) as f:
+with open(argr.complexity) as f:
     complexity_data = json.load(f)
 
 # Parse coverage data (simplified LCOV parsing)
 file_coverage = defaultdict(lambda: 0.0)
 line_coverage = defaultdict(dict)  # file -> {line_num: hit_count}
 
-with open(argr.lcov) as f:
+with open(argr.coverage) as f:
     current_file = None
     for line in f:
         if line.startswith("SF:"):
