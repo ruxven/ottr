@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['task_0',['Task',['../structottr_1_1Task.html',1,'ottr']]],
-  ['tenth_20time_20reporter_1',['OTTR - One Tenth Time Reporter',['../md_README.html',1,'']]],
-  ['this_2',['What is this?',['../md_README.html#autotoc_md8',1,'']]],
-  ['time_20reporter_3',['OTTR - One Tenth Time Reporter',['../md_README.html',1,'']]],
-  ['todo_4',['TODO',['../md_README.html#autotoc_md12',1,'']]],
-  ['token_5',['Token',['../structottr_1_1Token.html',1,'ottr']]]
+  ['pain_20point_20report_0',['Developer Pain Point Report',['../md_pain-point-analysis_2pain__points__report.html',1,'']]],
+  ['point_20report_1',['Developer Pain Point Report',['../md_pain-point-analysis_2pain__points__report.html',1,'']]]
 ];

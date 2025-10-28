@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>OTTR - One Tenth Time Reporter: Related Pages</title>
+<title>OTTR - One Tenth Time Reporter: Developer Pain Point Report</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md_pain-point-analysis_2pain__points__report.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -89,18 +89,42 @@ $(document).ready(function(){initNavTree('pages.html',''); initResizable(); });
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">Related Pages</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">Developer Pain Point Report</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock">Here is a list of all related documentation pages:</div><div class="directory">
-<table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_COMPLEXITY.html" target="_self">Code Complexity Analysis</a></td><td class="desc"></td></tr>
-<tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_pain-point-analysis_2pain__points__report.html" target="_self">Developer Pain Point Report</a></td><td class="desc"></td></tr>
-<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><a class="el" href="md_README.html" target="_self">OTTR - One Tenth Time Reporter</a></td><td class="desc"></td></tr>
-</table>
-</div><!-- directory -->
-</div><!-- contents -->
+<div class="textblock"><p><a class="anchor" id="autotoc_md7"></a> </p>
+<h1><a class="anchor" id="autotoc_md8"></a>
+🚨 High Risk Functions (Complex + Untested)</h1>
+<ul>
+<li>**<a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/parser.cpp#L0-L0"><code>ottr::parse_istream()</code></a>** in <code><a class="el" href="parser_8cpp_source.html">src/parser.cpp</a></code><ul>
+<li>Complexity: <b>43</b> (high)</li>
+<li>Coverage: <b>0.0%</b> (low)</li>
+</ul>
+</li>
+<li>**<a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/alloc.cpp#L0-L0"><code>ottr::allocate_weighted()</code></a>** in <code><a class="el" href="alloc_8cpp_source.html">src/alloc.cpp</a></code><ul>
+<li>Complexity: <b>26</b> (high)</li>
+<li>Coverage: <b>0.0%</b> (low)</li>
+</ul>
+</li>
+<li>**<a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/engine.cpp#L0-L0"><code>ottr::process_world()</code></a>** in <code><a class="el" href="engine_8cpp_source.html">src/engine.cpp</a></code><ul>
+<li>Complexity: <b>17</b> (high)</li>
+<li>Coverage: <b>0.0%</b> (low)</li>
+</ul>
+</li>
+<li>**<a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/parser.cpp#L0-L0"><code>ottr::tokenize_line()</code></a>** in <code><a class="el" href="parser_8cpp_source.html">src/parser.cpp</a></code><ul>
+<li>Complexity: <b>16</b> (high)</li>
+<li>Coverage: <b>0.0%</b> (low)</li>
+</ul>
+</li>
+<li>**<a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/validate.cpp#L0-L0"><code>ottr::validate_world()</code></a>** in <code><a class="el" href="validate_8cpp_source.html">src/validate.cpp</a></code><ul>
+<li>Complexity: <b>15</b> (high)</li>
+<li>Coverage: <b>0.0%</b> (low) </li>
+</ul>
+</li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -33,12 +33,15 @@ var NAVTREE =
       [ "Local Usage", "md_COMPLEXITY.html#autotoc_md5", null ],
       [ "Integration with Development Workflow", "md_COMPLEXITY.html#autotoc_md6", null ]
     ] ],
+    [ "Developer Pain Point Report", "md_pain-point-analysis_2pain__points__report.html", [
+      [ "🚨 High Risk Functions (Complex + Untested)", "md_pain-point-analysis_2pain__points__report.html#autotoc_md8", null ]
+    ] ],
     [ "OTTR - One Tenth Time Reporter", "md_README.html", [
-      [ "What is this?", "md_README.html#autotoc_md8", null ],
-      [ "How do I use it?", "md_README.html#autotoc_md9", null ],
-      [ "No really, how do I use it?", "md_README.html#autotoc_md10", null ],
-      [ "Building", "md_README.html#autotoc_md11", null ],
-      [ "TODO", "md_README.html#autotoc_md12", null ]
+      [ "What is this?", "md_README.html#autotoc_md10", null ],
+      [ "How do I use it?", "md_README.html#autotoc_md11", null ],
+      [ "No really, how do I use it?", "md_README.html#autotoc_md12", null ],
+      [ "Building", "md_README.html#autotoc_md13", null ],
+      [ "TODO", "md_README.html#autotoc_md14", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

@@ -1,0 +1,318 @@
+[
+  {
+    "filename": "src/validate.cpp",
+    "function_list": [
+      {
+        "name": "ottr::append_err",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 4,
+        "token_count": 59,
+        "parameter_count": 4
+      },
+      {
+        "name": "ottr::validate_world",
+        "cyclomatic_complexity": 15,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 33,
+        "token_count": 331,
+        "parameter_count": 2
+      }
+    ]
+  },
+  {
+    "filename": "src/aggregator.hpp",
+    "function_list": [
+      {
+        "name": "ottr::Aggregator::dates",
+        "cyclomatic_complexity": 1,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 1,
+        "token_count": 9,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::Aggregator::snapshot",
+        "cyclomatic_complexity": 1,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 1,
+        "token_count": 9,
+        "parameter_count": 0
+      }
+    ]
+  },
+  {
+    "filename": "src/engine.cpp",
+    "function_list": [
+      {
+        "name": "ottr::add_allocation",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 6,
+        "token_count": 65,
+        "parameter_count": 4
+      },
+      {
+        "name": "ottr::process_world",
+        "cyclomatic_complexity": 17,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 68,
+        "token_count": 622,
+        "parameter_count": 4
+      }
+    ]
+  },
+  {
+    "filename": "src/aggregator.cpp",
+    "function_list": [
+      {
+        "name": "ottr::Aggregator::add",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 6,
+        "token_count": 63,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::Aggregator::total_for_charge",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 4,
+        "token_count": 43,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::Aggregator::by_day_for_charge",
+        "cyclomatic_complexity": 3,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 6,
+        "token_count": 77,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::Aggregator::total_for_day",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 4,
+        "token_count": 43,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::Aggregator::set_dates",
+        "cyclomatic_complexity": 1,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 4,
+        "token_count": 29,
+        "parameter_count": 1
+      }
+    ]
+  },
+  {
+    "filename": "src/model.cpp",
+    "function_list": [
+      {
+        "name": "ottr::DateFilter::includes",
+        "cyclomatic_complexity": 8,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 6,
+        "token_count": 72,
+        "parameter_count": 1
+      }
+    ]
+  },
+  {
+    "filename": "src/parser.cpp",
+    "function_list": [
+      {
+        "name": "ottr::tokenize_line",
+        "cyclomatic_complexity": 16,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 40,
+        "token_count": 316,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::parse_error",
+        "cyclomatic_complexity": 1,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 6,
+        "token_count": 60,
+        "parameter_count": 4
+      },
+      {
+        "name": "ottr::parse_istream",
+        "cyclomatic_complexity": 43,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 98,
+        "token_count": 1194,
+        "parameter_count": 4
+      },
+      {
+        "name": "ottr::parse_file",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 8,
+        "token_count": 57,
+        "parameter_count": 3
+      }
+    ]
+  },
+  {
+    "filename": "src/report.cpp",
+    "function_list": [
+      {
+        "name": "ottr::sorted_charge_ids",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 7,
+        "token_count": 72,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::ticks_to_fixed",
+        "cyclomatic_complexity": 1,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 5,
+        "token_count": 53,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::compute_widths",
+        "cyclomatic_complexity": 11,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 39,
+        "token_count": 482,
+        "parameter_count": 4
+      },
+      {
+        "name": "ottr::append_row",
+        "cyclomatic_complexity": 3,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 11,
+        "token_count": 150,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::render_full_table",
+        "cyclomatic_complexity": 9,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 46,
+        "token_count": 474,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::render_single_day_table",
+        "cyclomatic_complexity": 7,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 31,
+        "token_count": 365,
+        "parameter_count": 3
+      }
+    ]
+  },
+  {
+    "filename": "src/util.cpp",
+    "function_list": [
+      {
+        "name": "ottr::parse_mmdd",
+        "cyclomatic_complexity": 12,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 17,
+        "token_count": 217,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::try_parse_double",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 5,
+        "token_count": 45,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::try_parse_ll",
+        "cyclomatic_complexity": 2,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 5,
+        "token_count": 48,
+        "parameter_count": 2
+      }
+    ]
+  },
+  {
+    "filename": "src/alloc.cpp",
+    "function_list": [
+      {
+        "name": "ottr::allocate_weighted",
+        "cyclomatic_complexity": 26,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 69,
+        "token_count": 616,
+        "parameter_count": 1
+      }
+    ]
+  },
+  {
+    "filename": "src/util.hpp",
+    "function_list": [
+      {
+        "name": "ottr::hours_to_ticks",
+        "cyclomatic_complexity": 1,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 5,
+        "token_count": 46,
+        "parameter_count": 1
+      }
+    ]
+  },
+  {
+    "filename": "src/main.cpp",
+    "function_list": [
+      {
+        "name": "print_usage",
+        "cyclomatic_complexity": 1,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 6,
+        "token_count": 37,
+        "parameter_count": 1
+      },
+      {
+        "name": "main",
+        "cyclomatic_complexity": 14,
+        "start_line": 0,
+        "end_line": 0,
+        "nloc": 44,
+        "token_count": 334,
+        "parameter_count": 2
+      }
+    ]
+  }
+]
