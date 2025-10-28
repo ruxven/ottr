@@ -344,8 +344,8 @@ jobs:
     - name: Converts Markdown to HTML
       uses: jaywcjlove/markdown-to-html-cli@main
       with:
-        source: pain-point-analysis.md
-        output: pain-point-analysis.html
+        source: pain_points_report.md
+        output: pain_points_report.html
 
     - name: Upload pain point report
       uses: actions/upload-artifact@v4
