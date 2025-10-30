@@ -82,7 +82,7 @@ jobs:
         # Generate lcov format for codecov
         llvm-cov export $TEST_BINARIES -instr-profile=coverage.profdata -format=lcov > coverage.lcov
         # Translate lcov formate to json for pain point analysis
-        python3 .github/scripts/lcov_to_json.py coverage.lcov coverage.json
+        python3 "${GITHUB_WORKSPACE}/.github/scripts/lcov_to_json.py" coverage.lcov coverage.json
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
