@@ -60,7 +60,6 @@ def get_func_coverage(coverage_data, filename, func_name, start_line):
 
 # Analyze each function
 for file_data in complexity_data:
-    print(f"wtf: {file_data.keys()}")
     filename = file_data["filename"]
 
     for func in file_data.get("function_list", []):

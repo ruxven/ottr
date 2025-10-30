@@ -29,8 +29,8 @@ def convert_csv_to_json(csv_file, json_file):
             function_info = {
                 'name': row.get('function', ''),
                 'cyclomatic_complexity': int(row.get('CCN', 0)),
-                'start_line': int(row.get('start_line', 0)),
-                'end_line': int(row.get('end_line', 0)),
+                'start_line': int(row.get('start', 0)),
+                'end_line': int(row.get('end', 0)),
                 'nloc': int(row.get('NLOC', 0)),
                 'token_count': int(row.get('token', 0)),
                 'parameter_count': int(row.get('PARAM', 0))
