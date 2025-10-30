@@ -84,44 +84,59 @@
     .wrapper > span + span { margin-left: .4rem; }
     `;s.appendChild(a)}i(t,e){this.dispatchEvent(new CustomEvent(t,{bubbles:true,composed:true,detail:e}))}}customElements.define("dark-mode",a);</script><div style="max-width: 960px; margin: 0 auto 60px auto; padding: 8px;" class="markdown-style">
     <h1 id="developer-pain-point-report"><a class="anchor" aria-hidden="true" tabindex="-1" href="#developer-pain-point-report"><span class="octicon octicon-link"></span></a>Developer Pain Point Report</h1>
+    <p>
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+      wtf: dict_keys(['filename', 'function_list'])
+    </p>
     <h2 id="-high-risk-functions-complex--untested"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-high-risk-functions-complex--untested"><span class="octicon octicon-link"></span></a>🚨 High Risk Functions (Complex + Untested)</h2>
     <ul>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/parser.cpp#L0-L0"><code>ottr::parse_istream()</code></a></strong> in <code>src/parser.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/parser.cpp#L0-L0"><code>ottr::parse_istream()</code></a></strong> in <code>src/parser.cpp</code></p>
         <ul>
           <li>Complexity: <strong>43</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/alloc.cpp#L0-L0"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/alloc.cpp#L0-L0"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
         <ul>
           <li>Complexity: <strong>26</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/engine.cpp#L0-L0"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/engine.cpp#L0-L0"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
         <ul>
           <li>Complexity: <strong>17</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/parser.cpp#L0-L0"><code>ottr::tokenize_line()</code></a></strong> in <code>src/parser.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/parser.cpp#L0-L0"><code>ottr::tokenize_line()</code></a></strong> in <code>src/parser.cpp</code></p>
         <ul>
           <li>Complexity: <strong>16</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/711d85cb74f7abb9926c3dd82016d9ab76e7c9f3/src/validate.cpp#L0-L0"><code>ottr::validate_world()</code></a></strong> in <code>src/validate.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/validate.cpp#L0-L0"><code>ottr::validate_world()</code></a></strong> in <code>src/validate.cpp</code></p>
         <ul>
           <li>Complexity: <strong>15</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
     </ul>
+    <h2 id="-security-risk-functions-tested-but-vulnerable"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-security-risk-functions-tested-but-vulnerable"><span class="octicon octicon-link"></span></a>🔒 Security Risk Functions (Tested but Vulnerable)</h2>
+    <p>None detected!</p>
     <script>/*! @uiw/copy-to-clipboard v1.0.12 | MIT (c) 2021 Kenny Wang | https://github.com/uiwjs/copy-to-clipboard.git */
 !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).copyTextToClipboard=t()}(this,(function(){"use strict";return function(e,t){const o=document.createElement("textarea");o.value=e,o.setAttribute("readonly",""),o.style={position:"absolute",left:"-9999px"},document.body.appendChild(o);const n=document.getSelection().rangeCount>0&&document.getSelection().getRangeAt(0);o.select();let c=!1;try{c=!!document.execCommand("copy")}catch(e){c=!1}document.body.removeChild(o),n&&document.getSelection&&(document.getSelection().removeAllRanges(),document.getSelection().addRange(n)),t&&t(c)}}));
 

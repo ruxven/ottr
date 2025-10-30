@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['what_20is_20this_0',['What is this?',['../md_README.html#autotoc_md10',1,'']]],
-  ['with_20development_20workflow_1',['Integration with Development Workflow',['../md_COMPLEXITY.html#autotoc_md6',1,'']]],
-  ['workflow_2',['Integration with Development Workflow',['../md_COMPLEXITY.html#autotoc_md6',1,'']]],
-  ['workitem_3',['WorkItem',['../structottr_1_1WorkItem.html',1,'ottr']]],
-  ['world_4',['World',['../structottr_1_1World.html',1,'ottr']]]
+  ['untested_0',['🚨 High Risk Functions (Complex + Untested)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md8',1,'']]],
+  ['usage_1',['Local Usage',['../md_COMPLEXITY.html#autotoc_md5',1,'']]],
+  ['use_20it_2',['use it',['../md_README.html#autotoc_md12',1,'How do I use it?'],['../md_README.html#autotoc_md13',1,'No really, how do I use it?']]]
 ];
