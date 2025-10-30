@@ -81,6 +81,8 @@ jobs:
         llvm-cov show $TEST_BINARIES -instr-profile=coverage.profdata -format=html -output-dir=coverage_html
         # Generate lcov format for codecov
         llvm-cov export $TEST_BINARIES -instr-profile=coverage.profdata -format=lcov > coverage.lcov
+        # Translate lcov formate to json for pain point analysis
+        python3 .github/scripts/lcov_to_json.py coverage.lcov coverage.json
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
@@ -98,6 +100,7 @@ jobs:
         path: |
           build/coverage_html/
           build/coverage.lcov
+          build/coverage.json
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
@@ -329,14 +332,14 @@ jobs:
     - name: Run pain point analysis
       run: |
         cp ./complexity-reports/complexity.json ./complexity.json
-        cp ./coverage-report/coverage.lcov ./coverage.lcov
+        cp ./coverage-report/coverage.json ./coverage.json
         cp ./security-reports/semgrep.sarif ./semgrep.sarif
 
         echo "Running pain point analysis..."
         python3 .github/scripts/prioritize_pain_points.py \
           --complexity complexity.json \
           --sarif semgrep.sarif \
-          --coverage coverage.lcov \
+          --coverage coverage.json \
           > pain_points_report.md
 
         echo "Pain point analysis complete!"
@@ -355,7 +358,7 @@ jobs:
           pain_points_report.html
           pain_points_report.md
           complexity.json
-          coverage.lcov
+          coverage.json
           semgrep.sarif
 
     - name: Comment on PR with pain points
