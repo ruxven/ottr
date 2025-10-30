@@ -84,51 +84,38 @@
     .wrapper > span + span { margin-left: .4rem; }
     `;s.appendChild(a)}i(t,e){this.dispatchEvent(new CustomEvent(t,{bubbles:true,composed:true,detail:e}))}}customElements.define("dark-mode",a);</script><div style="max-width: 960px; margin: 0 auto 60px auto; padding: 8px;" class="markdown-style">
     <h1 id="developer-pain-point-report"><a class="anchor" aria-hidden="true" tabindex="-1" href="#developer-pain-point-report"><span class="octicon octicon-link"></span></a>Developer Pain Point Report</h1>
-    <p>
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-      wtf: dict_keys(['filename', 'function_list'])
-    </p>
     <h2 id="-high-risk-functions-complex--untested"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-high-risk-functions-complex--untested"><span class="octicon octicon-link"></span></a>🚨 High Risk Functions (Complex + Untested)</h2>
     <ul>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/parser.cpp#L0-L0"><code>ottr::parse_istream()</code></a></strong> in <code>src/parser.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/9b563631e6a7ea893f2cba9288460b66f6318d98/src/parser.cpp#L62-L167"><code>ottr::parse_istream()</code></a></strong> in <code>src/parser.cpp</code></p>
         <ul>
           <li>Complexity: <strong>43</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/alloc.cpp#L0-L0"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/9b563631e6a7ea893f2cba9288460b66f6318d98/src/alloc.cpp#L13-L96"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
         <ul>
           <li>Complexity: <strong>26</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/engine.cpp#L0-L0"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/9b563631e6a7ea893f2cba9288460b66f6318d98/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
         <ul>
           <li>Complexity: <strong>17</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/parser.cpp#L0-L0"><code>ottr::tokenize_line()</code></a></strong> in <code>src/parser.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/9b563631e6a7ea893f2cba9288460b66f6318d98/src/parser.cpp#L11-L53"><code>ottr::tokenize_line()</code></a></strong> in <code>src/parser.cpp</code></p>
         <ul>
           <li>Complexity: <strong>16</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/4c31cca713526abbb8b1ddfcdf2b57187382ff52/src/validate.cpp#L0-L0"><code>ottr::validate_world()</code></a></strong> in <code>src/validate.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/9b563631e6a7ea893f2cba9288460b66f6318d98/src/validate.cpp#L12-L50"><code>ottr::validate_world()</code></a></strong> in <code>src/validate.cpp</code></p>
         <ul>
           <li>Complexity: <strong>15</strong> (high)</li>
           <li>Coverage: <strong>0.0%</strong> (low)</li>

@@ -5,8 +5,8 @@
       {
         "name": "ottr::append_err",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 7,
+        "end_line": 10,
         "nloc": 4,
         "token_count": 59,
         "parameter_count": 4
@@ -14,8 +14,8 @@
       {
         "name": "ottr::validate_world",
         "cyclomatic_complexity": 15,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 12,
+        "end_line": 50,
         "nloc": 33,
         "token_count": 331,
         "parameter_count": 2
@@ -28,8 +28,8 @@
       {
         "name": "ottr::Aggregator::dates",
         "cyclomatic_complexity": 1,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 14,
+        "end_line": 14,
         "nloc": 1,
         "token_count": 9,
         "parameter_count": 0
@@ -37,8 +37,8 @@
       {
         "name": "ottr::Aggregator::snapshot",
         "cyclomatic_complexity": 1,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 16,
+        "end_line": 16,
         "nloc": 1,
         "token_count": 9,
         "parameter_count": 0
@@ -51,8 +51,8 @@
       {
         "name": "ottr::add_allocation",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 13,
+        "end_line": 18,
         "nloc": 6,
         "token_count": 65,
         "parameter_count": 4
@@ -60,8 +60,8 @@
       {
         "name": "ottr::process_world",
         "cyclomatic_complexity": 17,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 20,
+        "end_line": 100,
         "nloc": 68,
         "token_count": 622,
         "parameter_count": 4
@@ -74,8 +74,8 @@
       {
         "name": "ottr::Aggregator::add",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 5,
+        "end_line": 10,
         "nloc": 6,
         "token_count": 63,
         "parameter_count": 3
@@ -83,8 +83,8 @@
       {
         "name": "ottr::Aggregator::total_for_charge",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 12,
+        "end_line": 15,
         "nloc": 4,
         "token_count": 43,
         "parameter_count": 1
@@ -92,8 +92,8 @@
       {
         "name": "ottr::Aggregator::by_day_for_charge",
         "cyclomatic_complexity": 3,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 17,
+        "end_line": 22,
         "nloc": 6,
         "token_count": 77,
         "parameter_count": 2
@@ -101,8 +101,8 @@
       {
         "name": "ottr::Aggregator::total_for_day",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 24,
+        "end_line": 27,
         "nloc": 4,
         "token_count": 43,
         "parameter_count": 1
@@ -110,8 +110,8 @@
       {
         "name": "ottr::Aggregator::set_dates",
         "cyclomatic_complexity": 1,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 29,
+        "end_line": 32,
         "nloc": 4,
         "token_count": 29,
         "parameter_count": 1
@@ -124,8 +124,8 @@
       {
         "name": "ottr::DateFilter::includes",
         "cyclomatic_complexity": 8,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 5,
+        "end_line": 10,
         "nloc": 6,
         "token_count": 72,
         "parameter_count": 1
@@ -138,8 +138,8 @@
       {
         "name": "ottr::tokenize_line",
         "cyclomatic_complexity": 16,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 11,
+        "end_line": 53,
         "nloc": 40,
         "token_count": 316,
         "parameter_count": 1
@@ -147,8 +147,8 @@
       {
         "name": "ottr::parse_error",
         "cyclomatic_complexity": 1,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 55,
+        "end_line": 60,
         "nloc": 6,
         "token_count": 60,
         "parameter_count": 4
@@ -156,8 +156,8 @@
       {
         "name": "ottr::parse_istream",
         "cyclomatic_complexity": 43,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 62,
+        "end_line": 167,
         "nloc": 98,
         "token_count": 1194,
         "parameter_count": 4
@@ -165,8 +165,8 @@
       {
         "name": "ottr::parse_file",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 169,
+        "end_line": 176,
         "nloc": 8,
         "token_count": 57,
         "parameter_count": 3
@@ -179,8 +179,8 @@
       {
         "name": "ottr::sorted_charge_ids",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 10,
+        "end_line": 16,
         "nloc": 7,
         "token_count": 72,
         "parameter_count": 1
@@ -188,8 +188,8 @@
       {
         "name": "ottr::ticks_to_fixed",
         "cyclomatic_complexity": 1,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 18,
+        "end_line": 22,
         "nloc": 5,
         "token_count": 53,
         "parameter_count": 1
@@ -197,8 +197,8 @@
       {
         "name": "ottr::compute_widths",
         "cyclomatic_complexity": 11,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 24,
+        "end_line": 66,
         "nloc": 39,
         "token_count": 482,
         "parameter_count": 4
@@ -206,8 +206,8 @@
       {
         "name": "ottr::append_row",
         "cyclomatic_complexity": 3,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 68,
+        "end_line": 78,
         "nloc": 11,
         "token_count": 150,
         "parameter_count": 3
@@ -215,8 +215,8 @@
       {
         "name": "ottr::render_full_table",
         "cyclomatic_complexity": 9,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 80,
+        "end_line": 130,
         "nloc": 46,
         "token_count": 474,
         "parameter_count": 2
@@ -224,8 +224,8 @@
       {
         "name": "ottr::render_single_day_table",
         "cyclomatic_complexity": 7,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 132,
+        "end_line": 168,
         "nloc": 31,
         "token_count": 365,
         "parameter_count": 3
@@ -238,8 +238,8 @@
       {
         "name": "ottr::parse_mmdd",
         "cyclomatic_complexity": 12,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 8,
+        "end_line": 25,
         "nloc": 17,
         "token_count": 217,
         "parameter_count": 2
@@ -247,8 +247,8 @@
       {
         "name": "ottr::try_parse_double",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 27,
+        "end_line": 31,
         "nloc": 5,
         "token_count": 45,
         "parameter_count": 2
@@ -256,8 +256,8 @@
       {
         "name": "ottr::try_parse_ll",
         "cyclomatic_complexity": 2,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 33,
+        "end_line": 37,
         "nloc": 5,
         "token_count": 48,
         "parameter_count": 2
@@ -270,8 +270,8 @@
       {
         "name": "ottr::allocate_weighted",
         "cyclomatic_complexity": 26,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 13,
+        "end_line": 96,
         "nloc": 69,
         "token_count": 616,
         "parameter_count": 1
@@ -284,8 +284,8 @@
       {
         "name": "ottr::hours_to_ticks",
         "cyclomatic_complexity": 1,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 12,
+        "end_line": 17,
         "nloc": 5,
         "token_count": 46,
         "parameter_count": 1
@@ -298,8 +298,8 @@
       {
         "name": "print_usage",
         "cyclomatic_complexity": 1,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 13,
+        "end_line": 18,
         "nloc": 6,
         "token_count": 37,
         "parameter_count": 1
@@ -307,8 +307,8 @@
       {
         "name": "main",
         "cyclomatic_complexity": 14,
-        "start_line": 0,
-        "end_line": 0,
+        "start_line": 20,
+        "end_line": 75,
         "nloc": 44,
         "token_count": 334,
         "parameter_count": 2
