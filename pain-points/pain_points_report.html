@@ -84,39 +84,50 @@
     .wrapper > span + span { margin-left: .4rem; }
     `;s.appendChild(a)}i(t,e){this.dispatchEvent(new CustomEvent(t,{bubbles:true,composed:true,detail:e}))}}customElements.define("dark-mode",a);</script><div style="max-width: 960px; margin: 0 auto 60px auto; padding: 8px;" class="markdown-style">
     <h1 id="developer-pain-point-report"><a class="anchor" aria-hidden="true" tabindex="-1" href="#developer-pain-point-report"><span class="octicon octicon-link"></span></a>Developer Pain Point Report</h1>
-    <h2 id="-high-risk-functions-complex--untested"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-high-risk-functions-complex--untested"><span class="octicon octicon-link"></span></a>🚨 High Risk Functions (Complex + Untested)</h2>
+    <h2 id="-top-high-risk-functions-complex--untested"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-top-high-risk-functions-complex--untested"><span class="octicon octicon-link"></span></a>🚨 Top High Risk Functions (Complex + Untested)</h2>
     <ul>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/e2e1f7ff4d98441992ea127dc818616e6ffac0f4/src/parser.cpp#L62-L167"><code>ottr::parse_istream()</code></a></strong> in <code>src/parser.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/111dda2588de5b7621d1c45621545d5716ad8630/src/parser.cpp#L62-L167"><code>ottr::parse_istream()</code></a></strong> in <code>src/parser.cpp</code></p>
         <ul>
+          <li>Score: <strong>10029</strong></li>
           <li>Complexity: <strong>43</strong> (above threshold value: 15)</li>
           <li>Branch Coverage: <strong>71.4%</strong> (below threshold value: 80)</li>
+          <li>Line Coverage: <strong>95.9%</strong>)</li>
+          <li>Critical findings: ``</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/e2e1f7ff4d98441992ea127dc818616e6ffac0f4/src/alloc.cpp#L13-L96"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/111dda2588de5b7621d1c45621545d5716ad8630/src/alloc.cpp#L13-L96"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
         <ul>
+          <li>Score: <strong>5922</strong></li>
           <li>Complexity: <strong>26</strong> (above threshold value: 15)</li>
           <li>Branch Coverage: <strong>78.0%</strong> (below threshold value: 80)</li>
+          <li>Line Coverage: <strong>100.0%</strong>)</li>
+          <li>Critical findings: ``</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/e2e1f7ff4d98441992ea127dc818616e6ffac0f4/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/111dda2588de5b7621d1c45621545d5716ad8630/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
         <ul>
+          <li>Score: <strong>3825</strong></li>
           <li>Complexity: <strong>17</strong> (above threshold value: 15)</li>
           <li>Branch Coverage: <strong>75.0%</strong> (below threshold value: 80)</li>
-        </ul>
-      </li>
-      <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/e2e1f7ff4d98441992ea127dc818616e6ffac0f4/src/validate.cpp#L12-L50"><code>ottr::validate_world()</code></a></strong> in <code>src/validate.cpp</code></p>
-        <ul>
-          <li>Complexity: <strong>15</strong> (above threshold value: 15)</li>
-          <li>Branch Coverage: <strong>79.2%</strong> (below threshold value: 80)</li>
+          <li>Line Coverage: <strong>85.3%</strong>)</li>
+          <li>Critical findings: ``</li>
         </ul>
       </li>
     </ul>
-    <h2 id="-security-risk-functions-tested-but-vulnerable"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-security-risk-functions-tested-but-vulnerable"><span class="octicon octicon-link"></span></a>🔒 Security Risk Functions (Tested but Vulnerable)</h2>
-    <p>None detected!</p>
+    <h2 id="-top-security-risk-functions-prioritized-by-coverage"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-top-security-risk-functions-prioritized-by-coverage"><span class="octicon octicon-link"></span></a>🔒 Top Security Risk Functions (Prioritized by coverage)</h2>
+    <ul>
+      <li><strong><a href="https://github.com/ruxven/ottr/blob/111dda2588de5b7621d1c45621545d5716ad8630/src/main.cpp#L20-L75"><code>main()</code></a></strong> in <code>src/main.cpp</code>
+        <ul>
+          <li>Score: <strong>1000</strong></li>
+          <li>Branch Coverage: <strong>0.0%</strong></li>
+          <li>Line Coverage: <strong>0.0%</strong></li>
+          <li>Critical findings: <code>cpp.lang.security.system-command.dont-call-system.dont-call-system</code></li>
+        </ul>
+      </li>
+    </ul>
     <script>/*! @uiw/copy-to-clipboard v1.0.12 | MIT (c) 2021 Kenny Wang | https://github.com/uiwjs/copy-to-clipboard.git */
 !function(e,t){"object"==typeof exports&&"undefined"!=typeof module?module.exports=t():"function"==typeof define&&define.amd?define(t):(e="undefined"!=typeof globalThis?globalThis:e||self).copyTextToClipboard=t()}(this,(function(){"use strict";return function(e,t){const o=document.createElement("textarea");o.value=e,o.setAttribute("readonly",""),o.style={position:"absolute",left:"-9999px"},document.body.appendChild(o);const n=document.getSelection().rangeCount>0&&document.getSelection().getRangeAt(0);o.select();let c=!1;try{c=!!document.execCommand("copy")}catch(e){c=!1}document.body.removeChild(o),n&&document.getSelection&&(document.getSelection().removeAllRanges(),document.getSelection().addRange(n)),t&&t(c)}}));
 

@@ -34,8 +34,8 @@ var NAVTREE =
       [ "Integration with Development Workflow", "md_COMPLEXITY.html#autotoc_md6", null ]
     ] ],
     [ "Developer Pain Point Report", "md_pain-point-analysis_2pain__points__report.html", [
-      [ "🚨 High Risk Functions (Complex + Untested)", "md_pain-point-analysis_2pain__points__report.html#autotoc_md8", null ],
-      [ "🔒 Security Risk Functions (Tested but Vulnerable)", "md_pain-point-analysis_2pain__points__report.html#autotoc_md9", null ]
+      [ "🚨 Top High Risk Functions (Complex + Untested)", "md_pain-point-analysis_2pain__points__report.html#autotoc_md8", null ],
+      [ "🔒 Top Security Risk Functions (Prioritized by coverage)", "md_pain-point-analysis_2pain__points__report.html#autotoc_md9", null ]
     ] ],
     [ "OTTR - One Tenth Time Reporter", "md_README.html", [
       [ "What is this?", "md_README.html#autotoc_md11", null ],
