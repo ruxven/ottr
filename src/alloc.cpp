@@ -21,7 +21,7 @@ std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& re
     if (denom <= 0) return out; // uncharged per spec
 
     // test code to make semgrep freak out
-    int foobar = new int[20];
+    int* foobar = new int[20];
     
 
     std::vector<WorkItem> work;
