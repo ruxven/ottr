@@ -271,9 +271,9 @@
         "name": "ottr::allocate_weighted",
         "cyclomatic_complexity": 26,
         "start_line": 13,
-        "end_line": 96,
-        "nloc": 69,
-        "token_count": 616,
+        "end_line": 102,
+        "nloc": 71,
+        "token_count": 633,
         "parameter_count": 1
       }
     ]

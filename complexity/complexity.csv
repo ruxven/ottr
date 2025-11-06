@@ -24,7 +24,7 @@ NLOC,CCN,token,PARAM,length,location,file,function,long_name,start,end
 17,12,217,2,18,"ottr::parse_mmdd@8-25@src/util.cpp","src/util.cpp","ottr::parse_mmdd","ottr::parse_mmdd( const std :: string & s , Date & out)",8,25
 5,2,45,2,5,"ottr::try_parse_double@27-31@src/util.cpp","src/util.cpp","ottr::try_parse_double","ottr::try_parse_double( const std :: string & s , double & out)",27,31
 5,2,48,2,5,"ottr::try_parse_ll@33-37@src/util.cpp","src/util.cpp","ottr::try_parse_ll","ottr::try_parse_ll( const std :: string & s , long long & out)",33,37
-69,26,616,1,84,"ottr::allocate_weighted@13-96@src/alloc.cpp","src/alloc.cpp","ottr::allocate_weighted","ottr::allocate_weighted( const AllocationRequest & req)",13,96
+71,26,633,1,90,"ottr::allocate_weighted@13-102@src/alloc.cpp","src/alloc.cpp","ottr::allocate_weighted","ottr::allocate_weighted( const AllocationRequest & req)",13,102
 5,1,46,1,6,"ottr::hours_to_ticks@12-17@src/util.hpp","src/util.hpp","ottr::hours_to_ticks","ottr::hours_to_ticks( double h)",12,17
 6,1,37,1,6,"print_usage@13-18@src/main.cpp","src/main.cpp","print_usage","print_usage( const char * prog)",13,18
 44,14,334,2,56,"main@20-75@src/main.cpp","src/main.cpp","main","main( int argc , char ** argv)",20,75

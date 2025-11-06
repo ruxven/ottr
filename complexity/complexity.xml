@@ -158,19 +158,19 @@
 		<average label="CCN" value="6.68"/>
 		<item name="ottr::allocate_weighted( const AllocationRequest &amp; req) at src/alloc.cpp:13">
 			<value>26</value>
-			<value>69</value>
+			<value>71</value>
 			<value>26</value>
 		</item>
-		<average label="NCSS" value="20.384615384615383"/>
+		<average label="NCSS" value="20.46153846153846"/>
 		<average label="CCN" value="7.423076923076923"/>
-		<average label="NCSS" value="20.384615384615383"/>
+		<average label="NCSS" value="20.46153846153846"/>
 		<average label="CCN" value="7.423076923076923"/>
 		<item name="ottr::hours_to_ticks( double h) at src/util.hpp:12">
 			<value>27</value>
 			<value>5</value>
 			<value>1</value>
 		</item>
-		<average label="NCSS" value="19.814814814814813"/>
+		<average label="NCSS" value="19.88888888888889"/>
 		<average label="CCN" value="7.185185185185185"/>
 		<item name="print_usage( const char * prog) at src/main.cpp:13">
 			<value>28</value>
@@ -182,7 +182,7 @@
 			<value>44</value>
 			<value>14</value>
 		</item>
-		<average label="NCSS" value="20.17241379310345"/>
+		<average label="NCSS" value="20.24137931034483"/>
 		<average label="CCN" value="7.206896551724138"/>
 	</measure>
 	<measure type="File">
@@ -272,7 +272,7 @@
 		</item>
 		<item name="src/alloc.cpp">
 			<value>14</value>
-			<value>79</value>
+			<value>81</value>
 			<value>26</value>
 			<value>1</value>
 		</item>
@@ -294,13 +294,13 @@
 			<value>15</value>
 			<value>2</value>
 		</item>
-		<average label="NCSS" value="45.705882352941174"/>
+		<average label="NCSS" value="45.8235294117647"/>
 		<average label="CCN" value="12.294117647058824"/>
 		<average label="Functions" value="1.7058823529411764"/>
-		<sum label="NCSS" value="777"/>
+		<sum label="NCSS" value="779"/>
 		<sum label="CCN" value="209"/>
 		<sum label="Functions" value="29"/>
-		<average label="NCSS" value="20.17241379310345"/>
+		<average label="NCSS" value="20.24137931034483"/>
 		<average label="CCN" value="7.206896551724138"/>
 	</measure>
 </cppncss>
