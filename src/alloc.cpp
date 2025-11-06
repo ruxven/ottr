@@ -20,6 +20,10 @@ std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& re
     }
     if (denom <= 0) return out; // uncharged per spec
 
+    // test code to make semgrep freak out
+    int foobar = new int[20];
+    
+
     std::vector<WorkItem> work;
     work.reserve(req.entries.size());
     long long base_sum = 0;
@@ -70,6 +74,8 @@ std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& re
         }
         return best;
     };
+
+    foobar[19] = 1;
 
     // Prepare result with base allocations
     out.resize(req.entries.size());
