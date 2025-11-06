@@ -17,6 +17,7 @@ import json
 ]
 """
 
+
 def find_func_name(line_number, func_dict):
     result = None
     result_line_start = None
@@ -37,10 +38,11 @@ def find_func_name(line_number, func_dict):
             f_d = func_dict[func_name]
             line_start = f_d["line_start"]
             print(f"  {func_name}:{line_start}")
-    #else:
-        #print(f"found {result}:{result_line_start} for {line_number}")
+    # else:
+    # print(f"found {result}:{result_line_start} for {line_number}")
 
     return result
+
 
 def main():
     if len(sys.argv) != 3:
@@ -69,7 +71,7 @@ def main():
                 func_line_dict = {}
             if not current_file:
                 continue
-    
+
             # TN: test name
             # SF: source file path
             # FN: line number,function name
@@ -91,12 +93,12 @@ def main():
                 branch_count = 0
                 branch_hit = 0
                 func_dict[func_name] = {
-                    "line_start":line_start,
-                    "line_end":line_end,
-                    "line_count":line_count,
-                    "line_hit":line_hit,
-                    "branch_count":branch_count,
-                    "branch_hit":branch_hit
+                    "line_start": line_start,
+                    "line_end": line_end,
+                    "line_count": line_count,
+                    "line_hit": line_hit,
+                    "branch_count": branch_count,
+                    "branch_hit": branch_hit,
                 }
             elif line.startswith("DA:"):
                 if not func_dict:
@@ -104,7 +106,7 @@ def main():
                 # DA:line_number,hit_count
                 parts = line.strip().split(":", 1)[1].split(",")
                 line_number, hit_count = int(parts[0]), int(parts[1])
-                
+
                 func_name = find_func_name(line_number, func_dict)
                 if not func_name:
                     print(f"current_file: {current_file}, line: {line}")
@@ -114,11 +116,17 @@ def main():
                 if line_number > line_end:
                     f_d["line_end"] = line_number
                 f_d["line_count"] += 1
-                if hit_count > 0: f_d["line_hit"] += 1
+                if hit_count > 0:
+                    f_d["line_hit"] += 1
                 func_dict[func_name] = f_d
             elif line.startswith("BRDA:"):
                 parts = line.strip().split(":", 1)[1].split(",")
-                line_number, branch_pair_id, branch_id, hit_count = int(parts[0]), int(parts[1]), int(parts[2]), parts[3]
+                line_number, branch_pair_id, branch_id, hit_count = (
+                    int(parts[0]),
+                    int(parts[1]),
+                    int(parts[2]),
+                    parts[3],
+                )
                 try:
                     hit_count = int(hit_count)
                 except Exception as e:
@@ -131,9 +139,10 @@ def main():
                     continue
                 f_d = func_dict[func_name]
                 f_d["branch_count"] += 1
-                if hit_count > 0: f_d["branch_hit"] += 1
+                if hit_count > 0:
+                    f_d["branch_hit"] += 1
                 func_dict[func_name] = f_d
-                
+
             # end if
         # end for line
     # end with open
@@ -152,10 +161,10 @@ def main():
         file_d["function_coverage"] = output_func_a
         output_a.append(file_d)
 
-    
     with open(json_file_path, "w") as f:
         json.dump(output_a, f, indent=2)
         print(f"Wrote out to {json_file_path}")
+
 
 # end main
 

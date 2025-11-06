@@ -341,7 +341,8 @@ jobs:
           --complexity complexity.json \
           --sarif semgrep.sarif \
           --coverage coverage.json \
-          --output pain_points_report.md
+          --output pain_points_report.md \
+          --output_csv pain_points_report.csv
 
         echo "Pain point analysis complete!"
 
