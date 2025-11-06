@@ -81,8 +81,6 @@ jobs:
         llvm-cov show $TEST_BINARIES -instr-profile=coverage.profdata -format=html -output-dir=coverage_html
         # Generate lcov format for codecov
         llvm-cov export $TEST_BINARIES -instr-profile=coverage.profdata -format=lcov > coverage.lcov
-        # Generate json format for pain point analysis
-        llvm-cov report --format=json 
         # Translate lcov formate to json for pain point analysis
         python3 "${GITHUB_WORKSPACE}/.github/scripts/lcov_to_json.py" coverage.lcov coverage.json
 
