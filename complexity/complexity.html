@@ -5,6 +5,12 @@
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Code complexity report</title>
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <style>
     h2
     {
@@ -45,6 +51,42 @@
           font-family: sans-serif;
           white-space: nowrap;
         }
+    td.file-header
+        {
+          background-color: LightBlue;
+          font-weight: bold;
+        }
+    td.function-name
+        {
+          background-color: LightSteelBlue;
+        }
+    /* DataTables wrapper styling */
+    .dataTables_wrapper {
+          margin: 0 auto;
+          width: 95%;
+        }
+    /* Fallback styling if DataTables CSS doesn't load */
+    table#complexityTable {
+          border-collapse: collapse;
+          width: 95%;
+          margin: 0 auto;
+        }
+    table#complexityTable th {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px;
+          text-align: left;
+          border: 1px solid #ddd;
+        }
+    table#complexityTable td {
+          border: 1px solid #ddd;
+        }
+    table#complexityTable tr:nth-child(even) {
+          background-color: #f2f2f2;
+        }
+    table#complexityTable tr:hover {
+          background-color: #ddd;
+        }
   </style>
  </head>
  <body>
@@ -52,29 +94,29 @@
 
 <center>
 
-<table>
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/report.hpp</b></td></tr>
+<table id="complexityTable" class="display" style="width:100%">
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Function name</th>
+      <th>Cyclomatic complexity (15)</th>
+      <th>LOC (1000000)</th>
+      <th>
+        
+           Token count
+        
+      </th>
+      <th>Parameter count (5)</th>
+    </tr>
+  </thead>
+  <tbody>
 
   
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/validate.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
 
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::append_err</td>
-    <td></td>
+    <td>src/validate.cpp</td>
+    <td class="function-name">ottr::append_err</td>
     
        <td class="lesser-value">2</td>
     
@@ -93,8 +135,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::validate_world</td>
-    <td></td>
+    <td>src/validate.cpp</td>
+    <td class="function-name">ottr::validate_world</td>
     
        <td class="lesser-value">15</td>
     
@@ -113,22 +155,10 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/aggregator.hpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
-
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::Aggregator::dates</td>
-    <td></td>
+    <td>src/aggregator.hpp</td>
+    <td class="function-name">ottr::Aggregator::dates</td>
     
        <td class="lesser-value">1</td>
     
@@ -147,8 +177,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::Aggregator::snapshot</td>
-    <td></td>
+    <td>src/aggregator.hpp</td>
+    <td class="function-name">ottr::Aggregator::snapshot</td>
     
        <td class="lesser-value">1</td>
     
@@ -167,22 +197,10 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/engine.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
-
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::add_allocation</td>
-    <td></td>
+    <td>src/engine.cpp</td>
+    <td class="function-name">ottr::add_allocation</td>
     
        <td class="lesser-value">2</td>
     
@@ -201,8 +219,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::process_world</td>
-    <td></td>
+    <td>src/engine.cpp</td>
+    <td class="function-name">ottr::process_world</td>
     
        <td class="greater-value">17</td>
     
@@ -221,22 +239,10 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/aggregator.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
-
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::Aggregator::add</td>
-    <td></td>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::add</td>
     
        <td class="lesser-value">2</td>
     
@@ -255,8 +261,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::Aggregator::total_for_charge</td>
-    <td></td>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::total_for_charge</td>
     
        <td class="lesser-value">2</td>
     
@@ -275,8 +281,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::Aggregator::by_day_for_charge</td>
-    <td></td>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::by_day_for_charge</td>
     
        <td class="lesser-value">3</td>
     
@@ -295,8 +301,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::Aggregator::total_for_day</td>
-    <td></td>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::total_for_day</td>
     
        <td class="lesser-value">2</td>
     
@@ -315,8 +321,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::Aggregator::set_dates</td>
-    <td></td>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::set_dates</td>
     
        <td class="lesser-value">1</td>
     
@@ -335,27 +341,12 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/parser.hpp</b></td></tr>
-
   
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/model.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
 
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::DateFilter::includes</td>
-    <td></td>
+    <td>src/model.cpp</td>
+    <td class="function-name">ottr::DateFilter::includes</td>
     
        <td class="lesser-value">8</td>
     
@@ -374,22 +365,10 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/parser.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
-
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::tokenize_line</td>
-    <td></td>
+    <td>src/parser.cpp</td>
+    <td class="function-name">ottr::tokenize_line</td>
     
        <td class="greater-value">16</td>
     
@@ -408,8 +387,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::parse_error</td>
-    <td></td>
+    <td>src/parser.cpp</td>
+    <td class="function-name">ottr::parse_error</td>
     
        <td class="lesser-value">1</td>
     
@@ -428,8 +407,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::parse_istream</td>
-    <td></td>
+    <td>src/parser.cpp</td>
+    <td class="function-name">ottr::parse_istream</td>
     
        <td class="greater-value">43</td>
     
@@ -448,8 +427,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::parse_file</td>
-    <td></td>
+    <td>src/parser.cpp</td>
+    <td class="function-name">ottr::parse_file</td>
     
        <td class="lesser-value">2</td>
     
@@ -468,22 +447,10 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/report.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
-
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::sorted_charge_ids</td>
-    <td></td>
+    <td>src/report.cpp</td>
+    <td class="function-name">ottr::sorted_charge_ids</td>
     
        <td class="lesser-value">2</td>
     
@@ -502,8 +469,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::ticks_to_fixed</td>
-    <td></td>
+    <td>src/report.cpp</td>
+    <td class="function-name">ottr::ticks_to_fixed</td>
     
        <td class="lesser-value">1</td>
     
@@ -522,8 +489,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::compute_widths</td>
-    <td></td>
+    <td>src/report.cpp</td>
+    <td class="function-name">ottr::compute_widths</td>
     
        <td class="lesser-value">11</td>
     
@@ -542,8 +509,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::append_row</td>
-    <td></td>
+    <td>src/report.cpp</td>
+    <td class="function-name">ottr::append_row</td>
     
        <td class="lesser-value">3</td>
     
@@ -562,8 +529,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::render_full_table</td>
-    <td></td>
+    <td>src/report.cpp</td>
+    <td class="function-name">ottr::render_full_table</td>
     
        <td class="lesser-value">9</td>
     
@@ -582,8 +549,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::render_single_day_table</td>
-    <td></td>
+    <td>src/report.cpp</td>
+    <td class="function-name">ottr::render_single_day_table</td>
     
        <td class="lesser-value">7</td>
     
@@ -602,37 +569,16 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/alloc.hpp</b></td></tr>
+  
 
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/engine.hpp</b></td></tr>
-
   
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/validate.hpp</b></td></tr>
-
-  
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/util.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
 
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::parse_mmdd</td>
-    <td></td>
+    <td>src/util.cpp</td>
+    <td class="function-name">ottr::parse_mmdd</td>
     
        <td class="lesser-value">12</td>
     
@@ -651,8 +597,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::try_parse_double</td>
-    <td></td>
+    <td>src/util.cpp</td>
+    <td class="function-name">ottr::try_parse_double</td>
     
        <td class="lesser-value">2</td>
     
@@ -671,8 +617,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::try_parse_ll</td>
-    <td></td>
+    <td>src/util.cpp</td>
+    <td class="function-name">ottr::try_parse_ll</td>
     
        <td class="lesser-value">2</td>
     
@@ -691,22 +637,10 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/alloc.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
-
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::allocate_weighted</td>
-    <td></td>
+    <td>src/alloc.cpp</td>
+    <td class="function-name">ottr::allocate_weighted</td>
     
        <td class="greater-value">26</td>
     
@@ -725,27 +659,12 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/model.hpp</b></td></tr>
-
   
-
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/util.hpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
 
   
   <tr>
-    <td style="background-color:LightSteelBlue">ottr::hours_to_ticks</td>
-    <td></td>
+    <td>src/util.hpp</td>
+    <td class="function-name">ottr::hours_to_ticks</td>
     
        <td class="lesser-value">1</td>
     
@@ -764,22 +683,10 @@ Cyclomatic complexity
   </tr>
   
 
-  <tr><td colspan="7" style="background-color:LightBlue;">
-  Source file: <b>src/main.cpp</b></td></tr>
-
-<tr><th>Function name</th><th></th><th>
-Cyclomatic complexity
-(15)
-</th><th>LOC (1000000)</th><th>
-    
-       Token count
-    
-</th><th>Parameter count (5)</th></tr>
-
   
   <tr>
-    <td style="background-color:LightSteelBlue">print_usage</td>
-    <td></td>
+    <td>src/main.cpp</td>
+    <td class="function-name">print_usage</td>
     
        <td class="lesser-value">1</td>
     
@@ -798,8 +705,8 @@ Cyclomatic complexity
   </tr>
   
   <tr>
-    <td style="background-color:LightSteelBlue">main</td>
-    <td></td>
+    <td>src/main.cpp</td>
+    <td class="function-name">main</td>
     
        <td class="lesser-value">14</td>
     
@@ -818,15 +725,39 @@ Cyclomatic complexity
   </tr>
   
 
+  </tbody>
 </table>
 <center>
 
 <br>
 <table width="100%" border=0 cellspacing=0 cellpadding=0>
     <tr><td class="footer">Generated by
-    <a href="http://www.lizard.ws/">Lizard</a> on 2025-11-03 03:18
+    <a href="http://www.lizard.ws/">Lizard</a> on 2025-11-06 18:01
     </td></tr>
 </table>
+
+<script>
+// Gracefully degrade if CDN is unavailable
+if (typeof jQuery !== 'undefined' && typeof jQuery.fn.dataTable !== 'undefined') {
+    $(document).ready(function() {
+        try {
+            $('#complexityTable').DataTable({
+                "pageLength": 25,
+                "order": [[2, "desc"]],  // Sort by cyclomatic complexity descending by default
+                "columnDefs": [
+                    { "type": "num", "targets": [2, 3, 4, 5] }  // Ensure numeric sorting for metric columns
+                ]
+            });
+        } catch (e) {
+            console.warn('DataTables initialization failed. Displaying static table.', e);
+        }
+    });
+} else {
+    // Fallback: Table will display as static HTML
+    console.info('DataTables not available. Displaying static HTML table.');
+}
+</script>
+
  </body>
 </html>
 
