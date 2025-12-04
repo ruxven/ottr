@@ -130,7 +130,7 @@ jobs:
           --output security-reports/html || echo "One or more errors reported"
         echo "Generating SARIF Report..."
         CodeChecker parse security-reports \
-          --export sarif 
+          --export sarif \
           --output security-reports/codechecker.sarif || echo "One or more errors reported"
         echo "All reports generated!"
 
