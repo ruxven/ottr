@@ -123,10 +123,10 @@ jobs:
           --ctu \
           --jobs $(nproc) \
           --skip .codechecker.skip
-        CodeChecker parse reports \
-          --export security-reports/html \
-          --output html || echo ""
-        CodeChecker parse reports \
+        CodeChecker parse security-reports \
+          --export html \
+          --output security-reports/html || echo ""
+        CodeChecker parse security-reports \
           --export sarif 
           --output security-reports/codechecker.sarif || echo ""
 
