@@ -117,18 +117,22 @@ jobs:
 
     - name: Run CodeChecker
       run: |
+        echo "Running Analysis..."
         CodeChecker analyze build/compile_commands.json \
           --output security-reports \
           --analyzers clangsa clang-tidy \
           --ctu \
           --jobs $(nproc) \
           --skip .codechecker.skip
+        echo "Generating HTML Report..."
         CodeChecker parse security-reports \
           --export html \
-          --output security-reports/html || echo ""
+          --output security-reports/html || echo "One or more errors reported"
+        echo "Generating SARIF Report..."
         CodeChecker parse security-reports \
           --export sarif 
-          --output security-reports/codechecker.sarif || echo ""
+          --output security-reports/codechecker.sarif || echo "One or more errors reported"
+        echo "All reports generated!"
 
     - name: Generate CodeChecker badge
       run: |
