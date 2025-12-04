@@ -37,8 +37,8 @@ jobs:
           lcov \
           libgtest-dev \
           libgmock-dev
-        sudo python3 -m pip install --upgrade pip
-        sudo pip3 install codechecker
+        python3 -m pip install --upgrade pip
+        pip3 install codechecker
 
     - name: Configure CMake
       run: |
