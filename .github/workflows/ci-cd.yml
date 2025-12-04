@@ -119,17 +119,17 @@ jobs:
       run: |
         echo "Running Analysis..."
         CodeChecker analyze build/compile_commands.json \
-          --output security-reports \
+          --output codechecker-analysis \
           --analyzers clangsa clang-tidy \
           --ctu \
           --jobs $(nproc) \
           --skip .codechecker.skip
         echo "Generating HTML Report..."
-        CodeChecker parse security-reports \
+        CodeChecker parse codechecker-analysis \
           --export html \
           --output security-reports/html || echo "One or more errors reported"
         echo "Generating SARIF Report..."
-        CodeChecker parse security-reports \
+        CodeChecker parse codechecker-analysis \
           --export sarif \
           --output security-reports/codechecker.sarif || echo "One or more errors reported"
         echo "All reports generated!"
