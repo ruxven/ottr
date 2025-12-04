@@ -1,0 +1,21 @@
+---
+MainSourceFile:  '/home/runner/work/ottr/ottr/src/main.cpp'
+Diagnostics:
+  - DiagnosticName:  clang-diagnostic-mismatched-tags
+    DiagnosticMessage:
+      Message:         '''World'' defined as a struct here but previously declared as a class; this is valid, but may result in linker errors under the Microsoft C++ ABI'
+      FilePath:        '/home/runner/work/ottr/ottr/src/model.hpp'
+      FileOffset:      1076
+      Replacements:    []
+    Notes:
+      - Message:         'did you mean struct here?'
+        FilePath:        '/home/runner/work/ottr/ottr/src/parser.hpp'
+        FileOffset:      542
+        Replacements:
+          - FilePath:        '/home/runner/work/ottr/ottr/src/parser.hpp'
+            Offset:          542
+            Length:          5
+            ReplacementText: struct
+    Level:           Warning
+    BuildDirectory:  '/home/runner/work/ottr/ottr/build'
+...

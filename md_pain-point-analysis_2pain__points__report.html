@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('md_pain-point-analysis_2pain__points__
 <h1><a class="anchor" id="autotoc_md8"></a>
 🚨 Top High Risk Functions (Complex + Untested)</h1>
 <ul>
-<li>**<a href="https://github.com/ruxven/ottr/blob/453d55a8964dc6ad70bdfe9dfc00b4812add4cd6/src/parser.cpp#L62-L167"><code>ottr::parse_istream()</code></a>** in <code><a class="el" href="parser_8cpp_source.html">src/parser.cpp</a></code><ul>
+<li>**<a href="https://github.com/ruxven/ottr/blob/a38ce31085078e4032708769b566a00fc88efa9f/src/parser.cpp#L62-L167"><code>ottr::parse_istream()</code></a>** in <code><a class="el" href="parser_8cpp_source.html">src/parser.cpp</a></code><ul>
 <li>Score: <b>10029</b></li>
 <li>Complexity: <b>43</b> (above threshold value: 15)</li>
 <li>Branch Coverage: <b>71.4%</b> (below threshold value: 80)</li>
@@ -105,31 +105,38 @@ $(document).ready(function(){initNavTree('md_pain-point-analysis_2pain__points__
 <li>Critical findings: ``</li>
 </ul>
 </li>
-<li>**<a href="https://github.com/ruxven/ottr/blob/453d55a8964dc6ad70bdfe9dfc00b4812add4cd6/src/alloc.cpp#L13-L102"><code>ottr::allocate_weighted()</code></a>** in <code><a class="el" href="alloc_8cpp_source.html">src/alloc.cpp</a></code><ul>
+<li>**<a href="https://github.com/ruxven/ottr/blob/a38ce31085078e4032708769b566a00fc88efa9f/src/alloc.cpp#L13-L102"><code>ottr::allocate_weighted()</code></a>** in <code><a class="el" href="alloc_8cpp_source.html">src/alloc.cpp</a></code><ul>
 <li>Score: <b>5922</b></li>
 <li>Complexity: <b>26</b> (above threshold value: 15)</li>
 <li>Branch Coverage: <b>78.0%</b> (below threshold value: 80)</li>
 <li>Line Coverage: <b>100.0%</b>)</li>
-<li>Critical findings: ``</li>
+<li>Critical findings: <code>cplusplus.NewDeleteLeaks, cplusplus.NewDeleteLeaks</code></li>
 </ul>
 </li>
-<li>**<a href="https://github.com/ruxven/ottr/blob/453d55a8964dc6ad70bdfe9dfc00b4812add4cd6/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a>** in <code><a class="el" href="engine_8cpp_source.html">src/engine.cpp</a></code><ul>
+<li>**<a href="https://github.com/ruxven/ottr/blob/a38ce31085078e4032708769b566a00fc88efa9f/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a>** in <code><a class="el" href="engine_8cpp_source.html">src/engine.cpp</a></code><ul>
 <li>Score: <b>3825</b></li>
 <li>Complexity: <b>17</b> (above threshold value: 15)</li>
 <li>Branch Coverage: <b>75.0%</b> (below threshold value: 80)</li>
 <li>Line Coverage: <b>85.3%</b>)</li>
-<li>Critical findings: ``</li>
+<li>Critical findings: <code>clang-diagnostic-unused-parameter</code></li>
 </ul>
 </li>
 </ul>
 <h1><a class="anchor" id="autotoc_md9"></a>
 🔒 Top Security Risk Functions (Prioritized by coverage)</h1>
 <ul>
-<li>**<a href="https://github.com/ruxven/ottr/blob/453d55a8964dc6ad70bdfe9dfc00b4812add4cd6/src/main.cpp#L20-L75"><code>main()</code></a>** in <code><a class="el" href="main_8cpp_source.html">src/main.cpp</a></code><ul>
-<li>Score: <b>1000</b></li>
-<li>Branch Coverage: <b>0.0%</b></li>
-<li>Line Coverage: <b>0.0%</b></li>
-<li>Critical findings: <code>cpp.lang.security.system-command.dont-call-system.dont-call-system</code> </li>
+<li>**<a href="https://github.com/ruxven/ottr/blob/a38ce31085078e4032708769b566a00fc88efa9f/src/alloc.cpp#L13-L102"><code>ottr::allocate_weighted()</code></a>** in <code><a class="el" href="alloc_8cpp_source.html">src/alloc.cpp</a></code><ul>
+<li>Score: <b>20078</b></li>
+<li>Branch Coverage: <b>78.0%</b></li>
+<li>Line Coverage: <b>100.0%</b></li>
+<li>Critical findings: <code>cplusplus.NewDeleteLeaks, cplusplus.NewDeleteLeaks</code></li>
+</ul>
+</li>
+<li>**<a href="https://github.com/ruxven/ottr/blob/a38ce31085078e4032708769b566a00fc88efa9f/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a>** in <code><a class="el" href="engine_8cpp_source.html">src/engine.cpp</a></code><ul>
+<li>Score: <b>10075</b></li>
+<li>Branch Coverage: <b>75.0%</b></li>
+<li>Line Coverage: <b>85.3%</b></li>
+<li>Critical findings: <code>clang-diagnostic-unused-parameter</code> </li>
 </ul>
 </li>
 </ul>
