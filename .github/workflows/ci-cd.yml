@@ -322,7 +322,7 @@ jobs:
     - name: Download CodeChecker reports
       uses: actions/download-artifact@v4
       with:
-        name: codechecker-reports
+        name: CodeChecker-reports
         path: security-reports/
       continue-on-error: true
           
