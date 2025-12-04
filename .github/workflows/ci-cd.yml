@@ -37,6 +37,8 @@ jobs:
           lcov \
           libgtest-dev \
           libgmock-dev
+        sudo python3 -m pip install --upgrade pip
+        sudo pip3 install codechecker
 
     - name: Configure CMake
       run: |
@@ -112,6 +114,56 @@ jobs:
           !build/coverage_html/
           !build/*.profraw
           !build/*.profdata
+
+    - name: Run CodeChecker
+      run: |
+        CodeChecker analyze build/compile_commands.json \
+          --output security-reports \
+          --analyzers clangsa clang-tidy \
+          --ctu \
+          --jobs $(nproc) \
+          --skip .codechecker.skip
+        CodeChecker parse reports \
+          --export security-reports/html \
+          --output html || echo ""
+        CodeChecker parse reports \
+          --export sarif 
+          --output security-reports/codechecker.sarif || echo ""
+
+    - name: Generate CodeChecker badge
+      run: |
+        mkdir -p security-reports/badges
+
+        # Check if CodeChecker found any issues
+        if [ -f "security-reports/codechecker.sarif" ]; then
+          ISSUES=$(jq '.results | length' security-reports/codechecker.sarif 2>/dev/null || echo "0")
+        else
+          ISSUES=0
+        fi
+
+        if [ "$ISSUES" -eq 0 ]; then
+          COLOR="green"
+          MESSAGE="passing"
+        else
+          COLOR="red"
+          MESSAGE="${ISSUES} issues"
+        fi
+
+        cat > security-reports/badges/codechecker.json << EOF
+        {
+          "schemaVersion": 1,
+          "label": "CodeChecker",
+          "message": "${MESSAGE}",
+          "color": "${COLOR}"
+        }
+        EOF
+        echo "Generated CodeChecker badge: $MESSAGE"
+
+    - name: Upload CodeChecker reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: CodeChecker-reports
+        path: security-reports/
           
   # Code Complexity Analysis
   code-complexity:
@@ -227,72 +279,12 @@ jobs:
         fi
       continue-on-error: true
 
-  semgrep:
-    name: semgrep/ci
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-    container:
-      image: semgrep/semgrep
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Run semgrep
-        run: semgrep ci --json --output=semgrep-results.json || true
-      - name: Convert to SARIF format
-        run: |
-          # Install Python if not available in container
-          which python3 || apk add --no-cache python3
-
-          # Convert JSON to SARIF
-          python3 .github/scripts/json_to_sarif_semgrep.py semgrep-results.json semgrep.sarif
-
-          # Copy to security-reports directory
-          mkdir -p security-reports
-          cp semgrep.sarif security-reports/
-
-      - name: Generate semgrep badge
-        run: |
-          mkdir -p security-reports/badges
-
-          # Check if semgrep found any issues
-          if [ -f "semgrep-results.json" ]; then
-            ISSUES=$(jq '.results | length' semgrep-results.json 2>/dev/null || echo "0")
-          else
-            ISSUES=0
-          fi
-
-          if [ "$ISSUES" -eq 0 ]; then
-            COLOR="green"
-            MESSAGE="passing"
-          else
-            COLOR="red"
-            MESSAGE="${ISSUES} issues"
-          fi
-
-          cat > security-reports/badges/semgrep.json << EOF
-          {
-            "schemaVersion": 1,
-            "label": "semgrep",
-            "message": "${MESSAGE}",
-            "color": "${COLOR}"
-          }
-          EOF
-          echo "Generated semgrep badge: $MESSAGE"
-      - name: Upload semgrep reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: semgrep-reports
-          path: security-reports/
-
   # Pain Point Analysis
   pain-point-analysis:
     name: Pain Point Analysis
     runs-on: ubuntu-latest
-    needs: [build-and-test, code-complexity, semgrep]
-    if: always() && (needs.build-and-test.result == 'success' || needs.code-complexity.result == 'success' || needs.semgrep.result == 'success')
+    needs: [build-and-test, code-complexity, CodeChecker]
+    if: always() && (needs.build-and-test.result == 'success' || needs.code-complexity.result == 'success' || needs.CodeChecker.result == 'success')
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -323,10 +315,10 @@ jobs:
         path: coverage-report/
       continue-on-error: true
 
-    - name: Download semgrep reports
+    - name: Download CodeChecker reports
       uses: actions/download-artifact@v4
       with:
-        name: semgrep-reports
+        name: codechecker-reports
         path: security-reports/
       continue-on-error: true
           
@@ -334,12 +326,12 @@ jobs:
       run: |
         cp ./complexity-reports/complexity.json ./complexity.json
         cp ./coverage-report/coverage.json ./coverage.json
-        cp ./security-reports/semgrep.sarif ./semgrep.sarif
+        cp ./security-reports/codechecker.sarif ./codechecker.sarif
 
         echo "Running pain point analysis..."
         python3 .github/scripts/prioritize_pain_points.py \
           --complexity complexity.json \
-          --sarif semgrep.sarif \
+          --sarif codechecker.sarif \
           --coverage coverage.json \
           --output pain_points_report.md \
           --output_csv pain_points_report.csv
@@ -361,7 +353,7 @@ jobs:
           pain_points_report.md
           complexity.json
           coverage.json
-          semgrep.sarif
+          CodeChecker.sarif
 
     - name: Comment on PR with pain points
       if: github.event_name == 'pull_request'
@@ -456,7 +448,7 @@ jobs:
   # Release Job (only on tags)
   release:
     if: startsWith(github.ref, 'refs/tags/')
-    needs: [build-and-test, code-complexity, semgrep, pain-point-analysis, codeql]
+    needs: [build-and-test, code-complexity, CodeChecker, pain-point-analysis, codeql]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -487,7 +479,7 @@ jobs:
   docs:
     name: Generate Documentation
     runs-on: ubuntu-latest
-    needs: [build-and-test, code-complexity, semgrep, pain-point-analysis, codeql]
+    needs: [build-and-test, code-complexity, CodeChecker, pain-point-analysis, codeql]
     if: github.ref == 'refs/heads/main'
     permissions:
       contents: write
@@ -510,7 +502,7 @@ jobs:
       - name: Download security reports
         uses: actions/download-artifact@v4
         with:
-          name: semgrep-reports
+          name: CodeChecker-reports
           path: security-reports/
         continue-on-error: true
 

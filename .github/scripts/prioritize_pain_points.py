@@ -57,6 +57,9 @@ critical_findings = defaultdict(list)
 for result in semgrep["runs"][0]["results"]:
     location = result["locations"][0]["physicalLocation"]
     file_path = location["artifactLocation"]["uri"]
+    if "file://" in file_path:
+        file_path = file_path.replace("file://","")
+        file_path = file_path.replace(workspace + "/", "")
     rule = result["ruleId"]
     level = result.get("level", "warning")
     line_num = location.get("region", {}).get("startLine", 1)
@@ -66,6 +69,8 @@ for result in semgrep["runs"][0]["results"]:
     critical_findings[file_path].append(
         {"rule": rule, "line": line_num, "level": level_num}
     )
+
+#print(repr(critical_findings))
 
 print_report("# Developer Pain Point Report\n", fw)
 
