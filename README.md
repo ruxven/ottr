@@ -2,7 +2,7 @@
 
 [![codecov](https://codecov.io/gh/ruxven/ottr/branch/main/graph/badge.svg?token=M9PNOZXP6D)](https://codecov.io/gh/ruxven/ottr)
 [![complexity](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/complexity/badges/complexity.json)](https://ruxven.github.io/ottr/complexity/complexity.html)
-[![semgrep](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/security-reports/badges/semgrep.json)](https://github.com/ruxven/ottr/security)
+[![codechecker](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/security-reports/badges/codechecker.json)](https://ruxven.github.io/ottr/security-reports/html/index.html)
 [![codeql](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/ruxven/ottr/gh-pages/security-reports/badges/codeql.json)](https://github.com/ruxven/ottr/security/code-scanning)
 
 ## What is this?
