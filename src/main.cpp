@@ -36,9 +36,19 @@ int main(int argc, char** argv) {
     }
     
     World world;
-    ErrorLogger err;
-    if (!parse_file(path, world, err)) {
-        const auto& err_vec = err.get_errors();
+    ParserLogger log;
+    bool parse_file_ok = parse_file(path, world, log);
+    // if debugging enabled
+    {
+        const auto& dbg_vec = log.get_debug();
+        for (size_t i = 0; i < dbg_vec.size(); i++)
+        {
+            const std::string& dbg_str = dbg_vec.at(i);
+            std::cerr << dbg_str << "\n";
+        }
+    }
+    if (!parse_file_ok) {
+        const auto& err_vec = log.get_errors();
         for (size_t i = 0; i < err_vec.size(); i++)
         {
             const std::string& err_str = err_vec.at(i);

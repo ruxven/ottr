@@ -17,10 +17,10 @@ TEST(Parser, HappyPath) {
         "day 09/01\n"
         "log 9.0 work\n"
         "log 12.0\n";
-    ErrorLogger err; std::string err_str;
+    ParserLogger log; std::string err_str;
     World w; std::istringstream iss(txt);
-    ASSERT_TRUE(parse_istream(iss, "mem:parser_ok", w, err)) << err_str;
-    EXPECT_TRUE(err.empty());
+    ASSERT_TRUE(parse_istream(iss, "mem:parser_ok", w, log)) << err_str;
+    EXPECT_TRUE(log.empty_err());
     EXPECT_EQ(w.charges.size(), 2u);
     EXPECT_EQ(w.tasks.size(), 1u);
     EXPECT_EQ(w.days.size(), 1u);
@@ -32,27 +32,27 @@ TEST(Parser, HappyPath) {
 TEST(Parser, Errors) {
     {
         std::string txt = "task t \"x\"\ncn 1 \"d\" bad\n";
-        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
-        EXPECT_FALSE(parse_istream(iss, "mem:parser_err1", w, err));
-        EXPECT_NE(err.find("invalid hours in cn"), std::string::npos);
+        ParserLogger log; std::string err_str; World w; std::istringstream iss(txt);
+        EXPECT_FALSE(parse_istream(iss, "mem:parser_err1", w, log));
+        EXPECT_NE(log.find_err("invalid hours in cn"), std::string::npos);
     }
     {
         std::string txt = "log 9.0 t\n";
-        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
-        EXPECT_FALSE(parse_istream(iss, "mem:parser_err2", w, err));
-        EXPECT_NE(err.find("log before any day declared"), std::string::npos);
+        ParserLogger log; std::string err_str; World w; std::istringstream iss(txt);
+        EXPECT_FALSE(parse_istream(iss, "mem:parser_err2", w, log));
+        EXPECT_NE(log.find_err("log before any day declared"), std::string::npos);
     }
     {
         std::string txt = "day 09/01\nlog 10.0\nlog 9.0\n";
-        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
-        EXPECT_FALSE(parse_istream(iss, "mem:parser_err3", w, err));
-        EXPECT_NE(err.find("non-increasing log time"), std::string::npos);
+        ParserLogger log; std::string err_str; World w; std::istringstream iss(txt);
+        EXPECT_FALSE(parse_istream(iss, "mem:parser_err3", w, log));
+        EXPECT_NE(log.find_err("non-increasing log time"), std::string::npos);
     }
     {
         std::string txt = "day 09/02\nlog 9.0 x\n";
-        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
-        EXPECT_FALSE(parse_istream(iss, "mem:parser_err4", w, err));
-        EXPECT_NE(err.find("file ended but last day not closed"), std::string::npos);
+        ParserLogger log; std::string err_str; World w; std::istringstream iss(txt);
+        EXPECT_FALSE(parse_istream(iss, "mem:parser_err4", w, log));
+        EXPECT_NE(log.find_err("file ended but last day not closed"), std::string::npos);
     }
 }
 
@@ -63,9 +63,9 @@ TEST(Validator, UnknownRefs) {
         "day 09/01\n"
         "log 9.0 t\n"
         "log 10.0\n";
-    ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
-    ASSERT_TRUE(parse_istream(iss, "mem:val", w, err));
+    ParserLogger log; std::string err_str; World w; std::istringstream iss(txt);
+    ASSERT_TRUE(parse_istream(iss, "mem:val", w, log));
     std::string verr = validate_world("mem:val", w);
-    EXPECT_FALSE(verr.empty());
-    EXPECT_NE(verr.find("wt references unknown charge: C1"), std::string::npos);
+    EXPECT_FALSE(log.empty_err());
+    EXPECT_NE(log.find_err("wt references unknown charge: C1"), std::string::npos);
 }
