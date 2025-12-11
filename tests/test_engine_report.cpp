@@ -22,8 +22,11 @@ TEST(Engine, DirectAndTaskAllocationAndFilter) {
         "day 09/02\n"
         "log 9.0 t\n"
         "log 10.5\n";
-    std::string err; World w; std::istringstream iss(txt);
-    ASSERT_TRUE(parse_istream(iss, "mem:eng", w, err)) << err;
+    World w;
+    std::istringstream iss(txt);
+    ErrorLogger err;
+    std::string err_str;
+    ASSERT_TRUE(parse_istream(iss, "mem:eng", w, err)) << err_str;
     ASSERT_TRUE(validate_world("mem:eng", w).empty());
 
     EngineOptions opts{}; opts.filter.has_start=true; opts.filter.start.raw="09/01"; opts.filter.start.ord=901;
@@ -48,8 +51,8 @@ TEST(Report, FullAndSingleDayTables) {
         "day 09/01\n"
         "log 9.0 t\n"
         "log 10.0\n";
-    std::string err; World w; std::istringstream iss(txt);
-    ASSERT_TRUE(parse_istream(iss, "mem:rep", w, err)) << err;
+    ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
+    ASSERT_TRUE(parse_istream(iss, "mem:rep", w, err)) << err_str;
     ASSERT_TRUE(validate_world("mem:rep", w).empty());
 
     EngineOptions opts{}; opts.filter.has_start=true; opts.filter.start.raw="09/01"; opts.filter.start.ord=901;
@@ -93,7 +96,7 @@ wt alpha 1234.a 1
  log 11.0
 )";
 
-    World w; std::string err; std::istringstream iss(txt);
-    ASSERT_TRUE(parse_istream(iss, "mem:demo", w, err)) << err;
+    World w; ErrorLogger err; std::string err_str; std::istringstream iss(txt);
+    ASSERT_TRUE(parse_istream(iss, "mem:demo", w, err)) << err_str;
     EXPECT_TRUE(validate_world("mem:demo", w).empty());
 }

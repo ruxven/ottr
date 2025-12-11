@@ -3,10 +3,9 @@
 #include "util.hpp"
 #include <fstream>
 #include <sstream>
+#include <cctype>
 
 namespace ottr {
-
-#include <cctype>
 
 std::vector<Token> tokenize_line(const std::string& line) {
     std::vector<Token> tokens;
@@ -52,127 +51,261 @@ std::vector<Token> tokenize_line(const std::string& line) {
     return tokens;
 }
 
-static bool parse_error(const std::string& path, int line_no, const std::string& msg, std::string& out_err) {
+bool ErrorLogger::parse_error(const std::string& path, const int line_no, const std::string& msg) {
     std::ostringstream oss;
     oss << path << ":" << line_no << ": " << msg;
-    out_err = oss.str();
+    error_message_vector.push_back(oss.str());
     return false;
 }
 
-bool parse_istream(std::istream& in, const std::string& source_name, World& out, std::string& error_message) {
+const std::vector<std::string>& ErrorLogger::get_errors(){
+    return error_message_vector;
+}
+
+bool ErrorLogger::empty() const{
+    return error_message_vector.empty();
+}
+
+bool ErrorLogger::find(const std::string& q) const
+{
+    for (size_t i = 0; i < error_message_vector.size(); i++)
+    {
+        const std::string& err_str = error_message_vector.at(i);
+        auto itr = err_str.find(q);
+        if (itr != std::string::npos){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool parse_istream(std::istream& in, const std::string& source_name, World& out, ErrorLogger& err) {
     std::string line;
     int line_no = 0;
-    Day* current_day = nullptr;
+    std::optional<Day> current_day;
 
-    auto ensure_day_closed = [&](int lno) -> bool {
-        if (!current_day) return true;
-        if (current_day->logs.empty()) return true;
-        if (current_day->logs.back().kind != LogKind::None) {
-            return parse_error(source_name, lno, "day started before previous day closed (missing final uncharged log)", error_message);
-        }
-        return true;
-    };
+    err.parse_error(__FUNCTION__, __LINE__, "don't panic");
+
+    ChargeDirectiveParser cn_parser(source_name,out,err,current_day);
+    TaskDirectiveParser task_parser(source_name,out,err,current_day);
+    WeightDirectiveParser wt_parser(source_name,out,err,current_day);
+    DayDirectiveParser day_parser(source_name,out,err,current_day);
+    LogDirectiveParser log_parser(source_name,out,err,current_day);
+    OptionDirectiveParser opt_parser(source_name,out,err,current_day);
+
+    std::map<std::string, DirectiveParser&> m;
+    m.insert({"cn", cn_parser});
+    m.insert({"task", task_parser});
+    m.insert({"wt", wt_parser});
+    m.insert({"day", day_parser});
+    m.insert({"log", log_parser});
+    m.insert({"opt", opt_parser});
+
+    bool parse_status = true;
 
     while (std::getline(in, line)) {
         ++line_no;
         auto tokens = tokenize_line(line);
         if (tokens.empty()) continue;
         const std::string& head = tokens[0].text;
-        if (head == "cn") {
-            if (tokens.size() < 4) return parse_error(source_name, line_no, "cn requires: cn <id> \"<description>\" <hours> [<priority>]", error_message);
-            const std::string id = tokens[1].text;
-            if (!tokens[2].quoted) return parse_error(source_name, line_no, "cn description must be quoted", error_message);
-            const std::string desc = tokens[2].text;
-            double hours;
-            if (!try_parse_double(tokens[3].text, hours)) return parse_error(source_name, line_no, "invalid hours in cn", error_message);
-            long long budget_ticks = hours_to_ticks(hours);
-            int prio = 0;
-            if (tokens.size() >= 5) {
-                long long tmp;
-                if (!try_parse_ll(tokens[4].text, tmp)) return parse_error(source_name, line_no, "invalid priority in cn", error_message);
-                prio = static_cast<int>(tmp);
-            }
-            if (out.charges.find(id) != out.charges.end()) return parse_error(source_name, line_no, "duplicate charge id: " + id, error_message);
-            ChargeNumber cn;
-            cn.id = id;
-            cn.description = desc;
-            cn.budget_ticks = budget_ticks;
-            cn.priority = prio;
-            out.charges.emplace(id, std::move(cn));
-        } else if (head == "task") {
-            if (tokens.size() < 3) return parse_error(source_name, line_no, "task requires: task <name> \"<description>\"", error_message);
-            const std::string name = tokens[1].text;
-            if (!tokens[2].quoted) return parse_error(source_name, line_no, "task description must be quoted", error_message);
-            if (out.tasks.find(name) != out.tasks.end()) return parse_error(source_name, line_no, "duplicate task: " + name, error_message);
-            Task t;
-            t.name = name;
-            t.description = tokens[2].text;
-            out.tasks.emplace(name, std::move(t));
-        } else if (head == "wt") {
-            if (tokens.size() < 4) return parse_error(source_name, line_no, "wt requires: wt <task_name> <charge_id> <weight>", error_message);
-            const std::string task_name = tokens[1].text;
-            const std::string charge_id = tokens[2].text;
-            long long wll;
-            if (!try_parse_ll(tokens[3].text, wll) || wll <= 0) return parse_error(source_name, line_no, "invalid weight in wt", error_message);
-            // Allow forward references; validation will check existence.
-            auto& task = out.tasks[task_name];
-            if (task.name.empty()) task.name = task_name; // placeholder if undeclared
-            task.weights[charge_id] += static_cast<int>(wll);
-        } else if (head == "day") {
-            if (tokens.size() < 2) return parse_error(source_name, line_no, "day requires: day <MM/DD>", error_message);
-            if (!ensure_day_closed(line_no)) return false;
-            Date d;
-            if (!parse_mmdd(tokens[1].text, d)) return parse_error(source_name, line_no, "invalid date MM/DD", error_message);
-            // non-decreasing order
-            if (!out.days.empty() && d.ord < out.days.back().date.ord) return parse_error(source_name, line_no, "days out of order (must be non-decreasing)", error_message);
-            Day day;
-            day.date = d;
-            out.days.push_back(std::move(day));
-            current_day = &out.days.back();
-        } else if (head == "log") {
-            if (!current_day) return parse_error(source_name, line_no, "log before any day declared", error_message);
-            if (tokens.size() < 2) return parse_error(source_name, line_no, "log requires: log <time> [<task_or_charge>] [\"<description>\"]", error_message);
-            double th;
-            if (!try_parse_double(tokens[1].text, th)) return parse_error(source_name, line_no, "invalid time in log", error_message);
-            Tick t = hours_to_ticks(th);
-            if (!current_day->logs.empty() && !(current_day->logs.back().time_ticks < t)) return parse_error(source_name, line_no, "non-increasing log time", error_message);
-            Log lg;
-            lg.time_ticks = t;
-            lg.line_no = line_no;
-            if (tokens.size() >= 3 && !tokens[2].quoted) {
-                lg.ref_id = tokens[2].text;
-                // classify later in validation or attempt now
-                if (out.tasks.find(lg.ref_id) != out.tasks.end()) lg.kind = LogKind::Task;
-                else if (out.charges.find(lg.ref_id) != out.charges.end()) lg.kind = LogKind::Charge;
-                else lg.kind = LogKind::Task; // default assume task; validator will catch if unknown
-                if (tokens.size() >= 4) {
-                    if (!tokens[3].quoted) return parse_error(source_name, line_no, "log description must be quoted if present", error_message);
-                    lg.description = tokens[3].text;
-                }
-            } else {
-                lg.kind = LogKind::None;
-            }
-            current_day->logs.push_back(std::move(lg));
-        } else {
-            return parse_error(source_name, line_no, "unknown directive: " + head, error_message);
+        auto m_itr = m.find(head);
+        if (m_itr == m.end())
+        {
+            return err.parse_error(source_name, line_no, "unknown directive: " + head);
+        }
+        //else
+        parse_status = m_itr->second.parse(line_no, tokens);
+
+        if (!parse_status){
+            return false;
         }
     }
 
     // Ensure final day is closed
-    if (current_day && !current_day->logs.empty() && current_day->logs.back().kind != LogKind::None) {
-        return parse_error(source_name, line_no, "file ended but last day not closed with final uncharged log", error_message);
+    if (current_day.has_value() && 
+        !current_day.value().logs.empty() && 
+        current_day.value().logs.back().kind != LogKind::None)
+    {
+        return err.parse_error(source_name, line_no, "file ended but last day not closed with final uncharged log");
     }
 
+    return false;
+}
+
+bool parse_file(const std::string& path, World& out, ErrorLogger& err) {
+    std::ifstream in(path);
+    if (!in) {
+        err.parse_error("parse_file", __LINE__, "unable to open file: " + path);
+        return false;
+    }
+    return parse_istream(in, path, out, err);
+}
+
+DirectiveParser::DirectiveParser(
+        const std::string& source_name,
+        struct World& out,
+        ErrorLogger& err,
+        std::optional<Day>& current_day):
+source_name(source_name),
+out(out),
+err(err),
+current_day(current_day)
+{
+}
+
+ChargeDirectiveParser::ChargeDirectiveParser(
+        const std::string& source_name,
+        struct World& out,
+        ErrorLogger& err,
+        std::optional<Day>& current_day)
+    : DirectiveParser(source_name, out, err, current_day) {}
+
+TaskDirectiveParser::TaskDirectiveParser(
+        const std::string& source_name,
+        struct World& out,
+        ErrorLogger& err,
+        std::optional<Day>& current_day)
+    : DirectiveParser(source_name, out, err, current_day) {}
+
+WeightDirectiveParser::WeightDirectiveParser(
+        const std::string& source_name,
+        struct World& out,
+        ErrorLogger& err,
+        std::optional<Day>& current_day)
+    : DirectiveParser(source_name, out, err, current_day) {}
+
+DayDirectiveParser::DayDirectiveParser(
+        const std::string& source_name,
+        struct World& out,
+        ErrorLogger& err,
+        std::optional<Day>& current_day)
+    : DirectiveParser(source_name, out, err, current_day) {}
+
+LogDirectiveParser::LogDirectiveParser(
+        const std::string& source_name,
+        struct World& out,
+        ErrorLogger& err,
+        std::optional<Day>& current_day)
+    : DirectiveParser(source_name, out, err, current_day) {}
+
+OptionDirectiveParser::OptionDirectiveParser(
+        const std::string& source_name,
+        struct World& out,
+        ErrorLogger& err,
+        std::optional<Day>& current_day)
+    : DirectiveParser(source_name, out, err, current_day) {}
+
+bool ChargeDirectiveParser::parse(const int line_no, const std::vector<Token>& tokens)
+{
+    if (tokens.size() < 4) return err.parse_error(source_name, line_no, "cn requires: cn <id> \"<description>\" <hours> [<priority>]");
+    const std::string id = tokens[1].text;
+    if (!tokens[2].quoted) return err.parse_error(source_name, line_no, "cn description must be quoted");
+    const std::string desc = tokens[2].text;
+    double hours;
+    if (!try_parse_double(tokens[3].text, hours)) return err.parse_error(source_name, line_no, "invalid hours in cn");
+    long long budget_ticks = hours_to_ticks(hours);
+    int prio = 0;
+    if (tokens.size() >= 5) {
+        long long tmp;
+        if (!try_parse_ll(tokens[4].text, tmp)) return err.parse_error(source_name, line_no, "invalid priority in cn");
+        prio = static_cast<int>(tmp);
+    }
+    if (out.charges.find(id) != out.charges.end()) return err.parse_error(source_name, line_no, "duplicate charge id: " + id);
+    ChargeNumber cn;
+    cn.id = id;
+    cn.description = desc;
+    cn.budget_ticks = budget_ticks;
+    cn.priority = prio;
+    out.charges.emplace(id, std::move(cn));
     return true;
 }
 
-bool parse_file(const std::string& path, World& out, std::string& error_message) {
-    std::ifstream in(path);
-    if (!in) {
-        error_message = "unable to open file: " + path;
-        return false;
+bool TaskDirectiveParser::parse(const int line_no, const std::vector<Token>& tokens)
+{
+    if (tokens.size() < 3) return err.parse_error(source_name, line_no, "task requires: task <name> \"<description>\"");
+    const std::string name = tokens[1].text;
+    if (!tokens[2].quoted) return err.parse_error(source_name, line_no, "task description must be quoted");
+    if (out.tasks.find(name) != out.tasks.end()) return err.parse_error(source_name, line_no, "duplicate task: " + name);
+    Task t;
+    t.name = name;
+    t.description = tokens[2].text;
+    out.tasks.emplace(name, std::move(t));
+    return true;
+}
+
+bool WeightDirectiveParser::parse(const int line_no, const std::vector<Token>& tokens)
+{
+    if (tokens.size() < 4) return err.parse_error(source_name, line_no, "wt requires: wt <task_name> <charge_id> <weight>");
+    const std::string task_name = tokens[1].text;
+    const std::string charge_id = tokens[2].text;
+    long long wll;
+    if (!try_parse_ll(tokens[3].text, wll) || wll <= 0) return err.parse_error(source_name, line_no, "invalid weight in wt");
+    // Allow forward references; validation will check existence.
+    auto& task = out.tasks[task_name];
+    if (task.name.empty()) task.name = task_name; // placeholder if undeclared
+    task.weights[charge_id] += static_cast<int>(wll);
+    return true;
+}
+
+bool DayDirectiveParser::parse(const int line_no, const std::vector<Token>& tokens)
+{
+    if (tokens.size() < 2) return err.parse_error(source_name, line_no, "day requires: day <MM/DD>");
+    if (!ensure_day_closed(line_no)) return false;
+    Date d;
+    if (!parse_mmdd(tokens[1].text, d)) return err.parse_error(source_name, line_no, "invalid date MM/DD");
+    // non-decreasing order
+    if (!out.days.empty() && d.ord < out.days.back().date.ord) return err.parse_error(source_name, line_no, "days out of order (must be non-decreasing)");
+    Day day;
+    day.date = d;
+    out.days.push_back(std::move(day));
+    current_day = out.days.back();
+    return true;
+}
+
+bool LogDirectiveParser::parse(const int line_no, const std::vector<Token>& tokens)
+{
+    if (!current_day.has_value()) return err.parse_error(source_name, line_no, "log before any day declared");
+    if (tokens.size() < 2) return err.parse_error(source_name, line_no, "log requires: log <time> [<task_or_charge>] [\"<description>\"]");
+    double th;
+    if (!try_parse_double(tokens[1].text, th)) return err.parse_error(source_name, line_no, "invalid time in log");
+    Tick t = hours_to_ticks(th);
+    if (!current_day->logs.empty() && !(current_day->logs.back().time_ticks < t)) return err.parse_error(source_name, line_no, "non-increasing log time");
+    Log lg;
+    lg.time_ticks = t;
+    lg.line_no = line_no;
+    if (tokens.size() >= 3 && !tokens[2].quoted) {
+        lg.ref_id = tokens[2].text;
+        // classify later in validation or attempt now
+        if (out.tasks.find(lg.ref_id) != out.tasks.end()) lg.kind = LogKind::Task;
+        else if (out.charges.find(lg.ref_id) != out.charges.end()) lg.kind = LogKind::Charge;
+        else lg.kind = LogKind::Task; // default assume task; validator will catch if unknown
+        if (tokens.size() >= 4) {
+            if (!tokens[3].quoted) return err.parse_error(source_name, line_no, "log description must be quoted if present");
+            lg.description = tokens[3].text;
+        }
+    } else {
+        lg.kind = LogKind::None;
     }
-    return parse_istream(in, path, out, error_message);
+    current_day.value().logs.push_back(std::move(lg));
+    return true;
+}
+
+bool OptionDirectiveParser::parse(const int line_no, const std::vector<Token>& tokens)
+{
+    if (tokens.size() < 3) return err.parse_error(source_name, line_no, "opt requires: opt <key> <value>");
+    const std::string opt_key = tokens[1].text;
+    const std::string opt_value = tokens[2].text;
+    static const std::string valid_keys = {"rounding"};
+    return true;
+}
+
+bool DirectiveParser::ensure_day_closed(const int lno) {
+    if (!current_day.has_value()) return true;
+    if (current_day.value().logs.empty()) return true;
+    if (current_day.value().logs.back().kind != LogKind::None) {
+        return err.parse_error(source_name, lno, "day started before previous day closed (missing final uncharged log)");
+    }
+    return true;
 }
 
 } // namespace ottr

@@ -17,9 +17,9 @@ TEST(Parser, HappyPath) {
         "day 09/01\n"
         "log 9.0 work\n"
         "log 12.0\n";
-    std::string err;
+    ErrorLogger err; std::string err_str;
     World w; std::istringstream iss(txt);
-    ASSERT_TRUE(parse_istream(iss, "mem:parser_ok", w, err)) << err;
+    ASSERT_TRUE(parse_istream(iss, "mem:parser_ok", w, err)) << err_str;
     EXPECT_TRUE(err.empty());
     EXPECT_EQ(w.charges.size(), 2u);
     EXPECT_EQ(w.tasks.size(), 1u);
@@ -32,25 +32,25 @@ TEST(Parser, HappyPath) {
 TEST(Parser, Errors) {
     {
         std::string txt = "task t \"x\"\ncn 1 \"d\" bad\n";
-        std::string err; World w; std::istringstream iss(txt);
+        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
         EXPECT_FALSE(parse_istream(iss, "mem:parser_err1", w, err));
         EXPECT_NE(err.find("invalid hours in cn"), std::string::npos);
     }
     {
         std::string txt = "log 9.0 t\n";
-        std::string err; World w; std::istringstream iss(txt);
+        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
         EXPECT_FALSE(parse_istream(iss, "mem:parser_err2", w, err));
         EXPECT_NE(err.find("log before any day declared"), std::string::npos);
     }
     {
         std::string txt = "day 09/01\nlog 10.0\nlog 9.0\n";
-        std::string err; World w; std::istringstream iss(txt);
+        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
         EXPECT_FALSE(parse_istream(iss, "mem:parser_err3", w, err));
         EXPECT_NE(err.find("non-increasing log time"), std::string::npos);
     }
     {
         std::string txt = "day 09/02\nlog 9.0 x\n";
-        std::string err; World w; std::istringstream iss(txt);
+        ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
         EXPECT_FALSE(parse_istream(iss, "mem:parser_err4", w, err));
         EXPECT_NE(err.find("file ended but last day not closed"), std::string::npos);
     }
@@ -63,7 +63,7 @@ TEST(Validator, UnknownRefs) {
         "day 09/01\n"
         "log 9.0 t\n"
         "log 10.0\n";
-    std::string err; World w; std::istringstream iss(txt);
+    ErrorLogger err; std::string err_str; World w; std::istringstream iss(txt);
     ASSERT_TRUE(parse_istream(iss, "mem:val", w, err));
     std::string verr = validate_world("mem:val", w);
     EXPECT_FALSE(verr.empty());

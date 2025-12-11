@@ -23,8 +23,6 @@ int main(int argc, char** argv) {
         return 2;
     }
 
-    system("echo \"Processing started\"");
-
     std::string path = argv[1];
     DateFilter filter;
 
@@ -36,11 +34,16 @@ int main(int argc, char** argv) {
         Date d2; if (!parse_mmdd(argv[3], d2)) { std::cerr << "Invalid END date (MM/DD)\n"; return 2; }
         filter.has_end = true; filter.end = d2;
     }
-
+    
     World world;
-    std::string err;
+    ErrorLogger err;
     if (!parse_file(path, world, err)) {
-        std::cerr << err << "\n";
+        const auto& err_vec = err.get_errors();
+        for (size_t i = 0; i < err_vec.size(); i++)
+        {
+            const std::string& err_str = err_vec.at(i);
+            std::cerr << err_str << "\n";
+        }
         return 1;
     }
 
@@ -52,8 +55,9 @@ int main(int argc, char** argv) {
 
     Aggregation agg;
     EngineOptions opts; opts.filter = filter;
-    if (!process_world(world, opts, agg, err)) {
-        std::cerr << err << "\n";
+    std::string err_str;
+    if (!process_world(world, opts, agg, err_str)) {
+        std::cerr << err_str << "\n";
         return 1;
     }
 

@@ -93,7 +93,12 @@ Component: Parser
     - If no current day: error.
     - If ref_id matches a task name -> kind=task; else if matches a charge id -> kind=charge; else -> if present, error; if absent, kind=none.
     - A final uncharged log (kind=none) is required to close the day.
-
+  - parseOpt(line_no, tokens)
+    - tokens: ["opt", "key", "value"]
+    - Options:
+      - rounding: { "truncate", "round", "ceil" }
+    - Validate value type and Options
+    - Store in Model.options (e.g., opt.rounding = "round")  
 Component: Validator
 - Responsibilities
   - Structural checks not enforced during parse or to double-check parser results.

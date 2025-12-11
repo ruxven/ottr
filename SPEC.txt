@@ -58,6 +58,10 @@ Directives
   - A log without a task/charge parameter denotes an uncharged slice and is also used as the last entry of a day to close the day; the slice that begins at the previous log time ends at this time. The final (last) log entry of a day must be uncharged (Syntax C) before the next day can start.
   - Special case: a task without any weights (or a literal task name "nc") is treated as uncharged.
 
+- Options (opt):
+  - Syntax: opt <key> <value>
+  - Rounding: truncation, rounding, cieling
+
 Semantics and computation
 - Time slicing:
   - For each day, consider the ordered sequence of log times. Each non-final log L[i] defines the start of a slice; the next log L[i+1] defines its end. The duration is (L[i+1].time - L[i].time) hours.
