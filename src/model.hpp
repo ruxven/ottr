@@ -49,6 +49,8 @@ struct World {
     std::unordered_map<std::string, ChargeNumber> charges; // id -> charge
     std::unordered_map<std::string, Task> tasks;            // name -> task
     std::vector<Day> days;                                  // in file order
+
+    Day& current_day();
 };
 
 // Aggregation snapshot produced by processing and used by Reporter

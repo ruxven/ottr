@@ -57,9 +57,15 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    std::string verr = validate_world(path, world);
-    if (!verr.empty()) {
-        std::cerr << verr << "\n";
+    Validator v;
+    bool valid = v.validate_world(path, world);
+    if (!valid){
+        const auto& err_vec = v.get_errors();
+        for (size_t i = 0; i < err_vec.size(); i++)
+        {
+            const std::string& err_str = err_vec.at(i);
+            std::cerr << err_str << "\n";
+        }
         return 1;
     }
 

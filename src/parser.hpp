@@ -35,29 +35,27 @@ std::vector<Token> tokenize_line(const std::string& line);
 
 // Parsing interface producing a World; stops at first fatal error.
 // On error, returns false and sets error_message.
-bool parse_file(const std::string& path, struct World& out, ParserLogger& log);
+bool parse_file(const std::string& path, struct World& world, ParserLogger& log);
 
 // Stream-based parsing interface; source_name is used in error messages.
 // On error, returns false and sets error_message.
-bool parse_istream(std::istream& in, const std::string& source_name, struct World& out, ParserLogger& log);
+bool parse_istream(std::istream& in, const std::string& source_name, struct World& world, ParserLogger& log);
 
 
 class DirectiveParser {
 protected:
     DirectiveParser(
         const std::string& source_name,
-        struct World& out,
-        ParserLogger& log,
-        std::optional<Day>& current_day
+        struct World& world,
+        ParserLogger& log
     );
     virtual ~DirectiveParser() = default;
 
     bool ensure_day_closed(const int lno);
 
     const std::string& source_name;
-    struct World& out;
+    struct World& world;
     ParserLogger& log;
-    std::optional<Day>& current_day;
 public:
     virtual bool parse(
         const int line_no,
@@ -69,9 +67,8 @@ class ChargeDirectiveParser : public DirectiveParser {
 public:
     ChargeDirectiveParser(
         const std::string& source_name,
-        struct World& out,
-        ParserLogger& log,
-        std::optional<Day>& current_day
+        struct World& world,
+        ParserLogger& log
     );
 
     bool parse(
@@ -84,9 +81,8 @@ class TaskDirectiveParser : public DirectiveParser {
 public:
     TaskDirectiveParser(
         const std::string& source_name,
-        struct World& out,
-        ParserLogger& log,
-        std::optional<Day>& current_day
+        struct World& world,
+        ParserLogger& log
     );
 
     bool parse(
@@ -99,9 +95,8 @@ class WeightDirectiveParser : public DirectiveParser {
 public:
     WeightDirectiveParser(
         const std::string& source_name,
-        struct World& out,
-        ParserLogger& log,
-        std::optional<Day>& current_day
+        struct World& world,
+        ParserLogger& log
     );
 
     bool parse(
@@ -114,9 +109,8 @@ class DayDirectiveParser : public DirectiveParser {
 public:
     DayDirectiveParser(
         const std::string& source_name,
-        struct World& out,
-        ParserLogger& log,
-        std::optional<Day>& current_day
+        struct World& world,
+        ParserLogger& log
     );
 
     bool parse(
@@ -129,9 +123,8 @@ class LogDirectiveParser : public DirectiveParser {
 public:
     LogDirectiveParser(
         const std::string& source_name,
-        struct World& out,
-        ParserLogger& log,
-        std::optional<Day>& current_day
+        struct World& world,
+        ParserLogger& log
     );
 
     bool parse(
@@ -144,9 +137,8 @@ class OptionDirectiveParser : public DirectiveParser {
 public:
     OptionDirectiveParser(
         const std::string& source_name,
-        struct World& out,
-        ParserLogger& log,
-        std::optional<Day>& current_day
+        struct World& world,
+        ParserLogger& log
     );
 
     bool parse(

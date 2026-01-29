@@ -19,7 +19,14 @@ TEST(Parser, HappyPath) {
         "log 12.0\n";
     ParserLogger log; std::string err_str;
     World w; std::istringstream iss(txt);
-    ASSERT_TRUE(parse_istream(iss, "mem:parser_ok", w, log)) << err_str;
+    bool result = parse_istream(iss, "mem:parser_ok", w, log);
+    const auto& err_vec = log.get_errors();
+    for (size_t i = 0; i < err_vec.size(); i++)
+    {
+        const std::string& err_str = err_vec.at(i);
+        std::cerr << err_str << "\n";
+    }
+    EXPECT_TRUE(result);
     EXPECT_TRUE(log.empty_err());
     EXPECT_EQ(w.charges.size(), 2u);
     EXPECT_EQ(w.tasks.size(), 1u);
@@ -63,9 +70,14 @@ TEST(Validator, UnknownRefs) {
         "day 09/01\n"
         "log 9.0 t\n"
         "log 10.0\n";
-    ParserLogger log; std::string err_str; World w; std::istringstream iss(txt);
+    ParserLogger log;
+    Validator v;
+    std::string err_str;
+    World w;
+    std::istringstream iss(txt);
     ASSERT_TRUE(parse_istream(iss, "mem:val", w, log));
-    std::string verr = validate_world("mem:val", w);
-    EXPECT_FALSE(log.empty_err());
-    EXPECT_NE(log.find_err("wt references unknown charge: C1"), std::string::npos);
+    ASSERT_EQ(w.tasks["t"].weights.size(), 1);
+    EXPECT_FALSE(v.validate_world("mem:val", w));
+    EXPECT_FALSE(v.empty_err());
+    EXPECT_NE(v.find_err("wt references unknown charge: C1"), std::string::npos);
 }

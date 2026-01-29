@@ -9,4 +9,8 @@ bool DateFilter::includes(const Date& d) const {
     return d.ord >= start.ord && d.ord <= end.ord;
 }
 
+Day& World::current_day(){
+    return days.back();
+}
+
 } // namespace ottr

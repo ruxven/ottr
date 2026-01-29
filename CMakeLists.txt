@@ -56,6 +56,10 @@ if(BUILD_TESTING)
   FetchContent_MakeAvailable(googletest)
 
   add_executable(ottr_tests
+    tests/test_day_parser.cpp
+    tests/test_log_parser.cpp
+    tests/test_task_parser.cpp
+    tests/test_weight_parser.cpp
     tests/test_utils_and_tokenizer.cpp
     tests/test_parser_validator.cpp
     tests/test_allocator.cpp
