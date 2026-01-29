@@ -11945,18 +11945,18 @@
     "function_coverage": [
       {
         "line_start": 13,
-        "line_end": 41,
-        "line_count": 23,
-        "line_hit": 23,
+        "line_end": 37,
+        "line_count": 22,
+        "line_hit": 22,
         "branch_count": 16,
         "branch_hit": 10,
         "function_name": "_ZN4ottr17allocate_weightedERKNS_17AllocationRequestE"
       },
       {
-        "line_start": 43,
-        "line_end": 102,
-        "line_count": 48,
-        "line_hit": 48,
+        "line_start": 39,
+        "line_end": 96,
+        "line_count": 47,
+        "line_hit": 47,
         "branch_count": 34,
         "branch_hit": 29,
         "function_name": "alloc.cpp:_ZZN4ottr17allocate_weightedERKNS_17AllocationRequestEENK3$_0clERKSt6vectorINS_8WorkItemESaIS5_EE"
@@ -12006,6 +12006,15 @@
         "branch_count": 12,
         "branch_hit": 7,
         "function_name": "_ZNK4ottr10DateFilter8includesERKNS_4DateE"
+      },
+      {
+        "line_start": 12,
+        "line_end": 14,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr5World11current_dayEv"
       }
     ]
   },
@@ -12013,8 +12022,8 @@
     "filename": "/home/runner/work/ottr/ottr/src/parser.cpp",
     "function_coverage": [
       {
-        "line_start": 11,
-        "line_end": 53,
+        "line_start": 10,
+        "line_end": 52,
         "line_count": 40,
         "line_hit": 37,
         "branch_count": 28,
@@ -12022,40 +12031,225 @@
         "function_name": "_ZN4ottr13tokenize_lineERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
-        "line_start": 62,
-        "line_end": 65,
-        "line_count": 4,
-        "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
-        "function_name": "_ZN4ottr13parse_istreamERSiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERS6_"
-      },
-      {
-        "line_start": 169,
-        "line_end": 176,
-        "line_count": 8,
-        "line_hit": 0,
-        "branch_count": 0,
-        "branch_hit": 0,
-        "function_name": "_ZN4ottr10parse_fileERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERS5_"
-      },
-      {
-        "line_start": 55,
-        "line_end": 60,
+        "line_start": 54,
+        "line_end": 59,
         "line_count": 6,
         "line_hit": 6,
         "branch_count": 0,
         "branch_hit": 0,
-        "function_name": "parser.cpp:_ZN4ottrL11parse_errorERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiS7_RS5_"
+        "function_name": "_ZN4ottr12ParserLogger9log_debugERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiS8_"
+      },
+      {
+        "line_start": 60,
+        "line_end": 65,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr12ParserLogger9log_errorERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiS8_"
       },
       {
         "line_start": 67,
+        "line_end": 69,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr12ParserLogger10get_errorsB5cxx11Ev"
+      },
+      {
+        "line_start": 71,
+        "line_end": 73,
+        "line_count": 3,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr12ParserLogger9get_debugB5cxx11Ev"
+      },
+      {
+        "line_start": 75,
+        "line_end": 77,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZNK4ottr12ParserLogger9empty_errEv"
+      },
+      {
+        "line_start": 80,
+        "line_end": 90,
+        "line_count": 11,
+        "line_hit": 10,
+        "branch_count": 4,
+        "branch_hit": 2,
+        "function_name": "_ZNK4ottr12ParserLogger8find_errERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      },
+      {
+        "line_start": 92,
+        "line_end": 142,
+        "line_count": 41,
+        "line_hit": 38,
+        "branch_count": 14,
+        "branch_hit": 11,
+        "function_name": "_ZN4ottr13parse_istreamERSiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 144,
+        "line_end": 151,
+        "line_count": 8,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr10parse_fileERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 157,
+        "line_end": 161,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr15DirectiveParserC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 167,
         "line_end": 167,
-        "line_count": 94,
-        "line_hit": 90,
-        "branch_count": 84,
-        "branch_hit": 60,
-        "function_name": "parser.cpp:_ZZN4ottr13parse_istreamERSiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERS6_ENK3$_0clEi"
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr21ChargeDirectiveParserC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 173,
+        "line_end": 173,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr19TaskDirectiveParserC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 179,
+        "line_end": 179,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr21WeightDirectiveParserC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 185,
+        "line_end": 185,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr18DayDirectiveParserC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 191,
+        "line_end": 191,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr18LogDirectiveParserC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 197,
+        "line_end": 197,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr21OptionDirectiveParserC2ERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_5WorldERNS_12ParserLoggerE"
+      },
+      {
+        "line_start": 200,
+        "line_end": 222,
+        "line_count": 23,
+        "line_hit": 23,
+        "branch_count": 12,
+        "branch_hit": 8,
+        "function_name": "_ZN4ottr21ChargeDirectiveParser5parseEiRKSt6vectorINS_5TokenESaIS2_EE"
+      },
+      {
+        "line_start": 225,
+        "line_end": 235,
+        "line_count": 11,
+        "line_hit": 11,
+        "branch_count": 6,
+        "branch_hit": 3,
+        "function_name": "_ZN4ottr19TaskDirectiveParser5parseEiRKSt6vectorINS_5TokenESaIS2_EE"
+      },
+      {
+        "line_start": 238,
+        "line_end": 249,
+        "line_count": 11,
+        "line_hit": 11,
+        "branch_count": 8,
+        "branch_hit": 4,
+        "function_name": "_ZN4ottr21WeightDirectiveParser5parseEiRKSt6vectorINS_5TokenESaIS2_EE"
+      },
+      {
+        "line_start": 252,
+        "line_end": 263,
+        "line_count": 11,
+        "line_hit": 11,
+        "branch_count": 10,
+        "branch_hit": 6,
+        "function_name": "_ZN4ottr18DayDirectiveParser5parseEiRKSt6vectorINS_5TokenESaIS2_EE"
+      },
+      {
+        "line_start": 266,
+        "line_end": 291,
+        "line_count": 25,
+        "line_hit": 25,
+        "branch_count": 22,
+        "branch_hit": 18,
+        "function_name": "_ZN4ottr18LogDirectiveParser5parseEiRKSt6vectorINS_5TokenESaIS2_EE"
+      },
+      {
+        "line_start": 294,
+        "line_end": 300,
+        "line_count": 7,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr21OptionDirectiveParser5parseEiRKSt6vectorINS_5TokenESaIS2_EE"
+      },
+      {
+        "line_start": 302,
+        "line_end": 311,
+        "line_count": 10,
+        "line_hit": 7,
+        "branch_count": 6,
+        "branch_hit": 4,
+        "function_name": "_ZN4ottr15DirectiveParser17ensure_day_closedEi"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/src/parser.hpp",
+    "function_coverage": [
+      {
+        "line_start": 13,
+        "line_end": 13,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr12ParserLoggerC2Ev"
+      },
+      {
+        "line_start": 52,
+        "line_end": 52,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr15DirectiveParserD2Ev"
       }
     ]
   },
@@ -12168,22 +12362,81 @@
     "filename": "/home/runner/work/ottr/ottr/src/validate.cpp",
     "function_coverage": [
       {
-        "line_start": 12,
+        "line_start": 7,
         "line_end": 50,
-        "line_count": 33,
-        "line_hit": 25,
+        "line_count": 38,
+        "line_hit": 26,
         "branch_count": 24,
         "branch_hit": 19,
-        "function_name": "_ZN4ottr14validate_worldERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS_5WorldE"
+        "function_name": "_ZN4ottr9Validator14validate_worldERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERKNS_5WorldE"
       },
       {
-        "line_start": 7,
-        "line_end": 10,
-        "line_count": 4,
-        "line_hit": 4,
-        "branch_count": 2,
-        "branch_hit": 1,
-        "function_name": "validate.cpp:_ZN4ottrL10append_errERNSt7__cxx1119basic_ostringstreamIcSt11char_traitsIcESaIcEEERKNS0_12basic_stringIcS3_S4_EEiSA_"
+        "line_start": 52,
+        "line_end": 57,
+        "line_count": 6,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr9Validator9log_debugERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiS8_"
+      },
+      {
+        "line_start": 58,
+        "line_end": 63,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr9Validator9log_errorERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiS8_"
+      },
+      {
+        "line_start": 65,
+        "line_end": 67,
+        "line_count": 3,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr9Validator10get_errorsB5cxx11Ev"
+      },
+      {
+        "line_start": 69,
+        "line_end": 71,
+        "line_count": 3,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr9Validator9get_debugB5cxx11Ev"
+      },
+      {
+        "line_start": 73,
+        "line_end": 75,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZNK4ottr9Validator9empty_errEv"
+      },
+      {
+        "line_start": 78,
+        "line_end": 88,
+        "line_count": 11,
+        "line_hit": 10,
+        "branch_count": 4,
+        "branch_hit": 2,
+        "function_name": "_ZNK4ottr9Validator8find_errERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/src/validate.hpp",
+    "function_coverage": [
+      {
+        "line_start": 9,
+        "line_end": 9,
+        "line_count": 1,
+        "line_hit": 1,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr9ValidatorC2Ev"
       }
     ]
   },
@@ -12220,34 +12473,62 @@
     ]
   },
   {
+    "filename": "/home/runner/work/ottr/ottr/tests/test_day_parser.cpp",
+    "function_coverage": [
+      {
+        "line_start": 10,
+        "line_end": 24,
+        "line_count": 14,
+        "line_hit": 14,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN24DayParser_HappyPath_Test8TestBodyEv"
+      }
+    ]
+  },
+  {
     "filename": "/home/runner/work/ottr/ottr/tests/test_engine_report.cpp",
     "function_coverage": [
       {
         "line_start": 11,
-        "line_end": 39,
-        "line_count": 26,
-        "line_hit": 26,
+        "line_end": 43,
+        "line_count": 30,
+        "line_hit": 30,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN44Engine_DirectAndTaskAllocationAndFilter_Test8TestBodyEv"
       },
       {
-        "line_start": 41,
-        "line_end": 73,
-        "line_count": 30,
-        "line_hit": 30,
+        "line_start": 45,
+        "line_end": 78,
+        "line_count": 31,
+        "line_hit": 31,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN34Report_FullAndSingleDayTables_Test8TestBodyEv"
       },
       {
-        "line_start": 75,
-        "line_end": 99,
-        "line_count": 23,
-        "line_hit": 23,
+        "line_start": 80,
+        "line_end": 105,
+        "line_count": 24,
+        "line_hit": 24,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN37Smoke_DemoTimecardInMemoryParses_Test8TestBodyEv"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/tests/test_log_parser.cpp",
+    "function_coverage": [
+      {
+        "line_start": 10,
+        "line_end": 47,
+        "line_count": 34,
+        "line_hit": 34,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN24LogParser_HappyPath_Test8TestBodyEv"
       }
     ]
   },
@@ -12256,16 +12537,16 @@
     "function_coverage": [
       {
         "line_start": 10,
-        "line_end": 30,
-        "line_count": 21,
-        "line_hit": 21,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "line_end": 37,
+        "line_count": 28,
+        "line_hit": 24,
+        "branch_count": 2,
+        "branch_hit": 1,
         "function_name": "_ZN21Parser_HappyPath_Test8TestBodyEv"
       },
       {
-        "line_start": 32,
-        "line_end": 57,
+        "line_start": 39,
+        "line_end": 64,
         "line_count": 26,
         "line_hit": 26,
         "branch_count": 0,
@@ -12273,13 +12554,27 @@
         "function_name": "_ZN18Parser_Errors_Test8TestBodyEv"
       },
       {
-        "line_start": 59,
-        "line_end": 71,
+        "line_start": 66,
+        "line_end": 83,
+        "line_count": 18,
+        "line_hit": 18,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN26Validator_UnknownRefs_Test8TestBodyEv"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/tests/test_task_parser.cpp",
+    "function_coverage": [
+      {
+        "line_start": 10,
+        "line_end": 23,
         "line_count": 13,
         "line_hit": 13,
         "branch_count": 0,
         "branch_hit": 0,
-        "function_name": "_ZN26Validator_UnknownRefs_Test8TestBodyEv"
+        "function_name": "_ZN25TaskParser_HappyPath_Test8TestBodyEv"
       }
     ]
   },
@@ -12312,6 +12607,20 @@
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN42Tokenizer_QuotedAndEscapesAndComments_Test8TestBodyEv"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/tests/test_weight_parser.cpp",
+    "function_coverage": [
+      {
+        "line_start": 10,
+        "line_end": 29,
+        "line_count": 19,
+        "line_hit": 19,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN27WeightParser_HappyPath_Test8TestBodyEv"
       }
     ]
   }

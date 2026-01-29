@@ -122,88 +122,82 @@ $(document).ready(function(){initNavTree('alloc_8cpp_source.html',''); initResiz
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (denom &lt;= 0) <span class="keywordflow">return</span> out; <span class="comment">// uncharged per spec</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// test code to make semgrep freak out</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">int</span>* foobar = <span class="keyword">new</span> <span class="keywordtype">int</span>[20];</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    std::vector&lt;WorkItem&gt; work;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    work.reserve(req.entries.size());</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> base_sum = 0;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; req.entries.size(); ++i) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; e = req.entries[i];</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">if</span> (e.weight &lt;= 0) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> ideal_numer = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(req.slice_ticks) * <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(e.weight);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> base = ideal_numer / denom; <span class="comment">// integer division</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> frac = ideal_numer % denom;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        work.push_back(WorkItem{i, base, frac});</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        base_sum += base;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> remainder = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(req.slice_ticks) - base_sum;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span> (remainder &lt; 0) remainder = 0; <span class="comment">// safety</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">auto</span> choose_idx = [&amp;](<span class="keyword">const</span> std::vector&lt;WorkItem&gt;&amp; items) -&gt; <span class="keywordtype">size_t</span> {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">size_t</span> best = items[0].idx;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="comment">// We&#39;ll scan req.entries via indices considering the comparator</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; wi : items) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordtype">size_t</span> j = wi.idx;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordtype">size_t</span> b = best;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ej = req.entries[j];</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; eb = req.entries[b];</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="comment">// 1) Higher priority first</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">if</span> (ej.priority != eb.priority) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                <span class="keywordflow">if</span> (ej.priority &gt; eb.priority) best = j; <span class="comment">// higher wins</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="comment">// 2) Larger remaining budget</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keywordflow">if</span> (ej.remaining_budget != eb.remaining_budget) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                <span class="keywordflow">if</span> (ej.remaining_budget &gt; eb.remaining_budget) best = j;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            }</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="comment">// 3) Larger fractional remainder (frac)</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordtype">long</span> <span class="keywordtype">long</span> frac_b = 0;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordtype">long</span> <span class="keywordtype">long</span> frac_j = 0;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; w : work) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <span class="keywordflow">if</span> (w.idx == b) frac_b = w.frac;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keywordflow">if</span> (w.idx == j) frac_j = w.frac;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::vector&lt;WorkItem&gt; work;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    work.reserve(req.entries.size());</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> base_sum = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; req.entries.size(); ++i) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; e = req.entries[i];</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">if</span> (e.weight &lt;= 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> ideal_numer = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(req.slice_ticks) * <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(e.weight);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> base = ideal_numer / denom; <span class="comment">// integer division</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">long</span> <span class="keywordtype">long</span> frac = ideal_numer % denom;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        work.push_back(WorkItem{i, base, frac});</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        base_sum += base;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> remainder = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">long</span><span class="keyword">&gt;</span>(req.slice_ticks) - base_sum;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (remainder &lt; 0) remainder = 0; <span class="comment">// safety</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">auto</span> choose_idx = [&amp;](<span class="keyword">const</span> std::vector&lt;WorkItem&gt;&amp; items) -&gt; <span class="keywordtype">size_t</span> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">size_t</span> best = items[0].idx;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="comment">// We&#39;ll scan req.entries via indices considering the comparator</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; wi : items) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordtype">size_t</span> j = wi.idx;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="keywordtype">size_t</span> b = best;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ej = req.entries[j];</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; eb = req.entries[b];</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="comment">// 1) Higher priority first</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordflow">if</span> (ej.priority != eb.priority) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                <span class="keywordflow">if</span> (ej.priority &gt; eb.priority) best = j; <span class="comment">// higher wins</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="comment">// 2) Larger remaining budget</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            <span class="keywordflow">if</span> (ej.remaining_budget != eb.remaining_budget) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                <span class="keywordflow">if</span> (ej.remaining_budget &gt; eb.remaining_budget) best = j;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="comment">// 3) Larger fractional remainder (frac)</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordtype">long</span> <span class="keywordtype">long</span> frac_b = 0;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            <span class="keywordtype">long</span> <span class="keywordtype">long</span> frac_j = 0;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; w : work) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                <span class="keywordflow">if</span> (w.idx == b) frac_b = w.frac;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                <span class="keywordflow">if</span> (w.idx == j) frac_j = w.frac;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">if</span> (frac_j != frac_b) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                <span class="keywordflow">if</span> (frac_j &gt; frac_b) best = j;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="keywordflow">if</span> (frac_j != frac_b) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                <span class="keywordflow">if</span> (frac_j &gt; frac_b) best = j;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="comment">// 4) Lexicographically smaller charge id</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">if</span> (ej.charge_id &lt; eb.charge_id) best = j;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">return</span> best;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    };</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    foobar[19] = 1;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// Prepare result with base allocations</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    out.resize(req.entries.size());</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; req.entries.size(); ++i) {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        out[i].charge_id = req.entries[i].charge_id;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        out[i].ticks = 0;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; w : work) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        out[w.idx].ticks += <span class="keyword">static_cast&lt;</span>Tick<span class="keyword">&gt;</span>(w.base);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">// Distribute remainder one tick at a time</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">while</span> (remainder &gt; 0 &amp;&amp; !work.empty()) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">size_t</span> winner_idx = choose_idx(work);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="comment">// increment the base of the winner for next comparison steps</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : work) {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordflow">if</span> (w.idx == winner_idx) { w.base += 1; <span class="keywordflow">break</span>; }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        out[winner_idx].ticks += 1;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        remainder -= 1;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span> out;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>} <span class="comment">// namespace ottr</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            <span class="comment">// 4) Lexicographically smaller charge id</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">if</span> (ej.charge_id &lt; eb.charge_id) best = j;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> best;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    };</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="comment">// Prepare result with base allocations</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    out.resize(req.entries.size());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; req.entries.size(); ++i) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        out[i].charge_id = req.entries[i].charge_id;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        out[i].ticks = 0;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; w : work) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        out[w.idx].ticks += <span class="keyword">static_cast&lt;</span>Tick<span class="keyword">&gt;</span>(w.base);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">// Distribute remainder one tick at a time</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">while</span> (remainder &gt; 0 &amp;&amp; !work.empty()) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordtype">size_t</span> winner_idx = choose_idx(work);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="comment">// increment the base of the winner for next comparison steps</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; w : work) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">if</span> (w.idx == winner_idx) { w.base += 1; <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        out[winner_idx].ticks += 1;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        remainder -= 1;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>} <span class="comment">// namespace ottr</span></div>
 <div class="ttc" id="astructottr_1_1AllocationRequest_html"><div class="ttname"><a href="structottr_1_1AllocationRequest.html">ottr::AllocationRequest</a></div><div class="ttdef"><b>Definition</b> <a href="alloc_8hpp_source.html#l00020">alloc.hpp:20</a></div></div>
 <div class="ttc" id="astructottr_1_1WorkItem_html"><div class="ttname"><a href="structottr_1_1WorkItem.html">ottr::WorkItem</a></div><div class="ttdef"><b>Definition</b> <a href="alloc_8cpp_source.html#l00007">alloc.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

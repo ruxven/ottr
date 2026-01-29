@@ -160,39 +160,41 @@ $(document).ready(function(){initNavTree('model_8hpp_source.html',''); initResiz
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    std::unordered_map&lt;std::string, ChargeNumber&gt; charges; <span class="comment">// id -&gt; charge</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    std::unordered_map&lt;std::string, Task&gt; tasks;            <span class="comment">// name -&gt; task</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::vector&lt;Day&gt; days;                                  <span class="comment">// in file order</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_struct" href="structottr_1_1Day.html">Day</a>&amp; current_day();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
 </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">// Aggregation snapshot produced by processing and used by Reporter</span></div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="};">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="structottr_1_1Aggregation.html">   55</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1Aggregation.html">Aggregation</a> {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// charge_id -&gt; (date.raw -&gt; ticks)</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    std::unordered_map&lt;std::string, std::unordered_map&lt;std::string, Tick&gt;&gt; by_charge_by_day;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// charge_id -&gt; total ticks (within filter)</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::unordered_map&lt;std::string, Tick&gt; totals_by_charge;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// date.raw -&gt; total charged ticks for the day</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::unordered_map&lt;std::string, Tick&gt; totals_by_day;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">// ordered set of included dates</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    std::vector&lt;Date&gt; dates_in_order;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// Aggregation snapshot produced by processing and used by Reporter</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="structottr_1_1Aggregation.html">   57</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1Aggregation.html">Aggregation</a> {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// charge_id -&gt; (date.raw -&gt; ticks)</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::unordered_map&lt;std::string, std::unordered_map&lt;std::string, Tick&gt;&gt; by_charge_by_day;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// charge_id -&gt; total ticks (within filter)</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::unordered_map&lt;std::string, Tick&gt; totals_by_charge;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="comment">// date.raw -&gt; total charged ticks for the day</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    std::unordered_map&lt;std::string, Tick&gt; totals_by_day;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="comment">// ordered set of included dates</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    std::vector&lt;Date&gt; dates_in_order;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
 </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">// Date filter as interpreted by CLI</span></div>
-<div class="foldopen" id="foldopen00067" data-start="{" data-end="};">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structottr_1_1DateFilter.html">   67</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1DateFilter.html">DateFilter</a> {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// Modes: none (all), single, range</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">bool</span> has_start = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">bool</span> has_end = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_struct" href="structottr_1_1Date.html">Date</a> start{};</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_struct" href="structottr_1_1Date.html">Date</a> end{};</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">bool</span> includes(<span class="keyword">const</span> <a class="code hl_struct" href="structottr_1_1Date.html">Date</a>&amp; d) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">// Date filter as interpreted by CLI</span></div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="};">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structottr_1_1DateFilter.html">   69</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1DateFilter.html">DateFilter</a> {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// Modes: none (all), single, range</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">bool</span> has_start = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">bool</span> has_end = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_struct" href="structottr_1_1Date.html">Date</a> start{};</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_struct" href="structottr_1_1Date.html">Date</a> end{};</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">bool</span> includes(<span class="keyword">const</span> <a class="code hl_struct" href="structottr_1_1Date.html">Date</a>&amp; d) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
 </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace ottr</span></div>
-<div class="ttc" id="astructottr_1_1Aggregation_html"><div class="ttname"><a href="structottr_1_1Aggregation.html">ottr::Aggregation</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00055">model.hpp:55</a></div></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace ottr</span></div>
+<div class="ttc" id="astructottr_1_1Aggregation_html"><div class="ttname"><a href="structottr_1_1Aggregation.html">ottr::Aggregation</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00057">model.hpp:57</a></div></div>
 <div class="ttc" id="astructottr_1_1ChargeNumber_html"><div class="ttname"><a href="structottr_1_1ChargeNumber.html">ottr::ChargeNumber</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00017">model.hpp:17</a></div></div>
-<div class="ttc" id="astructottr_1_1DateFilter_html"><div class="ttname"><a href="structottr_1_1DateFilter.html">ottr::DateFilter</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00067">model.hpp:67</a></div></div>
+<div class="ttc" id="astructottr_1_1DateFilter_html"><div class="ttname"><a href="structottr_1_1DateFilter.html">ottr::DateFilter</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00069">model.hpp:69</a></div></div>
 <div class="ttc" id="astructottr_1_1Date_html"><div class="ttname"><a href="structottr_1_1Date.html">ottr::Date</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00012">model.hpp:12</a></div></div>
 <div class="ttc" id="astructottr_1_1Day_html"><div class="ttname"><a href="structottr_1_1Day.html">ottr::Day</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00043">model.hpp:43</a></div></div>
 <div class="ttc" id="astructottr_1_1Log_html"><div class="ttname"><a href="structottr_1_1Log.html">ottr::Log</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00035">model.hpp:35</a></div></div>

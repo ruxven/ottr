@@ -3,22 +3,67 @@
     "filename": "src/validate.cpp",
     "function_list": [
       {
-        "name": "ottr::append_err",
-        "cyclomatic_complexity": 2,
+        "name": "ottr::Validator::validate_world",
+        "cyclomatic_complexity": 15,
         "start_line": 7,
-        "end_line": 10,
-        "nloc": 4,
-        "token_count": 59,
-        "parameter_count": 4
+        "end_line": 50,
+        "nloc": 38,
+        "token_count": 339,
+        "parameter_count": 2
       },
       {
-        "name": "ottr::validate_world",
-        "cyclomatic_complexity": 15,
-        "start_line": 12,
-        "end_line": 50,
-        "nloc": 33,
-        "token_count": 331,
-        "parameter_count": 2
+        "name": "ottr::Validator::log_debug",
+        "cyclomatic_complexity": 1,
+        "start_line": 52,
+        "end_line": 57,
+        "nloc": 6,
+        "token_count": 60,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::Validator::log_error",
+        "cyclomatic_complexity": 1,
+        "start_line": 58,
+        "end_line": 63,
+        "nloc": 6,
+        "token_count": 60,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::Validator::get_errors",
+        "cyclomatic_complexity": 1,
+        "start_line": 65,
+        "end_line": 67,
+        "nloc": 3,
+        "token_count": 10,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::Validator::get_debug",
+        "cyclomatic_complexity": 1,
+        "start_line": 69,
+        "end_line": 71,
+        "nloc": 3,
+        "token_count": 10,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::Validator::empty_err",
+        "cyclomatic_complexity": 1,
+        "start_line": 73,
+        "end_line": 75,
+        "nloc": 3,
+        "token_count": 15,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::Validator::find_err",
+        "cyclomatic_complexity": 3,
+        "start_line": 77,
+        "end_line": 88,
+        "nloc": 12,
+        "token_count": 76,
+        "parameter_count": 1
       }
     ]
   },
@@ -129,6 +174,15 @@
         "nloc": 6,
         "token_count": 72,
         "parameter_count": 1
+      },
+      {
+        "name": "ottr::World::current_day",
+        "cyclomatic_complexity": 1,
+        "start_line": 12,
+        "end_line": 14,
+        "nloc": 3,
+        "token_count": 14,
+        "parameter_count": 0
       }
     ]
   },
@@ -138,38 +192,209 @@
       {
         "name": "ottr::tokenize_line",
         "cyclomatic_complexity": 16,
-        "start_line": 11,
-        "end_line": 53,
+        "start_line": 10,
+        "end_line": 52,
         "nloc": 40,
         "token_count": 316,
         "parameter_count": 1
       },
       {
-        "name": "ottr::parse_error",
+        "name": "ottr::ParserLogger::log_debug",
         "cyclomatic_complexity": 1,
-        "start_line": 55,
-        "end_line": 60,
+        "start_line": 54,
+        "end_line": 59,
         "nloc": 6,
         "token_count": 60,
-        "parameter_count": 4
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::ParserLogger::log_error",
+        "cyclomatic_complexity": 1,
+        "start_line": 60,
+        "end_line": 65,
+        "nloc": 6,
+        "token_count": 60,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::ParserLogger::get_errors",
+        "cyclomatic_complexity": 1,
+        "start_line": 67,
+        "end_line": 69,
+        "nloc": 3,
+        "token_count": 10,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::ParserLogger::get_debug",
+        "cyclomatic_complexity": 1,
+        "start_line": 71,
+        "end_line": 73,
+        "nloc": 3,
+        "token_count": 10,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::ParserLogger::empty_err",
+        "cyclomatic_complexity": 1,
+        "start_line": 75,
+        "end_line": 77,
+        "nloc": 3,
+        "token_count": 15,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::ParserLogger::find_err",
+        "cyclomatic_complexity": 3,
+        "start_line": 79,
+        "end_line": 90,
+        "nloc": 12,
+        "token_count": 76,
+        "parameter_count": 1
       },
       {
         "name": "ottr::parse_istream",
-        "cyclomatic_complexity": 43,
-        "start_line": 62,
-        "end_line": 167,
-        "nloc": 98,
-        "token_count": 1194,
+        "cyclomatic_complexity": 8,
+        "start_line": 92,
+        "end_line": 142,
+        "nloc": 41,
+        "token_count": 356,
         "parameter_count": 4
       },
       {
         "name": "ottr::parse_file",
         "cyclomatic_complexity": 2,
-        "start_line": 169,
-        "end_line": 176,
+        "start_line": 144,
+        "end_line": 151,
         "nloc": 8,
-        "token_count": 57,
+        "token_count": 62,
         "parameter_count": 3
+      },
+      {
+        "name": "ottr::DirectiveParser::DirectiveParser",
+        "cyclomatic_complexity": 1,
+        "start_line": 153,
+        "end_line": 161,
+        "nloc": 9,
+        "token_count": 37,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::ChargeDirectiveParser::ChargeDirectiveParser",
+        "cyclomatic_complexity": 1,
+        "start_line": 163,
+        "end_line": 167,
+        "nloc": 5,
+        "token_count": 31,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::TaskDirectiveParser::TaskDirectiveParser",
+        "cyclomatic_complexity": 1,
+        "start_line": 169,
+        "end_line": 173,
+        "nloc": 5,
+        "token_count": 31,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::WeightDirectiveParser::WeightDirectiveParser",
+        "cyclomatic_complexity": 1,
+        "start_line": 175,
+        "end_line": 179,
+        "nloc": 5,
+        "token_count": 31,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::DayDirectiveParser::DayDirectiveParser",
+        "cyclomatic_complexity": 1,
+        "start_line": 181,
+        "end_line": 185,
+        "nloc": 5,
+        "token_count": 31,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::LogDirectiveParser::LogDirectiveParser",
+        "cyclomatic_complexity": 1,
+        "start_line": 187,
+        "end_line": 191,
+        "nloc": 5,
+        "token_count": 31,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::OptionDirectiveParser::OptionDirectiveParser",
+        "cyclomatic_complexity": 1,
+        "start_line": 193,
+        "end_line": 197,
+        "nloc": 5,
+        "token_count": 31,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::ChargeDirectiveParser::parse",
+        "cyclomatic_complexity": 7,
+        "start_line": 199,
+        "end_line": 222,
+        "nloc": 24,
+        "token_count": 266,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::TaskDirectiveParser::parse",
+        "cyclomatic_complexity": 4,
+        "start_line": 224,
+        "end_line": 235,
+        "nloc": 12,
+        "token_count": 149,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::WeightDirectiveParser::parse",
+        "cyclomatic_complexity": 5,
+        "start_line": 237,
+        "end_line": 249,
+        "nloc": 12,
+        "token_count": 148,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::DayDirectiveParser::parse",
+        "cyclomatic_complexity": 6,
+        "start_line": 251,
+        "end_line": 263,
+        "nloc": 12,
+        "token_count": 148,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::LogDirectiveParser::parse",
+        "cyclomatic_complexity": 12,
+        "start_line": 265,
+        "end_line": 291,
+        "nloc": 26,
+        "token_count": 339,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::OptionDirectiveParser::parse",
+        "cyclomatic_complexity": 2,
+        "start_line": 293,
+        "end_line": 300,
+        "nloc": 8,
+        "token_count": 82,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::DirectiveParser::ensure_day_closed",
+        "cyclomatic_complexity": 4,
+        "start_line": 302,
+        "end_line": 311,
+        "nloc": 10,
+        "token_count": 82,
+        "parameter_count": 1
       }
     ]
   },
@@ -271,9 +496,9 @@
         "name": "ottr::allocate_weighted",
         "cyclomatic_complexity": 26,
         "start_line": 13,
-        "end_line": 102,
-        "nloc": 71,
-        "token_count": 633,
+        "end_line": 96,
+        "nloc": 69,
+        "token_count": 616,
         "parameter_count": 1
       }
     ]
@@ -306,11 +531,11 @@
       },
       {
         "name": "main",
-        "cyclomatic_complexity": 14,
+        "cyclomatic_complexity": 17,
         "start_line": 20,
-        "end_line": 75,
-        "nloc": 44,
-        "token_count": 334,
+        "end_line": 95,
+        "nloc": 64,
+        "token_count": 483,
         "parameter_count": 2
       }
     ]

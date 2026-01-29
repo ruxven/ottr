@@ -1,8 +1,13 @@
 ================================================
   NLOC    CCN   token  PARAM  length  location  
 ------------------------------------------------
-       4      2     59      4       4 ottr::append_err@7-10@src/validate.cpp
-      33     15    331      2      39 ottr::validate_world@12-50@src/validate.cpp
+      38     15    339      2      44 ottr::Validator::validate_world@7-50@src/validate.cpp
+       6      1     60      3       6 ottr::Validator::log_debug@52-57@src/validate.cpp
+       6      1     60      3       6 ottr::Validator::log_error@58-63@src/validate.cpp
+       3      1     10      0       3 ottr::Validator::get_errors@65-67@src/validate.cpp
+       3      1     10      0       3 ottr::Validator::get_debug@69-71@src/validate.cpp
+       3      1     15      0       3 ottr::Validator::empty_err@73-75@src/validate.cpp
+      12      3     76      1      12 ottr::Validator::find_err@77-88@src/validate.cpp
        1      1      9      0       1 ottr::Aggregator::dates@14-14@src/aggregator.hpp
        1      1      9      0       1 ottr::Aggregator::snapshot@16-16@src/aggregator.hpp
        6      2     65      4       6 ottr::add_allocation@13-18@src/engine.cpp
@@ -13,10 +18,30 @@
        4      2     43      1       4 ottr::Aggregator::total_for_day@24-27@src/aggregator.cpp
        4      1     29      1       4 ottr::Aggregator::set_dates@29-32@src/aggregator.cpp
        6      8     72      1       6 ottr::DateFilter::includes@5-10@src/model.cpp
-      40     16    316      1      43 ottr::tokenize_line@11-53@src/parser.cpp
-       6      1     60      4       6 ottr::parse_error@55-60@src/parser.cpp
-      98     43   1194      4     106 ottr::parse_istream@62-167@src/parser.cpp
-       8      2     57      3       8 ottr::parse_file@169-176@src/parser.cpp
+       3      1     14      0       3 ottr::World::current_day@12-14@src/model.cpp
+      40     16    316      1      43 ottr::tokenize_line@10-52@src/parser.cpp
+       6      1     60      3       6 ottr::ParserLogger::log_debug@54-59@src/parser.cpp
+       6      1     60      3       6 ottr::ParserLogger::log_error@60-65@src/parser.cpp
+       3      1     10      0       3 ottr::ParserLogger::get_errors@67-69@src/parser.cpp
+       3      1     10      0       3 ottr::ParserLogger::get_debug@71-73@src/parser.cpp
+       3      1     15      0       3 ottr::ParserLogger::empty_err@75-77@src/parser.cpp
+      12      3     76      1      12 ottr::ParserLogger::find_err@79-90@src/parser.cpp
+      41      8    356      4      51 ottr::parse_istream@92-142@src/parser.cpp
+       8      2     62      3       8 ottr::parse_file@144-151@src/parser.cpp
+       9      1     37      3       9 ottr::DirectiveParser::DirectiveParser@153-161@src/parser.cpp
+       5      1     31      3       5 ottr::ChargeDirectiveParser::ChargeDirectiveParser@163-167@src/parser.cpp
+       5      1     31      3       5 ottr::TaskDirectiveParser::TaskDirectiveParser@169-173@src/parser.cpp
+       5      1     31      3       5 ottr::WeightDirectiveParser::WeightDirectiveParser@175-179@src/parser.cpp
+       5      1     31      3       5 ottr::DayDirectiveParser::DayDirectiveParser@181-185@src/parser.cpp
+       5      1     31      3       5 ottr::LogDirectiveParser::LogDirectiveParser@187-191@src/parser.cpp
+       5      1     31      3       5 ottr::OptionDirectiveParser::OptionDirectiveParser@193-197@src/parser.cpp
+      24      7    266      2      24 ottr::ChargeDirectiveParser::parse@199-222@src/parser.cpp
+      12      4    149      2      12 ottr::TaskDirectiveParser::parse@224-235@src/parser.cpp
+      12      5    148      2      13 ottr::WeightDirectiveParser::parse@237-249@src/parser.cpp
+      12      6    148      2      13 ottr::DayDirectiveParser::parse@251-263@src/parser.cpp
+      26     12    339      2      27 ottr::LogDirectiveParser::parse@265-291@src/parser.cpp
+       8      2     82      2       8 ottr::OptionDirectiveParser::parse@293-300@src/parser.cpp
+      10      4     82      1      10 ottr::DirectiveParser::ensure_day_closed@302-311@src/parser.cpp
        7      2     72      1       7 ottr::sorted_charge_ids@10-16@src/report.cpp
        5      1     53      1       5 ottr::ticks_to_fixed@18-22@src/report.cpp
       39     11    482      4      43 ottr::compute_widths@24-66@src/report.cpp
@@ -26,42 +51,42 @@
       17     12    217      2      18 ottr::parse_mmdd@8-25@src/util.cpp
        5      2     45      2       5 ottr::try_parse_double@27-31@src/util.cpp
        5      2     48      2       5 ottr::try_parse_ll@33-37@src/util.cpp
-      71     26    633      1      90 ottr::allocate_weighted@13-102@src/alloc.cpp
+      69     26    616      1      84 ottr::allocate_weighted@13-96@src/alloc.cpp
        5      1     46      1       6 ottr::hours_to_ticks@12-17@src/util.hpp
        6      1     37      1       6 print_usage@13-18@src/main.cpp
-      44     14    334      2      56 main@20-75@src/main.cpp
+      64     17    483      2      76 main@20-95@src/main.cpp
 17 file analyzed.
 ==============================================================
 NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
 --------------------------------------------------------------
       6       0.0     0.0        0.0         0     src/report.hpp
-     42      18.5     8.5      195.0         2     src/validate.cpp
+     76      10.1     3.3       81.4         7     src/validate.cpp
      18       1.0     1.0        9.0         2     src/aggregator.hpp
      83      37.0     9.5      343.5         2     src/engine.cpp
      27       4.8     2.0       51.0         5     src/aggregator.cpp
-     12       0.0     0.0        0.0         0     src/parser.hpp
-      9       6.0     8.0       72.0         1     src/model.cpp
-    160      38.0    15.5      406.8         4     src/parser.cpp
+    117       0.0     0.0        0.0         0     src/parser.hpp
+     12       4.5     4.5       43.0         2     src/model.cpp
+    273      11.5     3.5      104.4        23     src/parser.cpp
     147      23.2     5.5      266.0         6     src/report.cpp
      20       0.0     0.0        0.0         0     src/alloc.hpp
       8       0.0     0.0        0.0         0     src/engine.hpp
-      5       0.0     0.0        0.0         0     src/validate.hpp
+     18       0.0     0.0        0.0         0     src/validate.hpp
      33       9.0     5.3      103.3         3     src/util.cpp
-     81      71.0    26.0      633.0         1     src/alloc.cpp
-     55       0.0     0.0        0.0         0     src/model.hpp
+     79      69.0    26.0      616.0         1     src/alloc.cpp
+     56       0.0     0.0        0.0         0     src/model.hpp
      13       5.0     1.0       46.0         1     src/util.hpp
-     60      25.0     7.5      185.5         2     src/main.cpp
+     80      35.0     9.0      260.0         2     src/main.cpp
 
 ========================================================================================================
 !!!! Warnings (cyclomatic_complexity > 15 or length > 100 or nloc > 1000000 or parameter_count > 5) !!!!
 ================================================
   NLOC    CCN   token  PARAM  length  location  
 ------------------------------------------------
-      98     43   1194      4     106 ottr::parse_istream@62-167@src/parser.cpp
-      71     26    633      1      90 ottr::allocate_weighted@13-102@src/alloc.cpp
+      69     26    616      1      84 ottr::allocate_weighted@13-96@src/alloc.cpp
       68     17    622      4      81 ottr::process_world@20-100@src/engine.cpp
-      40     16    316      1      43 ottr::tokenize_line@11-53@src/parser.cpp
+      64     17    483      2      76 main@20-95@src/main.cpp
+      40     16    316      1      43 ottr::tokenize_line@10-52@src/parser.cpp
 ==========================================================================================
 Total nloc   Avg.NLOC  AvgCCN  Avg.token   Fun Cnt  Warning cnt   Fun Rt   nloc Rt
 ------------------------------------------------------------------------------------------
-       779      20.2     7.2      207.1       29            4      0.14    0.47
+      1066      14.0     4.4      131.6       54            4      0.07    0.32

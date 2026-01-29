@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['runningtotals_0',['RunningTotals',['../structottr_1_1RunningTotals.html',1,'ottr']]]
+  ['optiondirectiveparser_0',['OptionDirectiveParser',['../classottr_1_1OptionDirectiveParser.html',1,'ottr']]]
 ];

@@ -2,22 +2,22 @@
 
 ## 🚨 Top High Risk Functions (Complex + Untested)
 
-- **[`ottr::parse_istream()`](https://github.com/ruxven/ottr/blob/230889af50a1cd7ed8025fd33a7fde99c836dec4/src/parser.cpp#L62-L167)** in `src/parser.cpp`
-  - Score: **10029**
-  - Complexity: **43** (above threshold value: 15)
-  - Branch Coverage: **71.4%** (below threshold value: 80)
-  - Line Coverage: **95.9%**)
-  - Critical findings: ``
-
-- **[`ottr::allocate_weighted()`](https://github.com/ruxven/ottr/blob/230889af50a1cd7ed8025fd33a7fde99c836dec4/src/alloc.cpp#L13-L102)** in `src/alloc.cpp`
-  - Score: **5922**
+- **[`ottr::allocate_weighted()`](https://github.com/ruxven/ottr/blob/32501aa61d24e76b60f0bd62b1b31a45f8424f9a/src/alloc.cpp#L13-L96)** in `src/alloc.cpp`
+  - Score: **10022**
   - Complexity: **26** (above threshold value: 15)
   - Branch Coverage: **78.0%** (below threshold value: 80)
   - Line Coverage: **100.0%**)
-  - Critical findings: `cplusplus.NewDeleteLeaks, cplusplus.NewDeleteLeaks`
+  - Critical findings: ``
 
-- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/230889af50a1cd7ed8025fd33a7fde99c836dec4/src/engine.cpp#L20-L100)** in `src/engine.cpp`
-  - Score: **3825**
+- **[`main()`](https://github.com/ruxven/ottr/blob/32501aa61d24e76b60f0bd62b1b31a45f8424f9a/src/main.cpp#L20-L95)** in `src/main.cpp`
+  - Score: **6500**
+  - Complexity: **17** (above threshold value: 15)
+  - Branch Coverage: **0.0%** (below threshold value: 80)
+  - Line Coverage: **0.0%** (below threshold value: 80)
+  - Critical findings: ``
+
+- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/32501aa61d24e76b60f0bd62b1b31a45f8424f9a/src/engine.cpp#L20-L100)** in `src/engine.cpp`
+  - Score: **6425**
   - Complexity: **17** (above threshold value: 15)
   - Branch Coverage: **75.0%** (below threshold value: 80)
   - Line Coverage: **85.3%**)
@@ -25,13 +25,7 @@
 
 ## 🔒 Top Security Risk Functions (Prioritized by coverage)
 
-- **[`ottr::allocate_weighted()`](https://github.com/ruxven/ottr/blob/230889af50a1cd7ed8025fd33a7fde99c836dec4/src/alloc.cpp#L13-L102)** in `src/alloc.cpp`
-  - Score: **20078**
-  - Branch Coverage: **78.0%**
-  - Line Coverage: **100.0%**
-  - Critical findings: `cplusplus.NewDeleteLeaks, cplusplus.NewDeleteLeaks`
-
-- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/230889af50a1cd7ed8025fd33a7fde99c836dec4/src/engine.cpp#L20-L100)** in `src/engine.cpp`
+- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/32501aa61d24e76b60f0bd62b1b31a45f8424f9a/src/engine.cpp#L20-L100)** in `src/engine.cpp`
   - Score: **10075**
   - Branch Coverage: **75.0%**
   - Line Coverage: **85.3%**
