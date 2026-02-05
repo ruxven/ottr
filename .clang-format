@@ -1,0 +1,17 @@
+---
+Language: Cpp
+BasedOnStyle: LLVM
+
+# Braces on their own line (Allman style)
+BreakBeforeBraces: Allman
+
+# Use spaces instead of tabs
+UseTab: Never
+
+# 4 spaces per indent
+IndentWidth: 4
+TabWidth: 4
+
+# Optional: ensures the column limit doesn't force weird wrapping
+ColumnLimit: 100
+---
