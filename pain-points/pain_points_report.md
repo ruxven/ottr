@@ -2,32 +2,38 @@
 
 ## 🚨 Top High Risk Functions (Complex + Untested)
 
-- **[`ottr::allocate_weighted()`](https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/alloc.cpp#L13-L96)** in `src/alloc.cpp`
-  - Score: **10022**
-  - Complexity: **26** (above threshold value: 15)
-  - Branch Coverage: **78.0%** (below threshold value: 80)
-  - Line Coverage: **100.0%**)
+- **[`ottr::allocate_weighted()`](https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/alloc.cpp#L13-L165)** in `src/alloc.cpp`
+  - Score: **10021**
+  - Complexity: **45** (above threshold value: 15)
+  - Branch Coverage: **79.8%** (below threshold value: 80)
+  - Line Coverage: **95.0%**)
   - Critical findings: ``
 
-- **[`main()`](https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/main.cpp#L20-L95)** in `src/main.cpp`
-  - Score: **6500**
+- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/engine.cpp#L25-L195)** in `src/engine.cpp`
+  - Score: **8124**
+  - Complexity: **37** (above threshold value: 15)
+  - Branch Coverage: **76.4%** (below threshold value: 80)
+  - Line Coverage: **89.1%**)
+  - Critical findings: `clang-diagnostic-unused-parameter`
+
+- **[`main()`](https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/main.cpp#L20-L97)** in `src/main.cpp`
+  - Score: **3700**
   - Complexity: **17** (above threshold value: 15)
   - Branch Coverage: **0.0%** (below threshold value: 80)
   - Line Coverage: **0.0%** (below threshold value: 80)
   - Critical findings: ``
 
-- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/engine.cpp#L20-L100)** in `src/engine.cpp`
-  - Score: **6425**
-  - Complexity: **17** (above threshold value: 15)
-  - Branch Coverage: **75.0%** (below threshold value: 80)
-  - Line Coverage: **85.3%**)
-  - Critical findings: `clang-diagnostic-unused-parameter`
-
 ## 🔒 Top Security Risk Functions (Prioritized by coverage)
 
-- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/engine.cpp#L20-L100)** in `src/engine.cpp`
-  - Score: **10075**
-  - Branch Coverage: **75.0%**
-  - Line Coverage: **85.3%**
+- **[`ottr::CalculationOptions::validate()`](https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/options.cpp#L5-L8)** in `src/options.cpp`
+  - Score: **10100**
+  - Branch Coverage: **0.0%**
+  - Line Coverage: **100.0%**
+  - Critical findings: `clang-diagnostic-unused-parameter`
+
+- **[`ottr::process_world()`](https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/engine.cpp#L25-L195)** in `src/engine.cpp`
+  - Score: **10076**
+  - Branch Coverage: **76.4%**
+  - Line Coverage: **89.1%**
   - Critical findings: `clang-diagnostic-unused-parameter`
 

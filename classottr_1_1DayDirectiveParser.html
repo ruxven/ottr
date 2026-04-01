@@ -164,8 +164,8 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00181">181</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  185</span>    : DirectiveParser(source_name, world, log) {}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00183">183</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  187</span>    : DirectiveParser(source_name, world, log) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,19 +206,19 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classottr_1_1DirectiveParser.html">ottr::DirectiveParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00251">251</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  252</span>{</div>
-<div class="line"><span class="lineno">  253</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 2) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;day requires: day &lt;MM/DD&gt;&quot;</span>);</div>
-<div class="line"><span class="lineno">  254</span>    <span class="keywordflow">if</span> (!ensure_day_closed(line_no)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  255</span>    Date d;</div>
-<div class="line"><span class="lineno">  256</span>    <span class="keywordflow">if</span> (!parse_mmdd(tokens[1].text, d)) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;invalid date MM/DD&quot;</span>);</div>
-<div class="line"><span class="lineno">  257</span>    <span class="comment">// non-decreasing order</span></div>
-<div class="line"><span class="lineno">  258</span>    <span class="keywordflow">if</span> (!world.days.empty() &amp;&amp; d.ord &lt; world.days.back().date.ord) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;days out of order (must be non-decreasing)&quot;</span>);</div>
-<div class="line"><span class="lineno">  259</span>    Day day;</div>
-<div class="line"><span class="lineno">  260</span>    day.date = d;</div>
-<div class="line"><span class="lineno">  261</span>    world.days.push_back(std::move(day));</div>
-<div class="line"><span class="lineno">  262</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  263</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00253">253</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  254</span>{</div>
+<div class="line"><span class="lineno">  255</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 2) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;day requires: day &lt;MM/DD&gt;&quot;</span>);</div>
+<div class="line"><span class="lineno">  256</span>    <span class="keywordflow">if</span> (!ensure_day_closed(line_no)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  257</span>    Date d;</div>
+<div class="line"><span class="lineno">  258</span>    <span class="keywordflow">if</span> (!parse_mmdd(tokens[1].text, d)) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;invalid date MM/DD&quot;</span>);</div>
+<div class="line"><span class="lineno">  259</span>    <span class="comment">// non-decreasing order</span></div>
+<div class="line"><span class="lineno">  260</span>    <span class="keywordflow">if</span> (!world.days.empty() &amp;&amp; d.ord &lt; world.days.back().date.ord) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;days out of order (must be non-decreasing)&quot;</span>);</div>
+<div class="line"><span class="lineno">  261</span>    Day day;</div>
+<div class="line"><span class="lineno">  262</span>    day.date = d;</div>
+<div class="line"><span class="lineno">  263</span>    world.days.push_back(std::move(day));</div>
+<div class="line"><span class="lineno">  264</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  265</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

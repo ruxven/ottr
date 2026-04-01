@@ -171,6 +171,46 @@ No really, how do I use it?</h1>
 <div class="line">| 1234.02 |   1.2 |</div>
 <div class="line">| Total   |   4.0 |</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
+Configuration Options</h1>
+<p>OTTR supports configuration options that control how timecard values are calculated. Options are specified using the <code>opt</code> directive in the timecard file.</p>
+<h2><a class="anchor" id="autotoc_md15"></a>
+Rounding Mode</h2>
+<p>Controls how base allocations are rounded before remainder distribution.</p>
+<div class="fragment"><div class="line">opt rounding &lt;mode&gt;</div>
+</div><!-- fragment --><p>Supported modes:</p><ul>
+<li><code>truncate</code> (default): Floor division (e.g., 3.7 → 3)</li>
+<li><code>round</code>: Standard rounding (e.g., 3.5 → 4, 3.4 → 3)</li>
+<li><code>ceil</code>: Ceiling division (e.g., 3.1 → 4)</li>
+</ul>
+<p>Example: </p><div class="fragment"><div class="line">opt rounding round</div>
+</div><!-- fragment --><p>When rounding causes allocations to exceed the slice total, the negative remainder is subtracted from lowest-priority charges.</p>
+<h2><a class="anchor" id="autotoc_md16"></a>
+Aggregation Mode</h2>
+<p>Controls when task-based allocations are computed.</p>
+<div class="fragment"><div class="line">opt aggregation &lt;mode&gt;</div>
+</div><!-- fragment --><p>Supported modes:</p><ul>
+<li><code>per_event</code> (default): Allocate each task slice immediately as it is encountered</li>
+<li><code>per_day</code>: Accumulate all slices for each task within a day, then allocate the total at day end. Preserves audit trail by processing tasks in sequence.</li>
+<li><code>off</code>: Explicit alias for <code>per_event</code></li>
+</ul>
+<p>Example: </p><div class="fragment"><div class="line">opt aggregation per_day</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md17"></a>
+Example Configuration</h2>
+<div class="fragment"><div class="line">cn 1234.a &quot;Project A&quot; 100.0</div>
+<div class="line">cn 1234.b &quot;Project B&quot; 100.0</div>
+<div class="line"> </div>
+<div class="line">opt rounding round</div>
+<div class="line">opt aggregation per_day</div>
+<div class="line"> </div>
+<div class="line">task mytask &quot;My Task&quot;</div>
+<div class="line">wt mytask 1234.a 1</div>
+<div class="line">wt mytask 1234.b 1</div>
+<div class="line"> </div>
+<div class="line">day 09/02</div>
+<div class="line">log 08.0</div>
+<div class="line">log 10.0 mytask</div>
+<div class="line">log 17.0</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md18"></a>
 Building</h1>
 <p><code>ottr</code> is built using CMake and can be installed locally:</p>
 <div class="fragment"><div class="line">mkdir build</div>
@@ -178,13 +218,16 @@ Building</h1>
 <div class="line">cmake ..</div>
 <div class="line">make</div>
 <div class="line">cp ottr ~/.local/bin/ottr</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --><p>Or using Docker:</p>
+<div class="fragment"><div class="line">docker build -t ottr-dev .</div>
+<div class="line">docker run --rm -v $(pwd):/workspace ottr-dev bash -c &quot;cd /workspace/ottr/build &amp;&amp; cmake .. &amp;&amp; make&quot;</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md19"></a>
 TODO</h1>
 <ul>
-<li>Add configuration options</li>
-<li>Summarize task data charges per day or per event.</li>
+<li>✅ Add configuration options (rounding and aggregation modes)</li>
+<li>✅ Configure rounding to either truncation, normal rounding, or ceiling</li>
+<li>✅ Summarize task data charges per day or per event (aggregation modes)</li>
 <li>Generate a timecard using a specified date range.</li>
-<li>Configure rounding to either truncation, normal rounding, or cieling</li>
 <li>Handle cases where decihours need to be deducted from total time on task for event or day.</li>
 <li>Audit mode: show the per-day allocation and remainder assignments per event or per day.</li>
 <li>Display uncharged tasks in output for timecard</li>

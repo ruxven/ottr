@@ -164,8 +164,8 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00175">175</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  179</span>    : DirectiveParser(source_name, world, log) {}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00177">177</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  181</span>    : DirectiveParser(source_name, world, log) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,19 +206,19 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classottr_1_1DirectiveParser.html">ottr::DirectiveParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00237">237</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  238</span>{</div>
-<div class="line"><span class="lineno">  239</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 4) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;wt requires: wt &lt;task_name&gt; &lt;charge_id&gt; &lt;weight&gt;&quot;</span>);</div>
-<div class="line"><span class="lineno">  240</span>    <span class="keyword">const</span> std::string task_name = tokens[1].text;</div>
-<div class="line"><span class="lineno">  241</span>    <span class="keyword">const</span> std::string charge_id = tokens[2].text;</div>
-<div class="line"><span class="lineno">  242</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> wll;</div>
-<div class="line"><span class="lineno">  243</span>    <span class="keywordflow">if</span> (!try_parse_ll(tokens[3].text, wll) || wll &lt;= 0) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;invalid weight in wt&quot;</span>);</div>
-<div class="line"><span class="lineno">  244</span>    <span class="comment">// Allow forward references; validation will check existence.</span></div>
-<div class="line"><span class="lineno">  245</span>    <span class="keyword">auto</span>&amp; task = world.tasks[task_name];</div>
-<div class="line"><span class="lineno">  246</span>    <span class="keywordflow">if</span> (task.name.empty()) task.name = task_name; <span class="comment">// placeholder if undeclared</span></div>
-<div class="line"><span class="lineno">  247</span>    task.weights[charge_id] += <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(wll);</div>
-<div class="line"><span class="lineno">  248</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  249</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00239">239</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  240</span>{</div>
+<div class="line"><span class="lineno">  241</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 4) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;wt requires: wt &lt;task_name&gt; &lt;charge_id&gt; &lt;weight&gt;&quot;</span>);</div>
+<div class="line"><span class="lineno">  242</span>    <span class="keyword">const</span> std::string task_name = tokens[1].text;</div>
+<div class="line"><span class="lineno">  243</span>    <span class="keyword">const</span> std::string charge_id = tokens[2].text;</div>
+<div class="line"><span class="lineno">  244</span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span> wll;</div>
+<div class="line"><span class="lineno">  245</span>    <span class="keywordflow">if</span> (!try_parse_ll(tokens[3].text, wll) || wll &lt;= 0) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;invalid weight in wt&quot;</span>);</div>
+<div class="line"><span class="lineno">  246</span>    <span class="comment">// Allow forward references; validation will check existence.</span></div>
+<div class="line"><span class="lineno">  247</span>    <span class="keyword">auto</span>&amp; task = world.tasks[task_name];</div>
+<div class="line"><span class="lineno">  248</span>    <span class="keywordflow">if</span> (task.name.empty()) task.name = task_name; <span class="comment">// placeholder if undeclared</span></div>
+<div class="line"><span class="lineno">  249</span>    task.weights[charge_id] += <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(wll);</div>
+<div class="line"><span class="lineno">  250</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  251</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

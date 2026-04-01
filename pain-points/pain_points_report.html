@@ -87,43 +87,53 @@
     <h2 id="-top-high-risk-functions-complex--untested"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-top-high-risk-functions-complex--untested"><span class="octicon octicon-link"></span></a>🚨 Top High Risk Functions (Complex + Untested)</h2>
     <ul>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/alloc.cpp#L13-L96"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/alloc.cpp#L13-L165"><code>ottr::allocate_weighted()</code></a></strong> in <code>src/alloc.cpp</code></p>
         <ul>
-          <li>Score: <strong>10022</strong></li>
-          <li>Complexity: <strong>26</strong> (above threshold value: 15)</li>
-          <li>Branch Coverage: <strong>78.0%</strong> (below threshold value: 80)</li>
-          <li>Line Coverage: <strong>100.0%</strong>)</li>
+          <li>Score: <strong>10021</strong></li>
+          <li>Complexity: <strong>45</strong> (above threshold value: 15)</li>
+          <li>Branch Coverage: <strong>79.8%</strong> (below threshold value: 80)</li>
+          <li>Line Coverage: <strong>95.0%</strong>)</li>
           <li>Critical findings: ``</li>
         </ul>
       </li>
       <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/main.cpp#L20-L95"><code>main()</code></a></strong> in <code>src/main.cpp</code></p>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/engine.cpp#L25-L195"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
         <ul>
-          <li>Score: <strong>6500</strong></li>
+          <li>Score: <strong>8124</strong></li>
+          <li>Complexity: <strong>37</strong> (above threshold value: 15)</li>
+          <li>Branch Coverage: <strong>76.4%</strong> (below threshold value: 80)</li>
+          <li>Line Coverage: <strong>89.1%</strong>)</li>
+          <li>Critical findings: <code>clang-diagnostic-unused-parameter</code></li>
+        </ul>
+      </li>
+      <li>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/main.cpp#L20-L97"><code>main()</code></a></strong> in <code>src/main.cpp</code></p>
+        <ul>
+          <li>Score: <strong>3700</strong></li>
           <li>Complexity: <strong>17</strong> (above threshold value: 15)</li>
           <li>Branch Coverage: <strong>0.0%</strong> (below threshold value: 80)</li>
           <li>Line Coverage: <strong>0.0%</strong> (below threshold value: 80)</li>
           <li>Critical findings: ``</li>
         </ul>
       </li>
-      <li>
-        <p><strong><a href="https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
-        <ul>
-          <li>Score: <strong>6425</strong></li>
-          <li>Complexity: <strong>17</strong> (above threshold value: 15)</li>
-          <li>Branch Coverage: <strong>75.0%</strong> (below threshold value: 80)</li>
-          <li>Line Coverage: <strong>85.3%</strong>)</li>
-          <li>Critical findings: <code>clang-diagnostic-unused-parameter</code></li>
-        </ul>
-      </li>
     </ul>
     <h2 id="-top-security-risk-functions-prioritized-by-coverage"><a class="anchor" aria-hidden="true" tabindex="-1" href="#-top-security-risk-functions-prioritized-by-coverage"><span class="octicon octicon-link"></span></a>🔒 Top Security Risk Functions (Prioritized by coverage)</h2>
     <ul>
-      <li><strong><a href="https://github.com/ruxven/ottr/blob/f546843934ed22eba419ac8bbc4f9027c8952e3e/src/engine.cpp#L20-L100"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code>
+      <li>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/options.cpp#L5-L8"><code>ottr::CalculationOptions::validate()</code></a></strong> in <code>src/options.cpp</code></p>
         <ul>
-          <li>Score: <strong>10075</strong></li>
-          <li>Branch Coverage: <strong>75.0%</strong></li>
-          <li>Line Coverage: <strong>85.3%</strong></li>
+          <li>Score: <strong>10100</strong></li>
+          <li>Branch Coverage: <strong>0.0%</strong></li>
+          <li>Line Coverage: <strong>100.0%</strong></li>
+          <li>Critical findings: <code>clang-diagnostic-unused-parameter</code></li>
+        </ul>
+      </li>
+      <li>
+        <p><strong><a href="https://github.com/ruxven/ottr/blob/5c299f13433c4d89958b44a62b8e3d164f280b65/src/engine.cpp#L25-L195"><code>ottr::process_world()</code></a></strong> in <code>src/engine.cpp</code></p>
+        <ul>
+          <li>Score: <strong>10076</strong></li>
+          <li>Branch Coverage: <strong>76.4%</strong></li>
+          <li>Line Coverage: <strong>89.1%</strong></li>
           <li>Critical findings: <code>clang-diagnostic-unused-parameter</code></li>
         </ul>
       </li>

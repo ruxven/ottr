@@ -164,8 +164,8 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00187">187</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  191</span>    : DirectiveParser(source_name, world, log) {}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00189">189</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  193</span>    : DirectiveParser(source_name, world, log) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,33 +206,33 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classottr_1_1DirectiveParser.html">ottr::DirectiveParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00265">265</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  266</span>{</div>
-<div class="line"><span class="lineno">  267</span>    <span class="keywordflow">if</span> (world.days.empty()) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;log before any day declared&quot;</span>);</div>
-<div class="line"><span class="lineno">  268</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 2) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;log requires: log &lt;time&gt; [&lt;task_or_charge&gt;] [\&quot;&lt;description&gt;\&quot;]&quot;</span>);</div>
-<div class="line"><span class="lineno">  269</span>    <span class="keywordtype">double</span> th;</div>
-<div class="line"><span class="lineno">  270</span>    <span class="keywordflow">if</span> (!try_parse_double(tokens[1].text, th)) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;invalid time in log&quot;</span>);</div>
-<div class="line"><span class="lineno">  271</span>    Tick t = hours_to_ticks(th);</div>
-<div class="line"><span class="lineno">  272</span>    <span class="keywordflow">if</span> (!world.current_day().logs.empty() &amp;&amp; !(world.current_day().logs.back().time_ticks &lt; t)) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;non-increasing log time&quot;</span>);</div>
-<div class="line"><span class="lineno">  273</span>    Log lg;</div>
-<div class="line"><span class="lineno">  274</span>    lg.time_ticks = t;</div>
-<div class="line"><span class="lineno">  275</span>    lg.line_no = line_no;</div>
-<div class="line"><span class="lineno">  276</span>    <span class="keywordflow">if</span> (tokens.size() &gt;= 3 &amp;&amp; !tokens[2].quoted) {</div>
-<div class="line"><span class="lineno">  277</span>        lg.ref_id = tokens[2].text;</div>
-<div class="line"><span class="lineno">  278</span>        <span class="comment">// classify later in validation or attempt now</span></div>
-<div class="line"><span class="lineno">  279</span>        <span class="keywordflow">if</span> (world.tasks.find(lg.ref_id) != world.tasks.end()) lg.kind = LogKind::Task;</div>
-<div class="line"><span class="lineno">  280</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (world.charges.find(lg.ref_id) != world.charges.end()) lg.kind = LogKind::Charge;</div>
-<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">else</span> lg.kind = LogKind::Task; <span class="comment">// default assume task; validator will catch if unknown</span></div>
-<div class="line"><span class="lineno">  282</span>        <span class="keywordflow">if</span> (tokens.size() &gt;= 4) {</div>
-<div class="line"><span class="lineno">  283</span>            <span class="keywordflow">if</span> (!tokens[3].quoted) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;log description must be quoted if present&quot;</span>);</div>
-<div class="line"><span class="lineno">  284</span>            lg.description = tokens[3].text;</div>
-<div class="line"><span class="lineno">  285</span>        }</div>
-<div class="line"><span class="lineno">  286</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  287</span>        lg.kind = LogKind::None;</div>
-<div class="line"><span class="lineno">  288</span>    }</div>
-<div class="line"><span class="lineno">  289</span>    world.current_day().logs.push_back(std::move(lg));</div>
-<div class="line"><span class="lineno">  290</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  291</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00267">267</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  268</span>{</div>
+<div class="line"><span class="lineno">  269</span>    <span class="keywordflow">if</span> (world.days.empty()) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;log before any day declared&quot;</span>);</div>
+<div class="line"><span class="lineno">  270</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 2) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;log requires: log &lt;time&gt; [&lt;task_or_charge&gt;] [\&quot;&lt;description&gt;\&quot;]&quot;</span>);</div>
+<div class="line"><span class="lineno">  271</span>    <span class="keywordtype">double</span> th;</div>
+<div class="line"><span class="lineno">  272</span>    <span class="keywordflow">if</span> (!try_parse_double(tokens[1].text, th)) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;invalid time in log&quot;</span>);</div>
+<div class="line"><span class="lineno">  273</span>    Tick t = hours_to_ticks(th);</div>
+<div class="line"><span class="lineno">  274</span>    <span class="keywordflow">if</span> (!world.current_day().logs.empty() &amp;&amp; !(world.current_day().logs.back().time_ticks &lt; t)) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;non-increasing log time&quot;</span>);</div>
+<div class="line"><span class="lineno">  275</span>    Log lg;</div>
+<div class="line"><span class="lineno">  276</span>    lg.time_ticks = t;</div>
+<div class="line"><span class="lineno">  277</span>    lg.line_no = line_no;</div>
+<div class="line"><span class="lineno">  278</span>    <span class="keywordflow">if</span> (tokens.size() &gt;= 3 &amp;&amp; !tokens[2].quoted) {</div>
+<div class="line"><span class="lineno">  279</span>        lg.ref_id = tokens[2].text;</div>
+<div class="line"><span class="lineno">  280</span>        <span class="comment">// classify later in validation or attempt now</span></div>
+<div class="line"><span class="lineno">  281</span>        <span class="keywordflow">if</span> (world.tasks.find(lg.ref_id) != world.tasks.end()) lg.kind = LogKind::Task;</div>
+<div class="line"><span class="lineno">  282</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (world.charges.find(lg.ref_id) != world.charges.end()) lg.kind = LogKind::Charge;</div>
+<div class="line"><span class="lineno">  283</span>        <span class="keywordflow">else</span> lg.kind = LogKind::Task; <span class="comment">// default assume task; validator will catch if unknown</span></div>
+<div class="line"><span class="lineno">  284</span>        <span class="keywordflow">if</span> (tokens.size() &gt;= 4) {</div>
+<div class="line"><span class="lineno">  285</span>            <span class="keywordflow">if</span> (!tokens[3].quoted) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;log description must be quoted if present&quot;</span>);</div>
+<div class="line"><span class="lineno">  286</span>            lg.description = tokens[3].text;</div>
+<div class="line"><span class="lineno">  287</span>        }</div>
+<div class="line"><span class="lineno">  288</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  289</span>        lg.kind = LogKind::None;</div>
+<div class="line"><span class="lineno">  290</span>    }</div>
+<div class="line"><span class="lineno">  291</span>    world.current_day().logs.push_back(std::move(lg));</div>
+<div class="line"><span class="lineno">  292</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  293</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

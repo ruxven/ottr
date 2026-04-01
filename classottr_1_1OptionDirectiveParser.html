@@ -164,8 +164,8 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00193">193</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  197</span>    : DirectiveParser(source_name, world, log) {}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00195">195</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  199</span>    : DirectiveParser(source_name, world, log) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,14 +206,40 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classottr_1_1DirectiveParser.html">ottr::DirectiveParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00293">293</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  294</span>{</div>
-<div class="line"><span class="lineno">  295</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 3) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;opt requires: opt &lt;key&gt; &lt;value&gt;&quot;</span>);</div>
-<div class="line"><span class="lineno">  296</span>    <span class="keyword">const</span> std::string opt_key = tokens[1].text;</div>
-<div class="line"><span class="lineno">  297</span>    <span class="keyword">const</span> std::string opt_value = tokens[2].text;</div>
-<div class="line"><span class="lineno">  298</span>    <span class="keyword">static</span> <span class="keyword">const</span> std::string valid_keys = {<span class="stringliteral">&quot;rounding&quot;</span>};</div>
-<div class="line"><span class="lineno">  299</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  300</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00295">295</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  296</span>{</div>
+<div class="line"><span class="lineno">  297</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 3) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;opt requires: opt &lt;key&gt; &lt;value&gt;&quot;</span>);</div>
+<div class="line"><span class="lineno">  298</span>    <span class="keyword">const</span> std::string opt_key = tokens[1].text;</div>
+<div class="line"><span class="lineno">  299</span>    <span class="keyword">const</span> std::string opt_value = tokens[2].text;</div>
+<div class="line"><span class="lineno">  300</span> </div>
+<div class="line"><span class="lineno">  301</span>    <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;rounding&quot;</span>) {</div>
+<div class="line"><span class="lineno">  302</span>        RoundingMode new_mode;</div>
+<div class="line"><span class="lineno">  303</span>        std::string error_msg;</div>
+<div class="line"><span class="lineno">  304</span>        <span class="keywordflow">if</span> (!CalculationOptions::parse_rounding(opt_value, new_mode, error_msg)) {</div>
+<div class="line"><span class="lineno">  305</span>            <span class="keywordflow">return</span> log.log_error(source_name, line_no, error_msg);</div>
+<div class="line"><span class="lineno">  306</span>        }</div>
+<div class="line"><span class="lineno">  307</span>        <span class="comment">// Check if rounding was already set</span></div>
+<div class="line"><span class="lineno">  308</span>        <span class="keywordflow">if</span> (world.options.rounding != RoundingMode::Truncate) {</div>
+<div class="line"><span class="lineno">  309</span>            std::cerr &lt;&lt; source_name &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; line_no &lt;&lt; <span class="stringliteral">&quot;: warning: rounding option specified twice, overriding previous value&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">  310</span>        }</div>
+<div class="line"><span class="lineno">  311</span>        world.options.rounding = new_mode;</div>
+<div class="line"><span class="lineno">  312</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  313</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;aggregation&quot;</span>) {</div>
+<div class="line"><span class="lineno">  314</span>        AggregationMode new_mode;</div>
+<div class="line"><span class="lineno">  315</span>        std::string error_msg;</div>
+<div class="line"><span class="lineno">  316</span>        <span class="keywordflow">if</span> (!CalculationOptions::parse_aggregation(opt_value, new_mode, error_msg)) {</div>
+<div class="line"><span class="lineno">  317</span>            <span class="keywordflow">return</span> log.log_error(source_name, line_no, error_msg);</div>
+<div class="line"><span class="lineno">  318</span>        }</div>
+<div class="line"><span class="lineno">  319</span>        <span class="comment">// Check if aggregation was already set</span></div>
+<div class="line"><span class="lineno">  320</span>        <span class="keywordflow">if</span> (world.options.aggregation != AggregationMode::PerEvent) {</div>
+<div class="line"><span class="lineno">  321</span>            std::cerr &lt;&lt; source_name &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; line_no &lt;&lt; <span class="stringliteral">&quot;: warning: aggregation option specified twice, overriding previous value&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">  322</span>        }</div>
+<div class="line"><span class="lineno">  323</span>        world.options.aggregation = new_mode;</div>
+<div class="line"><span class="lineno">  324</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  325</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  326</span>        <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;unknown option key: &#39;&quot;</span> + opt_key + <span class="stringliteral">&quot;&#39;. Valid keys: rounding, aggregation&quot;</span>);</div>
+<div class="line"><span class="lineno">  327</span>    }</div>
+<div class="line"><span class="lineno">  328</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

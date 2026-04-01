@@ -100,25 +100,28 @@ $(document).ready(function(){initNavTree('engine_8hpp_source.html',''); initResi
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;model.hpp&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>ottr {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="structottr_1_1EngineOptions.html">    7</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <a class="code hl_struct" href="structottr_1_1DateFilter.html">DateFilter</a> filter; <span class="comment">// date inclusion filter</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>};</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;options.hpp&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>ottr {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structottr_1_1EngineOptions.html">    8</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_struct" href="structottr_1_1DateFilter.html">DateFilter</a> filter;                    <span class="comment">// date inclusion filter</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_struct" href="structottr_1_1CalculationOptions.html">CalculationOptions</a> calc_options;      <span class="comment">// calculation configuration</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>};</div>
 </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment">// Process the world into aggregation according to SPEC/DESIGN.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// Returns false on error (currently none expected here), setting error_message.</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">bool</span> process_world(<span class="keyword">const</span> <a class="code hl_struct" href="structottr_1_1World.html">World</a>&amp; world, <span class="keyword">const</span> <a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a>&amp; opts, <a class="code hl_struct" href="structottr_1_1Aggregation.html">Aggregation</a>&amp; out, std::string&amp; error_message);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>} <span class="comment">// namespace ottr</span></div>
-<div class="ttc" id="astructottr_1_1Aggregation_html"><div class="ttname"><a href="structottr_1_1Aggregation.html">ottr::Aggregation</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00057">model.hpp:57</a></div></div>
-<div class="ttc" id="astructottr_1_1DateFilter_html"><div class="ttname"><a href="structottr_1_1DateFilter.html">ottr::DateFilter</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00069">model.hpp:69</a></div></div>
-<div class="ttc" id="astructottr_1_1EngineOptions_html"><div class="ttname"><a href="structottr_1_1EngineOptions.html">ottr::EngineOptions</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8hpp_source.html#l00007">engine.hpp:7</a></div></div>
-<div class="ttc" id="astructottr_1_1World_html"><div class="ttname"><a href="structottr_1_1World.html">ottr::World</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00048">model.hpp:48</a></div></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// Process the world into aggregation according to SPEC/DESIGN.</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// Returns false on error (currently none expected here), setting error_message.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keywordtype">bool</span> process_world(<span class="keyword">const</span> <a class="code hl_struct" href="structottr_1_1World.html">World</a>&amp; world, <span class="keyword">const</span> <a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a>&amp; opts, <a class="code hl_struct" href="structottr_1_1Aggregation.html">Aggregation</a>&amp; out, std::string&amp; error_message);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace ottr</span></div>
+<div class="ttc" id="astructottr_1_1Aggregation_html"><div class="ttname"><a href="structottr_1_1Aggregation.html">ottr::Aggregation</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00059">model.hpp:59</a></div></div>
+<div class="ttc" id="astructottr_1_1CalculationOptions_html"><div class="ttname"><a href="structottr_1_1CalculationOptions.html">ottr::CalculationOptions</a></div><div class="ttdef"><b>Definition</b> <a href="options_8hpp_source.html#l00020">options.hpp:20</a></div></div>
+<div class="ttc" id="astructottr_1_1DateFilter_html"><div class="ttname"><a href="structottr_1_1DateFilter.html">ottr::DateFilter</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00071">model.hpp:71</a></div></div>
+<div class="ttc" id="astructottr_1_1EngineOptions_html"><div class="ttname"><a href="structottr_1_1EngineOptions.html">ottr::EngineOptions</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8hpp_source.html#l00008">engine.hpp:8</a></div></div>
+<div class="ttc" id="astructottr_1_1World_html"><div class="ttname"><a href="structottr_1_1World.html">ottr::World</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00049">model.hpp:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

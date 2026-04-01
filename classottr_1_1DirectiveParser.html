@@ -179,13 +179,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00153">153</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  156</span>                          :</div>
-<div class="line"><span class="lineno">  157</span>source_name(source_name),</div>
-<div class="line"><span class="lineno">  158</span>world(world),</div>
-<div class="line"><span class="lineno">  159</span>log(log)</div>
-<div class="line"><span class="lineno">  160</span>{</div>
-<div class="line"><span class="lineno">  161</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00155">155</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  158</span>                          :</div>
+<div class="line"><span class="lineno">  159</span>source_name(source_name),</div>
+<div class="line"><span class="lineno">  160</span>world(world),</div>
+<div class="line"><span class="lineno">  161</span>log(log)</div>
+<div class="line"><span class="lineno">  162</span>{</div>
+<div class="line"><span class="lineno">  163</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -214,17 +214,17 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00302">302</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  302</span>                                                     {</div>
-<div class="line"><span class="lineno">  303</span>    <span class="keywordflow">if</span> (world.days.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  304</span>    <span class="keyword">const</span> Day&amp; current_day = world.current_day();</div>
-<div class="line"><span class="lineno">  305</span>    <span class="keywordflow">if</span> (current_day.logs.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  306</span>    <span class="keywordflow">if</span> (current_day.logs.back().kind != LogKind::None) {</div>
-<div class="line"><span class="lineno">  307</span>        log.log_error(source_name, lno, <span class="stringliteral">&quot;day started before previous day closed (missing final uncharged log)&quot;</span>);</div>
-<div class="line"><span class="lineno">  308</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  309</span>    }</div>
-<div class="line"><span class="lineno">  310</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  311</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00330">330</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  330</span>                                                     {</div>
+<div class="line"><span class="lineno">  331</span>    <span class="keywordflow">if</span> (world.days.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  332</span>    <span class="keyword">const</span> Day&amp; current_day = world.current_day();</div>
+<div class="line"><span class="lineno">  333</span>    <span class="keywordflow">if</span> (current_day.logs.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  334</span>    <span class="keywordflow">if</span> (current_day.logs.back().kind != LogKind::None) {</div>
+<div class="line"><span class="lineno">  335</span>        log.log_error(source_name, lno, <span class="stringliteral">&quot;day started before previous day closed (missing final uncharged log)&quot;</span>);</div>
+<div class="line"><span class="lineno">  336</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  337</span>    }</div>
+<div class="line"><span class="lineno">  338</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  339</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

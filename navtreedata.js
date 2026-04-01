@@ -41,8 +41,13 @@ var NAVTREE =
       [ "What is this?", "md_README.html#autotoc_md11", null ],
       [ "How do I use it?", "md_README.html#autotoc_md12", null ],
       [ "No really, how do I use it?", "md_README.html#autotoc_md13", null ],
-      [ "Building", "md_README.html#autotoc_md14", null ],
-      [ "TODO", "md_README.html#autotoc_md15", null ]
+      [ "Configuration Options", "md_README.html#autotoc_md14", [
+        [ "Rounding Mode", "md_README.html#autotoc_md15", null ],
+        [ "Aggregation Mode", "md_README.html#autotoc_md16", null ],
+        [ "Example Configuration", "md_README.html#autotoc_md17", null ]
+      ] ],
+      [ "Building", "md_README.html#autotoc_md18", null ],
+      [ "TODO", "md_README.html#autotoc_md19", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

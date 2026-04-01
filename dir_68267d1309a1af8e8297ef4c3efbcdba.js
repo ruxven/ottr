@@ -9,6 +9,8 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "main.cpp", "main_8cpp_source.html", null ],
     [ "model.cpp", "model_8cpp_source.html", null ],
     [ "model.hpp", "model_8hpp_source.html", null ],
+    [ "options.cpp", "options_8cpp_source.html", null ],
+    [ "options.hpp", "options_8hpp_source.html", null ],
     [ "parser.cpp", "parser_8cpp_source.html", null ],
     [ "parser.hpp", "parser_8hpp_source.html", null ],
     [ "report.cpp", "report_8cpp_source.html", null ],

@@ -170,36 +170,38 @@ $(document).ready(function(){initNavTree('main_8cpp_source.html',''); initResiza
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_struct" href="structottr_1_1Aggregation.html">Aggregation</a> agg;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a> opts; opts.filter = filter;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::string err_str;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span> (!process_world(world, opts, agg, err_str)) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        std::cerr &lt;&lt; err_str &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// Always render full table</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    std::cout &lt;&lt; render_full_table(world, agg);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">// If single-day filter, render compact table</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">if</span> (filter.has_start &amp;&amp; !filter.has_end) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="comment">// Find the date object in agg.dates_in_order that matches start</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; d : agg.dates_in_order) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">if</span> (d.ord == filter.start.ord) {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span> &lt;&lt; render_single_day_table(world, agg, d);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            }</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    }</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a> opts;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    opts.filter = filter;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    opts.calc_options = world.options;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::string err_str;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> (!process_world(world, opts, agg, err_str)) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        std::cerr &lt;&lt; err_str &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">// Always render full table</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    std::cout &lt;&lt; render_full_table(world, agg);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// If single-day filter, render compact table</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">if</span> (filter.has_start &amp;&amp; !filter.has_end) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="comment">// Find the date object in agg.dates_in_order that matches start</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; d : agg.dates_in_order) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">if</span> (d.ord == filter.start.ord) {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span> &lt;&lt; render_single_day_table(world, agg, d);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
 <div class="ttc" id="aclassottr_1_1ParserLogger_html"><div class="ttname"><a href="classottr_1_1ParserLogger.html">ottr::ParserLogger</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8hpp_source.html#l00011">parser.hpp:11</a></div></div>
 <div class="ttc" id="aclassottr_1_1Validator_html"><div class="ttname"><a href="classottr_1_1Validator.html">ottr::Validator</a></div><div class="ttdef"><b>Definition</b> <a href="validate_8hpp_source.html#l00007">validate.hpp:7</a></div></div>
-<div class="ttc" id="astructottr_1_1Aggregation_html"><div class="ttname"><a href="structottr_1_1Aggregation.html">ottr::Aggregation</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00057">model.hpp:57</a></div></div>
-<div class="ttc" id="astructottr_1_1DateFilter_html"><div class="ttname"><a href="structottr_1_1DateFilter.html">ottr::DateFilter</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00069">model.hpp:69</a></div></div>
-<div class="ttc" id="astructottr_1_1Date_html"><div class="ttname"><a href="structottr_1_1Date.html">ottr::Date</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00012">model.hpp:12</a></div></div>
-<div class="ttc" id="astructottr_1_1EngineOptions_html"><div class="ttname"><a href="structottr_1_1EngineOptions.html">ottr::EngineOptions</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8hpp_source.html#l00007">engine.hpp:7</a></div></div>
-<div class="ttc" id="astructottr_1_1World_html"><div class="ttname"><a href="structottr_1_1World.html">ottr::World</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00048">model.hpp:48</a></div></div>
+<div class="ttc" id="astructottr_1_1Aggregation_html"><div class="ttname"><a href="structottr_1_1Aggregation.html">ottr::Aggregation</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00059">model.hpp:59</a></div></div>
+<div class="ttc" id="astructottr_1_1DateFilter_html"><div class="ttname"><a href="structottr_1_1DateFilter.html">ottr::DateFilter</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00071">model.hpp:71</a></div></div>
+<div class="ttc" id="astructottr_1_1Date_html"><div class="ttname"><a href="structottr_1_1Date.html">ottr::Date</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00013">model.hpp:13</a></div></div>
+<div class="ttc" id="astructottr_1_1EngineOptions_html"><div class="ttname"><a href="structottr_1_1EngineOptions.html">ottr::EngineOptions</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8hpp_source.html#l00008">engine.hpp:8</a></div></div>
+<div class="ttc" id="astructottr_1_1World_html"><div class="ttname"><a href="structottr_1_1World.html">ottr::World</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00049">model.hpp:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
