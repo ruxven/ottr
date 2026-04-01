@@ -140,6 +140,67 @@ ottr my_timecard-2025.09.01.txt 09/03
 | Total   |   4.0 |
 ```
 
+## Configuration Options
+
+OTTR supports configuration options that control how timecard values are calculated. Options are specified using the `opt` directive in the timecard file.
+
+### Rounding Mode
+
+Controls how base allocations are rounded before remainder distribution.
+
+```
+opt rounding <mode>
+```
+
+Supported modes:
+- `truncate` (default): Floor division (e.g., 3.7 → 3)
+- `round`: Standard rounding (e.g., 3.5 → 4, 3.4 → 3)
+- `ceil`: Ceiling division (e.g., 3.1 → 4)
+
+Example:
+```
+opt rounding round
+```
+
+When rounding causes allocations to exceed the slice total, the negative remainder is subtracted from lowest-priority charges.
+
+### Aggregation Mode
+
+Controls when task-based allocations are computed.
+
+```
+opt aggregation <mode>
+```
+
+Supported modes:
+- `per_event` (default): Allocate each task slice immediately as it is encountered
+- `per_day`: Accumulate all slices for each task within a day, then allocate the total at day end. Preserves audit trail by processing tasks in sequence.
+- `off`: Explicit alias for `per_event`
+
+Example:
+```
+opt aggregation per_day
+```
+
+### Example Configuration
+
+```
+cn 1234.a "Project A" 100.0
+cn 1234.b "Project B" 100.0
+
+opt rounding round
+opt aggregation per_day
+
+task mytask "My Task"
+wt mytask 1234.a 1
+wt mytask 1234.b 1
+
+day 09/02
+log 08.0
+log 10.0 mytask
+log 17.0
+```
+
 ## Building
 
 `ottr` is built using CMake and can be installed locally:
@@ -152,12 +213,19 @@ make
 cp ottr ~/.local/bin/ottr
 ```
 
+Or using Docker:
+
+```
+docker build -t ottr-dev .
+docker run --rm -v $(pwd):/workspace ottr-dev bash -c "cd /workspace/ottr/build && cmake .. && make"
+```
+
 ## TODO
 
-- Add configuration options
-- Summarize task data charges per day or per event.
+- ✅ Add configuration options (rounding and aggregation modes)
+- ✅ Configure rounding to either truncation, normal rounding, or ceiling
+- ✅ Summarize task data charges per day or per event (aggregation modes)
 - Generate a timecard using a specified date range.
-- Configure rounding to either truncation, normal rounding, or cieling
 - Handle cases where decihours need to be deducted from total time on task for event or day.
 - Audit mode: show the per-day allocation and remainder assignments per event or per day.
 - Display uncharged tasks in output for timecard

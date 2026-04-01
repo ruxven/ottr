@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
+#include "options.hpp"
 
 namespace ottr {
 
@@ -49,6 +50,7 @@ struct World {
     std::unordered_map<std::string, ChargeNumber> charges; // id -> charge
     std::unordered_map<std::string, Task> tasks;            // name -> task
     std::vector<Day> days;                                  // in file order
+    CalculationOptions options;                             // calculation configuration
 
     Day& current_day();
 };

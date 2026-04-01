@@ -1,11 +1,13 @@
 #pragma once
 #include "model.hpp"
+#include "options.hpp"
 #include <string>
 
 namespace ottr {
 
 struct EngineOptions {
-    DateFilter filter; // date inclusion filter
+    DateFilter filter;                    // date inclusion filter
+    CalculationOptions calc_options;      // calculation configuration
 };
 
 // Process the world into aggregation according to SPEC/DESIGN.

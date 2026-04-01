@@ -59,8 +59,22 @@ Directives
   - Special case: a task without any weights (or a literal task name "nc") is treated as uncharged.
 
 - Options (opt):
-  - Syntax: opt <key> <value>
-  - Rounding: truncation, rounding, cieling
+   - Syntax: opt <key> <value>
+   - Applies configuration to the entire timecard. Options may appear anywhere in the file.
+   - If an option is specified multiple times, the last value wins and a warning is printed.
+   - Invalid option keys or values cause a parsing error and exit with non-zero status.
+   - Supported options:
+     - rounding <mode>: Controls how base allocations are rounded before remainder distribution.
+       - truncate (default): Floor division (e.g., 3.7 → 3)
+       - round: Standard rounding (e.g., 3.5 → 4, 3.4 → 3)
+       - ceil: Ceiling division (e.g., 3.1 → 4)
+       - When rounding causes allocations to exceed the slice total, the negative remainder is subtracted from lowest-priority charges.
+     - aggregation <mode>: Controls when task-based allocations are computed.
+       - per_event (default): Allocate each task slice immediately as it is encountered.
+       - per_day: Accumulate all slices for each task within a day, then allocate the total at day end. Preserves audit trail by processing tasks in order.
+       - off: Explicit alias for per_event (no aggregation).
+   - Example: opt rounding round
+   - Example: opt aggregation per_day
 
 Semantics and computation
 - Time slicing:
@@ -68,26 +82,38 @@ Semantics and computation
   - The slice is associated with L[i]’s task/charge (if present) or is uncharged (if absent or if the task has no weights or equals nc).
 
 - Aggregation scope:
-  - Compute per-day, per-charge-number allocated hours for all days included by the CLI date filter (or all days if no filter).
-  - The per-charge "Total" is the sum of allocated hours across the included days only.
-  - The per-charge "Rem" is defined as (declared hours) - (per-charge Total). If a charge number is not declared (e.g., referenced by log but missing cn), this is an error.
+   - Compute per-day, per-charge-number allocated hours for all days included by the CLI date filter (or all days if no filter).
+   - The per-charge "Total" is the sum of allocated hours across the included days only.
+   - The per-charge "Rem" is defined as (declared hours) - (per-charge Total). If a charge number is not declared (e.g., referenced by log but missing cn), this is an error.
+   - Aggregation timing (controlled by opt aggregation):
+     - per_event (default): Each task slice is allocated immediately upon encountering its log entry.
+     - per_day: All slices for a given task within a single day are accumulated, then allocated once at the end of the day. Direct charge logs are allocated immediately. This preserves an audit trail showing tasks processed in sequence.
+     - off: Alias for per_event.
 
 - Weighted allocation for task-based slices:
-  - Let duration D (in hours) and task T have weights { (cn_j, w_j) } with W = sum(w_j).
-  - The ideal (continuous) share for cn_j is S_j = D * w_j / W.
-  - All allocations are performed in integer ticks of 0.1 hours to avoid floating-point drift:
-    - ticks_total = round(D * 10) if the implementation wishes to support nearest rounding, or floor(D * 10) if truncation is desired. Required: use floor to exactly match tenth-hour accounting, i.e., ticks_total = floor(D * 10 + 1e-9).
-    - base_ticks_j = floor(S_j * 10 + 1e-9).
-    - allocated_ticks = sum(base_ticks_j).
-    - remainder = ticks_total - allocated_ticks.
-  - Remainder distribution (repeat while remainder > 0):
-    1) Consider only charge numbers in the task (cn_j).
-    2) Rank by priority (higher numeric priority first; default 0).
-    3) Break ties by larger remaining budget hours: (cn_j.hours - charged_to_date_j). If no budgets differ, continue.
-    4) Break ties by larger fractional remainder of S_j*10 - base_ticks_j.
-    5) Final tie-break: lexicographically smaller charge id.
-    - Grant one tick (0.1h) to the highest-ranked charge number; decrement remainder and repeat.
-  - The final allocated hours for cn_j is allocated_ticks_j / 10.0.
+   - Let duration D (in hours) and task T have weights { (cn_j, w_j) } with W = sum(w_j).
+   - The ideal (continuous) share for cn_j is S_j = D * w_j / W.
+   - All allocations are performed in integer ticks of 0.1 hours to avoid floating-point drift:
+     - ticks_total = floor(D * 10 + 1e-9) (always floor, regardless of rounding mode).
+     - base_ticks_j is computed based on the rounding mode (opt rounding):
+       - truncate (default): base_ticks_j = floor(S_j * 10)
+       - round: base_ticks_j = round(S_j * 10) = floor(S_j * 10 + 0.5)
+       - ceil: base_ticks_j = ceil(S_j * 10) = floor(S_j * 10 + 1 - epsilon)
+     - allocated_ticks = sum(base_ticks_j).
+     - remainder = ticks_total - allocated_ticks (may be negative if rounding overshoots).
+   - Remainder distribution:
+     - If remainder > 0: Distribute one tick at a time to highest-priority charges (repeat while remainder > 0).
+     - If remainder < 0: Subtract one tick at a time from lowest-priority charges (repeat while remainder < 0).
+     - Ranking (for positive remainder):
+       1) Consider only charge numbers in the task (cn_j).
+       2) Rank by priority (higher numeric priority first; default 0).
+       3) Break ties by larger remaining budget hours: (cn_j.hours - charged_to_date_j). If no budgets differ, continue.
+       4) Break ties by larger fractional remainder of S_j*10 - base_ticks_j.
+       5) Final tie-break: lexicographically smaller charge id.
+     - Ranking (for negative remainder):
+       1) Same as above, but in reverse: lower priority first, smaller remaining budget, smaller fractional remainder.
+     - Grant/subtract one tick to/from the highest/lowest-ranked charge number; update remainder and repeat.
+   - The final allocated hours for cn_j is allocated_ticks_j / 10.0.
 
 - Direct charge allocation for charge-based slices:
   - If a log references a charge number id directly, allocate the entire slice to that charge number using ticks_total = floor(D*10 + 1e-9) and no weighting. Any fractional remainder < 0.1h is dropped.

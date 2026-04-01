@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "model.hpp"
+#include "options.hpp"
 
 namespace ottr {
 
@@ -23,6 +24,8 @@ struct AllocationRequest {
 };
 
 // Weighted allocation per DESIGN: integer division + remainder distribution.
-std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& req);
+// Applies rounding mode to base allocations and distributes remainder.
+std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& req,
+                                                      RoundingMode rounding = RoundingMode::Truncate);
 
 } // namespace ottr

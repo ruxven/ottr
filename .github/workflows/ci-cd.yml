@@ -75,7 +75,7 @@ jobs:
         # Merge profile data
         llvm-profdata merge -sparse coverage-*.profraw -o coverage.profdata
         # Find test executables
-        TEST_BINARIES=$(find . -name "*test*" -type f -perm -111 | tr '\n' ' ')
+        TEST_BINARIES=$(find bin -name "*test*" -type f -perm -111 | tr '\n' ' ')
         # Generate coverage report (text)
         llvm-cov show $TEST_BINARIES -instr-profile=coverage.profdata -format=text > coverage.txt
         llvm-cov report $TEST_BINARIES -instr-profile=coverage.profdata

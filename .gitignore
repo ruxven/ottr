@@ -1,2 +1,10 @@
 build
 *.orig
+
+
+*.sarif
+complexity-reports/
+*.json
+reports/
+html/
+pain_points_report.*

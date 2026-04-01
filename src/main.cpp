@@ -70,7 +70,9 @@ int main(int argc, char** argv) {
     }
 
     Aggregation agg;
-    EngineOptions opts; opts.filter = filter;
+    EngineOptions opts;
+    opts.filter = filter;
+    opts.calc_options = world.options;
     std::string err_str;
     if (!process_world(world, opts, agg, err_str)) {
         std::cerr << err_str << "\n";

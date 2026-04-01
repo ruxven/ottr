@@ -1,9 +1,11 @@
 #include "parser.hpp"
 #include "model.hpp"
 #include "util.hpp"
+#include "options.hpp"
 #include <fstream>
 #include <sstream>
 #include <cctype>
+#include <iostream>
 
 namespace ottr {
 
@@ -295,8 +297,34 @@ bool OptionDirectiveParser::parse(const int line_no, const std::vector<Token>& t
     if (tokens.size() < 3) return log.log_error(source_name, line_no, "opt requires: opt <key> <value>");
     const std::string opt_key = tokens[1].text;
     const std::string opt_value = tokens[2].text;
-    static const std::string valid_keys = {"rounding"};
-    return true;
+
+    if (opt_key == "rounding") {
+        RoundingMode new_mode;
+        std::string error_msg;
+        if (!CalculationOptions::parse_rounding(opt_value, new_mode, error_msg)) {
+            return log.log_error(source_name, line_no, error_msg);
+        }
+        // Check if rounding was already set
+        if (world.options.rounding != RoundingMode::Truncate) {
+            std::cerr << source_name << ":" << line_no << ": warning: rounding option specified twice, overriding previous value" << std::endl;
+        }
+        world.options.rounding = new_mode;
+        return true;
+    } else if (opt_key == "aggregation") {
+        AggregationMode new_mode;
+        std::string error_msg;
+        if (!CalculationOptions::parse_aggregation(opt_value, new_mode, error_msg)) {
+            return log.log_error(source_name, line_no, error_msg);
+        }
+        // Check if aggregation was already set
+        if (world.options.aggregation != AggregationMode::PerEvent) {
+            std::cerr << source_name << ":" << line_no << ": warning: aggregation option specified twice, overriding previous value" << std::endl;
+        }
+        world.options.aggregation = new_mode;
+        return true;
+    } else {
+        return log.log_error(source_name, line_no, "unknown option key: '" + opt_key + "'. Valid keys: rounding, aggregation");
+    }
 }
 
 bool DirectiveParser::ensure_day_closed(const int lno) {
