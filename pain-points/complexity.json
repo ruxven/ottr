@@ -1,5 +1,79 @@
 [
   {
+    "filename": "src/alloc.cpp",
+    "function_list": [
+      {
+        "name": "ottr::allocate_weighted",
+        "cyclomatic_complexity": 45,
+        "start_line": 13,
+        "end_line": 165,
+        "nloc": 121,
+        "token_count": 997,
+        "parameter_count": 2
+      }
+    ]
+  },
+  {
+    "filename": "src/engine.cpp",
+    "function_list": [
+      {
+        "name": "ottr::add_allocation",
+        "cyclomatic_complexity": 2,
+        "start_line": 18,
+        "end_line": 23,
+        "nloc": 6,
+        "token_count": 65,
+        "parameter_count": 4
+      },
+      {
+        "name": "ottr::process_world",
+        "cyclomatic_complexity": 37,
+        "start_line": 25,
+        "end_line": 195,
+        "nloc": 138,
+        "token_count": 1256,
+        "parameter_count": 4
+      }
+    ]
+  },
+  {
+    "filename": "src/main.cpp",
+    "function_list": [
+      {
+        "name": "print_usage",
+        "cyclomatic_complexity": 1,
+        "start_line": 13,
+        "end_line": 18,
+        "nloc": 6,
+        "token_count": 37,
+        "parameter_count": 1
+      },
+      {
+        "name": "main",
+        "cyclomatic_complexity": 17,
+        "start_line": 20,
+        "end_line": 97,
+        "nloc": 66,
+        "token_count": 491,
+        "parameter_count": 2
+      }
+    ]
+  },
+  {
+    "filename": "src/util.hpp",
+    "function_list": [
+      {
+        "name": "ottr::hours_to_ticks",
+        "cyclomatic_complexity": 1,
+        "start_line": 12,
+        "end_line": 17,
+        "nloc": 5,
+        "token_count": 46,
+        "parameter_count": 1
+      }
+    ]
+  },
+  {
     "filename": "src/util.cpp",
     "function_list": [
       {
@@ -32,70 +106,57 @@
     ]
   },
   {
-    "filename": "src/validate.cpp",
+    "filename": "src/options.cpp",
     "function_list": [
       {
-        "name": "ottr::Validator::validate_world",
-        "cyclomatic_complexity": 15,
-        "start_line": 7,
-        "end_line": 50,
-        "nloc": 38,
-        "token_count": 339,
-        "parameter_count": 2
-      },
-      {
-        "name": "ottr::Validator::log_debug",
+        "name": "ottr::CalculationOptions::validate",
         "cyclomatic_complexity": 1,
-        "start_line": 52,
-        "end_line": 57,
-        "nloc": 6,
-        "token_count": 60,
-        "parameter_count": 3
-      },
-      {
-        "name": "ottr::Validator::log_error",
-        "cyclomatic_complexity": 1,
-        "start_line": 58,
-        "end_line": 63,
-        "nloc": 6,
-        "token_count": 60,
-        "parameter_count": 3
-      },
-      {
-        "name": "ottr::Validator::get_errors",
-        "cyclomatic_complexity": 1,
-        "start_line": 65,
-        "end_line": 67,
+        "start_line": 5,
+        "end_line": 8,
         "nloc": 3,
-        "token_count": 10,
-        "parameter_count": 0
-      },
-      {
-        "name": "ottr::Validator::get_debug",
-        "cyclomatic_complexity": 1,
-        "start_line": 69,
-        "end_line": 71,
-        "nloc": 3,
-        "token_count": 10,
-        "parameter_count": 0
-      },
-      {
-        "name": "ottr::Validator::empty_err",
-        "cyclomatic_complexity": 1,
-        "start_line": 73,
-        "end_line": 75,
-        "nloc": 3,
-        "token_count": 15,
-        "parameter_count": 0
-      },
-      {
-        "name": "ottr::Validator::find_err",
-        "cyclomatic_complexity": 3,
-        "start_line": 77,
-        "end_line": 88,
-        "nloc": 12,
-        "token_count": 76,
+        "token_count": 16,
         "parameter_count": 1
+      },
+      {
+        "name": "ottr::CalculationOptions::parse_rounding",
+        "cyclomatic_complexity": 4,
+        "start_line": 10,
+        "end_line": 27,
+        "nloc": 18,
+        "token_count": 90,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::CalculationOptions::parse_aggregation",
+        "cyclomatic_complexity": 4,
+        "start_line": 29,
+        "end_line": 46,
+        "nloc": 18,
+        "token_count": 90,
+        "parameter_count": 3
+      }
+    ]
+  },
+  {
+    "filename": "src/model.cpp",
+    "function_list": [
+      {
+        "name": "ottr::DateFilter::includes",
+        "cyclomatic_complexity": 8,
+        "start_line": 5,
+        "end_line": 10,
+        "nloc": 6,
+        "token_count": 72,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::World::current_day",
+        "cyclomatic_complexity": 1,
+        "start_line": 12,
+        "end_line": 14,
+        "nloc": 3,
+        "token_count": 14,
+        "parameter_count": 0
       }
     ]
   },
@@ -209,29 +270,6 @@
     ]
   },
   {
-    "filename": "src/engine.cpp",
-    "function_list": [
-      {
-        "name": "ottr::add_allocation",
-        "cyclomatic_complexity": 2,
-        "start_line": 18,
-        "end_line": 23,
-        "nloc": 6,
-        "token_count": 65,
-        "parameter_count": 4
-      },
-      {
-        "name": "ottr::process_world",
-        "cyclomatic_complexity": 37,
-        "start_line": 25,
-        "end_line": 195,
-        "nloc": 138,
-        "token_count": 1256,
-        "parameter_count": 4
-      }
-    ]
-  },
-  {
     "filename": "src/aggregator.hpp",
     "function_list": [
       {
@@ -251,112 +289,6 @@
         "nloc": 1,
         "token_count": 9,
         "parameter_count": 0
-      }
-    ]
-  },
-  {
-    "filename": "src/main.cpp",
-    "function_list": [
-      {
-        "name": "print_usage",
-        "cyclomatic_complexity": 1,
-        "start_line": 13,
-        "end_line": 18,
-        "nloc": 6,
-        "token_count": 37,
-        "parameter_count": 1
-      },
-      {
-        "name": "main",
-        "cyclomatic_complexity": 17,
-        "start_line": 20,
-        "end_line": 97,
-        "nloc": 66,
-        "token_count": 491,
-        "parameter_count": 2
-      }
-    ]
-  },
-  {
-    "filename": "src/util.hpp",
-    "function_list": [
-      {
-        "name": "ottr::hours_to_ticks",
-        "cyclomatic_complexity": 1,
-        "start_line": 12,
-        "end_line": 17,
-        "nloc": 5,
-        "token_count": 46,
-        "parameter_count": 1
-      }
-    ]
-  },
-  {
-    "filename": "src/model.cpp",
-    "function_list": [
-      {
-        "name": "ottr::DateFilter::includes",
-        "cyclomatic_complexity": 8,
-        "start_line": 5,
-        "end_line": 10,
-        "nloc": 6,
-        "token_count": 72,
-        "parameter_count": 1
-      },
-      {
-        "name": "ottr::World::current_day",
-        "cyclomatic_complexity": 1,
-        "start_line": 12,
-        "end_line": 14,
-        "nloc": 3,
-        "token_count": 14,
-        "parameter_count": 0
-      }
-    ]
-  },
-  {
-    "filename": "src/options.cpp",
-    "function_list": [
-      {
-        "name": "ottr::CalculationOptions::validate",
-        "cyclomatic_complexity": 1,
-        "start_line": 5,
-        "end_line": 8,
-        "nloc": 3,
-        "token_count": 16,
-        "parameter_count": 1
-      },
-      {
-        "name": "ottr::CalculationOptions::parse_rounding",
-        "cyclomatic_complexity": 4,
-        "start_line": 10,
-        "end_line": 27,
-        "nloc": 18,
-        "token_count": 90,
-        "parameter_count": 3
-      },
-      {
-        "name": "ottr::CalculationOptions::parse_aggregation",
-        "cyclomatic_complexity": 4,
-        "start_line": 29,
-        "end_line": 46,
-        "nloc": 18,
-        "token_count": 90,
-        "parameter_count": 3
-      }
-    ]
-  },
-  {
-    "filename": "src/alloc.cpp",
-    "function_list": [
-      {
-        "name": "ottr::allocate_weighted",
-        "cyclomatic_complexity": 45,
-        "start_line": 13,
-        "end_line": 165,
-        "nloc": 121,
-        "token_count": 997,
-        "parameter_count": 2
       }
     ]
   },
@@ -568,6 +500,74 @@
         "end_line": 339,
         "nloc": 10,
         "token_count": 82,
+        "parameter_count": 1
+      }
+    ]
+  },
+  {
+    "filename": "src/validate.cpp",
+    "function_list": [
+      {
+        "name": "ottr::Validator::validate_world",
+        "cyclomatic_complexity": 15,
+        "start_line": 7,
+        "end_line": 50,
+        "nloc": 38,
+        "token_count": 339,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::Validator::log_debug",
+        "cyclomatic_complexity": 1,
+        "start_line": 52,
+        "end_line": 57,
+        "nloc": 6,
+        "token_count": 60,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::Validator::log_error",
+        "cyclomatic_complexity": 1,
+        "start_line": 58,
+        "end_line": 63,
+        "nloc": 6,
+        "token_count": 60,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::Validator::get_errors",
+        "cyclomatic_complexity": 1,
+        "start_line": 65,
+        "end_line": 67,
+        "nloc": 3,
+        "token_count": 10,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::Validator::get_debug",
+        "cyclomatic_complexity": 1,
+        "start_line": 69,
+        "end_line": 71,
+        "nloc": 3,
+        "token_count": 10,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::Validator::empty_err",
+        "cyclomatic_complexity": 1,
+        "start_line": 73,
+        "end_line": 75,
+        "nloc": 3,
+        "token_count": 15,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::Validator::find_err",
+        "cyclomatic_complexity": 3,
+        "start_line": 77,
+        "end_line": 88,
+        "nloc": 12,
+        "token_count": 76,
         "parameter_count": 1
       }
     ]
