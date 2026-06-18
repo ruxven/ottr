@@ -2,7 +2,7 @@
 
 namespace ottr {
 
-bool CalculationOptions::validate(std::string& error_message) const {
+bool CalculationOptions::validate([[maybe_unused]] std::string& error_message) const {
   // All enum values are valid by construction, so validation always passes
   return true;
 }

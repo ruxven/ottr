@@ -6,7 +6,7 @@
 
 namespace ottr {
 
-class Day;
+struct Day;
 
 class ParserLogger {
 public:

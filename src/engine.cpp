@@ -22,7 +22,7 @@ static void add_allocation(Aggregation& agg, const Date& d, const std::string& c
     agg.totals_by_day[d.raw] += ticks;
 }
 
-bool process_world(const World& world, const EngineOptions& opts, Aggregation& out, std::string& error_message) {
+bool process_world(const World& world, const EngineOptions& opts, Aggregation& out, [[maybe_unused]] std::string& error_message) {
     out = Aggregation{};
 
     // Build list of included dates in order
