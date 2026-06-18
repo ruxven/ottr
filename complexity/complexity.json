@@ -263,7 +263,7 @@
         "start_line": 25,
         "end_line": 195,
         "nloc": 138,
-        "token_count": 1256,
+        "token_count": 1261,
         "parameter_count": 4
       }
     ]
@@ -526,7 +526,7 @@
         "start_line": 5,
         "end_line": 8,
         "nloc": 3,
-        "token_count": 16,
+        "token_count": 21,
         "parameter_count": 1
       },
       {

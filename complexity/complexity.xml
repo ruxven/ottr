@@ -152,7 +152,7 @@
 			<value>6</value>
 			<value>2</value>
 		</item>
-		<item name="ottr::process_world( const World &amp; world , const EngineOptions &amp; opts , Aggregation &amp; out , std :: string &amp; error_message) at src/engine.cpp:25">
+		<item name="ottr::process_world( const World &amp; world , const EngineOptions &amp; opts , Aggregation &amp; out , [ [ maybe_unused ] ] std :: string &amp; error_message) at src/engine.cpp:25">
 			<value>26</value>
 			<value>138</value>
 			<value>37</value>
@@ -297,7 +297,7 @@
 		<average label="CCN" value="5.096153846153846"/>
 		<average label="NCSS" value="15.961538461538462"/>
 		<average label="CCN" value="5.096153846153846"/>
-		<item name="ottr::CalculationOptions::validate( std :: string &amp; error_message) const at src/options.cpp:5">
+		<item name="ottr::CalculationOptions::validate( [ [ maybe_unused ] ] std :: string &amp; error_message) const at src/options.cpp:5">
 			<value>53</value>
 			<value>3</value>
 			<value>1</value>
