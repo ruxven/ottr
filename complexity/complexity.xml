@@ -7,325 +7,327 @@
 			<label>NCSS</label>
 			<label>CCN</label>
 		</labels>
-		<item name="ottr::CalculationOptions::validate( [ [ maybe_unused ] ] std :: string &amp; error_message) const at src/options.cpp:5">
-			<value>1</value>
-			<value>3</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::CalculationOptions::parse_rounding( const std :: string &amp; s , RoundingMode &amp; out , std :: string &amp; error_message) at src/options.cpp:10">
-			<value>2</value>
-			<value>18</value>
-			<value>4</value>
-		</item>
-		<item name="ottr::CalculationOptions::parse_aggregation( const std :: string &amp; s , AggregationMode &amp; out , std :: string &amp; error_message) at src/options.cpp:29">
-			<value>3</value>
-			<value>18</value>
-			<value>4</value>
-		</item>
-		<average label="NCSS" value="13.0"/>
-		<average label="CCN" value="3.0"/>
-		<average label="NCSS" value="13.0"/>
-		<average label="CCN" value="3.0"/>
-		<average label="NCSS" value="13.0"/>
-		<average label="CCN" value="3.0"/>
-		<item name="ottr::Aggregator::dates() const at src/aggregator.hpp:14">
-			<value>4</value>
-			<value>1</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::Aggregator::snapshot() const at src/aggregator.hpp:16">
-			<value>5</value>
-			<value>1</value>
-			<value>1</value>
-		</item>
-		<average label="NCSS" value="8.2"/>
-		<average label="CCN" value="2.2"/>
-		<item name="ottr::parse_mmdd( const std :: string &amp; s , Date &amp; out) at src/util.cpp:8">
-			<value>6</value>
-			<value>17</value>
-			<value>12</value>
-		</item>
-		<item name="ottr::try_parse_double( const std :: string &amp; s , double &amp; out) at src/util.cpp:27">
-			<value>7</value>
-			<value>5</value>
-			<value>2</value>
-		</item>
-		<item name="ottr::try_parse_ll( const std :: string &amp; s , long long &amp; out) at src/util.cpp:33">
-			<value>8</value>
-			<value>5</value>
-			<value>2</value>
-		</item>
-		<average label="NCSS" value="8.5"/>
-		<average label="CCN" value="3.375"/>
-		<item name="ottr::sorted_charge_ids( const World &amp; world) at src/report.cpp:10">
-			<value>9</value>
-			<value>7</value>
-			<value>2</value>
-		</item>
-		<item name="ottr::ticks_to_fixed( Tick t) at src/report.cpp:18">
-			<value>10</value>
-			<value>5</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::compute_widths( const World &amp; world , const Aggregation &amp; agg , std :: map&lt;std::string,size_t&gt; &amp; colw , std :: vector&lt;std::string&gt; &amp; headers) at src/report.cpp:24">
-			<value>11</value>
-			<value>39</value>
-			<value>11</value>
-		</item>
-		<item name="ottr::append_row( std :: ostringstream &amp; oss , const std :: vector&lt;std::pair&lt;std::string,std::string&gt;&gt; &amp; cols , const std :: map&lt;std::string,size_t&gt; &amp; colw) at src/report.cpp:68">
-			<value>12</value>
-			<value>11</value>
-			<value>3</value>
-		</item>
-		<item name="ottr::render_full_table( const World &amp; world , const Aggregation &amp; agg) at src/report.cpp:80">
-			<value>13</value>
-			<value>46</value>
-			<value>9</value>
-		</item>
-		<item name="ottr::render_single_day_table( const World &amp; world , const Aggregation &amp; agg , const Date &amp; day) at src/report.cpp:132">
-			<value>14</value>
-			<value>31</value>
-			<value>7</value>
-		</item>
-		<average label="NCSS" value="14.785714285714286"/>
-		<average label="CCN" value="4.285714285714286"/>
-		<average label="NCSS" value="14.785714285714286"/>
-		<average label="CCN" value="4.285714285714286"/>
-		<item name="ottr::DateFilter::includes( const Date &amp; d) const at src/model.cpp:5">
-			<value>15</value>
-			<value>6</value>
-			<value>8</value>
-		</item>
-		<item name="ottr::World::current_day() at src/model.cpp:12">
-			<value>16</value>
-			<value>3</value>
-			<value>1</value>
-		</item>
-		<average label="NCSS" value="13.5"/>
-		<average label="CCN" value="4.3125"/>
-		<average label="NCSS" value="13.5"/>
-		<average label="CCN" value="4.3125"/>
-		<item name="ottr::Validator::validate_world( const std :: string &amp; file , const World &amp; world) at src/validate.cpp:7">
-			<value>17</value>
-			<value>38</value>
-			<value>15</value>
-		</item>
-		<item name="ottr::Validator::log_debug( const std :: string &amp; path , const int line_no , const std :: string &amp; msg) at src/validate.cpp:52">
-			<value>18</value>
-			<value>6</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::Validator::log_error( const std :: string &amp; path , const int line_no , const std :: string &amp; msg) at src/validate.cpp:58">
-			<value>19</value>
-			<value>6</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::Validator::get_errors() at src/validate.cpp:65">
-			<value>20</value>
-			<value>3</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::Validator::get_debug() at src/validate.cpp:69">
-			<value>21</value>
-			<value>3</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::Validator::empty_err() const at src/validate.cpp:73">
-			<value>22</value>
-			<value>3</value>
-			<value>1</value>
-		</item>
-		<item name="ottr::Validator::find_err( const std :: string &amp; q) const at src/validate.cpp:77">
-			<value>23</value>
-			<value>12</value>
-			<value>3</value>
-		</item>
-		<average label="NCSS" value="12.478260869565217"/>
-		<average label="CCN" value="4.0"/>
 		<item name="ottr::tokenize_line( const std :: string &amp; line) at src/parser.cpp:12">
-			<value>24</value>
+			<value>1</value>
 			<value>40</value>
 			<value>16</value>
 		</item>
 		<item name="ottr::ParserLogger::log_debug( const std :: string &amp; path , const int line_no , const std :: string &amp; msg) at src/parser.cpp:56">
-			<value>25</value>
+			<value>2</value>
 			<value>6</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::ParserLogger::log_error( const std :: string &amp; path , const int line_no , const std :: string &amp; msg) at src/parser.cpp:62">
-			<value>26</value>
+			<value>3</value>
 			<value>6</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::ParserLogger::get_errors() at src/parser.cpp:69">
-			<value>27</value>
+			<value>4</value>
 			<value>3</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::ParserLogger::get_debug() at src/parser.cpp:73">
-			<value>28</value>
+			<value>5</value>
 			<value>3</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::ParserLogger::empty_err() const at src/parser.cpp:77">
-			<value>29</value>
+			<value>6</value>
 			<value>3</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::ParserLogger::find_err( const std :: string &amp; q) const at src/parser.cpp:81">
-			<value>30</value>
+			<value>7</value>
 			<value>12</value>
 			<value>3</value>
 		</item>
 		<item name="ottr::parse_istream( std :: istream &amp; in , const std :: string &amp; source_name , World &amp; world , ParserLogger &amp; log) at src/parser.cpp:94">
-			<value>31</value>
+			<value>8</value>
 			<value>41</value>
 			<value>8</value>
 		</item>
 		<item name="ottr::parse_file( const std :: string &amp; path , World &amp; world , ParserLogger &amp; log) at src/parser.cpp:146">
-			<value>32</value>
+			<value>9</value>
 			<value>8</value>
 			<value>2</value>
 		</item>
 		<item name="ottr::DirectiveParser::DirectiveParser( const std :: string &amp; source_name , struct World &amp; world , ParserLogger &amp; log) at src/parser.cpp:155">
-			<value>33</value>
+			<value>10</value>
 			<value>9</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::ChargeDirectiveParser::ChargeDirectiveParser( const std :: string &amp; source_name , struct World &amp; world , ParserLogger &amp; log) at src/parser.cpp:165">
-			<value>34</value>
+			<value>11</value>
 			<value>5</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::TaskDirectiveParser::TaskDirectiveParser( const std :: string &amp; source_name , struct World &amp; world , ParserLogger &amp; log) at src/parser.cpp:171">
-			<value>35</value>
+			<value>12</value>
 			<value>5</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::WeightDirectiveParser::WeightDirectiveParser( const std :: string &amp; source_name , struct World &amp; world , ParserLogger &amp; log) at src/parser.cpp:177">
-			<value>36</value>
+			<value>13</value>
 			<value>5</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::DayDirectiveParser::DayDirectiveParser( const std :: string &amp; source_name , struct World &amp; world , ParserLogger &amp; log) at src/parser.cpp:183">
-			<value>37</value>
+			<value>14</value>
 			<value>5</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::LogDirectiveParser::LogDirectiveParser( const std :: string &amp; source_name , struct World &amp; world , ParserLogger &amp; log) at src/parser.cpp:189">
-			<value>38</value>
+			<value>15</value>
 			<value>5</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::OptionDirectiveParser::OptionDirectiveParser( const std :: string &amp; source_name , struct World &amp; world , ParserLogger &amp; log) at src/parser.cpp:195">
-			<value>39</value>
+			<value>16</value>
 			<value>5</value>
 			<value>1</value>
 		</item>
 		<item name="ottr::ChargeDirectiveParser::parse( const int line_no , const std :: vector&lt;Token&gt; &amp; tokens) at src/parser.cpp:201">
-			<value>40</value>
+			<value>17</value>
 			<value>24</value>
 			<value>7</value>
 		</item>
 		<item name="ottr::TaskDirectiveParser::parse( const int line_no , const std :: vector&lt;Token&gt; &amp; tokens) at src/parser.cpp:226">
-			<value>41</value>
+			<value>18</value>
 			<value>12</value>
 			<value>4</value>
 		</item>
 		<item name="ottr::WeightDirectiveParser::parse( const int line_no , const std :: vector&lt;Token&gt; &amp; tokens) at src/parser.cpp:239">
-			<value>42</value>
+			<value>19</value>
 			<value>12</value>
 			<value>5</value>
 		</item>
 		<item name="ottr::DayDirectiveParser::parse( const int line_no , const std :: vector&lt;Token&gt; &amp; tokens) at src/parser.cpp:253">
-			<value>43</value>
+			<value>20</value>
 			<value>12</value>
 			<value>6</value>
 		</item>
 		<item name="ottr::LogDirectiveParser::parse( const int line_no , const std :: vector&lt;Token&gt; &amp; tokens) at src/parser.cpp:267">
-			<value>44</value>
+			<value>21</value>
 			<value>26</value>
 			<value>12</value>
 		</item>
 		<item name="ottr::OptionDirectiveParser::parse( const int line_no , const std :: vector&lt;Token&gt; &amp; tokens) at src/parser.cpp:295">
-			<value>45</value>
+			<value>22</value>
 			<value>31</value>
 			<value>8</value>
 		</item>
 		<item name="ottr::DirectiveParser::ensure_day_closed( const int lno) at src/parser.cpp:330">
-			<value>46</value>
+			<value>23</value>
 			<value>10</value>
 			<value>4</value>
 		</item>
-		<average label="NCSS" value="12.5"/>
-		<average label="CCN" value="3.891304347826087"/>
-		<item name="ottr::hours_to_ticks( double h) at src/util.hpp:12">
-			<value>47</value>
-			<value>5</value>
-			<value>1</value>
-		</item>
-		<average label="NCSS" value="12.340425531914894"/>
-		<average label="CCN" value="3.8297872340425534"/>
-		<average label="NCSS" value="12.340425531914894"/>
-		<average label="CCN" value="3.8297872340425534"/>
-		<item name="ottr::add_allocation( Aggregation &amp; agg , const Date &amp; d , const std :: string &amp; cid , Tick ticks) at src/engine.cpp:18">
-			<value>48</value>
-			<value>6</value>
-			<value>2</value>
-		</item>
-		<item name="ottr::process_world( const World &amp; world , const EngineOptions &amp; opts , Aggregation &amp; out , [ [ maybe_unused ] ] std :: string &amp; error_message) at src/engine.cpp:25">
-			<value>49</value>
-			<value>138</value>
-			<value>37</value>
-		</item>
-		<average label="NCSS" value="14.775510204081632"/>
-		<average label="CCN" value="4.469387755102041"/>
+		<average label="NCSS" value="12.521739130434783"/>
+		<average label="CCN" value="3.782608695652174"/>
 		<item name="print_usage( const char * prog) at src/main.cpp:13">
-			<value>50</value>
+			<value>24</value>
 			<value>6</value>
 			<value>1</value>
 		</item>
 		<item name="main( int argc , char ** argv) at src/main.cpp:20">
-			<value>51</value>
+			<value>25</value>
 			<value>66</value>
 			<value>17</value>
 		</item>
-		<average label="NCSS" value="15.607843137254902"/>
-		<average label="CCN" value="4.647058823529412"/>
-		<item name="ottr::Aggregator::add( const Date &amp; d , const std :: string &amp; charge_id , Tick ticks) at src/aggregator.cpp:5">
+		<average label="NCSS" value="14.4"/>
+		<average label="CCN" value="4.2"/>
+		<item name="ottr::hours_to_ticks( double h) at src/util.hpp:12">
+			<value>26</value>
+			<value>5</value>
+			<value>1</value>
+		</item>
+		<average label="NCSS" value="14.038461538461538"/>
+		<average label="CCN" value="4.076923076923077"/>
+		<item name="ottr::sorted_charge_ids( const World &amp; world) at src/report.cpp:10">
+			<value>27</value>
+			<value>7</value>
+			<value>2</value>
+		</item>
+		<item name="ottr::ticks_to_fixed( Tick t) at src/report.cpp:18">
+			<value>28</value>
+			<value>5</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::compute_widths( const World &amp; world , const Aggregation &amp; agg , std :: map&lt;std::string,size_t&gt; &amp; colw , std :: vector&lt;std::string&gt; &amp; headers) at src/report.cpp:24">
+			<value>29</value>
+			<value>39</value>
+			<value>11</value>
+		</item>
+		<item name="ottr::append_row( std :: ostringstream &amp; oss , const std :: vector&lt;std::pair&lt;std::string,std::string&gt;&gt; &amp; cols , const std :: map&lt;std::string,size_t&gt; &amp; colw) at src/report.cpp:68">
+			<value>30</value>
+			<value>11</value>
+			<value>3</value>
+		</item>
+		<item name="ottr::render_full_table( const World &amp; world , const Aggregation &amp; agg) at src/report.cpp:80">
+			<value>31</value>
+			<value>46</value>
+			<value>9</value>
+		</item>
+		<item name="ottr::render_single_day_table( const World &amp; world , const Aggregation &amp; agg , const Date &amp; day) at src/report.cpp:132">
+			<value>32</value>
+			<value>31</value>
+			<value>7</value>
+		</item>
+		<average label="NCSS" value="15.75"/>
+		<average label="CCN" value="4.34375"/>
+		<item name="ottr::parse_mmdd( const std :: string &amp; s , Date &amp; out) at src/util.cpp:8">
+			<value>33</value>
+			<value>17</value>
+			<value>12</value>
+		</item>
+		<item name="ottr::try_parse_double( const std :: string &amp; s , double &amp; out) at src/util.cpp:27">
+			<value>34</value>
+			<value>5</value>
+			<value>2</value>
+		</item>
+		<item name="ottr::try_parse_ll( const std :: string &amp; s , long long &amp; out) at src/util.cpp:33">
+			<value>35</value>
+			<value>5</value>
+			<value>2</value>
+		</item>
+		<average label="NCSS" value="15.17142857142857"/>
+		<average label="CCN" value="4.428571428571429"/>
+		<average label="NCSS" value="15.17142857142857"/>
+		<average label="CCN" value="4.428571428571429"/>
+		<average label="NCSS" value="15.17142857142857"/>
+		<average label="CCN" value="4.428571428571429"/>
+		<item name="ottr::DateFilter::includes( const Date &amp; d) const at src/model.cpp:5">
+			<value>36</value>
+			<value>6</value>
+			<value>8</value>
+		</item>
+		<item name="ottr::World::current_day() at src/model.cpp:12">
+			<value>37</value>
+			<value>3</value>
+			<value>1</value>
+		</item>
+		<average label="NCSS" value="14.594594594594595"/>
+		<average label="CCN" value="4.4324324324324325"/>
+		<item name="ottr::Validator::validate_world( const std :: string &amp; file , const World &amp; world) at src/validate.cpp:7">
+			<value>38</value>
+			<value>38</value>
+			<value>15</value>
+		</item>
+		<item name="ottr::Validator::log_debug( const std :: string &amp; path , const int line_no , const std :: string &amp; msg) at src/validate.cpp:52">
+			<value>39</value>
+			<value>6</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::Validator::log_error( const std :: string &amp; path , const int line_no , const std :: string &amp; msg) at src/validate.cpp:58">
+			<value>40</value>
+			<value>6</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::Validator::get_errors() at src/validate.cpp:65">
+			<value>41</value>
+			<value>3</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::Validator::get_debug() at src/validate.cpp:69">
+			<value>42</value>
+			<value>3</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::Validator::empty_err() const at src/validate.cpp:73">
+			<value>43</value>
+			<value>3</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::Validator::find_err( const std :: string &amp; q) const at src/validate.cpp:77">
+			<value>44</value>
+			<value>12</value>
+			<value>3</value>
+		</item>
+		<average label="NCSS" value="13.886363636363637"/>
+		<average label="CCN" value="4.25"/>
+		<average label="NCSS" value="13.886363636363637"/>
+		<average label="CCN" value="4.25"/>
+		<average label="NCSS" value="13.886363636363637"/>
+		<average label="CCN" value="4.25"/>
+		<item name="ottr::add_allocation( Aggregation &amp; agg , const Date &amp; d , const std :: string &amp; cid , Tick ticks) at src/engine.cpp:18">
+			<value>45</value>
+			<value>6</value>
+			<value>2</value>
+		</item>
+		<item name="ottr::process_world( const World &amp; world , const EngineOptions &amp; opts , Aggregation &amp; out , [ [ maybe_unused ] ] std :: string &amp; error_message) at src/engine.cpp:25">
+			<value>46</value>
+			<value>138</value>
+			<value>37</value>
+		</item>
+		<average label="NCSS" value="16.41304347826087"/>
+		<average label="CCN" value="4.913043478260869"/>
+		<average label="NCSS" value="16.41304347826087"/>
+		<average label="CCN" value="4.913043478260869"/>
+		<average label="NCSS" value="16.41304347826087"/>
+		<average label="CCN" value="4.913043478260869"/>
+		<average label="NCSS" value="16.41304347826087"/>
+		<average label="CCN" value="4.913043478260869"/>
+		<item name="ottr::allocate_weighted( const AllocationRequest &amp; req , RoundingMode rounding) at src/alloc.cpp:13">
+			<value>47</value>
+			<value>121</value>
+			<value>45</value>
+		</item>
+		<average label="NCSS" value="18.638297872340427"/>
+		<average label="CCN" value="5.76595744680851"/>
+		<item name="ottr::Aggregator::dates() const at src/aggregator.hpp:14">
+			<value>48</value>
+			<value>1</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::Aggregator::snapshot() const at src/aggregator.hpp:16">
+			<value>49</value>
+			<value>1</value>
+			<value>1</value>
+		</item>
+		<average label="NCSS" value="17.918367346938776"/>
+		<average label="CCN" value="5.571428571428571"/>
+		<item name="ottr::CalculationOptions::validate( [ [ maybe_unused ] ] std :: string &amp; error_message) const at src/options.cpp:5">
+			<value>50</value>
+			<value>3</value>
+			<value>1</value>
+		</item>
+		<item name="ottr::CalculationOptions::parse_rounding( const std :: string &amp; s , RoundingMode &amp; out , std :: string &amp; error_message) at src/options.cpp:10">
+			<value>51</value>
+			<value>18</value>
+			<value>4</value>
+		</item>
+		<item name="ottr::CalculationOptions::parse_aggregation( const std :: string &amp; s , AggregationMode &amp; out , std :: string &amp; error_message) at src/options.cpp:29">
 			<value>52</value>
+			<value>18</value>
+			<value>4</value>
+		</item>
+		<average label="NCSS" value="17.634615384615383"/>
+		<average label="CCN" value="5.423076923076923"/>
+		<item name="ottr::Aggregator::add( const Date &amp; d , const std :: string &amp; charge_id , Tick ticks) at src/aggregator.cpp:5">
+			<value>53</value>
 			<value>6</value>
 			<value>2</value>
 		</item>
 		<item name="ottr::Aggregator::total_for_charge( const std :: string &amp; charge_id) const at src/aggregator.cpp:12">
-			<value>53</value>
+			<value>54</value>
 			<value>4</value>
 			<value>2</value>
 		</item>
 		<item name="ottr::Aggregator::by_day_for_charge( const std :: string &amp; charge_id , const std :: string &amp; date_raw) const at src/aggregator.cpp:17">
-			<value>54</value>
+			<value>55</value>
 			<value>6</value>
 			<value>3</value>
 		</item>
 		<item name="ottr::Aggregator::total_for_day( const std :: string &amp; date_raw) const at src/aggregator.cpp:24">
-			<value>55</value>
+			<value>56</value>
 			<value>4</value>
 			<value>2</value>
 		</item>
 		<item name="ottr::Aggregator::set_dates( std :: vector&lt;Date&gt; d) at src/aggregator.cpp:29">
-			<value>56</value>
+			<value>57</value>
 			<value>4</value>
 			<value>1</value>
 		</item>
-		<average label="NCSS" value="14.642857142857142"/>
-		<average label="CCN" value="4.410714285714286"/>
-		<item name="ottr::allocate_weighted( const AllocationRequest &amp; req , RoundingMode rounding) at src/alloc.cpp:13">
-			<value>57</value>
-			<value>121</value>
-			<value>45</value>
-		</item>
-		<average label="NCSS" value="16.50877192982456"/>
-		<average label="CCN" value="5.12280701754386"/>
 		<average label="NCSS" value="16.50877192982456"/>
 		<average label="CCN" value="5.12280701754386"/>
 	</measure>
@@ -336,119 +338,119 @@
 			<label>CCN</label>
 			<label>Functions</label>
 		</labels>
-		<item name="src/engine.hpp">
-			<value>1</value>
-			<value>10</value>
-			<value>0</value>
-			<value>0</value>
-		</item>
-		<item name="src/options.cpp">
-			<value>2</value>
-			<value>42</value>
-			<value>9</value>
-			<value>3</value>
-		</item>
-		<item name="src/report.hpp">
-			<value>3</value>
-			<value>6</value>
-			<value>0</value>
-			<value>0</value>
-		</item>
-		<item name="src/parser.hpp">
-			<value>4</value>
-			<value>117</value>
-			<value>0</value>
-			<value>0</value>
-		</item>
-		<item name="src/aggregator.hpp">
-			<value>5</value>
-			<value>18</value>
-			<value>2</value>
-			<value>2</value>
-		</item>
-		<item name="src/util.cpp">
-			<value>6</value>
-			<value>33</value>
-			<value>16</value>
-			<value>3</value>
-		</item>
-		<item name="src/report.cpp">
-			<value>7</value>
-			<value>147</value>
-			<value>33</value>
-			<value>6</value>
-		</item>
-		<item name="src/options.hpp">
-			<value>8</value>
-			<value>22</value>
-			<value>0</value>
-			<value>0</value>
-		</item>
-		<item name="src/model.cpp">
-			<value>9</value>
-			<value>12</value>
-			<value>9</value>
-			<value>2</value>
-		</item>
-		<item name="src/model.hpp">
-			<value>10</value>
-			<value>58</value>
-			<value>0</value>
-			<value>0</value>
-		</item>
-		<item name="src/validate.cpp">
-			<value>11</value>
-			<value>76</value>
-			<value>23</value>
-			<value>7</value>
-		</item>
 		<item name="src/parser.cpp">
-			<value>12</value>
+			<value>1</value>
 			<value>298</value>
 			<value>87</value>
 			<value>23</value>
 		</item>
-		<item name="src/util.hpp">
-			<value>13</value>
-			<value>13</value>
-			<value>1</value>
-			<value>1</value>
-		</item>
-		<item name="src/validate.hpp">
-			<value>14</value>
-			<value>18</value>
-			<value>0</value>
-			<value>0</value>
-		</item>
-		<item name="src/engine.cpp">
-			<value>15</value>
-			<value>157</value>
-			<value>39</value>
-			<value>2</value>
-		</item>
 		<item name="src/main.cpp">
-			<value>16</value>
+			<value>2</value>
 			<value>82</value>
 			<value>18</value>
 			<value>2</value>
 		</item>
-		<item name="src/aggregator.cpp">
-			<value>17</value>
-			<value>27</value>
-			<value>10</value>
+		<item name="src/util.hpp">
+			<value>3</value>
+			<value>13</value>
+			<value>1</value>
+			<value>1</value>
+		</item>
+		<item name="src/report.cpp">
+			<value>4</value>
+			<value>147</value>
+			<value>33</value>
+			<value>6</value>
+		</item>
+		<item name="src/util.cpp">
 			<value>5</value>
+			<value>33</value>
+			<value>16</value>
+			<value>3</value>
+		</item>
+		<item name="src/options.hpp">
+			<value>6</value>
+			<value>22</value>
+			<value>0</value>
+			<value>0</value>
+		</item>
+		<item name="src/validate.hpp">
+			<value>7</value>
+			<value>18</value>
+			<value>0</value>
+			<value>0</value>
+		</item>
+		<item name="src/model.cpp">
+			<value>8</value>
+			<value>12</value>
+			<value>9</value>
+			<value>2</value>
+		</item>
+		<item name="src/validate.cpp">
+			<value>9</value>
+			<value>76</value>
+			<value>23</value>
+			<value>7</value>
+		</item>
+		<item name="src/engine.hpp">
+			<value>10</value>
+			<value>10</value>
+			<value>0</value>
+			<value>0</value>
+		</item>
+		<item name="src/report.hpp">
+			<value>11</value>
+			<value>6</value>
+			<value>0</value>
+			<value>0</value>
+		</item>
+		<item name="src/engine.cpp">
+			<value>12</value>
+			<value>157</value>
+			<value>39</value>
+			<value>2</value>
+		</item>
+		<item name="src/parser.hpp">
+			<value>13</value>
+			<value>117</value>
+			<value>0</value>
+			<value>0</value>
+		</item>
+		<item name="src/model.hpp">
+			<value>14</value>
+			<value>58</value>
+			<value>0</value>
+			<value>0</value>
+		</item>
+		<item name="src/alloc.hpp">
+			<value>15</value>
+			<value>22</value>
+			<value>0</value>
+			<value>0</value>
 		</item>
 		<item name="src/alloc.cpp">
-			<value>18</value>
+			<value>16</value>
 			<value>131</value>
 			<value>45</value>
 			<value>1</value>
 		</item>
-		<item name="src/alloc.hpp">
+		<item name="src/aggregator.hpp">
+			<value>17</value>
+			<value>18</value>
+			<value>2</value>
+			<value>2</value>
+		</item>
+		<item name="src/options.cpp">
+			<value>18</value>
+			<value>42</value>
+			<value>9</value>
+			<value>3</value>
+		</item>
+		<item name="src/aggregator.cpp">
 			<value>19</value>
-			<value>22</value>
-			<value>0</value>
-			<value>0</value>
+			<value>27</value>
+			<value>10</value>
+			<value>5</value>
 		</item>
 		<average label="NCSS" value="67.84210526315789"/>
 		<average label="CCN" value="15.368421052631579"/>
