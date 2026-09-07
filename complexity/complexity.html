@@ -113,6 +113,116 @@
 
   
   <tr>
+    <td>src/model.cpp</td>
+    <td class="function-name">ottr::DateFilter::includes</td>
+    
+       <td class="lesser-value">8</td>
+    
+
+    
+       <td class="lesser-value">6</td>
+    
+
+    
+       <td class="value">72</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td>src/model.cpp</td>
+    <td class="function-name">ottr::World::current_day</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">14</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  
+
+  
+  <tr>
+    <td>src/options.cpp</td>
+    <td class="function-name">ottr::CalculationOptions::validate</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+
+    
+       <td class="value">21</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td>src/options.cpp</td>
+    <td class="function-name">ottr::CalculationOptions::parse_rounding</td>
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="lesser-value">18</td>
+    
+
+    
+       <td class="value">90</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+  </tr>
+  
+  <tr>
+    <td>src/options.cpp</td>
+    <td class="function-name">ottr::CalculationOptions::parse_aggregation</td>
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="lesser-value">18</td>
+    
+
+    
+       <td class="value">90</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+  </tr>
+  
+
+  
+
+  
+
+  
+  <tr>
     <td>src/parser.cpp</td>
     <td class="function-name">ottr::tokenize_line</td>
     
@@ -617,24 +727,48 @@
 
   
   <tr>
-    <td>src/util.hpp</td>
-    <td class="function-name">ottr::hours_to_ticks</td>
+    <td>src/aggregator.hpp</td>
+    <td class="function-name">ottr::Aggregator::dates</td>
     
        <td class="lesser-value">1</td>
     
 
     
-       <td class="lesser-value">5</td>
-    
-
-    
-       <td class="value">46</td>
-    
-
-    
        <td class="lesser-value">1</td>
+    
+
+    
+       <td class="value">9</td>
+    
+
+    
+       <td class="lesser-value">0</td>
     
   </tr>
+  
+  <tr>
+    <td>src/aggregator.hpp</td>
+    <td class="function-name">ottr::Aggregator::snapshot</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="value">9</td>
+    
+
+    
+       <td class="lesser-value">0</td>
+    
+  </tr>
+  
+
+  
+
   
 
   
@@ -822,15 +956,11 @@
   
 
   
-
-  
-
-  
   <tr>
-    <td>src/model.cpp</td>
-    <td class="function-name">ottr::DateFilter::includes</td>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::add</td>
     
-       <td class="lesser-value">8</td>
+       <td class="lesser-value">2</td>
     
 
     
@@ -838,7 +968,27 @@
     
 
     
-       <td class="value">72</td>
+       <td class="value">63</td>
+    
+
+    
+       <td class="lesser-value">3</td>
+    
+  </tr>
+  
+  <tr>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::total_for_charge</td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">43</td>
     
 
     
@@ -847,24 +997,88 @@
   </tr>
   
   <tr>
-    <td>src/model.cpp</td>
-    <td class="function-name">ottr::World::current_day</td>
-    
-       <td class="lesser-value">1</td>
-    
-
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::by_day_for_charge</td>
     
        <td class="lesser-value">3</td>
     
 
     
-       <td class="value">14</td>
+       <td class="lesser-value">6</td>
     
 
     
-       <td class="lesser-value">0</td>
+       <td class="value">77</td>
+    
+
+    
+       <td class="lesser-value">2</td>
     
   </tr>
+  
+  <tr>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::total_for_day</td>
+    
+       <td class="lesser-value">2</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">43</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+  <tr>
+    <td>src/aggregator.cpp</td>
+    <td class="function-name">ottr::Aggregator::set_dates</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">4</td>
+    
+
+    
+       <td class="value">29</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
+
+  
+  <tr>
+    <td>src/alloc.cpp</td>
+    <td class="function-name">ottr::allocate_weighted</td>
+    
+       <td class="greater-value">45</td>
+    
+
+    
+       <td class="lesser-value">121</td>
+    
+
+    
+       <td class="value">997</td>
+    
+
+    
+       <td class="lesser-value">2</td>
+    
+  </tr>
+  
+
   
 
   
@@ -1012,6 +1226,26 @@
   
 
   
+  <tr>
+    <td>src/util.hpp</td>
+    <td class="function-name">ottr::hours_to_ticks</td>
+    
+       <td class="lesser-value">1</td>
+    
+
+    
+       <td class="lesser-value">5</td>
+    
+
+    
+       <td class="value">46</td>
+    
+
+    
+       <td class="lesser-value">1</td>
+    
+  </tr>
+  
 
   
   <tr>
@@ -1055,240 +1289,6 @@
   </tr>
   
 
-  
-
-  
-
-  
-
-  
-  <tr>
-    <td>src/alloc.cpp</td>
-    <td class="function-name">ottr::allocate_weighted</td>
-    
-       <td class="greater-value">45</td>
-    
-
-    
-       <td class="lesser-value">121</td>
-    
-
-    
-       <td class="value">997</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-
-  
-  <tr>
-    <td>src/aggregator.hpp</td>
-    <td class="function-name">ottr::Aggregator::dates</td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="value">9</td>
-    
-
-    
-       <td class="lesser-value">0</td>
-    
-  </tr>
-  
-  <tr>
-    <td>src/aggregator.hpp</td>
-    <td class="function-name">ottr::Aggregator::snapshot</td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="value">9</td>
-    
-
-    
-       <td class="lesser-value">0</td>
-    
-  </tr>
-  
-
-  
-  <tr>
-    <td>src/options.cpp</td>
-    <td class="function-name">ottr::CalculationOptions::validate</td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">3</td>
-    
-
-    
-       <td class="value">21</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td>src/options.cpp</td>
-    <td class="function-name">ottr::CalculationOptions::parse_rounding</td>
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="lesser-value">18</td>
-    
-
-    
-       <td class="value">90</td>
-    
-
-    
-       <td class="lesser-value">3</td>
-    
-  </tr>
-  
-  <tr>
-    <td>src/options.cpp</td>
-    <td class="function-name">ottr::CalculationOptions::parse_aggregation</td>
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="lesser-value">18</td>
-    
-
-    
-       <td class="value">90</td>
-    
-
-    
-       <td class="lesser-value">3</td>
-    
-  </tr>
-  
-
-  
-  <tr>
-    <td>src/aggregator.cpp</td>
-    <td class="function-name">ottr::Aggregator::add</td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">6</td>
-    
-
-    
-       <td class="value">63</td>
-    
-
-    
-       <td class="lesser-value">3</td>
-    
-  </tr>
-  
-  <tr>
-    <td>src/aggregator.cpp</td>
-    <td class="function-name">ottr::Aggregator::total_for_charge</td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">43</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td>src/aggregator.cpp</td>
-    <td class="function-name">ottr::Aggregator::by_day_for_charge</td>
-    
-       <td class="lesser-value">3</td>
-    
-
-    
-       <td class="lesser-value">6</td>
-    
-
-    
-       <td class="value">77</td>
-    
-
-    
-       <td class="lesser-value">2</td>
-    
-  </tr>
-  
-  <tr>
-    <td>src/aggregator.cpp</td>
-    <td class="function-name">ottr::Aggregator::total_for_day</td>
-    
-       <td class="lesser-value">2</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">43</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-  <tr>
-    <td>src/aggregator.cpp</td>
-    <td class="function-name">ottr::Aggregator::set_dates</td>
-    
-       <td class="lesser-value">1</td>
-    
-
-    
-       <td class="lesser-value">4</td>
-    
-
-    
-       <td class="value">29</td>
-    
-
-    
-       <td class="lesser-value">1</td>
-    
-  </tr>
-  
-
   </tbody>
 </table>
 <center>
@@ -1296,7 +1296,7 @@
 <br>
 <table width="100%" border=0 cellspacing=0 cellpadding=0>
     <tr><td class="footer">Generated by
-    <a href="http://www.lizard.ws/">Lizard</a> on 2026-08-31 07:58
+    <a href="http://www.lizard.ws/">Lizard</a> on 2026-09-07 06:52
     </td></tr>
 </table>
 
