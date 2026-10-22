@@ -5,6 +5,7 @@ var hierarchy =
     [ "ottr::AllocationEntry", "structottr_1_1AllocationEntry.html", null ],
     [ "ottr::AllocationRequest", "structottr_1_1AllocationRequest.html", null ],
     [ "ottr::AllocationResultEntry", "structottr_1_1AllocationResultEntry.html", null ],
+    [ "ottr::AuditEntry", "structottr_1_1AuditEntry.html", null ],
     [ "ottr::CalculationOptions", "structottr_1_1CalculationOptions.html", null ],
     [ "ottr::ChargeNumber", "structottr_1_1ChargeNumber.html", null ],
     [ "ottr::Date", "structottr_1_1Date.html", null ],
@@ -21,9 +22,7 @@ var hierarchy =
     [ "ottr::EngineOptions", "structottr_1_1EngineOptions.html", null ],
     [ "ottr::Log", "structottr_1_1Log.html", null ],
     [ "ottr::ParserLogger", "classottr_1_1ParserLogger.html", null ],
-    [ "ottr::RunningTotals", "structottr_1_1RunningTotals.html", null ],
     [ "ottr::Task", "structottr_1_1Task.html", null ],
-    [ "ottr::TaskAccumulation", "structottr_1_1TaskAccumulation.html", null ],
     [ "testing::Test", null, [
       [ "AggregationModesTest", "classAggregationModesTest.html", null ],
       [ "OptionsParserTest", "classOptionsParserTest.html", null ],
@@ -31,6 +30,5 @@ var hierarchy =
     ] ],
     [ "ottr::Token", "structottr_1_1Token.html", null ],
     [ "ottr::Validator", "classottr_1_1Validator.html", null ],
-    [ "ottr::WorkItem", "structottr_1_1WorkItem.html", null ],
     [ "ottr::World", "structottr_1_1World.html", null ]
 ];

@@ -130,7 +130,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00080">80</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00085">85</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4ba3b6f233bd6064e2f520c8a6135412" name="a4ba3b6f233bd6064e2f520c8a6135412"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ba3b6f233bd6064e2f520c8a6135412">&#9670;&#160;</a></span>TaskDirectiveParser()</h2>
@@ -164,8 +164,8 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00171">171</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  175</span>    : DirectiveParser(source_name, world, log) {}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00204">204</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  208</span>    : DirectiveParser(source_name, world, log) {}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,18 +206,18 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classottr_1_1DirectiveParser.html">ottr::DirectiveParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00226">226</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  227</span>{</div>
-<div class="line"><span class="lineno">  228</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 3) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;task requires: task &lt;name&gt; \&quot;&lt;description&gt;\&quot;&quot;</span>);</div>
-<div class="line"><span class="lineno">  229</span>    <span class="keyword">const</span> std::string name = tokens[1].text;</div>
-<div class="line"><span class="lineno">  230</span>    <span class="keywordflow">if</span> (!tokens[2].quoted) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;task description must be quoted&quot;</span>);</div>
-<div class="line"><span class="lineno">  231</span>    <span class="keywordflow">if</span> (world.tasks.find(name) != world.tasks.end()) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;duplicate task: &quot;</span> + name);</div>
-<div class="line"><span class="lineno">  232</span>    Task t;</div>
-<div class="line"><span class="lineno">  233</span>    t.name = name;</div>
-<div class="line"><span class="lineno">  234</span>    t.description = tokens[2].text;</div>
-<div class="line"><span class="lineno">  235</span>    world.tasks.emplace(name, std::move(t));</div>
-<div class="line"><span class="lineno">  236</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  237</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00259">259</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  260</span>{</div>
+<div class="line"><span class="lineno">  261</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 3) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;task requires: task &lt;name&gt; \&quot;&lt;description&gt;\&quot;&quot;</span>);</div>
+<div class="line"><span class="lineno">  262</span>    <span class="keyword">const</span> std::string name = tokens[1].text;</div>
+<div class="line"><span class="lineno">  263</span>    <span class="keywordflow">if</span> (!tokens[2].quoted) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;task description must be quoted&quot;</span>);</div>
+<div class="line"><span class="lineno">  264</span>    <span class="keywordflow">if</span> (world.tasks.find(name) != world.tasks.end()) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;duplicate task: &quot;</span> + name);</div>
+<div class="line"><span class="lineno">  265</span>    Task t;</div>
+<div class="line"><span class="lineno">  266</span>    t.name = name;</div>
+<div class="line"><span class="lineno">  267</span>    t.description = tokens[2].text;</div>
+<div class="line"><span class="lineno">  268</span>    world.tasks.emplace(name, std::move(t));</div>
+<div class="line"><span class="lineno">  269</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  270</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

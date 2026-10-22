@@ -137,7 +137,7 @@ Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00045">45</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00050">50</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afd542748f011dbd515c6208fd1a26ed9" name="afd542748f011dbd515c6208fd1a26ed9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd542748f011dbd515c6208fd1a26ed9">&#9670;&#160;</a></span>DirectiveParser()</h2>
@@ -179,13 +179,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00155">155</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  158</span>                          :</div>
-<div class="line"><span class="lineno">  159</span>source_name(source_name),</div>
-<div class="line"><span class="lineno">  160</span>world(world),</div>
-<div class="line"><span class="lineno">  161</span>log(log)</div>
-<div class="line"><span class="lineno">  162</span>{</div>
-<div class="line"><span class="lineno">  163</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00188">188</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  191</span>                          :</div>
+<div class="line"><span class="lineno">  192</span>source_name(source_name),</div>
+<div class="line"><span class="lineno">  193</span>world(world),</div>
+<div class="line"><span class="lineno">  194</span>log(log)</div>
+<div class="line"><span class="lineno">  195</span>{</div>
+<div class="line"><span class="lineno">  196</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -214,17 +214,17 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00330">330</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  330</span>                                                     {</div>
-<div class="line"><span class="lineno">  331</span>    <span class="keywordflow">if</span> (world.days.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  332</span>    <span class="keyword">const</span> Day&amp; current_day = world.current_day();</div>
-<div class="line"><span class="lineno">  333</span>    <span class="keywordflow">if</span> (current_day.logs.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  334</span>    <span class="keywordflow">if</span> (current_day.logs.back().kind != LogKind::None) {</div>
-<div class="line"><span class="lineno">  335</span>        log.log_error(source_name, lno, <span class="stringliteral">&quot;day started before previous day closed (missing final uncharged log)&quot;</span>);</div>
-<div class="line"><span class="lineno">  336</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  337</span>    }</div>
-<div class="line"><span class="lineno">  338</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  339</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00436">436</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  436</span>                                                     {</div>
+<div class="line"><span class="lineno">  437</span>    <span class="keywordflow">if</span> (world.days.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  438</span>    <span class="keyword">const</span> Day&amp; current_day = world.current_day();</div>
+<div class="line"><span class="lineno">  439</span>    <span class="keywordflow">if</span> (current_day.logs.empty()) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  440</span>    <span class="keywordflow">if</span> (current_day.logs.back().kind != LogKind::None) {</div>
+<div class="line"><span class="lineno">  441</span>        log.log_error(source_name, lno, <span class="stringliteral">&quot;day started before previous day closed (missing final uncharged log)&quot;</span>);</div>
+<div class="line"><span class="lineno">  442</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  443</span>    }</div>
+<div class="line"><span class="lineno">  444</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  445</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -249,7 +249,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00058">58</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00063">63</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
 
 </div>
 </div>
@@ -273,7 +273,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00056">56</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00061">61</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
 
 </div>
 </div>
@@ -297,7 +297,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00057">57</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="parser_8hpp_source.html#l00062">62</a> of file <a class="el" href="parser_8hpp_source.html">parser.hpp</a>.</p>
 
 </div>
 </div>

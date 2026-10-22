@@ -102,207 +102,336 @@ $(document).ready(function(){initNavTree('engine_8cpp_source.html',''); initResi
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;alloc.hpp&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;util.hpp&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>ottr {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;iomanip&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="};">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="structottr_1_1RunningTotals.html">    8</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1RunningTotals.html">RunningTotals</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="comment">// charge_id -&gt; ticks charged so far (within filter window)</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    std::unordered_map&lt;std::string, Tick&gt; charged;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>};</div>
-</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="structottr_1_1TaskAccumulation.html">   13</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structottr_1_1TaskAccumulation.html">TaskAccumulation</a> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    std::string task_name;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    Tick accumulated_ticks = 0;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>};</div>
-</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">static</span> <span class="keywordtype">void</span> add_allocation(<a class="code hl_struct" href="structottr_1_1Aggregation.html">Aggregation</a>&amp; agg, <span class="keyword">const</span> <a class="code hl_struct" href="structottr_1_1Date.html">Date</a>&amp; d, <span class="keyword">const</span> std::string&amp; cid, Tick ticks) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span> (ticks &lt;= 0) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    agg.by_charge_by_day[cid][d.raw] += ticks;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    agg.totals_by_charge[cid] += ticks;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    agg.totals_by_day[d.raw] += ticks;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">bool</span> process_world(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> EngineOptions&amp; opts, Aggregation&amp; out, [[maybe_unused]] std::string&amp; error_message) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    out = Aggregation{};</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">// Build list of included dates in order</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::vector&lt;const Day*&gt; included_days;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    included_days.reserve(world.days.size());</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; day : world.days) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">if</span> (opts.filter.includes(day.date)) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            included_days.push_back(&amp;day);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    std::sort(included_days.begin(), included_days.end(), [](<span class="keyword">const</span> Day* a, <span class="keyword">const</span> Day* b){ return a-&gt;date.ord &lt; b-&gt;date.ord; });</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    out.dates_in_order.reserve(included_days.size());</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>* d : included_days) out.dates_in_order.push_back(d-&gt;date);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    RunningTotals rt;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">// Helper lambda to process a single slice</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">auto</span> process_slice = [&amp;](<span class="keyword">const</span> Day* day, <span class="keyword">const</span> Log&amp; start, <span class="keyword">const</span> Log&amp; end) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        Tick slice_ticks = end.time_ticks - start.time_ticks;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">if</span> (slice_ticks &lt;= 0) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">if</span> (start.kind == LogKind::None) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordflow">return</span>; <span class="comment">// uncharged slice</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">if</span> (start.kind == LogKind::Charge) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            add_allocation(out, day-&gt;date, start.ref_id, slice_ticks);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            rt.charged[start.ref_id] += slice_ticks;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// Task-based or possibly a direct-charge disguised as task name</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="comment">// If ref id is a known charge, treat as direct charge</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">auto</span> charge_it = world.charges.find(start.ref_id);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span> (charge_it != world.charges.end()) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            add_allocation(out, day-&gt;date, start.ref_id, slice_ticks);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            rt.charged[start.ref_id] += slice_ticks;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keyword">auto</span> task_it = world.tasks.find(start.ref_id);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">if</span> (task_it == world.tasks.end()) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="comment">// Unknown task at runtime; validation should catch. Skip.</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">const</span> Task&amp; task = task_it-&gt;second;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="comment">// If no weights -&gt; uncharged</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (task.weights.empty()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="comment">// Build allocation request</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        AllocationRequest req;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        req.slice_ticks = slice_ticks;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        req.entries.reserve(task.weights.size());</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; w : task.weights) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            AllocationEntry e;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            e.charge_id = w.first;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            e.weight = w.second;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="keyword">auto</span> cit = world.charges.find(e.charge_id);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            <span class="keywordflow">if</span> (cit != world.charges.end()) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                e.priority = cit-&gt;second.priority;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                e.remaining_budget = cit-&gt;second.budget_ticks - (rt.charged[e.charge_id]);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <span class="comment">// Unknown charge in weights -&gt; skip; validator should catch</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="comment">// Record fractional info will be computed by allocator</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            req.entries.push_back(std::move(e));</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keyword">auto</span> result = allocate_weighted(req, opts.calc_options.rounding);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; a : result) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">if</span> (a.ticks &gt; 0) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                add_allocation(out, day-&gt;date, a.charge_id, a.ticks);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                rt.charged[a.charge_id] += a.ticks;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    };</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// Process based on aggregation mode</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">if</span> (opts.calc_options.aggregation == AggregationMode::PerEvent || </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        opts.calc_options.aggregation == AggregationMode::Off) {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">// Per-event: allocate each slice immediately</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> Day* day : included_days) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; logs = day-&gt;logs;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">if</span> (logs.size() &lt; 2) <span class="keywordflow">continue</span>; <span class="comment">// validation should have caught</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i + 1 &lt; logs.size(); ++i) {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                process_slice(day, logs[i], logs[i+1]);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opts.calc_options.aggregation == AggregationMode::PerDay) {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="comment">// Per-day: accumulate all task slices per day, then allocate at day end</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> Day* day : included_days) {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <span class="keyword">const</span> <span class="keyword">auto</span>&amp; logs = day-&gt;logs;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">if</span> (logs.size() &lt; 2) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="comment">// Accumulate task times for this day</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            std::unordered_map&lt;std::string, Tick&gt; task_accumulation;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            std::vector&lt;std::pair&lt;size_t, Tick&gt;&gt; charge_slices; <span class="comment">// (log_index, slice_ticks)</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i + 1 &lt; logs.size(); ++i) {</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                <span class="keyword">const</span> Log&amp; start = logs[i];</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                <span class="keyword">const</span> Log&amp; end = logs[i+1];</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                Tick slice_ticks = end.time_ticks - start.time_ticks;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                <span class="keywordflow">if</span> (slice_ticks &lt;= 0) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <span class="keywordflow">if</span> (start.kind == LogKind::None) {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                    <span class="keywordflow">continue</span>; <span class="comment">// uncharged slice</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                }</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                <span class="keywordflow">if</span> (start.kind == LogKind::Charge) {</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                    <span class="comment">// Direct charge: allocate immediately</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>                    charge_slices.push_back({i, slice_ticks});</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                <span class="comment">// Check if it&#39;s a known charge</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                <span class="keyword">auto</span> charge_it = world.charges.find(start.ref_id);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                <span class="keywordflow">if</span> (charge_it != world.charges.end()) {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                    charge_slices.push_back({i, slice_ticks});</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                }</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                <span class="comment">// It&#39;s a task: accumulate</span></div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                <span class="keyword">auto</span> task_it = world.tasks.find(start.ref_id);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                <span class="keywordflow">if</span> (task_it == world.tasks.end()) {</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                    <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                }</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                <span class="keyword">const</span> Task&amp; task = task_it-&gt;second;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                <span class="keywordflow">if</span> (task.weights.empty()) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                task_accumulation[start.ref_id] += slice_ticks;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="comment">// First, process direct charges</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [log_idx, slice_ticks] : charge_slices) {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                <span class="keyword">const</span> Log&amp; start = logs[log_idx];</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                <span class="keyword">const</span> Log&amp; end = logs[log_idx + 1];</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                process_slice(day, start, end);</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            }</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>ottr {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span>RunningTotals {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">// charge_id -&gt; ticks charged so far (within filter window)</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    std::unordered_map&lt;std::string, Tick&gt; charged;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">enum class</span> SliceKind {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    Uncharged, <span class="comment">// no ref, unknown ref, or a task carrying no weights</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    Direct,    <span class="comment">// ref names a charge number; the whole slice goes to it</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    Task       <span class="comment">// ref names a task with weights; split by the allocator</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">struct </span>Slice {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    SliceKind kind = SliceKind::Uncharged;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::string ref_id;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    Tick ticks = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> add_allocation(Aggregation&amp; agg, <span class="keyword">const</span> Date&amp; d, <span class="keyword">const</span> std::string&amp; cid, Tick ticks) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span> (ticks &lt;= 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    agg.by_charge_by_day[cid][d.raw] += ticks;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    agg.totals_by_charge[cid] += ticks;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    agg.totals_by_day[d.raw] += ticks;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> apply_charge(Aggregation&amp; out, RunningTotals&amp; rt, <span class="keyword">const</span> Date&amp; date,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                  <span class="keyword">const</span> std::string&amp; note, <span class="keyword">const</span> std::string&amp; source,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                  <span class="keyword">const</span> std::string&amp; charge_id, Tick ticks, <span class="keywordtype">bool</span> audit) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (ticks &lt;= 0) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    add_allocation(out, date, charge_id, ticks);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    rt.charged[charge_id] += ticks;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">if</span> (audit) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        out.audit.push_back(AuditEntry{date, note, source, charge_id, ticks});</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>Tick remaining_budget(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> RunningTotals&amp; rt,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                      <span class="keyword">const</span> std::string&amp; charge_id) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">auto</span> cit = world.charges.find(charge_id);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span> (cit == world.charges.end()) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">auto</span> it = rt.charged.find(charge_id);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    Tick charged = (it == rt.charged.end()) ? 0 : it-&gt;second;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">return</span> cit-&gt;second.budget_ticks - charged;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>std::string hours_text(Tick ticks) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    std::ostringstream oss;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    oss.setf(std::ios::fixed);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    oss &lt;&lt; std::setprecision(1) &lt;&lt; (static_cast&lt;double&gt;(ticks) / 10.0);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> oss.str();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>SliceKind classify_ref(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> Log&amp; start) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (start.kind == LogKind::None) <span class="keywordflow">return</span> SliceKind::Uncharged;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (start.kind == LogKind::Charge) <span class="keywordflow">return</span> SliceKind::Direct;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">// A task-kind log may still name a charge number directly.</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span> (world.charges.count(start.ref_id)) <span class="keywordflow">return</span> SliceKind::Direct;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">auto</span> task_it = world.tasks.find(start.ref_id);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span> (task_it == world.tasks.end()) <span class="keywordflow">return</span> SliceKind::Uncharged;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (task_it-&gt;second.weights.empty()) <span class="keywordflow">return</span> SliceKind::Uncharged;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> SliceKind::Task;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">// Each non-final log opens a slice that ends at the next log.</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>std::vector&lt;Slice&gt; day_slices(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> Day&amp; day) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::vector&lt;Slice&gt; slices;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; logs = day.logs;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (logs.size() &lt; 2) <span class="keywordflow">return</span> slices; <span class="comment">// validation should have caught</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    slices.reserve(logs.size() - 1);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i + 1 &lt; logs.size(); ++i) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">const</span> Log&amp; start = logs[i];</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        Tick ticks = logs[i + 1].time_ticks - start.time_ticks;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">if</span> (ticks &lt;= 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        SliceKind kind = classify_ref(world, start);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">if</span> (kind == SliceKind::Uncharged) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        slices.push_back(Slice{kind, start.ref_id, ticks});</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> slices;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">// Merge task slices within a day. Direct charges keep their own slices and are</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">// allocated first. Tasks are ordered by first appearance so the allocation</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">// sequence follows the file, per SPEC.txt per_day.</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>std::vector&lt;Slice&gt; group_day_slices(<span class="keyword">const</span> std::vector&lt;Slice&gt;&amp; slices) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    std::vector&lt;Slice&gt; grouped;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    std::vector&lt;std::string&gt; task_order;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    std::unordered_map&lt;std::string, Tick&gt; task_totals;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> Slice&amp; s : slices) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">if</span> (s.kind == SliceKind::Direct) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            grouped.push_back(s);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">if</span> (task_totals.find(s.ref_id) == task_totals.end()) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            task_order.push_back(s.ref_id);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        task_totals[s.ref_id] += s.ticks;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    grouped.reserve(grouped.size() + task_order.size());</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; name : task_order) {</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        grouped.push_back(Slice{SliceKind::Task, name, task_totals[name]});</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">return</span> grouped;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>AllocationRequest build_request(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> RunningTotals&amp; rt,</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                                <span class="keyword">const</span> Task&amp; task, Tick ticks) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    AllocationRequest req;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    req.slice_ticks = ticks;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    req.entries.reserve(task.weights.size());</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; w : task.weights) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keyword">auto</span> cit = world.charges.find(w.first);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">if</span> (cit == world.charges.end()) <span class="keywordflow">continue</span>; <span class="comment">// validator should catch</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        AllocationEntry e;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        e.charge_id = w.first;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        e.weight = w.second;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        e.priority = cit-&gt;second.priority;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        e.remaining_budget = remaining_budget(world, rt, e.charge_id);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        req.entries.push_back(std::move(e));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="comment">// task.weights is unordered; sort so the request is reproducible.</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    std::sort(req.entries.begin(), req.entries.end(),</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>              [](<span class="keyword">const</span> AllocationEntry&amp; a, <span class="keyword">const</span> AllocationEntry&amp; b) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                  return a.charge_id &lt; b.charge_id;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>              });</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">return</span> req;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="keywordtype">void</span> warn_overrun(<span class="keyword">const</span> Task&amp; task, <span class="keyword">const</span> std::string&amp; charge_id, Tick over,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                  <span class="keyword">const</span> Date&amp; date, std::vector&lt;std::string&gt;* warnings) {</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">if</span> (warnings == <span class="keyword">nullptr</span>) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    std::ostringstream oss;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    oss &lt;&lt; <span class="stringliteral">&quot;warning: charge &#39;&quot;</span> &lt;&lt; charge_id &lt;&lt; <span class="stringliteral">&quot;&#39; over budget by &quot;</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        &lt;&lt; hours_text(over) &lt;&lt; <span class="stringliteral">&quot; hours on &quot;</span> &lt;&lt; date.raw</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        &lt;&lt; <span class="stringliteral">&quot; (task &#39;&quot;</span> &lt;&lt; task.name &lt;&lt; <span class="stringliteral">&quot;&#39;)&quot;</span>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    warnings-&gt;push_back(oss.str());</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="comment">// Ignore and Warn allocate exactly as before; Warn additionally reports any</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">// charge that received more than its remaining budget.</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>std::vector&lt;AllocationResultEntry&gt; allocate_unbounded(<span class="keyword">const</span> World&amp; world,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                                                      <span class="keyword">const</span> EngineOptions&amp; opts,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                                                      <span class="keyword">const</span> Task&amp; task, Tick ticks,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                                                      <span class="keyword">const</span> RunningTotals&amp; rt) {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keyword">const</span> CalculationOptions&amp; co = opts.calc_options;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    AllocationRequest req = build_request(world, rt, task, ticks);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">return</span> allocate_weighted(req, co.rounding, co.granularity, co.remainder);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="comment">// Then, allocate accumulated task times</span></div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [task_name, total_ticks] : task_accumulation) {</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                <span class="keyword">auto</span> task_it = world.tasks.find(task_name);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                <span class="keywordflow">if</span> (task_it == world.tasks.end()) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                <span class="keyword">const</span> Task&amp; task = task_it-&gt;second;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                <span class="keywordflow">if</span> (task.weights.empty()) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                <span class="comment">// Build allocation request for accumulated time</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                AllocationRequest req;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                req.slice_ticks = total_ticks;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                req.entries.reserve(task.weights.size());</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; w : task.weights) {</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                    AllocationEntry e;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                    e.charge_id = w.first;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                    e.weight = w.second;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                    <span class="keyword">auto</span> cit = world.charges.find(e.charge_id);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                    <span class="keywordflow">if</span> (cit != world.charges.end()) {</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                        e.priority = cit-&gt;second.priority;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                        e.remaining_budget = cit-&gt;second.budget_ticks - (rt.charged[e.charge_id]);</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                        <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                    }</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                    req.entries.push_back(std::move(e));</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                }</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                <span class="keyword">auto</span> result = allocate_weighted(req, opts.calc_options.rounding);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; a : result) {</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                    <span class="keywordflow">if</span> (a.ticks &gt; 0) {</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                        add_allocation(out, day-&gt;date, a.charge_id, a.ticks);</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                        rt.charged[a.charge_id] += a.ticks;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                    }</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                }</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            }</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        }</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>}</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>} <span class="comment">// namespace ottr</span></div>
-<div class="ttc" id="astructottr_1_1Aggregation_html"><div class="ttname"><a href="structottr_1_1Aggregation.html">ottr::Aggregation</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00059">model.hpp:59</a></div></div>
-<div class="ttc" id="astructottr_1_1Date_html"><div class="ttname"><a href="structottr_1_1Date.html">ottr::Date</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00013">model.hpp:13</a></div></div>
-<div class="ttc" id="astructottr_1_1RunningTotals_html"><div class="ttname"><a href="structottr_1_1RunningTotals.html">ottr::RunningTotals</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8cpp_source.html#l00008">engine.cpp:8</a></div></div>
-<div class="ttc" id="astructottr_1_1TaskAccumulation_html"><div class="ttname"><a href="structottr_1_1TaskAccumulation.html">ottr::TaskAccumulation</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8cpp_source.html#l00013">engine.cpp:13</a></div></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment">// Cap and Spill repeatedly allocate what is left across charges that still have</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="comment">// budget. Each pass can only reduce the remaining amount, so this terminates;</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="comment">// if no charge can take anything, the rest is dropped (Cap) or spilled.</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>Tick allocate_budgeted(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> EngineOptions&amp; opts, <span class="keyword">const</span> Date&amp; date,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                       <span class="keyword">const</span> Task&amp; task, Tick ticks, RunningTotals&amp; rt,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                       Aggregation&amp; out) {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keyword">const</span> CalculationOptions&amp; co = opts.calc_options;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    Tick remaining = ticks;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">while</span> (remaining &gt; 0) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        AllocationRequest req = build_request(world, rt, task, remaining);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        req.entries.erase(</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            std::remove_if(req.entries.begin(), req.entries.end(),</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                           [](<span class="keyword">const</span> AllocationEntry&amp; e) { return e.remaining_budget &lt;= 0; }),</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            req.entries.end());</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">if</span> (req.entries.empty()) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keyword">auto</span> result = allocate_weighted(req, co.rounding, co.granularity, co.remainder);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        Tick applied = 0;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; a : result) {</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="keywordflow">if</span> (a.ticks &lt;= 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            Tick cap = std::max&lt;Tick&gt;(0, remaining_budget(world, rt, a.charge_id));</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>            Tick take = std::min&lt;Tick&gt;(a.ticks, cap);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>            <span class="keywordflow">if</span> (take &lt;= 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            apply_charge(out, rt, date, <span class="stringliteral">&quot;task&quot;</span>, task.name, a.charge_id, take, co.audit);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>            applied += take;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">if</span> (applied &lt;= 0) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        remaining -= applied;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">return</span> remaining;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="keywordtype">void</span> allocate_task(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> EngineOptions&amp; opts, <span class="keyword">const</span> Date&amp; date,</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                   <span class="keyword">const</span> Task&amp; task, Tick ticks, RunningTotals&amp; rt, Aggregation&amp; out,</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                   std::vector&lt;std::string&gt;* warnings) {</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">const</span> CalculationOptions&amp; co = opts.calc_options;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">if</span> (co.budget == BudgetPolicy::Ignore || co.budget == BudgetPolicy::Warn) {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keyword">auto</span> result = allocate_unbounded(world, opts, task, ticks, rt);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; a : result) {</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            <span class="keywordflow">if</span> (a.ticks &lt;= 0) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <span class="keywordflow">if</span> (co.budget == BudgetPolicy::Warn) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                Tick cap = remaining_budget(world, rt, a.charge_id);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>                <span class="keywordflow">if</span> (a.ticks &gt; cap) warn_overrun(task, a.charge_id, a.ticks - cap, date, warnings);</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            }</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            apply_charge(out, rt, date, <span class="stringliteral">&quot;task&quot;</span>, task.name, a.charge_id, a.ticks, co.audit);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        }</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    Tick leftover = allocate_budgeted(world, opts, date, task, ticks, rt, out);</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordflow">if</span> (co.budget == BudgetPolicy::Spill &amp;&amp; leftover &gt; 0) {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        apply_charge(out, rt, date, <span class="stringliteral">&quot;spill&quot;</span>, task.name, co.overflow_charge, leftover, co.audit);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>}</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keywordtype">void</span> allocate_direct(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> EngineOptions&amp; opts, <span class="keyword">const</span> Date&amp; date,</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>                     <span class="keyword">const</span> Slice&amp; slice, RunningTotals&amp; rt, Aggregation&amp; out,</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                     std::vector&lt;std::string&gt;* warnings) {</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keyword">const</span> CalculationOptions&amp; co = opts.calc_options;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    Tick capacity = remaining_budget(world, rt, slice.ref_id);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordflow">if</span> (co.budget == BudgetPolicy::Warn &amp;&amp; slice.ticks &gt; capacity) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keywordflow">if</span> (warnings != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            std::ostringstream oss;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            oss &lt;&lt; <span class="stringliteral">&quot;warning: charge &#39;&quot;</span> &lt;&lt; slice.ref_id &lt;&lt; <span class="stringliteral">&quot;&#39; over budget by &quot;</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                &lt;&lt; hours_text(slice.ticks - capacity) &lt;&lt; <span class="stringliteral">&quot; hours on &quot;</span> &lt;&lt; date.raw</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                &lt;&lt; <span class="stringliteral">&quot; (direct charge)&quot;</span>;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            warnings-&gt;push_back(oss.str());</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        }</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    }</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    Tick take = slice.ticks;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">if</span> (co.budget == BudgetPolicy::Cap || co.budget == BudgetPolicy::Spill) {</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        take = std::min&lt;Tick&gt;(slice.ticks, std::max&lt;Tick&gt;(0, capacity));</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    }</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    apply_charge(out, rt, date, <span class="stringliteral">&quot;direct&quot;</span>, slice.ref_id, slice.ref_id, take, co.audit);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    Tick leftover = slice.ticks - take;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordflow">if</span> (co.budget == BudgetPolicy::Spill &amp;&amp; leftover &gt; 0) {</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        apply_charge(out, rt, date, <span class="stringliteral">&quot;spill&quot;</span>, slice.ref_id, co.overflow_charge,</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                     leftover, co.audit);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>}</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="keywordtype">void</span> allocate_slice(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> EngineOptions&amp; opts, <span class="keyword">const</span> Date&amp; date,</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                    <span class="keyword">const</span> Slice&amp; slice, RunningTotals&amp; rt, Aggregation&amp; out,</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                    std::vector&lt;std::string&gt;* warnings) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keywordflow">if</span> (slice.kind == SliceKind::Direct) {</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        allocate_direct(world, opts, date, slice, rt, out, warnings);</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keyword">auto</span> task_it = world.tasks.find(slice.ref_id);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keywordflow">if</span> (task_it == world.tasks.end()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    allocate_task(world, opts, date, task_it-&gt;second, slice.ticks, rt, out, warnings);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>std::vector&lt;const Day*&gt; included_days(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> DateFilter&amp; filter) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    std::vector&lt;const Day*&gt; days;</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    days.reserve(world.days.size());</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; day : world.days) {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="keywordflow">if</span> (filter.includes(day.date)) days.push_back(&amp;day);</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    std::sort(days.begin(), days.end(),</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>              [](<span class="keyword">const</span> Day* a, <span class="keyword">const</span> Day* b) { return a-&gt;date.ord &lt; b-&gt;date.ord; });</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordflow">return</span> days;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>}</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="keywordtype">int</span> month_of(<span class="keyword">const</span> Date&amp; date) { <span class="keywordflow">return</span> date.ord / 100; }</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="comment">// PerMonth: accumulate task time across every included day of a month and</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="comment">// allocate it at the month&#39;s last included day. Direct charges stay on their own</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="comment">// day and are allocated as encountered.</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="keywordtype">void</span> process_months(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> EngineOptions&amp; opts,</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                    <span class="keyword">const</span> std::vector&lt;const Day*&gt;&amp; days, RunningTotals&amp; rt,</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                    Aggregation&amp; out, std::vector&lt;std::string&gt;* warnings) {</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordtype">size_t</span> i = 0;</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">while</span> (i &lt; days.size()) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> month = month_of(days[i]-&gt;date);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        std::vector&lt;std::string&gt; task_order;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        std::unordered_map&lt;std::string, Tick&gt; task_totals;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        Date last_date = days[i]-&gt;date;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordflow">for</span> (; i &lt; days.size() &amp;&amp; month_of(days[i]-&gt;date) == month; ++i) {</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            last_date = days[i]-&gt;date;</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> Slice&amp; s : day_slices(world, *days[i])) {</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>                <span class="keywordflow">if</span> (s.kind == SliceKind::Direct) {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>                    allocate_slice(world, opts, days[i]-&gt;date, s, rt, out, warnings);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>                }</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>                <span class="keywordflow">if</span> (task_totals.find(s.ref_id) == task_totals.end()) {</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>                    task_order.push_back(s.ref_id);</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>                }</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>                task_totals[s.ref_id] += s.ticks;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            }</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        }</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; name : task_order) {</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            <span class="keyword">auto</span> task_it = world.tasks.find(name);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            <span class="keywordflow">if</span> (task_it == world.tasks.end()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            allocate_task(world, opts, last_date, task_it-&gt;second,</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>                          task_totals[name], rt, out, warnings);</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        }</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    }</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>}</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="keywordtype">bool</span> process_world(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> EngineOptions&amp; opts, Aggregation&amp; out,</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>                   [[maybe_unused]] std::string&amp; error_message,</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>                   std::vector&lt;std::string&gt;* warnings) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    out = Aggregation{};</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    std::vector&lt;const Day*&gt; days = included_days(world, opts.filter);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    out.dates_in_order.reserve(days.size());</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> Day* d : days) out.dates_in_order.push_back(d-&gt;date);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    RunningTotals rt;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordflow">if</span> (opts.calc_options.aggregation == AggregationMode::PerMonth) {</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        process_months(world, opts, days, rt, out, warnings);</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    }</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> merge_day = opts.calc_options.aggregation == AggregationMode::PerDay;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> Day* day : days) {</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        std::vector&lt;Slice&gt; slices = day_slices(world, *day);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="keywordflow">if</span> (merge_day) slices = group_day_slices(slices);</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> Slice&amp; slice : slices) {</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            allocate_slice(world, opts, day-&gt;date, slice, rt, out, warnings);</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        }</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    }</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span> </div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>}</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>} <span class="comment">// namespace ottr</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

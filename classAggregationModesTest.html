@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('classAggregationModesTest.html',''); i
 <div class="header">
   <div class="summary">
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classAggregationModesTest-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">AggregationModesTest Class Reference</div></div>
 </div><!--header-->
@@ -105,15 +106,20 @@ Inheritance diagram for AggregationModesTest:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab6dfd6c9b9f2bdd273363031d4af22d2" id="r_ab6dfd6c9b9f2bdd273363031d4af22d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAggregationModesTest.html#ab6dfd6c9b9f2bdd273363031d4af22d2">parse_and_process</a> (const std::string &amp;content, AggregationMode mode, <a class="el" href="structottr_1_1Aggregation.html">Aggregation</a> &amp;out)</td></tr>
-<tr class="separator:ab6dfd6c9b9f2bdd273363031d4af22d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add38e7b2f5cda8d30a7d3d1552233f00" id="r_add38e7b2f5cda8d30a7d3d1552233f00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAggregationModesTest.html#add38e7b2f5cda8d30a7d3d1552233f00">parse_and_process</a> (const std::string &amp;content, AggregationMode mode, <a class="el" href="structottr_1_1Aggregation.html">Aggregation</a> &amp;out, std::vector&lt; std::string &gt; *warnings=nullptr)</td></tr>
+<tr class="separator:add38e7b2f5cda8d30a7d3d1552233f00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a09ed6d49e6ad33eb611094b4e6f93111" id="r_a09ed6d49e6ad33eb611094b4e6f93111"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classAggregationModesTest.html#a09ed6d49e6ad33eb611094b4e6f93111">error_</a></td></tr>
+<tr class="separator:a09ed6d49e6ad33eb611094b4e6f93111"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="test__aggregation__modes_8cpp_source.html#l00010">10</a> of file <a class="el" href="test__aggregation__modes_8cpp_source.html">test_aggregation_modes.cpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab6dfd6c9b9f2bdd273363031d4af22d2" name="ab6dfd6c9b9f2bdd273363031d4af22d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6dfd6c9b9f2bdd273363031d4af22d2">&#9670;&#160;</a></span>parse_and_process()</h2>
+<a id="add38e7b2f5cda8d30a7d3d1552233f00" name="add38e7b2f5cda8d30a7d3d1552233f00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add38e7b2f5cda8d30a7d3d1552233f00">&#9670;&#160;</a></span>parse_and_process()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +143,13 @@ Protected Member Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="structottr_1_1Aggregation.html">Aggregation</a> &amp;&#160;</td>
-          <td class="paramname"><em>out</em>&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt; *&#160;</td>
+          <td class="paramname"><em>warnings</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -153,32 +165,58 @@ Protected Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="test__aggregation__modes_8cpp_source.html#l00012">12</a> of file <a class="el" href="test__aggregation__modes_8cpp_source.html">test_aggregation_modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   12</span>                                                                                             {</div>
-<div class="line"><span class="lineno">   13</span>        std::istringstream iss(content);</div>
-<div class="line"><span class="lineno">   14</span>        <a class="code hl_class" href="classottr_1_1ParserLogger.html">ParserLogger</a> log;</div>
-<div class="line"><span class="lineno">   15</span>        <a class="code hl_struct" href="structottr_1_1World.html">World</a> world;</div>
-<div class="line"><span class="lineno">   16</span>        EXPECT_TRUE(parse_istream(iss, <span class="stringliteral">&quot;test&quot;</span>, world, log));</div>
-<div class="line"><span class="lineno">   17</span>        EXPECT_TRUE(log.empty_err());</div>
-<div class="line"><span class="lineno">   18</span>        </div>
-<div class="line"><span class="lineno">   19</span>        <span class="comment">// Set aggregation mode</span></div>
-<div class="line"><span class="lineno">   20</span>        world.options.aggregation = mode;</div>
-<div class="line"><span class="lineno">   21</span>        </div>
-<div class="line"><span class="lineno">   22</span>        <a class="code hl_class" href="classottr_1_1Validator.html">Validator</a> v;</div>
-<div class="line"><span class="lineno">   23</span>        EXPECT_TRUE(v.validate_world(<span class="stringliteral">&quot;test&quot;</span>, world));</div>
+<div class="fragment"><div class="line"><span class="lineno">   14</span>                                                                     {</div>
+<div class="line"><span class="lineno">   15</span>        std::istringstream iss(content);</div>
+<div class="line"><span class="lineno">   16</span>        <a class="code hl_class" href="classottr_1_1ParserLogger.html">ParserLogger</a> log;</div>
+<div class="line"><span class="lineno">   17</span>        <a class="code hl_struct" href="structottr_1_1World.html">World</a> world;</div>
+<div class="line"><span class="lineno">   18</span>        EXPECT_TRUE(parse_istream(iss, <span class="stringliteral">&quot;test&quot;</span>, world, log));</div>
+<div class="line"><span class="lineno">   19</span>        EXPECT_TRUE(log.empty_err());</div>
+<div class="line"><span class="lineno">   20</span>        </div>
+<div class="line"><span class="lineno">   21</span>        <span class="comment">// Set aggregation mode</span></div>
+<div class="line"><span class="lineno">   22</span>        world.options.aggregation = mode;</div>
+<div class="line"><span class="lineno">   23</span>        ASSERT_TRUE(world.options.validate(error_)) &lt;&lt; error_;</div>
 <div class="line"><span class="lineno">   24</span>        </div>
-<div class="line"><span class="lineno">   25</span>        <a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a> opts;</div>
-<div class="line"><span class="lineno">   26</span>        opts.filter.has_start = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   27</span>        opts.filter.has_end = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">   28</span>        opts.calc_options = world.options;</div>
-<div class="line"><span class="lineno">   29</span>        </div>
-<div class="line"><span class="lineno">   30</span>        std::string error;</div>
-<div class="line"><span class="lineno">   31</span>        EXPECT_TRUE(process_world(world, opts, out, error));</div>
-<div class="line"><span class="lineno">   32</span>    }</div>
-<div class="ttc" id="aclassottr_1_1ParserLogger_html"><div class="ttname"><a href="classottr_1_1ParserLogger.html">ottr::ParserLogger</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8hpp_source.html#l00011">parser.hpp:11</a></div></div>
+<div class="line"><span class="lineno">   25</span>        <a class="code hl_class" href="classottr_1_1Validator.html">Validator</a> v;</div>
+<div class="line"><span class="lineno">   26</span>        EXPECT_TRUE(v.validate_world(<span class="stringliteral">&quot;test&quot;</span>, world));</div>
+<div class="line"><span class="lineno">   27</span>        </div>
+<div class="line"><span class="lineno">   28</span>        <a class="code hl_struct" href="structottr_1_1EngineOptions.html">EngineOptions</a> opts;</div>
+<div class="line"><span class="lineno">   29</span>        opts.filter.has_start = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   30</span>        opts.filter.has_end = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">   31</span>        opts.calc_options = world.options;</div>
+<div class="line"><span class="lineno">   32</span>        </div>
+<div class="line"><span class="lineno">   33</span>        std::string error;</div>
+<div class="line"><span class="lineno">   34</span>        EXPECT_TRUE(process_world(world, opts, out, error, warnings));</div>
+<div class="line"><span class="lineno">   35</span>    }</div>
+<div class="ttc" id="aclassottr_1_1ParserLogger_html"><div class="ttname"><a href="classottr_1_1ParserLogger.html">ottr::ParserLogger</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8hpp_source.html#l00012">parser.hpp:12</a></div></div>
 <div class="ttc" id="aclassottr_1_1Validator_html"><div class="ttname"><a href="classottr_1_1Validator.html">ottr::Validator</a></div><div class="ttdef"><b>Definition</b> <a href="validate_8hpp_source.html#l00007">validate.hpp:7</a></div></div>
-<div class="ttc" id="astructottr_1_1EngineOptions_html"><div class="ttname"><a href="structottr_1_1EngineOptions.html">ottr::EngineOptions</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8hpp_source.html#l00008">engine.hpp:8</a></div></div>
-<div class="ttc" id="astructottr_1_1World_html"><div class="ttname"><a href="structottr_1_1World.html">ottr::World</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00049">model.hpp:49</a></div></div>
+<div class="ttc" id="astructottr_1_1EngineOptions_html"><div class="ttname"><a href="structottr_1_1EngineOptions.html">ottr::EngineOptions</a></div><div class="ttdef"><b>Definition</b> <a href="engine_8hpp_source.html#l00009">engine.hpp:9</a></div></div>
+<div class="ttc" id="astructottr_1_1World_html"><div class="ttname"><a href="structottr_1_1World.html">ottr::World</a></div><div class="ttdef"><b>Definition</b> <a href="model_8hpp_source.html#l00056">model.hpp:56</a></div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a09ed6d49e6ad33eb611094b4e6f93111" name="a09ed6d49e6ad33eb611094b4e6f93111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09ed6d49e6ad33eb611094b4e6f93111">&#9670;&#160;</a></span>error_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string AggregationModesTest::error_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__aggregation__modes_8cpp_source.html#l00037">37</a> of file <a class="el" href="test__aggregation__modes_8cpp_source.html">test_aggregation_modes.cpp</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

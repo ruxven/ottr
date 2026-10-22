@@ -110,6 +110,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a02606697b18d97d35ccd62da8043e637"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff6183b626d7f77710437a3ef466458d" id="r_aff6183b626d7f77710437a3ef466458d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionsParserTest.html#aff6183b626d7f77710437a3ef466458d">parse_string_expect_error</a> (const std::string &amp;content)</td></tr>
 <tr class="separator:aff6183b626d7f77710437a3ef466458d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfcf8c6a660ac3dbcfbecf9081babd5f" id="r_adfcf8c6a660ac3dbcfbecf9081babd5f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOptionsParserTest.html#adfcf8c6a660ac3dbcfbecf9081babd5f">parse_string_expect_warnings</a> (const std::string &amp;content)</td></tr>
+<tr class="separator:adfcf8c6a660ac3dbcfbecf9081babd5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -151,7 +153,7 @@ Protected Attributes</h2></td></tr>
 <div class="line"><span class="lineno">   13</span>        EXPECT_TRUE(parse_istream(iss, <span class="stringliteral">&quot;test&quot;</span>, world, log));</div>
 <div class="line"><span class="lineno">   14</span>        EXPECT_TRUE(log.empty_err());</div>
 <div class="line"><span class="lineno">   15</span>    }</div>
-<div class="ttc" id="aclassottr_1_1ParserLogger_html"><div class="ttname"><a href="classottr_1_1ParserLogger.html">ottr::ParserLogger</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8hpp_source.html#l00011">parser.hpp:11</a></div></div>
+<div class="ttc" id="aclassottr_1_1ParserLogger_html"><div class="ttname"><a href="classottr_1_1ParserLogger.html">ottr::ParserLogger</a></div><div class="ttdef"><b>Definition</b> <a href="parser_8hpp_source.html#l00012">parser.hpp:12</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -189,6 +191,42 @@ Protected Attributes</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="adfcf8c6a660ac3dbcfbecf9081babd5f" name="adfcf8c6a660ac3dbcfbecf9081babd5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfcf8c6a660ac3dbcfbecf9081babd5f">&#9670;&#160;</a></span>parse_string_expect_warnings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; OptionsParserTest::parse_string_expect_warnings </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>content</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__options__parser_8cpp_source.html#l00025">25</a> of file <a class="el" href="test__options__parser_8cpp_source.html">test_options_parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   25</span>                                                                                {</div>
+<div class="line"><span class="lineno">   26</span>        std::istringstream iss(content);</div>
+<div class="line"><span class="lineno">   27</span>        <a class="code hl_class" href="classottr_1_1ParserLogger.html">ParserLogger</a> log;</div>
+<div class="line"><span class="lineno">   28</span>        EXPECT_TRUE(parse_istream(iss, <span class="stringliteral">&quot;test&quot;</span>, world, log));</div>
+<div class="line"><span class="lineno">   29</span>        EXPECT_TRUE(log.empty_err());</div>
+<div class="line"><span class="lineno">   30</span>        EXPECT_FALSE(log.empty_warnings());</div>
+<div class="line"><span class="lineno">   31</span>        <span class="keywordflow">return</span> log.get_warnings();</div>
+<div class="line"><span class="lineno">   32</span>    }</div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="afe3ebc3360d872737dd7c5f3ca2e3f04" name="afe3ebc3360d872737dd7c5f3ca2e3f04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afe3ebc3360d872737dd7c5f3ca2e3f04">&#9670;&#160;</a></span>world</h2>
@@ -210,7 +248,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="test__options__parser_8cpp_source.html#l00024">24</a> of file <a class="el" href="test__options__parser_8cpp_source.html">test_options_parser.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="test__options__parser_8cpp_source.html#l00034">34</a> of file <a class="el" href="test__options__parser_8cpp_source.html">test_options_parser.cpp</a>.</p>
 
 </div>
 </div>
