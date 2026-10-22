@@ -72,9 +72,24 @@ Directives
      - aggregation <mode>: Controls when task-based allocations are computed.
        - per_event (default): Allocate each task slice immediately as it is encountered.
        - per_day: Accumulate all slices for each task within a day, then allocate the total at day end. Preserves audit trail by processing tasks in order.
+       - per_month: Accumulate task time across every included day in a calendar month, then allocate at the month's last included day. Direct charges are allocated on their own day.
        - off: Explicit alias for per_event (no aggregation).
+     - remainder <policy>: Controls how leftover quanta are distributed.
+       - priority (default): Highest priority, then remaining budget, then fractional part, then charge id.
+       - largest_frac: Largest fractional part first, then priority and the remaining tie-breaks.
+       - round_robin: Cycle through eligible charges in order, ignoring priority.
+     - granularity <hours>: Charge quantum in hours. Must be a positive multiple of 0.1 hour, at most 24.0. Default 0.1. Quarter-hour (0.25) is not representable in the internal tenth-hour unit and is rejected.
+     - budget <policy>: Controls enforcement of each charge's declared hours.
+       - ignore (default): Allocate normally; Rem may go negative.
+       - warn: Allocate normally and print an overrun warning to stderr.
+       - cap: Stop allocating to a charge at its budget and redistribute the rest.
+       - spill: Cap every charge and send the remainder to overflow_charge.
+     - overflow_charge <id>: Spill target. Required with budget spill, invalid with any other budget policy, and must name a declared charge.
+     - audit <on|off>: When on, record each applied allocation (date, note, source, charge, ticks) and print the trail to stderr after the table. Default off.
    - Example: opt rounding round
    - Example: opt aggregation per_day
+   - Example: opt remainder largest_frac
+   - Example: opt granularity 0.5
 
 Semantics and computation
 - Time slicing:
@@ -88,6 +103,7 @@ Semantics and computation
    - Aggregation timing (controlled by opt aggregation):
      - per_event (default): Each task slice is allocated immediately upon encountering its log entry.
      - per_day: All slices for a given task within a single day are accumulated, then allocated once at the end of the day. Direct charge logs are allocated immediately. This preserves an audit trail showing tasks processed in sequence.
+     - per_month: Task time is accumulated across every included day in a calendar month, then allocated once at the month's last included day. Direct charge logs are allocated immediately on their own day. Calendar weeks are not supported because dates are stored as MM/DD without a year.
      - off: Alias for per_event.
 
 - Weighted allocation for task-based slices:
@@ -95,24 +111,28 @@ Semantics and computation
    - The ideal (continuous) share for cn_j is S_j = D * w_j / W.
    - All allocations are performed in integer ticks of 0.1 hours to avoid floating-point drift:
      - ticks_total = floor(D * 10 + 1e-9) (always floor, regardless of rounding mode).
-     - base_ticks_j is computed based on the rounding mode (opt rounding):
-       - truncate (default): base_ticks_j = floor(S_j * 10)
-       - round: base_ticks_j = round(S_j * 10) = floor(S_j * 10 + 0.5)
-       - ceil: base_ticks_j = ceil(S_j * 10) = floor(S_j * 10 + 1 - epsilon)
+     - Let q be the charge quantum in ticks from opt granularity (default q = 1).
+     - base_ticks_j is computed on quantum boundaries based on the rounding mode (opt rounding):
+       - truncate (default): base_ticks_j = floor(S_j * 10 / q) * q
+       - round: base_ticks_j = floor(S_j * 10 / q + 0.5) * q
+       - ceil: base_ticks_j = ceil(S_j * 10 / q) * q
      - allocated_ticks = sum(base_ticks_j).
      - remainder = ticks_total - allocated_ticks (may be negative if rounding overshoots).
    - Remainder distribution:
-     - If remainder > 0: Distribute one tick at a time to highest-priority charges (repeat while remainder > 0).
-     - If remainder < 0: Subtract one tick at a time from lowest-priority charges (repeat while remainder < 0).
-     - Ranking (for positive remainder):
-       1) Consider only charge numbers in the task (cn_j).
-       2) Rank by priority (higher numeric priority first; default 0).
-       3) Break ties by larger remaining budget hours: (cn_j.hours - charged_to_date_j). If no budgets differ, continue.
-       4) Break ties by larger fractional remainder of S_j*10 - base_ticks_j.
-       5) Final tie-break: lexicographically smaller charge id.
-     - Ranking (for negative remainder):
-       1) Same as above, but in reverse: lower priority first, smaller remaining budget, smaller fractional remainder.
-     - Grant/subtract one tick to/from the highest/lowest-ranked charge number; update remainder and repeat.
+     - If remainder > 0: Distribute q ticks at a time to the next eligible charge (repeat while remainder > 0).
+     - If remainder < 0: Subtract q ticks at a time from the next eligible charge (repeat while remainder < 0).
+     - If the magnitude left is smaller than q, a final partial step is distributed so the total is always preserved exactly.
+     - Eligibility and ranking depend on opt remainder:
+       - priority (default), for positive remainder:
+         1) Consider only charge numbers in the task (cn_j).
+         2) Rank by priority (higher numeric priority first; default 0).
+         3) Break ties by larger remaining budget: (cn_j.hours - charged_to_date_j). If no budgets differ, continue.
+         4) Break ties by larger fractional remainder of the quantum division.
+         5) Final tie-break: lexicographically smaller charge id.
+       - priority, for negative remainder: same as above but reversed (lower priority first, smaller remaining budget, smaller fractional remainder).
+       - largest_frac: rank by fractional remainder first, then priority and the remaining tie-breaks.
+       - round_robin: cycle through eligible charges in order, ignoring priority and budget ranking. A charge must hold at least the amount being subtracted to be eligible for a negative step.
+     - Grant/subtract the step to/from the highest/lowest-ranked charge number; update remainder and repeat.
    - The final allocated hours for cn_j is allocated_ticks_j / 10.0.
 
 - Direct charge allocation for charge-based slices:

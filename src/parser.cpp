@@ -9,47 +9,66 @@
 
 namespace ottr {
 
+namespace {
+
+void push_token(std::vector<Token>& tokens, std::string& cur, bool quoted,
+                bool keep_empty = false) {
+    if (keep_empty || !cur.empty()) tokens.push_back(Token{cur, quoted});
+    cur.clear();
+}
+
+// Consume one character of a line. Returns true when the rest of the line is a
+// comment and tokenizing should stop.
+bool consume_char(const char c, bool& in_string, bool& escape, std::string& cur,
+                  std::vector<Token>& tokens) {
+    if (!in_string) {
+        if (c == '#') return true;
+        if (c == '"') {
+            push_token(tokens, cur, false);
+            in_string = true;
+            return false;
+        }
+        if (std::isspace(static_cast<unsigned char>(c))) {
+            push_token(tokens, cur, false);
+            return false;
+        }
+        cur.push_back(c);
+        return false;
+    }
+
+    if (escape) {
+        cur.push_back(c);
+        escape = false;
+        return false;
+    }
+    if (c == '\\') {
+        escape = true;
+        return false;
+    }
+    if (c == '"') {
+        push_token(tokens, cur, true, true);
+        in_string = false;
+        return false;
+    }
+    cur.push_back(c);
+    return false;
+}
+
+} // namespace
+
 std::vector<Token> tokenize_line(const std::string& line) {
     std::vector<Token> tokens;
     std::string cur;
     bool in_string = false;
     bool escape = false;
 
-    for (size_t i = 0; i < line.size(); ++i) {
-        char c = line[i];
-        if (!in_string) {
-            if (c == '#') {
-                break; // comment
-            } else if (c == '"') {
-                if (!cur.empty()) { tokens.push_back(Token{cur, false}); cur.clear(); }
-                in_string = true;
-            } else if (std::isspace(static_cast<unsigned char>(c))) {
-                if (!cur.empty()) { tokens.push_back(Token{cur, false}); cur.clear(); }
-            } else {
-                cur.push_back(c);
-            }
-        } else {
-            if (escape) {
-                if (c == '"' || c == '\\') cur.push_back(c);
-                else cur.push_back(c);
-                escape = false;
-            } else if (c == '\\') {
-                escape = true;
-            } else if (c == '"') {
-                // end string token
-                tokens.push_back(Token{cur, true});
-                cur.clear();
-                in_string = false;
-            } else {
-                cur.push_back(c);
-            }
-        }
+    for (const char c : line) {
+        if (consume_char(c, in_string, escape, cur, tokens)) break;
     }
-    if (!in_string && !cur.empty()) tokens.push_back(Token{cur, false});
-    // Unterminated string: treat whatever gathered as a quoted token for parser error detection
-    if (in_string) {
-        tokens.push_back(Token{cur, true});
-    }
+    if (!in_string) push_token(tokens, cur, false);
+    // Unterminated string: treat whatever gathered as a quoted token for parser
+    // error detection.
+    if (in_string) push_token(tokens, cur, true, true);
     return tokens;
 }
 
@@ -65,9 +84,19 @@ bool ParserLogger::log_error(const std::string& path, const int line_no, const s
     error_message_vector.push_back(oss.str());
     return false;
 }
+bool ParserLogger::log_warning(const std::string& path, const int line_no, const std::string& msg) {
+    std::ostringstream oss;
+    oss << path << ":" << line_no << ": warning: " << msg;
+    warning_message_vector.push_back(oss.str());
+    return true;
+}
 
 const std::vector<std::string>& ParserLogger::get_errors(){
     return error_message_vector;
+}
+
+const std::vector<std::string>& ParserLogger::get_warnings(){
+    return warning_message_vector;
 }
 
 const std::vector<std::string>& ParserLogger::get_debug(){
@@ -76,6 +105,10 @@ const std::vector<std::string>& ParserLogger::get_debug(){
 
 bool ParserLogger::empty_err() const{
     return error_message_vector.empty();
+}
+
+bool ParserLogger::empty_warnings() const{
+    return warning_message_vector.empty();
 }
 
 bool ParserLogger::find_err(const std::string& q) const
@@ -292,39 +325,112 @@ bool LogDirectiveParser::parse(const int line_no, const std::vector<Token>& toke
     return true;
 }
 
+void OptionDirectiveParser::warn_override(const int line_no, const std::string& key) {
+    log.log_warning(source_name, line_no,
+        "option '" + key + "' specified more than once; last value wins");
+}
+
+bool OptionDirectiveParser::set_rounding(const int line_no, const std::string& value) {
+    RoundingMode mode;
+    std::string error_msg;
+    if (!CalculationOptions::parse_rounding(value, mode, error_msg)) {
+        return log.log_error(source_name, line_no, error_msg);
+    }
+    world.options.rounding = mode;
+    return true;
+}
+
+bool OptionDirectiveParser::set_aggregation(const int line_no, const std::string& value) {
+    AggregationMode mode;
+    std::string error_msg;
+    if (!CalculationOptions::parse_aggregation(value, mode, error_msg)) {
+        return log.log_error(source_name, line_no, error_msg);
+    }
+    world.options.aggregation = mode;
+    return true;
+}
+
+bool OptionDirectiveParser::set_remainder(const int line_no, const std::string& value) {
+    RemainderPolicy policy;
+    std::string error_msg;
+    if (!CalculationOptions::parse_remainder(value, policy, error_msg)) {
+        return log.log_error(source_name, line_no, error_msg);
+    }
+    world.options.remainder = policy;
+    return true;
+}
+
+bool OptionDirectiveParser::set_budget(const int line_no, const std::string& value) {
+    BudgetPolicy policy;
+    std::string error_msg;
+    if (!CalculationOptions::parse_budget(value, policy, error_msg)) {
+        return log.log_error(source_name, line_no, error_msg);
+    }
+    world.options.budget = policy;
+    return true;
+}
+
+bool OptionDirectiveParser::set_overflow_charge(const int line_no, const Token& token) {
+    if (token.quoted) {
+        return log.log_error(source_name, line_no,
+            "overflow_charge must be a charge id, not a quoted string");
+    }
+    world.options.overflow_charge = token.text;
+    return true;
+}
+
+bool OptionDirectiveParser::set_granularity(const int line_no, const std::string& value) {
+    Tick ticks;
+    std::string error_msg;
+    if (!CalculationOptions::parse_granularity(value, ticks, error_msg)) {
+        return log.log_error(source_name, line_no, error_msg);
+    }
+    world.options.granularity = ticks;
+    return true;
+}
+
+bool OptionDirectiveParser::set_audit(const int line_no, const std::string& value) {
+    bool enabled = false;
+    std::string error_msg;
+    if (!CalculationOptions::parse_flag(value, enabled, error_msg)) {
+        return log.log_error(source_name, line_no, error_msg);
+    }
+    world.options.audit = enabled;
+    return true;
+}
+
 bool OptionDirectiveParser::parse(const int line_no, const std::vector<Token>& tokens)
 {
     if (tokens.size() < 3) return log.log_error(source_name, line_no, "opt requires: opt <key> <value>");
-    const std::string opt_key = tokens[1].text;
-    const std::string opt_value = tokens[2].text;
+    const std::string& opt_key = tokens[1].text;
+    const std::string& opt_value = tokens[2].text;
 
+    bool applied = false;
     if (opt_key == "rounding") {
-        RoundingMode new_mode;
-        std::string error_msg;
-        if (!CalculationOptions::parse_rounding(opt_value, new_mode, error_msg)) {
-            return log.log_error(source_name, line_no, error_msg);
-        }
-        // Check if rounding was already set
-        if (world.options.rounding != RoundingMode::Truncate) {
-            std::cerr << source_name << ":" << line_no << ": warning: rounding option specified twice, overriding previous value" << std::endl;
-        }
-        world.options.rounding = new_mode;
-        return true;
+        applied = set_rounding(line_no, opt_value);
     } else if (opt_key == "aggregation") {
-        AggregationMode new_mode;
-        std::string error_msg;
-        if (!CalculationOptions::parse_aggregation(opt_value, new_mode, error_msg)) {
-            return log.log_error(source_name, line_no, error_msg);
-        }
-        // Check if aggregation was already set
-        if (world.options.aggregation != AggregationMode::PerEvent) {
-            std::cerr << source_name << ":" << line_no << ": warning: aggregation option specified twice, overriding previous value" << std::endl;
-        }
-        world.options.aggregation = new_mode;
-        return true;
+        applied = set_aggregation(line_no, opt_value);
+    } else if (opt_key == "remainder") {
+        applied = set_remainder(line_no, opt_value);
+    } else if (opt_key == "budget") {
+        applied = set_budget(line_no, opt_value);
+    } else if (opt_key == "overflow_charge") {
+        applied = set_overflow_charge(line_no, tokens[2]);
+    } else if (opt_key == "granularity") {
+        applied = set_granularity(line_no, opt_value);
+    } else if (opt_key == "audit") {
+        applied = set_audit(line_no, opt_value);
     } else {
-        return log.log_error(source_name, line_no, "unknown option key: '" + opt_key + "'. Valid keys: rounding, aggregation");
+        return log.log_error(source_name, line_no,
+            "unknown option key: '" + opt_key +
+            "'. Valid keys: rounding, aggregation, remainder, budget, "
+            "overflow_charge, granularity, audit");
     }
+
+    if (!applied) return false;
+    if (seen_keys_.count(opt_key) > 0) warn_override(line_no, opt_key);
+    seen_keys_.insert(opt_key);
+    return true;
 }
 
 bool DirectiveParser::ensure_day_closed(const int lno) {

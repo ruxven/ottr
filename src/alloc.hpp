@@ -25,7 +25,14 @@ struct AllocationRequest {
 
 // Weighted allocation per DESIGN: integer division + remainder distribution.
 // Applies rounding mode to base allocations and distributes remainder.
-std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& req,
-                                                      RoundingMode rounding = RoundingMode::Truncate);
+// granularity is the charge quantum in ticks; 1 charges to the tenth of an hour,
+// 5 to the half hour. Allocations are multiples of it except for a sub-quantum
+// tail when slice_ticks is not itself a multiple.
+// remainder selects how leftover quanta are handed out.
+std::vector<AllocationResultEntry> allocate_weighted(
+    const AllocationRequest& req,
+    RoundingMode rounding = RoundingMode::Truncate,
+    Tick granularity = 1,
+    RemainderPolicy remainder = RemainderPolicy::Priority);
 
 } // namespace ottr

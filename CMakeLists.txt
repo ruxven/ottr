@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 project(ottr LANGUAGES CXX)
 
+include(GNUInstallDirs)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -42,6 +44,24 @@ add_executable(ottr
 target_link_libraries(ottr PRIVATE ottr_core)
 
 target_include_directories(ottr PRIVATE src)
+
+# Installation rules
+install(TARGETS ottr
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(TARGETS ottr_core
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+install(DIRECTORY src/
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/ottr
+  FILES_MATCHING
+  PATTERN "*.hpp"
+  PATTERN ".github" EXCLUDE
+)
 
 # Tests with GoogleTest
 include(CTest)

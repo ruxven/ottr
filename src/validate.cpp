@@ -4,48 +4,79 @@
 
 namespace ottr {
 
+namespace {
+
+bool validate_spill_target(const std::string& file, const World& world,
+                           Validator& validator) {
+    if (world.options.budget != BudgetPolicy::Spill) return true;
+    if (world.charges.count(world.options.overflow_charge) > 0) return true;
+    validator.log_error(file, 0, "overflow_charge references unknown charge: " +
+                                     world.options.overflow_charge);
+    return false;
+}
+
+bool validate_task_weights(const std::string& file, const World& world,
+                           Validator& validator) {
+    bool valid = true;
+    for (const auto& [tname, task] : world.tasks) {
+        for (const auto& [cid, weight] : task.weights) {
+            if (world.charges.count(cid) > 0) continue;
+            validator.log_error(file, 0, "wt references unknown charge: " + cid +
+                                             " (task: " + tname + ")");
+            valid = false;
+        }
+    }
+    return valid;
+}
+
+bool validate_log_ref(const std::string& file, const World& world, const Log& entry,
+                      Validator& validator) {
+    if (entry.kind == LogKind::Task) {
+        const bool known_task = world.tasks.count(entry.ref_id) > 0;
+        const bool is_charge = world.charges.count(entry.ref_id) > 0;
+        const bool is_nc = (entry.ref_id == "nc");
+        if (known_task || is_charge || is_nc) return true;
+        validator.log_error(file, entry.line_no,
+                            "log references unknown task or charge: " + entry.ref_id);
+        return false;
+    }
+    if (entry.kind == LogKind::Charge && world.charges.count(entry.ref_id) == 0) {
+        validator.log_error(file, entry.line_no,
+                            "log references unknown charge: " + entry.ref_id);
+        return false;
+    }
+    return true;
+}
+
+// A day needs at least two logs and must end on the closing uncharged log.
+bool validate_day(const std::string& file, const World& world, const Day& day,
+                  Validator& validator) {
+    bool valid = true;
+    if (day.logs.size() < 2) {
+        validator.log_error(file, 0, "day " + day.date.raw +
+                                         " must contain at least two log entries");
+        valid = false;
+    }
+    if (!day.logs.empty() && day.logs.back().kind != LogKind::None) {
+        validator.log_error(file, 0, "day " + day.date.raw +
+                                         " not closed with final uncharged log");
+        valid = false;
+    }
+    for (const Log& entry : day.logs) {
+        if (!validate_log_ref(file, world, entry, validator)) valid = false;
+    }
+    return valid;
+}
+
+} // namespace
+
 bool Validator::validate_world(const std::string& file, const World& world) {
     bool valid = true;
-
-    // Check tasks exist for all referenced weights and charges exist too
-    for (const auto& [tname, t] : world.tasks) {
-        for (const auto& [cid, w] : t.weights) {
-            if (!world.charges.count(cid)) {
-                log_error(file, 0, "wt references unknown charge: " + cid + " (task: " + tname + ")");
-		valid = false;
-            }
-        }
+    if (!validate_spill_target(file, world, *this)) valid = false;
+    if (!validate_task_weights(file, world, *this)) valid = false;
+    for (const Day& day : world.days) {
+        if (!validate_day(file, world, day, *this)) valid = false;
     }
-
-    // For each day, ensure >= 2 logs and last is None (parser ensures closing but double-check)
-    for (const auto& day : world.days) {
-        if (day.logs.size() < 2) {
-            log_error(file, 0, "day " + day.date.raw + " must contain at least two log entries");
-            valid = false;
-        }
-        if (!day.logs.empty() && day.logs.back().kind != LogKind::None) {
-            log_error(file, 0, "day " + day.date.raw + " not closed with final uncharged log");
-            valid = false;
-        }
-        // Validate log references
-        for (const auto& lg : day.logs) {
-            if (lg.kind == LogKind::Task) {
-                bool known_task = world.tasks.count(lg.ref_id) > 0;
-                bool is_charge = world.charges.count(lg.ref_id) > 0;
-                bool is_nc = (lg.ref_id == "nc");
-                if (!known_task && !is_charge && !is_nc) {
-                    log_error(file, lg.line_no, "log references unknown task or charge: " + lg.ref_id);
-                    valid = false;
-                }
-            } else if (lg.kind == LogKind::Charge) {
-                if (!world.charges.count(lg.ref_id)) {
-                    log_error(file, lg.line_no, "log references unknown charge: " + lg.ref_id);
-                    valid = false;
-                }
-            }
-        }
-    }
-
     return valid;
 }
 

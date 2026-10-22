@@ -175,12 +175,81 @@ opt aggregation <mode>
 Supported modes:
 - `per_event` (default): Allocate each task slice immediately as it is encountered
 - `per_day`: Accumulate all slices for each task within a day, then allocate the total at day end. Preserves audit trail by processing tasks in sequence.
+- `per_month`: Accumulate task time across every included day in a calendar month, then allocate at the month's last included day. Direct charges stay on their own day.
 - `off`: Explicit alias for `per_event`
 
 Example:
 ```
 opt aggregation per_day
 ```
+
+### Remainder Policy
+
+Controls which charge receives leftover quanta after base allocation.
+
+```
+opt remainder <policy>
+```
+
+Supported policies:
+- `priority` (default): Highest priority, then remaining budget, then fractional part
+- `largest_frac`: Largest fractional part first, then priority
+- `round_robin`: Cycle through eligible charges in order, ignoring priority
+
+Example:
+```
+opt remainder round_robin
+```
+
+### Charge Granularity
+
+Controls the quantum used for charge allocation, in hours.
+
+```
+opt granularity <hours>
+```
+
+The value must be a positive multiple of 0.1 hour (0.2, 0.5, 1.0, and so on).
+The default is 0.1. A quarter-hour quantum (0.25) is not supported because the
+internal unit is one tenth of an hour.
+
+Example:
+```
+opt granularity 0.5
+```
+
+### Budget Policy
+
+Controls what happens when an allocation would exceed a charge's declared hours.
+
+```
+opt budget <policy>
+opt overflow_charge <charge-id>
+```
+
+Supported policies:
+- `ignore` (default): Allocate normally; the `Rem` column may go negative
+- `warn`: Allocate normally and print an overrun warning to stderr
+- `cap`: Stop allocating to a charge at its budget and redistribute the rest
+- `spill`: Cap every charge and send the remainder to `overflow_charge`
+
+`overflow_charge` is required with `spill`, is only valid with `spill`, and must
+name a declared charge.
+
+Example:
+```
+opt budget spill
+opt overflow_charge 9999.z
+```
+
+### Audit Output
+
+```
+opt audit on
+```
+
+Records every applied allocation (date, source, charge, and hours) and prints
+the trail to stderr after the table. `off` is the default.
 
 ### Example Configuration
 
@@ -226,7 +295,7 @@ docker run --rm -v $(pwd):/workspace ottr-dev bash -c "cd /workspace/ottr/build 
 - ✅ Configure rounding to either truncation, normal rounding, or ceiling
 - ✅ Summarize task data charges per day or per event (aggregation modes)
 - Generate a timecard using a specified date range.
-- Handle cases where decihours need to be deducted from total time on task for event or day.
+- ✅ Handle cases where decihours need to be deducted from total time on task for event or day.
 - Audit mode: show the per-day allocation and remainder assignments per event or per day.
 - Display uncharged tasks in output for timecard
 - Task summary mode: display summary of time spent on tasks, breakdown of charge codes applied.

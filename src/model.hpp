@@ -8,11 +8,18 @@
 
 namespace ottr {
 
-using Tick = long long; // tenths of an hour
-
 struct Date {
     std::string raw; // MM/DD
     int ord = 0;     // MM*100 + DD
+};
+
+// One allocation, recorded when opt audit on.
+struct AuditEntry {
+    Date date;
+    std::string note;      // "direct", "task", or "spill"
+    std::string source;    // log ref: task name or charge id
+    std::string charge_id; // charge the ticks landed on
+    Tick ticks = 0;
 };
 
 struct ChargeNumber {
@@ -65,6 +72,8 @@ struct Aggregation {
     std::unordered_map<std::string, Tick> totals_by_day;
     // ordered set of included dates
     std::vector<Date> dates_in_order;
+    // per-allocation detail, populated only when opt audit is on
+    std::vector<AuditEntry> audit;
 };
 
 // Date filter as interpreted by CLI

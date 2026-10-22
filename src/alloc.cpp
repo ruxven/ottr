@@ -4,161 +4,187 @@
 
 namespace ottr {
 
+namespace {
+
 struct WorkItem {
-    size_t idx; // index into req.entries
-    long long base = 0;
-    long long frac = 0; // ideal_numer % denom
+    size_t idx = 0;        // index into req.entries
+    long long base = 0;    // allocation before remainder distribution
+    long long frac = 0;    // distance past the quantum the ideal share fell
+    long long adjusts = 0; // quanta added or removed during remainder distribution
 };
 
-std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& req,
-                                                      RoundingMode rounding) {
-    std::vector<AllocationResultEntry> out;
-    if (req.slice_ticks <= 0 || req.entries.empty()) return out;
+// Round ideal_numer/denom to a multiple of quantum, per the rounding mode. The
+// division is scaled by the quantum so every mode lands on a quantum boundary
+// rather than rounding to a tick and then snapping.
+long long quantize(long long ideal_numer, long long denom, RoundingMode rounding,
+                   long long quantum) {
+    const long long scaled = denom * quantum;
+    long long units = 0;
+    switch (rounding) {
+        case RoundingMode::Round:
+            units = (ideal_numer + scaled / 2) / scaled;
+            break;
+        case RoundingMode::Ceil:
+            units = (ideal_numer + scaled - 1) / scaled;
+            break;
+        case RoundingMode::Truncate:
+        default:
+            units = ideal_numer / scaled;
+            break;
+    }
+    return units * quantum;
+}
 
+// Rank two candidates for receiving (descending) or surrendering (ascending) a
+// quantum. Returns true when a outranks b. The policy only changes which
+// criteria come first; the trailing criteria keep the order total so the
+// distribution always terminates and stays deterministic.
+bool outranks(const AllocationEntry& ea, const WorkItem& wa,
+              const AllocationEntry& eb, const WorkItem& wb,
+              bool descending, RemainderPolicy policy) {
+    auto prefer = [descending](long long a, long long b) {
+        return descending ? (a > b) : (a < b);
+    };
+
+    if (policy == RemainderPolicy::LargestFrac) {
+        if (wa.frac != wb.frac) return prefer(wa.frac, wb.frac);
+        if (ea.priority != eb.priority) return prefer(ea.priority, eb.priority);
+    } else {
+        if (ea.priority != eb.priority) return prefer(ea.priority, eb.priority);
+    }
+
+    if (ea.remaining_budget != eb.remaining_budget) {
+        return prefer(ea.remaining_budget, eb.remaining_budget);
+    }
+    if (policy != RemainderPolicy::LargestFrac && wa.frac != wb.frac) {
+        return prefer(wa.frac, wb.frac);
+    }
+    // Without this the comparison is identical on every iteration and a single
+    // charge absorbs the whole remainder.
+    if (wa.adjusts != wb.adjusts) {
+        return wa.adjusts < wb.adjusts;
+    }
+    return ea.charge_id < eb.charge_id;
+}
+
+long long total_weight(const AllocationRequest& req) {
     long long denom = 0;
     for (const auto& e : req.entries) {
         if (e.weight > 0) denom += e.weight;
     }
-    if (denom <= 0) return out; // uncharged per spec
+    return denom;
+}
 
+std::vector<WorkItem> build_work(const AllocationRequest& req, long long denom,
+                                 RoundingMode rounding, long long quantum) {
     std::vector<WorkItem> work;
     work.reserve(req.entries.size());
-    long long base_sum = 0;
     for (size_t i = 0; i < req.entries.size(); ++i) {
-        const auto& e = req.entries[i];
+        const AllocationEntry& e = req.entries[i];
         if (e.weight <= 0) continue;
-        long long ideal_numer = static_cast<long long>(req.slice_ticks) * static_cast<long long>(e.weight);
-        
-        long long base = 0;
-        long long frac = 0;
-        
-        // Apply rounding mode to base allocation
-        if (rounding == RoundingMode::Truncate) {
-            base = ideal_numer / denom;
-            frac = ideal_numer % denom;
-        } else if (rounding == RoundingMode::Round) {
-            // Standard rounding: add half denominator before dividing
-            long long rounded_numer = ideal_numer + denom / 2;
-            base = rounded_numer / denom;
-            frac = ideal_numer % denom;
-        } else if (rounding == RoundingMode::Ceil) {
-            // Ceiling: add (denom - 1) before dividing
-            long long ceiled_numer = ideal_numer + denom - 1;
-            base = ceiled_numer / denom;
-            frac = ideal_numer % denom;
-        }
-        
-        work.push_back(WorkItem{i, base, frac});
-        base_sum += base;
+        const long long ideal_numer =
+            static_cast<long long>(req.slice_ticks) * static_cast<long long>(e.weight);
+        const long long base = quantize(ideal_numer, denom, rounding, quantum);
+        work.push_back(WorkItem{i, base, ideal_numer % (denom * quantum), 0});
     }
+    return work;
+}
 
-    long long remainder = static_cast<long long>(req.slice_ticks) - base_sum;
-    // Remainder can be negative with rounding modes; we'll handle it below
-
-    auto choose_idx = [&](const std::vector<WorkItem>& items) -> size_t {
-        size_t best = items[0].idx;
-        // We'll scan req.entries via indices considering the comparator
-        for (const auto& wi : items) {
-            size_t j = wi.idx;
-            size_t b = best;
-            const auto& ej = req.entries[j];
-            const auto& eb = req.entries[b];
-            // 1) Higher priority first
-            if (ej.priority != eb.priority) {
-                if (ej.priority > eb.priority) best = j; // higher wins
-                continue;
+// Hand out or claw back whole quanta until the allocation sums to slice_ticks.
+// A slice that is not a multiple of the quantum leaves a sub-quantum tail; it
+// goes to the next eligible charge so the total is always preserved exactly.
+void distribute_ranked(const AllocationRequest& req, std::vector<WorkItem>& work,
+                       std::vector<AllocationResultEntry>& out, long long quantum,
+                       long long remainder, RemainderPolicy policy) {
+    // Negative remainder means the rounding mode overshot the slice. Only
+    // charges holding at least the amount being taken are eligible, so no
+    // allocation can go negative.
+    auto pick = [&](bool descending, long long needed) -> WorkItem* {
+        WorkItem* best = nullptr;
+        for (WorkItem& w : work) {
+            if (out[w.idx].ticks < needed) continue;
+            if (best == nullptr ||
+                outranks(req.entries[w.idx], w, req.entries[best->idx], *best,
+                         descending, policy)) {
+                best = &w;
             }
-            // 2) Larger remaining budget
-            if (ej.remaining_budget != eb.remaining_budget) {
-                if (ej.remaining_budget > eb.remaining_budget) best = j;
-                continue;
-            }
-            // 3) Larger fractional remainder (frac)
-            long long frac_b = 0;
-            long long frac_j = 0;
-            for (const auto& w : work) {
-                if (w.idx == b) frac_b = w.frac;
-                if (w.idx == j) frac_j = w.frac;
-            }
-            if (frac_j != frac_b) {
-                if (frac_j > frac_b) best = j;
-                continue;
-            }
-            // 4) Lexicographically smaller charge id
-            if (ej.charge_id < eb.charge_id) best = j;
         }
         return best;
     };
 
-    // Prepare result with base allocations
+    while (remainder != 0) {
+        const bool giving = remainder > 0;
+        const long long magnitude = giving ? remainder : -remainder;
+        const long long step = std::min(quantum, magnitude);
+        WorkItem* w = pick(giving, giving ? 0 : step);
+        if (w == nullptr) break;
+        out[w->idx].ticks += giving ? step : -step;
+        w->adjusts += 1;
+        remainder += giving ? -step : step;
+    }
+}
+
+// Give each eligible charge one quantum in turn, ignoring priority and budget.
+// Subtracting follows the same cycle, skipping charges that cannot cover the
+// step.
+void distribute_round_robin(std::vector<WorkItem>& work,
+                            std::vector<AllocationResultEntry>& out,
+                            long long quantum, long long remainder) {
+    size_t cursor = 0;
+    while (remainder != 0 && !work.empty()) {
+        const bool giving = remainder > 0;
+        const long long magnitude = giving ? remainder : -remainder;
+        const long long step = std::min(quantum, magnitude);
+
+        bool advanced = false;
+        for (size_t k = 0; k < work.size(); ++k) {
+            const size_t pos = (cursor + k) % work.size();
+            WorkItem& w = work[pos];
+            if (!giving && out[w.idx].ticks < step) continue;
+            out[w.idx].ticks += giving ? step : -step;
+            w.adjusts += 1;
+            remainder += giving ? -step : step;
+            cursor = (pos + 1) % work.size();
+            advanced = true;
+            break;
+        }
+        if (!advanced) break;
+    }
+}
+
+} // namespace
+
+std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& req,
+                                                      RoundingMode rounding,
+                                                      Tick granularity,
+                                                      RemainderPolicy remainder) {
+    std::vector<AllocationResultEntry> out;
+    if (req.slice_ticks <= 0 || req.entries.empty()) return out;
+
+    const long long denom = total_weight(req);
+    if (denom <= 0) return out; // uncharged per spec
+
+    const long long quantum = granularity > 0 ? static_cast<long long>(granularity) : 1;
+
     out.resize(req.entries.size());
     for (size_t i = 0; i < req.entries.size(); ++i) {
         out[i].charge_id = req.entries[i].charge_id;
         out[i].ticks = 0;
     }
-    for (const auto& w : work) {
+
+    std::vector<WorkItem> work = build_work(req, denom, rounding, quantum);
+    for (const WorkItem& w : work) {
         out[w.idx].ticks += static_cast<Tick>(w.base);
     }
 
-    // Distribute remainder one tick at a time
-    // Positive remainder: distribute to highest priority charges
-    // Negative remainder: subtract from lowest priority charges
-    if (remainder > 0) {
-        while (remainder > 0 && !work.empty()) {
-            size_t winner_idx = choose_idx(work);
-            // increment the base of the winner for next comparison steps
-            for (auto& w : work) {
-                if (w.idx == winner_idx) { w.base += 1; break; }
-            }
-            out[winner_idx].ticks += 1;
-            remainder -= 1;
-        }
-    } else if (remainder < 0) {
-        // Negative remainder: subtract from lowest priority charges
-        // Use reverse comparator: lower priority first, smaller remaining budget, etc.
-        auto choose_idx_reverse = [&](const std::vector<WorkItem>& items) -> size_t {
-            size_t best = items[0].idx;
-            for (const auto& wi : items) {
-                size_t j = wi.idx;
-                size_t b = best;
-                const auto& ej = req.entries[j];
-                const auto& eb = req.entries[b];
-                // 1) Lower priority first (opposite of normal)
-                if (ej.priority != eb.priority) {
-                    if (ej.priority < eb.priority) best = j;
-                    continue;
-                }
-                // 2) Smaller remaining budget (opposite of normal)
-                if (ej.remaining_budget != eb.remaining_budget) {
-                    if (ej.remaining_budget < eb.remaining_budget) best = j;
-                    continue;
-                }
-                // 3) Smaller fractional remainder (opposite of normal)
-                long long frac_b = 0;
-                long long frac_j = 0;
-                for (const auto& w : work) {
-                    if (w.idx == b) frac_b = w.frac;
-                    if (w.idx == j) frac_j = w.frac;
-                }
-                if (frac_j != frac_b) {
-                    if (frac_j < frac_b) best = j;
-                    continue;
-                }
-                // 4) Lexicographically smaller charge id (same as normal)
-                if (ej.charge_id < eb.charge_id) best = j;
-            }
-            return best;
-        };
+    long long base_sum = 0;
+    for (const WorkItem& w : work) base_sum += w.base;
+    const long long leftover = static_cast<long long>(req.slice_ticks) - base_sum;
 
-        while (remainder < 0 && !work.empty()) {
-            size_t loser_idx = choose_idx_reverse(work);
-            // decrement the base of the loser for next comparison steps
-            for (auto& w : work) {
-                if (w.idx == loser_idx) { w.base -= 1; break; }
-            }
-            out[loser_idx].ticks -= 1;
-            remainder += 1;
-        }
+    if (remainder == RemainderPolicy::RoundRobin) {
+        distribute_round_robin(work, out, quantum, leftover);
+    } else {
+        distribute_ranked(req, work, out, quantum, leftover, remainder);
     }
 
     return out;

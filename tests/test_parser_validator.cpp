@@ -81,3 +81,23 @@ TEST(Validator, UnknownRefs) {
     EXPECT_FALSE(v.empty_err());
     EXPECT_NE(v.find_err("wt references unknown charge: C1"), std::string::npos);
 }
+
+TEST(Validator, SpillTargetMustBeDeclared) {
+    std::string txt =
+        "cn C1 \"x\" 10\n"
+        "task t \"x\"\n"
+        "wt t C1 1\n"
+        "opt budget spill\n"
+        "opt overflow_charge C9\n"
+        "day 09/01\n"
+        "log 9.0 t\n"
+        "log 10.0\n";
+    ParserLogger log;
+    Validator v;
+    World w;
+    std::istringstream iss(txt);
+    ASSERT_TRUE(parse_istream(iss, "mem:spill", w, log));
+    EXPECT_FALSE(v.validate_world("mem:spill", w));
+    EXPECT_NE(v.find_err("overflow_charge references unknown charge: C9"),
+              std::string::npos);
+}

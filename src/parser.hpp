@@ -3,6 +3,7 @@
 #include <vector>
 #include <istream>
 #include <optional>
+#include <unordered_set>
 
 namespace ottr {
 
@@ -13,14 +14,18 @@ public:
     ParserLogger() = default;
 
     bool log_error(const std::string& path, const int line_no, const std::string& msg);
+    bool log_warning(const std::string& path, const int line_no, const std::string& msg);
     bool log_debug(const std::string& path, const int line_no, const std::string& msg);
 
     const std::vector<std::string>& get_errors();
+    const std::vector<std::string>& get_warnings();
     const std::vector<std::string>& get_debug();
     bool empty_err() const;
+    bool empty_warnings() const;
     bool find_err(const std::string&) const;
 private:
     std::vector<std::string> error_message_vector;
+    std::vector<std::string> warning_message_vector;
     std::vector<std::string> debug_message_vector;
 };
 
@@ -145,6 +150,20 @@ public:
         const int line_no,
         const std::vector<Token>& tokens
     ) override final;
+
+private:
+    void warn_override(const int line_no, const std::string& key);
+    bool set_rounding(const int line_no, const std::string& value);
+    bool set_aggregation(const int line_no, const std::string& value);
+    bool set_remainder(const int line_no, const std::string& value);
+    bool set_budget(const int line_no, const std::string& value);
+    bool set_overflow_charge(const int line_no, const Token& token);
+    bool set_granularity(const int line_no, const std::string& value);
+    bool set_audit(const int line_no, const std::string& value);
+
+    // Track which keys have been set so we can warn on any duplicate, regardless
+    // of whether the repeated value matches the default.
+    std::unordered_set<std::string> seen_keys_;
 };
 
 } // namespace ottr
