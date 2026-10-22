@@ -50,8 +50,10 @@ var NAVTREE =
         [ "Audit Output", "md_README.html#autotoc_md20", null ],
         [ "Example Configuration", "md_README.html#autotoc_md21", null ]
       ] ],
-      [ "Building", "md_README.html#autotoc_md22", null ],
-      [ "TODO", "md_README.html#autotoc_md23", null ]
+      [ "Building", "md_README.html#autotoc_md22", [
+        [ "Windows 10", "md_README.html#autotoc_md23", null ]
+      ] ],
+      [ "TODO", "md_README.html#autotoc_md24", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

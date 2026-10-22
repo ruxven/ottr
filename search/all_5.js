@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['functions_20complex_20untested_0',['🚨 Top High Risk Functions (Complex + Untested)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md8',1,'']]],
-  ['functions_20prioritized_20by_20coverage_1',['🔒 Top Security Risk Functions (Prioritized by coverage)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md9',1,'']]]
+  ['engineoptions_0',['EngineOptions',['../structottr_1_1EngineOptions.html',1,'ottr']]],
+  ['example_20configuration_1',['Example Configuration',['../md_README.html#autotoc_md21',1,'']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['no_20really_20how_20do_20i_20use_20it_0',['No really, how do I use it?',['../md_README.html#autotoc_md13',1,'']]]
+  ['mode_0',['mode',['../md_README.html#autotoc_md16',1,'Aggregation Mode'],['../md_README.html#autotoc_md15',1,'Rounding Mode']]]
 ];

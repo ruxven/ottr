@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['date_0',['Date',['../structottr_1_1Date.html',1,'ottr']]],
-  ['datefilter_1',['DateFilter',['../structottr_1_1DateFilter.html',1,'ottr']]],
-  ['day_2',['Day',['../structottr_1_1Day.html',1,'ottr']]],
-  ['daydirectiveparser_3',['DayDirectiveParser',['../classottr_1_1DayDirectiveParser.html',1,'ottr']]],
-  ['developer_20pain_20point_20report_4',['Developer Pain Point Report',['../md_pain-point-analysis_2pain__points__report.html',1,'']]],
-  ['development_20workflow_5',['Integration with Development Workflow',['../md_COMPLEXITY.html#autotoc_md6',1,'']]],
-  ['directiveparser_6',['DirectiveParser',['../classottr_1_1DirectiveParser.html',1,'ottr']]],
-  ['do_20i_20use_20it_7',['do i use it',['../md_README.html#autotoc_md12',1,'How do I use it?'],['../md_README.html#autotoc_md13',1,'No really, how do I use it?']]]
+  ['calculationoptions_0',['CalculationOptions',['../structottr_1_1CalculationOptions.html',1,'ottr']]],
+  ['charge_20granularity_1',['Charge Granularity',['../md_README.html#autotoc_md18',1,'']]],
+  ['chargedirectiveparser_2',['ChargeDirectiveParser',['../classottr_1_1ChargeDirectiveParser.html',1,'ottr']]],
+  ['chargenumber_3',['ChargeNumber',['../structottr_1_1ChargeNumber.html',1,'ottr']]],
+  ['code_20complexity_20analysis_4',['Code Complexity Analysis',['../md_COMPLEXITY.html',1,'']]],
+  ['complex_20untested_5',['🚨 Top High Risk Functions (Complex + Untested)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md8',1,'']]],
+  ['complexity_20analysis_6',['Code Complexity Analysis',['../md_COMPLEXITY.html',1,'']]],
+  ['complexity_20guidelines_7',['Complexity Guidelines',['../md_COMPLEXITY.html#autotoc_md4',1,'']]],
+  ['configuration_8',['configuration',['../md_COMPLEXITY.html#autotoc_md1',1,'Configuration'],['../md_README.html#autotoc_md21',1,'Example Configuration']]],
+  ['configuration_20options_9',['Configuration Options',['../md_README.html#autotoc_md14',1,'']]],
+  ['coverage_10',['🔒 Top Security Risk Functions (Prioritized by coverage)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md9',1,'']]]
 ];

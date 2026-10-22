@@ -256,7 +256,22 @@ Building</h1>
 </div><!-- fragment --><p>Or using Docker:</p>
 <div class="fragment"><div class="line">docker build -t ottr-dev .</div>
 <div class="line">docker run --rm -v $(pwd):/workspace ottr-dev bash -c &quot;cd /workspace/ottr/build &amp;&amp; cmake .. &amp;&amp; make&quot;</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
+Windows 10</h2>
+<p>Windows builds are cross-compiled from Linux with MinGW-w64. Install the cross compiler:</p>
+<div class="fragment"><div class="line">sudo pacman -S mingw-w64-gcc</div>
+</div><!-- fragment --><p>On Debian or Ubuntu, use:</p>
+<div class="fragment"><div class="line">sudo apt install g++-mingw-w64-x86-64</div>
+</div><!-- fragment --><p>Build the executable:</p>
+<div class="fragment"><div class="line">./scripts/build-windows.sh</div>
+</div><!-- fragment --><p>The result is <code>build_windows/bin/ottr.exe</code>. The MinGW runtime is linked statically, so the executable does not require <code>libstdc++-6.dll</code>, <code>libgcc_s_seh-1.dll</code>, or <code>libwinpthread-1.dll</code>.</p>
+<p>To run the Windows tests under Wine:</p>
+<div class="fragment"><div class="line">sudo pacman -S wine</div>
+<div class="line">./scripts/build-windows.sh --tests</div>
+</div><!-- fragment --><p>To package the executable with the existing install rules:</p>
+<div class="fragment"><div class="line">cmake --install build_windows --prefix dist/windows-x64</div>
+</div><!-- fragment --><p>The GitHub Actions workflow also cross-builds the Windows executable on Ubuntu and builds and tests it natively on <code>windows-latest</code> with MSVC.</p>
+<h1><a class="anchor" id="autotoc_md24"></a>
 TODO</h1>
 <ul>
 <li>✅ Add configuration options (rounding and aggregation modes)</li>
