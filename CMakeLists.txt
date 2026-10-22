@@ -15,11 +15,18 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_compile_options(
-  -Wall
-  -Wextra
-  -Wpedantic
-)
+if(MSVC)
+  add_compile_options(
+    /W4
+    /permissive-
+  )
+else()
+  add_compile_options(
+    -Wall
+    -Wextra
+    -Wpedantic
+  )
+endif()
 
 # Core library with all non-CLI sources so we can reuse in tests
 add_library(ottr_core

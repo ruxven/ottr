@@ -289,6 +289,47 @@ docker build -t ottr-dev .
 docker run --rm -v $(pwd):/workspace ottr-dev bash -c "cd /workspace/ottr/build && cmake .. && make"
 ```
 
+### Windows 10
+
+Windows builds are cross-compiled from Linux with MinGW-w64. Install the
+cross compiler:
+
+```
+sudo pacman -S mingw-w64-gcc
+```
+
+On Debian or Ubuntu, use:
+
+```
+sudo apt install g++-mingw-w64-x86-64
+```
+
+Build the executable:
+
+```
+./scripts/build-windows.sh
+```
+
+The result is `build_windows/bin/ottr.exe`. The MinGW runtime is linked
+statically, so the executable does not require `libstdc++-6.dll`,
+`libgcc_s_seh-1.dll`, or `libwinpthread-1.dll`.
+
+To run the Windows tests under Wine:
+
+```
+sudo pacman -S wine
+./scripts/build-windows.sh --tests
+```
+
+To package the executable with the existing install rules:
+
+```
+cmake --install build_windows --prefix dist/windows-x64
+```
+
+The GitHub Actions workflow also cross-builds the Windows executable on
+Ubuntu and builds and tests it natively on `windows-latest` with MSVC.
+
 ## TODO
 
 - ✅ Add configuration options (rounding and aggregation modes)
