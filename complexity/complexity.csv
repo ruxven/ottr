@@ -17,28 +17,6 @@ NLOC,CCN,token,PARAM,length,location,file,function,long_name,start,end
 26,11,231,6,30,"ottr::distribute_ranked@96-125@src/alloc.cpp","src/alloc.cpp","ottr::distribute_ranked","ottr::distribute_ranked( const AllocationRequest & req , std :: vector<WorkItem> & work , std :: vector<AllocationResultEntry> & out , long long quantum , long long remainder , RemainderPolicy policy)",96,125
 23,10,210,4,24,"ottr::distribute_round_robin@130-153@src/alloc.cpp","src/alloc.cpp","ottr::distribute_round_robin","ottr::distribute_round_robin( std :: vector<WorkItem> & work , std :: vector<AllocationResultEntry> & out , long long quantum , long long remainder)",130,153
 28,9,274,4,35,"ottr::allocate_weighted@157-191@src/alloc.cpp","src/alloc.cpp","ottr::allocate_weighted","ottr::allocate_weighted( const AllocationRequest & req , RoundingMode rounding , Tick granularity , RemainderPolicy remainder)",157,191
-6,8,72,1,6,"ottr::DateFilter::includes@5-10@src/model.cpp","src/model.cpp","ottr::DateFilter::includes","ottr::DateFilter::includes( const Date & d) const",5,10
-3,1,14,0,3,"ottr::World::current_day@12-14@src/model.cpp","src/model.cpp","ottr::World::current_day","ottr::World::current_day()",12,14
-8,3,75,3,8,"ottr::validate_spill_target@9-16@src/validate.cpp","src/validate.cpp","ottr::validate_spill_target","ottr::validate_spill_target( const std :: string & file , const World & world , Validator & validator)",9,16
-13,4,100,3,13,"ottr::validate_task_weights@18-30@src/validate.cpp","src/validate.cpp","ottr::validate_task_weights","ottr::validate_task_weights( const std :: string & file , const World & world , Validator & validator)",18,30
-18,7,162,4,18,"ottr::validate_log_ref@32-49@src/validate.cpp","src/validate.cpp","ottr::validate_log_ref","ottr::validate_log_ref( const std :: string & file , const World & world , const Log & entry , Validator & validator)",32,49
-18,6,151,4,18,"ottr::validate_day@52-69@src/validate.cpp","src/validate.cpp","ottr::validate_day","ottr::validate_day( const std :: string & file , const World & world , const Day & day , Validator & validator)",52,69
-9,5,92,2,9,"ottr::Validator::validate_world@73-81@src/validate.cpp","src/validate.cpp","ottr::Validator::validate_world","ottr::Validator::validate_world( const std :: string & file , const World & world)",73,81
-6,1,60,3,6,"ottr::Validator::log_debug@83-88@src/validate.cpp","src/validate.cpp","ottr::Validator::log_debug","ottr::Validator::log_debug( const std :: string & path , const int line_no , const std :: string & msg)",83,88
-6,1,60,3,6,"ottr::Validator::log_error@89-94@src/validate.cpp","src/validate.cpp","ottr::Validator::log_error","ottr::Validator::log_error( const std :: string & path , const int line_no , const std :: string & msg)",89,94
-3,1,10,0,3,"ottr::Validator::get_errors@96-98@src/validate.cpp","src/validate.cpp","ottr::Validator::get_errors","ottr::Validator::get_errors()",96,98
-3,1,10,0,3,"ottr::Validator::get_debug@100-102@src/validate.cpp","src/validate.cpp","ottr::Validator::get_debug","ottr::Validator::get_debug()",100,102
-3,1,15,0,3,"ottr::Validator::empty_err@104-106@src/validate.cpp","src/validate.cpp","ottr::Validator::empty_err","ottr::Validator::empty_err() const",104,106
-12,3,76,1,12,"ottr::Validator::find_err@108-119@src/validate.cpp","src/validate.cpp","ottr::Validator::find_err","ottr::Validator::find_err( const std :: string & q) const",108,119
-7,2,72,1,7,"ottr::sorted_charge_ids@10-16@src/report.cpp","src/report.cpp","ottr::sorted_charge_ids","ottr::sorted_charge_ids( const World & world)",10,16
-5,1,53,1,5,"ottr::ticks_to_fixed@18-22@src/report.cpp","src/report.cpp","ottr::ticks_to_fixed","ottr::ticks_to_fixed( Tick t)",18,22
-39,11,482,4,43,"ottr::compute_widths@24-66@src/report.cpp","src/report.cpp","ottr::compute_widths","ottr::compute_widths( const World & world , const Aggregation & agg , std :: map<std::string,size_t> & colw , std :: vector<std::string> & headers)",24,66
-11,3,150,3,11,"ottr::append_row@68-78@src/report.cpp","src/report.cpp","ottr::append_row","ottr::append_row( std :: ostringstream & oss , const std :: vector<std::pair<std::string,std::string>> & cols , const std :: map<std::string,size_t> & colw)",68,78
-46,9,474,2,51,"ottr::render_full_table@80-130@src/report.cpp","src/report.cpp","ottr::render_full_table","ottr::render_full_table( const World & world , const Aggregation & agg)",80,130
-31,7,365,3,37,"ottr::render_single_day_table@132-168@src/report.cpp","src/report.cpp","ottr::render_single_day_table","ottr::render_single_day_table( const World & world , const Aggregation & agg , const Date & day)",132,168
-17,12,217,2,18,"ottr::parse_mmdd@8-25@src/util.cpp","src/util.cpp","ottr::parse_mmdd","ottr::parse_mmdd( const std :: string & s , Date & out)",8,25
-5,2,45,2,5,"ottr::try_parse_double@27-31@src/util.cpp","src/util.cpp","ottr::try_parse_double","ottr::try_parse_double( const std :: string & s , double & out)",27,31
-5,2,48,2,5,"ottr::try_parse_ll@33-37@src/util.cpp","src/util.cpp","ottr::try_parse_ll","ottr::try_parse_ll( const std :: string & s , long long & out)",33,37
 5,3,56,4,5,"ottr::push_token@14-18@src/parser.cpp","src/parser.cpp","ottr::push_token","ottr::push_token( std :: vector<Token> & tokens , std :: string & cur , bool quoted , bool keep_empty = false)",14,18
 33,8,182,5,34,"ottr::consume_char@22-55@src/parser.cpp","src/parser.cpp","ottr::consume_char","ottr::consume_char( const char c , bool & in_string , bool & escape , std :: string & cur , std :: vector<Token> & tokens)",22,55
 12,5,93,1,15,"ottr::tokenize_line@59-73@src/parser.cpp","src/parser.cpp","ottr::tokenize_line","ottr::tokenize_line( const std :: string & line)",59,73
@@ -75,14 +53,7 @@ NLOC,CCN,token,PARAM,length,location,file,function,long_name,start,end
 9,2,66,2,9,"ottr::OptionDirectiveParser::set_audit@392-400@src/parser.cpp","src/parser.cpp","ottr::OptionDirectiveParser::set_audit","ottr::OptionDirectiveParser::set_audit( const int line_no , const std :: string & value)",392,400
 31,11,259,2,33,"ottr::OptionDirectiveParser::parse@402-434@src/parser.cpp","src/parser.cpp","ottr::OptionDirectiveParser::parse","ottr::OptionDirectiveParser::parse( const int line_no , const std :: vector<Token> & tokens)",402,434
 10,4,82,1,10,"ottr::DirectiveParser::ensure_day_closed@436-445@src/parser.cpp","src/parser.cpp","ottr::DirectiveParser::ensure_day_closed","ottr::DirectiveParser::ensure_day_closed( const int lno)",436,445
-6,1,37,1,6,"print_usage@17-22@src/main.cpp","src/main.cpp","print_usage","print_usage( const char * prog)",17,22
-26,7,150,4,27,"parse_args@25-51@src/main.cpp","src/main.cpp","parse_args","parse_args( int argc , char ** argv , std :: string & path , DateFilter & filter)",25,51
-5,2,39,1,5,"print_lines@53-57@src/main.cpp","src/main.cpp","print_lines","print_lines( const std :: vector<std::string> & lines)",53,57
-5,3,46,1,5,"print_debug_if_enabled@59-63@src/main.cpp","src/main.cpp","print_debug_if_enabled","print_debug_if_enabled( ParserLogger & log)",59,63
-32,5,212,4,35,"run@66-100@src/main.cpp","src/main.cpp","run","run( const std :: string & path , const DateFilter & filter , World & world , Aggregation & agg)",66,100
-10,5,78,3,10,"print_single_day@102-111@src/main.cpp","src/main.cpp","print_single_day","print_single_day( const DateFilter & filter , const World & world , const Aggregation & agg)",102,111
-10,3,114,2,10,"print_audit@114-123@src/main.cpp","src/main.cpp","print_audit","print_audit( const World & world , const Aggregation & agg)",114,123
-13,3,97,2,15,"main@127-141@src/main.cpp","src/main.cpp","main","main( int argc , char ** argv)",127,141
+5,1,46,1,6,"ottr::hours_to_ticks@12-17@src/util.hpp","src/util.hpp","ottr::hours_to_ticks","ottr::hours_to_ticks( double h)",12,17
 6,2,65,4,6,"ottr::add_allocation@29-34@src/engine.cpp","src/engine.cpp","ottr::add_allocation","ottr::add_allocation( Aggregation & agg , const Date & d , const std :: string & cid , Tick ticks)",29,34
 10,3,98,8,10,"ottr::apply_charge@36-45@src/engine.cpp","src/engine.cpp","ottr::apply_charge","ottr::apply_charge( Aggregation & out , RunningTotals & rt , const Date & date , const std :: string & note , const std :: string & source , const std :: string & charge_id , Tick ticks , bool audit)",36,45
 8,3,90,3,8,"ottr::remaining_budget@47-54@src/engine.cpp","src/engine.cpp","ottr::remaining_budget","ottr::remaining_budget( const World & world , const RunningTotals & rt , const std :: string & charge_id)",47,54
@@ -106,6 +77,35 @@ NLOC,CCN,token,PARAM,length,location,file,function,long_name,start,end
 6,3,77,2,6,"ottr::Aggregator::by_day_for_charge@17-22@src/aggregator.cpp","src/aggregator.cpp","ottr::Aggregator::by_day_for_charge","ottr::Aggregator::by_day_for_charge( const std :: string & charge_id , const std :: string & date_raw) const",17,22
 4,2,43,1,4,"ottr::Aggregator::total_for_day@24-27@src/aggregator.cpp","src/aggregator.cpp","ottr::Aggregator::total_for_day","ottr::Aggregator::total_for_day( const std :: string & date_raw) const",24,27
 4,1,29,1,4,"ottr::Aggregator::set_dates@29-32@src/aggregator.cpp","src/aggregator.cpp","ottr::Aggregator::set_dates","ottr::Aggregator::set_dates( std :: vector<Date> d)",29,32
-5,1,46,1,6,"ottr::hours_to_ticks@12-17@src/util.hpp","src/util.hpp","ottr::hours_to_ticks","ottr::hours_to_ticks( double h)",12,17
+8,3,75,3,8,"ottr::validate_spill_target@9-16@src/validate.cpp","src/validate.cpp","ottr::validate_spill_target","ottr::validate_spill_target( const std :: string & file , const World & world , Validator & validator)",9,16
+13,4,100,3,13,"ottr::validate_task_weights@18-30@src/validate.cpp","src/validate.cpp","ottr::validate_task_weights","ottr::validate_task_weights( const std :: string & file , const World & world , Validator & validator)",18,30
+18,7,162,4,18,"ottr::validate_log_ref@32-49@src/validate.cpp","src/validate.cpp","ottr::validate_log_ref","ottr::validate_log_ref( const std :: string & file , const World & world , const Log & entry , Validator & validator)",32,49
+18,6,151,4,18,"ottr::validate_day@52-69@src/validate.cpp","src/validate.cpp","ottr::validate_day","ottr::validate_day( const std :: string & file , const World & world , const Day & day , Validator & validator)",52,69
+9,5,92,2,9,"ottr::Validator::validate_world@73-81@src/validate.cpp","src/validate.cpp","ottr::Validator::validate_world","ottr::Validator::validate_world( const std :: string & file , const World & world)",73,81
+6,1,60,3,6,"ottr::Validator::log_debug@83-88@src/validate.cpp","src/validate.cpp","ottr::Validator::log_debug","ottr::Validator::log_debug( const std :: string & path , const int line_no , const std :: string & msg)",83,88
+6,1,60,3,6,"ottr::Validator::log_error@89-94@src/validate.cpp","src/validate.cpp","ottr::Validator::log_error","ottr::Validator::log_error( const std :: string & path , const int line_no , const std :: string & msg)",89,94
+3,1,10,0,3,"ottr::Validator::get_errors@96-98@src/validate.cpp","src/validate.cpp","ottr::Validator::get_errors","ottr::Validator::get_errors()",96,98
+3,1,10,0,3,"ottr::Validator::get_debug@100-102@src/validate.cpp","src/validate.cpp","ottr::Validator::get_debug","ottr::Validator::get_debug()",100,102
+3,1,15,0,3,"ottr::Validator::empty_err@104-106@src/validate.cpp","src/validate.cpp","ottr::Validator::empty_err","ottr::Validator::empty_err() const",104,106
+12,3,76,1,12,"ottr::Validator::find_err@108-119@src/validate.cpp","src/validate.cpp","ottr::Validator::find_err","ottr::Validator::find_err( const std :: string & q) const",108,119
+6,8,72,1,6,"ottr::DateFilter::includes@5-10@src/model.cpp","src/model.cpp","ottr::DateFilter::includes","ottr::DateFilter::includes( const Date & d) const",5,10
+3,1,14,0,3,"ottr::World::current_day@12-14@src/model.cpp","src/model.cpp","ottr::World::current_day","ottr::World::current_day()",12,14
+6,1,37,1,6,"print_usage@17-22@src/main.cpp","src/main.cpp","print_usage","print_usage( const char * prog)",17,22
+26,7,150,4,27,"parse_args@25-51@src/main.cpp","src/main.cpp","parse_args","parse_args( int argc , char ** argv , std :: string & path , DateFilter & filter)",25,51
+5,2,39,1,5,"print_lines@53-57@src/main.cpp","src/main.cpp","print_lines","print_lines( const std :: vector<std::string> & lines)",53,57
+5,3,46,1,5,"print_debug_if_enabled@59-63@src/main.cpp","src/main.cpp","print_debug_if_enabled","print_debug_if_enabled( ParserLogger & log)",59,63
+32,5,212,4,35,"run@66-100@src/main.cpp","src/main.cpp","run","run( const std :: string & path , const DateFilter & filter , World & world , Aggregation & agg)",66,100
+10,5,78,3,10,"print_single_day@102-111@src/main.cpp","src/main.cpp","print_single_day","print_single_day( const DateFilter & filter , const World & world , const Aggregation & agg)",102,111
+10,3,114,2,10,"print_audit@114-123@src/main.cpp","src/main.cpp","print_audit","print_audit( const World & world , const Aggregation & agg)",114,123
+13,3,97,2,15,"main@127-141@src/main.cpp","src/main.cpp","main","main( int argc , char ** argv)",127,141
 1,1,9,0,1,"ottr::Aggregator::dates@14-14@src/aggregator.hpp","src/aggregator.hpp","ottr::Aggregator::dates","ottr::Aggregator::dates() const",14,14
 1,1,9,0,1,"ottr::Aggregator::snapshot@16-16@src/aggregator.hpp","src/aggregator.hpp","ottr::Aggregator::snapshot","ottr::Aggregator::snapshot() const",16,16
+17,12,217,2,18,"ottr::parse_mmdd@8-25@src/util.cpp","src/util.cpp","ottr::parse_mmdd","ottr::parse_mmdd( const std :: string & s , Date & out)",8,25
+5,2,45,2,5,"ottr::try_parse_double@27-31@src/util.cpp","src/util.cpp","ottr::try_parse_double","ottr::try_parse_double( const std :: string & s , double & out)",27,31
+5,2,48,2,5,"ottr::try_parse_ll@33-37@src/util.cpp","src/util.cpp","ottr::try_parse_ll","ottr::try_parse_ll( const std :: string & s , long long & out)",33,37
+7,2,72,1,7,"ottr::sorted_charge_ids@10-16@src/report.cpp","src/report.cpp","ottr::sorted_charge_ids","ottr::sorted_charge_ids( const World & world)",10,16
+5,1,53,1,5,"ottr::ticks_to_fixed@18-22@src/report.cpp","src/report.cpp","ottr::ticks_to_fixed","ottr::ticks_to_fixed( Tick t)",18,22
+39,11,482,4,43,"ottr::compute_widths@24-66@src/report.cpp","src/report.cpp","ottr::compute_widths","ottr::compute_widths( const World & world , const Aggregation & agg , std :: map<std::string,size_t> & colw , std :: vector<std::string> & headers)",24,66
+11,3,150,3,11,"ottr::append_row@68-78@src/report.cpp","src/report.cpp","ottr::append_row","ottr::append_row( std :: ostringstream & oss , const std :: vector<std::pair<std::string,std::string>> & cols , const std :: map<std::string,size_t> & colw)",68,78
+46,9,474,2,51,"ottr::render_full_table@80-130@src/report.cpp","src/report.cpp","ottr::render_full_table","ottr::render_full_table( const World & world , const Aggregation & agg)",80,130
+31,7,365,3,37,"ottr::render_single_day_table@132-168@src/report.cpp","src/report.cpp","ottr::render_single_day_table","ottr::render_single_day_table( const World & world , const Aggregation & agg , const Date & day)",132,168
