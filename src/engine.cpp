@@ -35,13 +35,27 @@ void add_allocation(Aggregation& agg, const Date& d, const std::string& cid, Tic
 
 void apply_charge(Aggregation& out, RunningTotals& rt, const Date& date,
                   const std::string& note, const std::string& source,
-                  const std::string& charge_id, Tick ticks, bool audit) {
+                  const std::string& charge_id, Tick ticks, bool audit,
+                  const RoundingDetail& rounding = RoundingDetail{}) {
     if (ticks <= 0) return;
     add_allocation(out, date, charge_id, ticks);
     rt.charged[charge_id] += ticks;
     if (audit) {
-        out.audit.push_back(AuditEntry{date, note, source, charge_id, ticks});
+        out.audit.push_back(AuditEntry{date, note, source, charge_id, ticks, rounding});
     }
+}
+
+// Copy the allocator's rounding detail for one charge. The ideal share is the
+// exact proportional share of the slice; the remainder adjustment is the net
+// number of quanta moved by the remainder policy.
+RoundingDetail detail_from(const AllocationResultEntry& entry) {
+    RoundingDetail d;
+    d.applicable = true;
+    d.ideal_numer = entry.ideal_numer;
+    d.ideal_denom = entry.ideal_denom;
+    d.rounded_ticks = entry.rounded_ticks;
+    d.adjust_ticks = entry.adjust_ticks;
+    return d;
 }
 
 Tick remaining_budget(const World& world, const RunningTotals& rt,
@@ -179,7 +193,9 @@ Tick allocate_budgeted(const World& world, const EngineOptions& opts, const Date
             Tick cap = std::max<Tick>(0, remaining_budget(world, rt, a.charge_id));
             Tick take = std::min<Tick>(a.ticks, cap);
             if (take <= 0) continue;
-            apply_charge(out, rt, date, "task", task.name, a.charge_id, take, co.audit);
+            RoundingDetail detail = detail_from(a);
+            detail.clamped_ticks = a.ticks - take;
+            apply_charge(out, rt, date, "task", task.name, a.charge_id, take, co.audit, detail);
             applied += take;
         }
         if (applied <= 0) break;
@@ -201,7 +217,8 @@ void allocate_task(const World& world, const EngineOptions& opts, const Date& da
                 Tick cap = remaining_budget(world, rt, a.charge_id);
                 if (a.ticks > cap) warn_overrun(task, a.charge_id, a.ticks - cap, date, warnings);
             }
-            apply_charge(out, rt, date, "task", task.name, a.charge_id, a.ticks, co.audit);
+            apply_charge(out, rt, date, "task", task.name, a.charge_id, a.ticks, co.audit,
+                         detail_from(a));
         }
         return;
     }
@@ -232,7 +249,15 @@ void allocate_direct(const World& world, const EngineOptions& opts, const Date& 
     if (co.budget == BudgetPolicy::Cap || co.budget == BudgetPolicy::Spill) {
         take = std::min<Tick>(slice.ticks, std::max<Tick>(0, capacity));
     }
-    apply_charge(out, rt, date, "direct", slice.ref_id, slice.ref_id, take, co.audit);
+    // A direct charge is not weighted, so it never rounds: the exact share is
+    // the slice itself and only a budget cap can move it.
+    RoundingDetail detail;
+    detail.applicable = true;
+    detail.ideal_numer = slice.ticks;
+    detail.ideal_denom = 1;
+    detail.rounded_ticks = slice.ticks;
+    detail.clamped_ticks = slice.ticks - take;
+    apply_charge(out, rt, date, "direct", slice.ref_id, slice.ref_id, take, co.audit, detail);
 
     Tick leftover = slice.ticks - take;
     if (co.budget == BudgetPolicy::Spill && leftover > 0) {

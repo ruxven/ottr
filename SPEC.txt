@@ -85,7 +85,7 @@ Directives
        - cap: Stop allocating to a charge at its budget and redistribute the rest.
        - spill: Cap every charge and send the remainder to overflow_charge.
      - overflow_charge <id>: Spill target. Required with budget spill, invalid with any other budget policy, and must name a declared charge.
-     - audit <on|off>: When on, record each applied allocation (date, note, source, charge, ticks) and print the trail to stderr after the table. Default off.
+     - audit <on|off>: When on, record each applied allocation (date, note, source, charge, ticks) and print the trail to stderr after the table. Default off. Each trail line carries a rounding breakdown for allocations that were adjusted: the exact proportional share, what the rounding mode moved, what the remainder policy moved, what a budget cap removed, and the net shift against the exact share. Lines whose allocation was not adjusted carry no breakdown.
    - Example: opt rounding round
    - Example: opt aggregation per_day
    - Example: opt remainder largest_frac

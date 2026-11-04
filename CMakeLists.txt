@@ -100,6 +100,7 @@ if(BUILD_TESTING)
     tests/test_options_parser.cpp
     tests/test_rounding_modes.cpp
     tests/test_aggregation_modes.cpp
+    tests/test_audit_rounding.cpp
   )
   target_link_libraries(ottr_tests PRIVATE ottr_core GTest::gtest_main)
   target_include_directories(ottr_tests PRIVATE src)

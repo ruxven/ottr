@@ -13,6 +13,20 @@ struct Date {
     int ord = 0;     // MM*100 + DD
 };
 
+// How an allocation came out of a weighted split. The exact share is the
+// ideal proportional share before any rounding; the rounded base is what the
+// rounding mode produced; the adjustment is the net number of quanta the
+// remainder policy moved between charges. The audit trail renders these so
+// rounding effects are visible instead of silent.
+struct RoundingDetail {
+    bool applicable = false;   // true when the numbers below describe a split
+    long long ideal_numer = 0; // exact share numerator, in ticks * weight units
+    long long ideal_denom = 1; // exact share denominator (total weight); 1 = whole ticks
+    Tick rounded_ticks = 0;    // base allocation after the rounding mode
+    Tick adjust_ticks = 0;     // net quanta added (+) or removed (-) by remainder distribution
+    Tick clamped_ticks = 0;    // ticks dropped by a budget cap
+};
+
 // One allocation, recorded when opt audit on.
 struct AuditEntry {
     Date date;
@@ -20,6 +34,7 @@ struct AuditEntry {
     std::string source;    // log ref: task name or charge id
     std::string charge_id; // charge the ticks landed on
     Tick ticks = 0;
+    RoundingDetail rounding; // how the ticks were derived (see RoundingDetail)
 };
 
 struct ChargeNumber {

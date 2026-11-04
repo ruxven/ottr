@@ -1,0 +1,47 @@
+# End-of-day allocation across weighted charge numbers with standard rounding.
+#
+# The end user manages charge numbers in a spreadsheet. Their accounting
+# system only accepts tenths of an hour, so a weighted split like 3:1 over a
+# 1.0h day does not land on clean tenths: the exact shares are 0.75h and
+# 0.25h. The spreadsheet appends a 0.1h to one time code by hand to make the
+# day add up.
+#
+# ottr does the same thing automatically when the same day is described as a
+# timecard, but the movement was invisible even with audit mode enabled.
+# The audit trail now shows exactly where the 0.1 went.
+#
+# The 4th parameter of "cn" is the optional priority. It decides which charge
+# number gives the 0.1 back, so it can be pointed at the same time code the
+# spreadsheet appends to.
+
+cn 1234.a "Charge Task A" 100 1
+cn 1234.b "Charge Task B" 100
+
+task alpha "Alpha Task"
+
+wt alpha 1234.a 3
+wt alpha 1234.b 1
+
+opt audit on
+opt rounding round
+opt aggregation per_day
+
+day 09/02
+
+# One hour on the task, split 3:1 at the end of the day.
+log 9.0 alpha "work"
+log 10.0
+
+# expected output of command: ottr demo_timecard_dayend.txt
+# | Charge | 09/02 | Total |  Rem |
+# | 1234.a |   0.8 |   0.8 | 99.2 |
+# | 1234.b |   0.2 |   0.2 | 99.8 |
+# | Total  |   1.0 |   1.0 |      |
+
+# expected audit trail on stderr
+# 1234.a was rounded up from its exact 0.75 share to 0.8 and kept the 0.1.
+# 1234.b was rounded up from its exact 0.25 share to 0.3, then gave the 0.1
+# back, landing on 0.2 - the same place the spreadsheet appends it.
+# Audit:
+# 09/02 task alpha -> 1234.a 0.8  [exact 0.75, round +0.05, net +0.05]
+# 09/02 task alpha -> 1234.b 0.2  [exact 0.25, round +0.05, rem -0.1, net -0.05]

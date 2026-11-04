@@ -113,13 +113,7 @@ void print_single_day(const DateFilter& filter, const World& world,
 // Audit goes to stderr so the table stays clean when piped.
 void print_audit(const World& world, const Aggregation& agg) {
     if (!world.options.audit) return;
-    std::cerr << "\nAudit:\n";
-    for (const AuditEntry& entry : agg.audit) {
-        std::cerr << entry.date.raw << " " << entry.note << " " << entry.source
-                  << " -> " << entry.charge_id << " "
-                  << std::fixed << std::setprecision(1)
-                  << (static_cast<double>(entry.ticks) / 10.0) << "\n";
-    }
+    std::cerr << render_audit(agg);
 }
 
 } // namespace

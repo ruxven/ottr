@@ -251,6 +251,32 @@ opt audit on
 Records every applied allocation (date, source, charge, and hours) and prints
 the trail to stderr after the table. `off` is the default.
 
+Allocations that were adjusted by rounding get a breakdown appended, so the
+hours that moved between charge numbers are visible instead of silent:
+
+```
+Audit:
+09/02 task alpha -> 1234.a 1.1  [exact 1.125, round -0.025, net -0.025]
+09/02 task alpha -> 1234.b 0.4  [exact 0.375, round +0.025, net +0.025]
+```
+
+The fields are:
+
+- `exact`: the charge's un-rounded proportional share of the slice.
+- `round`: what the rounding mode moved (`opt rounding truncate|round|ceil`).
+- `rem`: what the remainder policy moved between charge numbers.
+- `cap`: what a budget cap removed.
+- `net`: the total shift against the exact share.
+
+Fields that did not move are omitted. An allocation that needed no adjustment
+at all carries no breakdown, so direct charges and exact splits stay uncluttered.
+
+`demo_timecard_dayend.txt` is a worked example of the common end-of-day case:
+a weighted split whose tenths do not add up, where the 0.1 hour has to be
+moved between charge numbers. The `cn` priority parameter decides which charge
+number gives it back, so it can be pointed at the same time code a spreadsheet
+appends it to by hand.
+
 ### Example Configuration
 
 ```
@@ -337,7 +363,8 @@ Ubuntu and builds and tests it natively on `windows-latest` with MSVC.
 - ✅ Summarize task data charges per day or per event (aggregation modes)
 - Generate a timecard using a specified date range.
 - ✅ Handle cases where decihours need to be deducted from total time on task for event or day.
-- Audit mode: show the per-day allocation and remainder assignments per event or per day.
+- ✅ Audit mode: show the per-day allocation and remainder assignments per event or per day.
+- ✅ Audit mode: show the rounding breakdown (exact share, rounding, remainder, cap, net) per allocation.
 - Display uncharged tasks in output for timecard
 - Task summary mode: display summary of time spent on tasks, breakdown of charge codes applied.
 - Add a command to directly add time to a charge code, as a feature of last resort.

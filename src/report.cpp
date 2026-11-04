@@ -129,6 +129,83 @@ std::string render_full_table(const World& world, const Aggregation& agg) {
     return oss.str();
 }
 
+// Trim trailing zeros from a fixed-point number, keeping at least one
+// decimal: "0.800" -> "0.8", "1.000" -> "1.0", "0.000" -> "0.0".
+static std::string trim_zeros(const std::string& s) {
+    if (s.find('.') == std::string::npos) return s + ".0";
+    std::string out = s;
+    while (!out.empty() && out.back() == '0') out.pop_back();
+    if (!out.empty() && out.back() == '.') out.pop_back();
+    if (out.empty() || out == "-") out = "0";
+    if (out.find('.') == std::string::npos) out += ".0";
+    return out;
+}
+
+// Deltas below this are rounding noise in the display, not real movements.
+static const double kDeltaEpsilon = 0.0005;
+
+// Hours as a signed decimal, e.g. "+0.025" or "-0.1". Zero renders as "0".
+static std::string hours_delta(double hours) {
+    if (hours > -kDeltaEpsilon && hours < kDeltaEpsilon) return "0";
+    std::ostringstream oss;
+    oss.setf(std::ios::fixed);
+    oss << std::setprecision(3) << hours;
+    std::string s = trim_zeros(oss.str());
+    if (hours > 0) return "+" + s;
+    return s;
+}
+
+// The exact (un-rounded) proportional share of a charge, in hours.
+static std::string hours_exact(long long numer, long long denom) {
+    if (denom <= 0) return "0.0";
+    std::ostringstream oss;
+    oss.setf(std::ios::fixed);
+    oss << std::setprecision(3) << (static_cast<double>(numer) / (static_cast<double>(denom) * 10.0));
+    return trim_zeros(oss.str());
+}
+
+// The rounding breakdown for one allocation: the exact proportional share,
+// what the rounding mode did to it, what the remainder policy moved, what a
+// budget cap removed, and the net shift against the exact share. Returns an
+// empty string when nothing was adjusted.
+static std::string rounding_note(const AuditEntry& entry) {
+    const RoundingDetail& d = entry.rounding;
+    if (!d.applicable) return "";
+
+    const double exact_ticks = (d.ideal_denom > 0)
+        ? static_cast<double>(d.ideal_numer) / static_cast<double>(d.ideal_denom)
+        : 0.0;
+    const double round_hours = (static_cast<double>(d.rounded_ticks) - exact_ticks) / 10.0;
+    const double rem_hours = static_cast<double>(d.adjust_ticks) / 10.0;
+    const double cap_hours = -static_cast<double>(d.clamped_ticks) / 10.0;
+    const double net_hours = round_hours + rem_hours + cap_hours;
+
+    const bool round_zero = round_hours > -kDeltaEpsilon && round_hours < kDeltaEpsilon;
+    const bool rem_zero = rem_hours > -kDeltaEpsilon && rem_hours < kDeltaEpsilon;
+    const bool cap_zero = cap_hours > -kDeltaEpsilon && cap_hours < kDeltaEpsilon;
+    if (round_zero && rem_zero && cap_zero) return "";
+
+    std::ostringstream oss;
+    oss << "  [exact " << hours_exact(d.ideal_numer, d.ideal_denom);
+    if (!round_zero) oss << ", round " << hours_delta(round_hours);
+    if (!rem_zero) oss << ", rem " << hours_delta(rem_hours);
+    if (!cap_zero) oss << ", cap " << hours_delta(cap_hours);
+    oss << ", net " << hours_delta(net_hours) << "]";
+    return oss.str();
+}
+
+std::string render_audit(const Aggregation& agg) {
+    std::ostringstream oss;
+    oss << "\nAudit:\n";
+    for (const AuditEntry& entry : agg.audit) {
+        oss << entry.date.raw << " " << entry.note << " " << entry.source
+            << " -> " << entry.charge_id << " "
+            << ticks_to_fixed(entry.ticks)
+            << rounding_note(entry) << "\n";
+    }
+    return oss.str();
+}
+
 std::string render_single_day_table(const World& world, const Aggregation& agg, const Date& day) {
     std::ostringstream oss;
     std::map<std::string, size_t> colw;

@@ -11,6 +11,8 @@ struct WorkItem {
     long long base = 0;    // allocation before remainder distribution
     long long frac = 0;    // distance past the quantum the ideal share fell
     long long adjusts = 0; // quanta added or removed during remainder distribution
+    long long delta = 0;   // net quanta added (+) or removed (-) during distribution
+    long long ideal_numer = 0; // exact share numerator (slice_ticks * weight)
 };
 
 // Round ideal_numer/denom to a multiple of quantum, per the rounding mode. The
@@ -85,7 +87,7 @@ std::vector<WorkItem> build_work(const AllocationRequest& req, long long denom,
         const long long ideal_numer =
             static_cast<long long>(req.slice_ticks) * static_cast<long long>(e.weight);
         const long long base = quantize(ideal_numer, denom, rounding, quantum);
-        work.push_back(WorkItem{i, base, ideal_numer % (denom * quantum), 0});
+        work.push_back(WorkItem{i, base, ideal_numer % (denom * quantum), 0, 0, ideal_numer});
     }
     return work;
 }
@@ -119,6 +121,7 @@ void distribute_ranked(const AllocationRequest& req, std::vector<WorkItem>& work
         WorkItem* w = pick(giving, giving ? 0 : step);
         if (w == nullptr) break;
         out[w->idx].ticks += giving ? step : -step;
+        w->delta += giving ? step : -step;
         w->adjusts += 1;
         remainder += giving ? -step : step;
     }
@@ -142,6 +145,7 @@ void distribute_round_robin(std::vector<WorkItem>& work,
             WorkItem& w = work[pos];
             if (!giving && out[w.idx].ticks < step) continue;
             out[w.idx].ticks += giving ? step : -step;
+            w.delta += giving ? step : -step;
             w.adjusts += 1;
             remainder += giving ? -step : step;
             cursor = (pos + 1) % work.size();
@@ -175,6 +179,9 @@ std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& re
     std::vector<WorkItem> work = build_work(req, denom, rounding, quantum);
     for (const WorkItem& w : work) {
         out[w.idx].ticks += static_cast<Tick>(w.base);
+        out[w.idx].ideal_numer = w.ideal_numer;
+        out[w.idx].ideal_denom = denom;
+        out[w.idx].rounded_ticks = static_cast<Tick>(w.base);
     }
 
     long long base_sum = 0;
@@ -185,6 +192,10 @@ std::vector<AllocationResultEntry> allocate_weighted(const AllocationRequest& re
         distribute_round_robin(work, out, quantum, leftover);
     } else {
         distribute_ranked(req, work, out, quantum, leftover, remainder);
+    }
+
+    for (const WorkItem& w : work) {
+        out[w.idx].adjust_ticks = static_cast<Tick>(w.delta);
     }
 
     return out;

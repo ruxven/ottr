@@ -16,6 +16,14 @@ struct AllocationEntry {
 struct AllocationResultEntry {
     std::string charge_id;
     Tick ticks = 0;
+    // Rounding detail: the exact proportional share of the slice is
+    // ideal_numer/ideal_denom ticks; rounded_ticks is the base allocation
+    // after the rounding mode; adjust_ticks is the net number of quanta the
+    // remainder policy added (+) or removed (-).
+    long long ideal_numer = 0;
+    long long ideal_denom = 1;
+    Tick rounded_ticks = 0;
+    Tick adjust_ticks = 0;
 };
 
 struct AllocationRequest {

@@ -18,6 +18,8 @@ task bravo "Bravo Task"
 task team "Alpha and Bravo Team"
 task lunch "Lunchtime"
 
+opt audit on
+
 # assign charge numbes
 wt alpha 1234.a 1
 
@@ -32,27 +34,33 @@ wt team 1234.c 80
 # start a day entry with "day"
 day 09/02
 
-# start a log entry for the current day
+# Each log entry opens a time slice that runs until the next log entry.
+# The last log entry of a day closes the final slice and is not charged.
+# The comments below describe the slice each log entry opens.
 log 9.5 team "tag up"
+# slice 9.5-10.0, 0.5h, task team
+# 1234.a: 0.2 1234.b: 0.1 1234.c: 0.2
+# exact shares 0.25/0.05/0.2 truncate to 0.2/0.0/0.2, leaving 0.1 of remainder.
+# 1234.b has priority 1, so the remainder goes to 1234.b.
 log 10.0 alpha "work on ALPHA-1234"
-# 1234.a: 0.2 1234.b: 0.0 1234.c: 0.2
-# total time: 0.5 rem 0.4
-# 1234.b has priority 1, charge 0.1 to b
-# otherwise 1234.a would have received the remainder 0.1
-log 12.0 bravo "finalize BRAVO-5678"
+# slice 10.0-12.0, 2.0h, task alpha
 # 1234.a: 2.0
+log 12.0 bravo "finalize BRAVO-5678"
+# slice 12.0-13.0, 1.0h, task bravo
+# 1234.b: 0.8 1234.c: 0.2
 log 13.0 lunch "break time"
-# 1234.b: 0.2 1234.c: 0.8
+# slice 13.0-14.0, 1.0h, task lunch
+# uncharged: the lunch task has no charge numbers
 log 14.0 team "sprint planning"
-# lunch: 1.0
-log 15.0 nc "nap"
-# total time: 1.0
+# slice 14.0-15.0, 1.0h, task team
 # 1234.a: 0.5 1234.b: 0.1 1234.c: 0.4
 # no remainder, no extra 0.1 hours to assign
+log 15.0 nc "nap"
+# slice 15.0-16.0, 1.0h, no task parameter - assume uncharged
 log 16.0 alpha "wrap up"
-# no task parameter - assume uncharged
-log 17.5
+# slice 16.0-17.5, 1.5h, task alpha
 # 1234.a: 1.5
+log 17.5
 # last entry must be uncharged before next day can start.
 
  day 09/03
@@ -62,29 +70,45 @@ log 9.5
 log 17.5
 
  day 09/04
+
 # task parameter can also match charge numbers
 log 9.5 illness "out sick"
 log 17.5
 
 # expected output of command: ottr timecard.txt
 # | Charge  | 09/02 | 09/03 | 09/04 | Total |   Rem |
-# | 1234.a  |   4.2 |   0.0 |   0.0 |   1.0 |  99.0 |   
-# | 1234.b  |   0.4 |   0.0 |   0.0 |   0.8 |  19.2 | 
-# | 1234.c  |   1.4 |   0.0 |   0.0 |   0.2 |  89.8 |
+# | 1234.a  |   4.2 |   0.0 |   0.0 |   4.2 |  95.8 |
+# | 1234.b  |   1.0 |   0.0 |   0.0 |   1.0 |  19.0 |
+# | 1234.c  |   0.8 |   0.0 |   0.0 |   0.8 |  79.2 |
 # | illness |   0.0 |   0.0 |   8.0 |   8.0 | 112.0 |
-# | Total   |   6.0 |   0.0 |   8.0 |  12.8 |       |
+# | Total   |   6.0 |   0.0 |   8.0 |  14.0 |       |
 
 # expected output of command ottr timecard.txt "09/02"
-# | Charge  | 09/02 | 09/03 | 09/04 | Total |   Rem |
-# | 1234.a  |   4.2 |   0.0 |   0.0 |   1.0 |  99.0 |   
-# | 1234.b  |   0.4 |   0.0 |   0.0 |   0.8 |  19.2 | 
-# | 1234.c  |   1.4 |   0.0 |   0.0 |   0.2 |  89.8 |
-# | illness |   0.0 |   0.0 |   8.0 |   8.0 | 112.0 |
-# | Total   |   6.0 |   0.0 |   8.0 |  12.8 |       |
+# | Charge  | 09/02 | Total |   Rem |
+# | 1234.a  |   4.2 |   4.2 |  95.8 |
+# | 1234.b  |   1.0 |   1.0 |  19.0 |
+# | 1234.c  |   0.8 |   0.8 |  79.2 |
+# | illness |   0.0 |   0.0 | 120.0 |
+# | Total   |   6.0 |   6.0 |       |
 #
 # | Charge  | 09/02 |
 # | 1234.a  |   4.2 |
-# | 1234.b  |   0.4 |
-# | 1234.c  |   1.4 |
+# | 1234.b  |   1.0 |
+# | 1234.c  |   0.8 |
 # | illness |   0.0 |
 # | Total   |   6.0 |
+
+# expected output of the audit trail on stderr
+# (allocations that were not adjusted carry no breakdown)
+# Audit:
+# 09/02 task team -> 1234.a 0.2  [exact 0.25, round -0.05, net -0.05]
+# 09/02 task team -> 1234.b 0.1  [exact 0.05, round -0.05, rem +0.1, net +0.05]
+# 09/02 task team -> 1234.c 0.2
+# 09/02 task alpha -> 1234.a 2.0
+# 09/02 task bravo -> 1234.b 0.8
+# 09/02 task bravo -> 1234.c 0.2
+# 09/02 task team -> 1234.a 0.5
+# 09/02 task team -> 1234.b 0.1
+# 09/02 task team -> 1234.c 0.4
+# 09/02 task alpha -> 1234.a 1.5
+# 09/04 direct illness -> illness 8.0
