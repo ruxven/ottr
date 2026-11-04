@@ -10,5 +10,6 @@ var searchData=
   ['allocationresultentry_7',['AllocationResultEntry',['../structottr_1_1AllocationResultEntry.html',1,'ottr']]],
   ['analysis_8',['Code Complexity Analysis',['../md_COMPLEXITY.html',1,'']]],
   ['audit_20output_9',['Audit Output',['../md_README.html#autotoc_md20',1,'']]],
-  ['auditentry_10',['AuditEntry',['../structottr_1_1AuditEntry.html',1,'ottr']]]
+  ['auditentry_10',['AuditEntry',['../structottr_1_1AuditEntry.html',1,'ottr']]],
+  ['auditroundingtest_11',['AuditRoundingTest',['../classAuditRoundingTest.html',1,'']]]
 ];

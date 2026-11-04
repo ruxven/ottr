@@ -22,9 +22,11 @@ var hierarchy =
     [ "ottr::EngineOptions", "structottr_1_1EngineOptions.html", null ],
     [ "ottr::Log", "structottr_1_1Log.html", null ],
     [ "ottr::ParserLogger", "classottr_1_1ParserLogger.html", null ],
+    [ "ottr::RoundingDetail", "structottr_1_1RoundingDetail.html", null ],
     [ "ottr::Task", "structottr_1_1Task.html", null ],
     [ "testing::Test", null, [
       [ "AggregationModesTest", "classAggregationModesTest.html", null ],
+      [ "AuditRoundingTest", "classAuditRoundingTest.html", null ],
       [ "OptionsParserTest", "classOptionsParserTest.html", null ],
       [ "RoundingModesTest", "classRoundingModesTest.html", null ]
     ] ],

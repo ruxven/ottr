@@ -110,7 +110,11 @@ $(document).ready(function(){initNavTree('report_8hpp_source.html',''); initResi
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">// Render single-day compact table per SPEC (Charge | MM/DD).</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>std::string render_single_day_table(<span class="keyword">const</span> World&amp; world, <span class="keyword">const</span> Aggregation&amp; agg, <span class="keyword">const</span> Date&amp; day);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace ottr</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// Render the audit trail. Each line shows the allocation and, when rounding</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// moved the numbers, a breakdown of the exact share and the deltas applied.</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>std::string render_audit(<span class="keyword">const</span> Aggregation&amp; agg);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace ottr</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

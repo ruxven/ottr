@@ -6,5 +6,6 @@ var searchData=
   ['allocationentry_3',['AllocationEntry',['../structottr_1_1AllocationEntry.html',1,'ottr']]],
   ['allocationrequest_4',['AllocationRequest',['../structottr_1_1AllocationRequest.html',1,'ottr']]],
   ['allocationresultentry_5',['AllocationResultEntry',['../structottr_1_1AllocationResultEntry.html',1,'ottr']]],
-  ['auditentry_6',['AuditEntry',['../structottr_1_1AuditEntry.html',1,'ottr']]]
+  ['auditentry_6',['AuditEntry',['../structottr_1_1AuditEntry.html',1,'ottr']]],
+  ['auditroundingtest_7',['AuditRoundingTest',['../classAuditRoundingTest.html',1,'']]]
 ];

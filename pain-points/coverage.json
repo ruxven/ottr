@@ -11998,17 +11998,17 @@
     "filename": "/home/runner/work/ottr/ottr/src/alloc.cpp",
     "function_coverage": [
       {
-        "line_start": 160,
-        "line_end": 191,
-        "line_count": 25,
-        "line_hit": 25,
-        "branch_count": 16,
-        "branch_hit": 12,
+        "line_start": 164,
+        "line_end": 202,
+        "line_count": 31,
+        "line_hit": 31,
+        "branch_count": 18,
+        "branch_hit": 14,
         "function_name": "_ZN4ottr17allocate_weightedERKNS_17AllocationRequestENS_12RoundingModeExNS_15RemainderPolicyE"
       },
       {
-        "line_start": 70,
-        "line_end": 76,
+        "line_start": 72,
+        "line_end": 78,
         "line_count": 7,
         "line_hit": 7,
         "branch_count": 4,
@@ -12016,8 +12016,8 @@
         "function_name": "alloc.cpp:_ZN4ottr12_GLOBAL__N_112total_weightERKNS_17AllocationRequestE"
       },
       {
-        "line_start": 79,
-        "line_end": 91,
+        "line_start": 81,
+        "line_end": 93,
         "line_count": 13,
         "line_hit": 13,
         "branch_count": 4,
@@ -12025,8 +12025,8 @@
         "function_name": "alloc.cpp:_ZN4ottr12_GLOBAL__N_110build_workERKNS_17AllocationRequestExNS_12RoundingModeEx"
       },
       {
-        "line_start": 20,
-        "line_end": 36,
+        "line_start": 22,
+        "line_end": 38,
         "line_count": 17,
         "line_hit": 17,
         "branch_count": 8,
@@ -12034,17 +12034,17 @@
         "function_name": "alloc.cpp:_ZN4ottr12_GLOBAL__N_18quantizeExxNS_12RoundingModeEx"
       },
       {
-        "line_start": 132,
-        "line_end": 153,
-        "line_count": 21,
-        "line_hit": 21,
-        "branch_count": 16,
-        "branch_hit": 9,
+        "line_start": 135,
+        "line_end": 157,
+        "line_count": 22,
+        "line_hit": 22,
+        "branch_count": 18,
+        "branch_hit": 10,
         "function_name": "alloc.cpp:_ZN4ottr12_GLOBAL__N_122distribute_round_robinERSt6vectorINS0_8WorkItemESaIS2_EERS1_INS_21AllocationResultEntryESaIS6_EExx"
       },
       {
-        "line_start": 98,
-        "line_end": 98,
+        "line_start": 100,
+        "line_end": 100,
         "line_count": 1,
         "line_hit": 1,
         "branch_count": 0,
@@ -12052,17 +12052,17 @@
         "function_name": "alloc.cpp:_ZN4ottr12_GLOBAL__N_117distribute_rankedERKNS_17AllocationRequestERSt6vectorINS0_8WorkItemESaIS5_EERS4_INS_21AllocationResultEntryESaIS9_EExxNS_15RemainderPolicyE"
       },
       {
-        "line_start": 102,
-        "line_end": 125,
-        "line_count": 23,
-        "line_hit": 23,
-        "branch_count": 20,
-        "branch_hit": 19,
+        "line_start": 104,
+        "line_end": 128,
+        "line_count": 24,
+        "line_hit": 24,
+        "branch_count": 22,
+        "branch_hit": 21,
         "function_name": "alloc.cpp:_ZZN4ottr12_GLOBAL__N_117distribute_rankedERKNS_17AllocationRequestERSt6vectorINS0_8WorkItemESaIS5_EERS4_INS_21AllocationResultEntryESaIS9_EExxNS_15RemainderPolicyEENK3$_0clEbx"
       },
       {
-        "line_start": 44,
-        "line_end": 44,
+        "line_start": 46,
+        "line_end": 46,
         "line_count": 1,
         "line_hit": 1,
         "branch_count": 0,
@@ -12070,8 +12070,8 @@
         "function_name": "alloc.cpp:_ZN4ottr12_GLOBAL__N_18outranksERKNS_15AllocationEntryERKNS0_8WorkItemES3_S6_bNS_15RemainderPolicyE"
       },
       {
-        "line_start": 45,
-        "line_end": 68,
+        "line_start": 47,
+        "line_end": 70,
         "line_count": 20,
         "line_hit": 19,
         "branch_count": 16,
@@ -12084,8 +12084,8 @@
     "filename": "/home/runner/work/ottr/ottr/src/engine.cpp",
     "function_coverage": [
       {
-        "line_start": 309,
-        "line_end": 332,
+        "line_start": 334,
+        "line_end": 357,
         "line_count": 20,
         "line_hit": 20,
         "branch_count": 10,
@@ -12093,8 +12093,8 @@
         "function_name": "_ZN4ottr13process_worldERKNS_5WorldERKNS_13EngineOptionsERNS_11AggregationERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPSt6vectorISD_SaISD_EE"
       },
       {
-        "line_start": 256,
-        "line_end": 262,
+        "line_start": 281,
+        "line_end": 287,
         "line_count": 7,
         "line_hit": 7,
         "branch_count": 4,
@@ -12102,8 +12102,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_113included_daysERKNS_5WorldERKNS_10DateFilterE"
       },
       {
-        "line_start": 263,
-        "line_end": 265,
+        "line_start": 288,
+        "line_end": 290,
         "line_count": 3,
         "line_hit": 3,
         "branch_count": 0,
@@ -12111,8 +12111,8 @@
         "function_name": "engine.cpp:_ZZN4ottr12_GLOBAL__N_113included_daysERKNS_5WorldERKNS_10DateFilterEENK3$_0clEPKNS_3DayESA_"
       },
       {
-        "line_start": 274,
-        "line_end": 303,
+        "line_start": 299,
+        "line_end": 328,
         "line_count": 28,
         "line_hit": 25,
         "branch_count": 16,
@@ -12120,8 +12120,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_114process_monthsERKNS_5WorldERKNS_13EngineOptionsERKSt6vectorIPKNS_3DayESaISA_EERNS0_13RunningTotalsERNS_11AggregationEPS7_INSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISO_EE"
       },
       {
-        "line_start": 267,
-        "line_end": 267,
+        "line_start": 292,
+        "line_end": 292,
         "line_count": 1,
         "line_hit": 1,
         "branch_count": 0,
@@ -12129,17 +12129,17 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_18month_ofERKNS_4DateE"
       },
       {
-        "line_start": 193,
-        "line_end": 213,
-        "line_count": 19,
-        "line_hit": 19,
+        "line_start": 209,
+        "line_end": 230,
+        "line_count": 20,
+        "line_hit": 20,
         "branch_count": 16,
         "branch_hit": 14,
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_113allocate_taskERKNS_5WorldERKNS_13EngineOptionsERKNS_4DateERKNS_4TaskExRNS0_13RunningTotalsERNS_11AggregationEPSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISN_EE"
       },
       {
-        "line_start": 153,
-        "line_end": 157,
+        "line_start": 167,
+        "line_end": 171,
         "line_count": 5,
         "line_hit": 5,
         "branch_count": 0,
@@ -12147,8 +12147,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_118allocate_unboundedERKNS_5WorldERKNS_13EngineOptionsERKNS_4TaskExRKNS0_13RunningTotalsE"
       },
       {
-        "line_start": 116,
-        "line_end": 131,
+        "line_start": 130,
+        "line_end": 145,
         "line_count": 15,
         "line_hit": 15,
         "branch_count": 4,
@@ -12156,8 +12156,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_113build_requestERKNS_5WorldERKNS0_13RunningTotalsERKNS_4TaskEx"
       },
       {
-        "line_start": 132,
-        "line_end": 136,
+        "line_start": 146,
+        "line_end": 150,
         "line_count": 5,
         "line_hit": 5,
         "branch_count": 0,
@@ -12165,8 +12165,8 @@
         "function_name": "engine.cpp:_ZZN4ottr12_GLOBAL__N_113build_requestERKNS_5WorldERKNS0_13RunningTotalsERKNS_4TaskExENK3$_0clERKNS_15AllocationEntryESD_"
       },
       {
-        "line_start": 48,
-        "line_end": 54,
+        "line_start": 62,
+        "line_end": 68,
         "line_count": 7,
         "line_hit": 7,
         "branch_count": 4,
@@ -12174,8 +12174,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_116remaining_budgetERKNS_5WorldERKNS0_13RunningTotalsERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
-        "line_start": 139,
-        "line_end": 146,
+        "line_start": 153,
+        "line_end": 160,
         "line_count": 8,
         "line_hit": 8,
         "branch_count": 2,
@@ -12183,8 +12183,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_112warn_overrunERKNS_4TaskERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEExRKNS_4DateEPSt6vectorIS9_SaIS9_EE"
       },
       {
-        "line_start": 56,
-        "line_end": 61,
+        "line_start": 70,
+        "line_end": 75,
         "line_count": 6,
         "line_hit": 6,
         "branch_count": 0,
@@ -12192,13 +12192,13 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_110hours_textB5cxx11Ex"
       },
       {
-        "line_start": 38,
-        "line_end": 45,
+        "line_start": 39,
+        "line_end": 46,
         "line_count": 8,
         "line_hit": 8,
         "branch_count": 4,
         "branch_hit": 3,
-        "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_112apply_chargeERNS_11AggregationERNS0_13RunningTotalsERKNS_4DateERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESF_SF_xb"
+        "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_112apply_chargeERNS_11AggregationERNS0_13RunningTotalsERKNS_4DateERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESF_SF_xbRKNS_14RoundingDetailE"
       },
       {
         "line_start": 29,
@@ -12210,8 +12210,17 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_114add_allocationERNS_11AggregationERKNS_4DateERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEx"
       },
       {
-        "line_start": 164,
-        "line_end": 170,
+        "line_start": 51,
+        "line_end": 59,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_111detail_fromERKNS_21AllocationResultEntryE"
+      },
+      {
+        "line_start": 178,
+        "line_end": 184,
         "line_count": 7,
         "line_hit": 7,
         "branch_count": 2,
@@ -12219,17 +12228,17 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_117allocate_budgetedERKNS_5WorldERKNS_13EngineOptionsERKNS_4DateERKNS_4TaskExRNS0_13RunningTotalsERNS_11AggregationE"
       },
       {
-        "line_start": 171,
-        "line_end": 189,
-        "line_count": 18,
-        "line_hit": 18,
+        "line_start": 185,
+        "line_end": 205,
+        "line_count": 20,
+        "line_hit": 20,
         "branch_count": 10,
         "branch_hit": 7,
         "function_name": "engine.cpp:_ZZN4ottr12_GLOBAL__N_117allocate_budgetedERKNS_5WorldERKNS_13EngineOptionsERKNS_4DateERKNS_4TaskExRNS0_13RunningTotalsERNS_11AggregationEENK3$_0clERKNS_15AllocationEntryE"
       },
       {
-        "line_start": 75,
-        "line_end": 89,
+        "line_start": 89,
+        "line_end": 103,
         "line_count": 15,
         "line_hit": 15,
         "branch_count": 8,
@@ -12237,8 +12246,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_110day_slicesERKNS_5WorldERKNS_3DayE"
       },
       {
-        "line_start": 63,
-        "line_end": 72,
+        "line_start": 77,
+        "line_end": 86,
         "line_count": 9,
         "line_hit": 9,
         "branch_count": 10,
@@ -12246,8 +12255,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_112classify_refERKNS_5WorldERKNS_3LogE"
       },
       {
-        "line_start": 94,
-        "line_end": 113,
+        "line_start": 108,
+        "line_end": 127,
         "line_count": 20,
         "line_hit": 20,
         "branch_count": 8,
@@ -12255,8 +12264,8 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_116group_day_slicesERKSt6vectorINS0_5SliceESaIS2_EE"
       },
       {
-        "line_start": 246,
-        "line_end": 254,
+        "line_start": 271,
+        "line_end": 279,
         "line_count": 9,
         "line_hit": 9,
         "branch_count": 4,
@@ -12264,10 +12273,10 @@
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_114allocate_sliceERKNS_5WorldERKNS_13EngineOptionsERKNS_4DateERKNS0_5SliceERNS0_13RunningTotalsERNS_11AggregationEPSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISN_EE"
       },
       {
-        "line_start": 217,
-        "line_end": 242,
-        "line_count": 23,
-        "line_hit": 10,
+        "line_start": 234,
+        "line_end": 267,
+        "line_count": 29,
+        "line_hit": 16,
         "branch_count": 8,
         "branch_hit": 4,
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_115allocate_directERKNS_5WorldERKNS_13EngineOptionsERKNS_4DateERKNS0_5SliceERNS0_13RunningTotalsERNS_11AggregationEPSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISN_EE"
@@ -12766,8 +12775,17 @@
         "function_name": "_ZN4ottr17render_full_tableB5cxx11ERKNS_5WorldERKNS_11AggregationE"
       },
       {
-        "line_start": 132,
-        "line_end": 168,
+        "line_start": 197,
+        "line_end": 207,
+        "line_count": 11,
+        "line_hit": 11,
+        "branch_count": 2,
+        "branch_hit": 2,
+        "function_name": "_ZN4ottr12render_auditB5cxx11ERKNS_11AggregationE"
+      },
+      {
+        "line_start": 209,
+        "line_end": 245,
         "line_count": 31,
         "line_hit": 31,
         "branch_count": 12,
@@ -12809,6 +12827,42 @@
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "report.cpp:_ZN4ottrL14ticks_to_fixedB5cxx11Ex"
+      },
+      {
+        "line_start": 171,
+        "line_end": 195,
+        "line_count": 22,
+        "line_hit": 22,
+        "branch_count": 28,
+        "branch_hit": 22,
+        "function_name": "report.cpp:_ZN4ottrL13rounding_noteB5cxx11ERKNS_10AuditEntryE"
+      },
+      {
+        "line_start": 159,
+        "line_end": 165,
+        "line_count": 7,
+        "line_hit": 7,
+        "branch_count": 2,
+        "branch_hit": 1,
+        "function_name": "report.cpp:_ZN4ottrL11hours_exactB5cxx11Exx"
+      },
+      {
+        "line_start": 134,
+        "line_end": 142,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 16,
+        "branch_hit": 9,
+        "function_name": "report.cpp:_ZN4ottrL10trim_zerosERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      },
+      {
+        "line_start": 148,
+        "line_end": 156,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 6,
+        "branch_hit": 5,
+        "function_name": "report.cpp:_ZN4ottrL11hours_deltaB5cxx11Ed"
       }
     ]
   },
@@ -13190,6 +13244,92 @@
         "branch_count": 4,
         "branch_hit": 3,
         "function_name": "test_allocator.cpp:_ZL9get_ticksRKSt6vectorIN4ottr21AllocationResultEntryESaIS1_EERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/tests/test_audit_rounding.cpp",
+    "function_coverage": [
+      {
+        "line_start": 41,
+        "line_end": 70,
+        "line_count": 26,
+        "line_hit": 26,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN43AuditRoundingTest_ExactShareIsRecorded_Test8TestBodyEv"
+      },
+      {
+        "line_start": 75,
+        "line_end": 96,
+        "line_count": 20,
+        "line_hit": 20,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN56AuditRoundingTest_RenderAuditShowsRoundingBreakdown_Test8TestBodyEv"
+      },
+      {
+        "line_start": 101,
+        "line_end": 122,
+        "line_count": 18,
+        "line_hit": 18,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN56AuditRoundingTest_RenderAuditShowsRemainderMovement_Test8TestBodyEv"
+      },
+      {
+        "line_start": 129,
+        "line_end": 173,
+        "line_count": 32,
+        "line_hit": 32,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN56AuditRoundingTest_DayEndAppendOnRoundedDistribution_Test8TestBodyEv"
+      },
+      {
+        "line_start": 178,
+        "line_end": 209,
+        "line_count": 26,
+        "line_hit": 26,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN66AuditRoundingTest_PriorityDecidesWhichChargeGivesBackTheTenth_Test8TestBodyEv"
+      },
+      {
+        "line_start": 212,
+        "line_end": 230,
+        "line_count": 17,
+        "line_hit": 17,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN47AuditRoundingTest_ExactSplitHasNoBreakdown_Test8TestBodyEv"
+      },
+      {
+        "line_start": 233,
+        "line_end": 253,
+        "line_count": 18,
+        "line_hit": 18,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN49AuditRoundingTest_DirectChargeHasNoBreakdown_Test8TestBodyEv"
+      },
+      {
+        "line_start": 257,
+        "line_end": 285,
+        "line_count": 23,
+        "line_hit": 23,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN48AuditRoundingTest_RenderAuditShowsBudgetCap_Test8TestBodyEv"
+      },
+      {
+        "line_start": 16,
+        "line_end": 34,
+        "line_count": 16,
+        "line_hit": 16,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN17AuditRoundingTest3runERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       }
     ]
   },

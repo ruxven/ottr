@@ -20,6 +20,7 @@ var annotated_dup =
       [ "LogDirectiveParser", "classottr_1_1LogDirectiveParser.html", null ],
       [ "OptionDirectiveParser", "classottr_1_1OptionDirectiveParser.html", null ],
       [ "ParserLogger", "classottr_1_1ParserLogger.html", null ],
+      [ "RoundingDetail", "structottr_1_1RoundingDetail.html", null ],
       [ "Task", "structottr_1_1Task.html", null ],
       [ "TaskDirectiveParser", "classottr_1_1TaskDirectiveParser.html", null ],
       [ "Token", "structottr_1_1Token.html", null ],
@@ -28,6 +29,7 @@ var annotated_dup =
       [ "World", "structottr_1_1World.html", null ]
     ] ],
     [ "AggregationModesTest", "classAggregationModesTest.html", null ],
+    [ "AuditRoundingTest", "classAuditRoundingTest.html", null ],
     [ "OptionsParserTest", "classOptionsParserTest.html", null ],
     [ "RoundingModesTest", "classRoundingModesTest.html", null ]
 ];
