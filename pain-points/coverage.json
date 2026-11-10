@@ -12310,17 +12310,17 @@
     "filename": "/home/runner/work/ottr/ottr/src/options.cpp",
     "function_coverage": [
       {
-        "line_start": 37,
-        "line_end": 67,
-        "line_count": 31,
-        "line_hit": 25,
-        "branch_count": 18,
-        "branch_hit": 16,
+        "line_start": 66,
+        "line_end": 100,
+        "line_count": 35,
+        "line_hit": 29,
+        "branch_count": 22,
+        "branch_hit": 20,
         "function_name": "_ZNK4ottr18CalculationOptions8validateERNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
-        "line_start": 71,
-        "line_end": 86,
+        "line_start": 104,
+        "line_end": 119,
         "line_count": 16,
         "line_hit": 16,
         "branch_count": 6,
@@ -12328,8 +12328,8 @@
         "function_name": "_ZN4ottr18CalculationOptions14parse_roundingERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_12RoundingModeERS6_"
       },
       {
-        "line_start": 90,
-        "line_end": 108,
+        "line_start": 123,
+        "line_end": 141,
         "line_count": 19,
         "line_hit": 19,
         "branch_count": 8,
@@ -12337,8 +12337,8 @@
         "function_name": "_ZN4ottr18CalculationOptions17parse_aggregationERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_15AggregationModeERS6_"
       },
       {
-        "line_start": 112,
-        "line_end": 127,
+        "line_start": 145,
+        "line_end": 160,
         "line_count": 16,
         "line_hit": 16,
         "branch_count": 6,
@@ -12346,8 +12346,8 @@
         "function_name": "_ZN4ottr18CalculationOptions15parse_remainderERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_15RemainderPolicyERS6_"
       },
       {
-        "line_start": 131,
-        "line_end": 149,
+        "line_start": 164,
+        "line_end": 182,
         "line_count": 19,
         "line_hit": 19,
         "branch_count": 8,
@@ -12355,17 +12355,26 @@
         "function_name": "_ZN4ottr18CalculationOptions12parse_budgetERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERNS_12BudgetPolicyERS6_"
       },
       {
-        "line_start": 152,
-        "line_end": 175,
-        "line_count": 23,
-        "line_hit": 23,
-        "branch_count": 12,
-        "branch_hit": 10,
+        "line_start": 185,
+        "line_end": 187,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
         "function_name": "_ZN4ottr18CalculationOptions17parse_granularityERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERxRS6_"
       },
       {
-        "line_start": 178,
-        "line_end": 188,
+        "line_start": 190,
+        "line_end": 192,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr18CalculationOptions19parse_hours_per_dayERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEERxRS6_"
+      },
+      {
+        "line_start": 195,
+        "line_end": 205,
         "line_count": 11,
         "line_hit": 11,
         "branch_count": 4,
@@ -12407,6 +12416,15 @@
         "branch_count": 8,
         "branch_hit": 7,
         "function_name": "options.cpp:_ZN4ottr12_GLOBAL__N_18in_rangeENS_12BudgetPolicyE"
+      },
+      {
+        "line_start": 39,
+        "line_end": 62,
+        "line_count": 23,
+        "line_hit": 23,
+        "branch_count": 12,
+        "branch_hit": 10,
+        "function_name": "options.cpp:_ZN4ottr12_GLOBAL__N_116parse_tick_hoursERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES8_RxRS6_"
       }
     ]
   },
@@ -12699,20 +12717,29 @@
         "line_hit": 9,
         "branch_count": 2,
         "branch_hit": 2,
+        "function_name": "_ZN4ottr21OptionDirectiveParser17set_hours_per_dayEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      },
+      {
+        "line_start": 402,
+        "line_end": 410,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN4ottr21OptionDirectiveParser9set_auditEiRKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
-        "line_start": 403,
-        "line_end": 434,
-        "line_count": 30,
-        "line_hit": 30,
-        "branch_count": 20,
-        "branch_hit": 20,
+        "line_start": 413,
+        "line_end": 446,
+        "line_count": 32,
+        "line_hit": 32,
+        "branch_count": 22,
+        "branch_hit": 22,
         "function_name": "_ZN4ottr21OptionDirectiveParser5parseEiRKSt6vectorINS_5TokenESaIS2_EE"
       },
       {
-        "line_start": 436,
-        "line_end": 445,
+        "line_start": 448,
+        "line_end": 457,
         "line_count": 10,
         "line_hit": 7,
         "branch_count": 6,
@@ -12766,17 +12793,17 @@
     "filename": "/home/runner/work/ottr/ottr/src/report.cpp",
     "function_coverage": [
       {
-        "line_start": 80,
-        "line_end": 130,
-        "line_count": 46,
-        "line_hit": 44,
+        "line_start": 107,
+        "line_end": 158,
+        "line_count": 47,
+        "line_hit": 45,
         "branch_count": 16,
         "branch_hit": 12,
         "function_name": "_ZN4ottr17render_full_tableB5cxx11ERKNS_5WorldERKNS_11AggregationE"
       },
       {
-        "line_start": 197,
-        "line_end": 207,
+        "line_start": 225,
+        "line_end": 235,
         "line_count": 11,
         "line_hit": 11,
         "branch_count": 2,
@@ -12784,8 +12811,8 @@
         "function_name": "_ZN4ottr12render_auditB5cxx11ERKNS_11AggregationE"
       },
       {
-        "line_start": 209,
-        "line_end": 245,
+        "line_start": 237,
+        "line_end": 273,
         "line_count": 31,
         "line_hit": 31,
         "branch_count": 12,
@@ -12793,17 +12820,17 @@
         "function_name": "_ZN4ottr23render_single_day_tableB5cxx11ERKNS_5WorldERKNS_11AggregationERKNS_4DateE"
       },
       {
-        "line_start": 24,
-        "line_end": 66,
-        "line_count": 39,
-        "line_hit": 39,
+        "line_start": 50,
+        "line_end": 93,
+        "line_count": 40,
+        "line_hit": 40,
         "branch_count": 20,
         "branch_hit": 16,
         "function_name": "report.cpp:_ZN4ottrL14compute_widthsERKNS_5WorldERKNS_11AggregationERSt3mapINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEmSt4lessISC_ESaISt4pairIKSC_mEEERSt6vectorISC_SaISC_EE"
       },
       {
-        "line_start": 68,
-        "line_end": 78,
+        "line_start": 95,
+        "line_end": 105,
         "line_count": 11,
         "line_hit": 11,
         "branch_count": 4,
@@ -12829,8 +12856,26 @@
         "function_name": "report.cpp:_ZN4ottrL14ticks_to_fixedB5cxx11Ex"
       },
       {
-        "line_start": 171,
-        "line_end": 195,
+        "line_start": 25,
+        "line_end": 33,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 4,
+        "branch_hit": 3,
+        "function_name": "report.cpp:_ZN4ottrL15total_remainingERKNS_5WorldERKNS_11AggregationE"
+      },
+      {
+        "line_start": 37,
+        "line_end": 48,
+        "line_count": 12,
+        "line_hit": 12,
+        "branch_count": 2,
+        "branch_hit": 2,
+        "function_name": "report.cpp:_ZN4ottrL14render_summaryB5cxx11ERKNS_5WorldERKNS_11AggregationEx"
+      },
+      {
+        "line_start": 199,
+        "line_end": 223,
         "line_count": 22,
         "line_hit": 22,
         "branch_count": 28,
@@ -12838,8 +12883,8 @@
         "function_name": "report.cpp:_ZN4ottrL13rounding_noteB5cxx11ERKNS_10AuditEntryE"
       },
       {
-        "line_start": 159,
-        "line_end": 165,
+        "line_start": 187,
+        "line_end": 193,
         "line_count": 7,
         "line_hit": 7,
         "branch_count": 2,
@@ -12847,8 +12892,8 @@
         "function_name": "report.cpp:_ZN4ottrL11hours_exactB5cxx11Exx"
       },
       {
-        "line_start": 134,
-        "line_end": 142,
+        "line_start": 162,
+        "line_end": 170,
         "line_count": 9,
         "line_hit": 9,
         "branch_count": 16,
@@ -12856,8 +12901,8 @@
         "function_name": "report.cpp:_ZN4ottrL10trim_zerosERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
-        "line_start": 148,
-        "line_end": 156,
+        "line_start": 176,
+        "line_end": 184,
         "line_count": 9,
         "line_hit": 9,
         "branch_count": 6,
@@ -13361,16 +13406,25 @@
       },
       {
         "line_start": 45,
-        "line_end": 78,
-        "line_count": 31,
-        "line_hit": 31,
+        "line_end": 79,
+        "line_count": 32,
+        "line_hit": 32,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN34Report_FullAndSingleDayTables_Test8TestBodyEv"
       },
       {
-        "line_start": 80,
-        "line_end": 105,
+        "line_start": 81,
+        "line_end": 106,
+        "line_count": 24,
+        "line_hit": 24,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN34Report_SummaryUsesHoursPerDay_Test8TestBodyEv"
+      },
+      {
+        "line_start": 108,
+        "line_end": 133,
         "line_count": 24,
         "line_hit": 24,
         "branch_count": 0,
@@ -13470,16 +13524,16 @@
       },
       {
         "line_start": 67,
-        "line_end": 71,
-        "line_count": 5,
-        "line_hit": 5,
+        "line_end": 72,
+        "line_count": 6,
+        "line_hit": 6,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN31OptionsTest_DefaultOptions_Test8TestBodyEv"
       },
       {
-        "line_start": 74,
-        "line_end": 78,
+        "line_start": 75,
+        "line_end": 79,
         "line_count": 5,
         "line_hit": 5,
         "branch_count": 0,
@@ -13487,8 +13541,8 @@
         "function_name": "_ZN32OptionsTest_ValidateOptions_Test8TestBodyEv"
       },
       {
-        "line_start": 81,
-        "line_end": 85,
+        "line_start": 82,
+        "line_end": 86,
         "line_count": 5,
         "line_hit": 5,
         "branch_count": 0,
@@ -13496,8 +13550,8 @@
         "function_name": "_ZN32OptionsTest_SetRoundingMode_Test8TestBodyEv"
       },
       {
-        "line_start": 87,
-        "line_end": 91,
+        "line_start": 88,
+        "line_end": 92,
         "line_count": 5,
         "line_hit": 5,
         "branch_count": 0,
@@ -13651,7 +13705,7 @@
         "line_hit": 6,
         "branch_count": 0,
         "branch_hit": 0,
-        "function_name": "_ZN37OptionsParserTest_ParseAuditFlag_Test8TestBodyEv"
+        "function_name": "_ZN39OptionsParserTest_ParseHoursPerDay_Test8TestBodyEv"
       },
       {
         "line_start": 144,
@@ -13660,34 +13714,25 @@
         "line_hit": 3,
         "branch_count": 0,
         "branch_hit": 0,
-        "function_name": "_ZN39OptionsParserTest_InvalidAuditFlag_Test8TestBodyEv"
+        "function_name": "_ZN49OptionsParserTest_HoursPerDayDefaultsToEight_Test8TestBodyEv"
       },
       {
-        "line_start": 149,
-        "line_end": 152,
-        "line_count": 4,
-        "line_hit": 4,
+        "line_start": 148,
+        "line_end": 154,
+        "line_count": 7,
+        "line_hit": 7,
         "branch_count": 0,
         "branch_hit": 0,
-        "function_name": "_ZN47OptionsParserTest_ParseAggregationPerMonth_Test8TestBodyEv"
+        "function_name": "_ZN41OptionsParserTest_InvalidHoursPerDay_Test8TestBodyEv"
       },
       {
-        "line_start": 155,
-        "line_end": 157,
-        "line_count": 3,
-        "line_hit": 3,
+        "line_start": 157,
+        "line_end": 163,
+        "line_count": 6,
+        "line_hit": 6,
         "branch_count": 0,
         "branch_hit": 0,
-        "function_name": "_ZN39OptionsParserTest_InvalidOptionKey_Test8TestBodyEv"
-      },
-      {
-        "line_start": 160,
-        "line_end": 162,
-        "line_count": 3,
-        "line_hit": 3,
-        "branch_count": 0,
-        "branch_hit": 0,
-        "function_name": "_ZN43OptionsParserTest_InvalidRoundingValue_Test8TestBodyEv"
+        "function_name": "_ZN37OptionsParserTest_ParseAuditFlag_Test8TestBodyEv"
       },
       {
         "line_start": 165,
@@ -13696,11 +13741,47 @@
         "line_hit": 3,
         "branch_count": 0,
         "branch_hit": 0,
-        "function_name": "_ZN46OptionsParserTest_InvalidAggregationValue_Test8TestBodyEv"
+        "function_name": "_ZN39OptionsParserTest_InvalidAuditFlag_Test8TestBodyEv"
       },
       {
         "line_start": 170,
-        "line_end": 172,
+        "line_end": 173,
+        "line_count": 4,
+        "line_hit": 4,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN47OptionsParserTest_ParseAggregationPerMonth_Test8TestBodyEv"
+      },
+      {
+        "line_start": 176,
+        "line_end": 178,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN39OptionsParserTest_InvalidOptionKey_Test8TestBodyEv"
+      },
+      {
+        "line_start": 181,
+        "line_end": 183,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN43OptionsParserTest_InvalidRoundingValue_Test8TestBodyEv"
+      },
+      {
+        "line_start": 186,
+        "line_end": 188,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN46OptionsParserTest_InvalidAggregationValue_Test8TestBodyEv"
+      },
+      {
+        "line_start": 191,
+        "line_end": 193,
         "line_count": 3,
         "line_hit": 3,
         "branch_count": 0,
@@ -13708,8 +13789,8 @@
         "function_name": "_ZN41OptionsParserTest_MissingOptionValue_Test8TestBodyEv"
       },
       {
-        "line_start": 175,
-        "line_end": 179,
+        "line_start": 196,
+        "line_end": 200,
         "line_count": 5,
         "line_hit": 5,
         "branch_count": 0,
@@ -13717,8 +13798,8 @@
         "function_name": "_ZN38OptionsParserTest_MultipleOptions_Test8TestBodyEv"
       },
       {
-        "line_start": 182,
-        "line_end": 185,
+        "line_start": 203,
+        "line_end": 206,
         "line_count": 4,
         "line_hit": 4,
         "branch_count": 0,
@@ -13726,8 +13807,8 @@
         "function_name": "_ZN37OptionsParserTest_OptionOverride_Test8TestBodyEv"
       },
       {
-        "line_start": 189,
-        "line_end": 196,
+        "line_start": 210,
+        "line_end": 217,
         "line_count": 8,
         "line_hit": 8,
         "branch_count": 0,
@@ -13735,8 +13816,8 @@
         "function_name": "_ZN66OptionsParserTest_DuplicateOptionWarnsWhenFirstValueIsDefault_Test8TestBodyEv"
       },
       {
-        "line_start": 198,
-        "line_end": 203,
+        "line_start": 219,
+        "line_end": 224,
         "line_count": 6,
         "line_hit": 6,
         "branch_count": 0,
@@ -13744,8 +13825,8 @@
         "function_name": "_ZN65OptionsParserTest_DuplicateOptionWarnsEvenWhenValueUnchanged_Test8TestBodyEv"
       },
       {
-        "line_start": 205,
-        "line_end": 212,
+        "line_start": 226,
+        "line_end": 233,
         "line_count": 8,
         "line_hit": 8,
         "branch_count": 0,
@@ -13753,8 +13834,8 @@
         "function_name": "_ZN50OptionsParserTest_DuplicateWarnsOncePerRepeat_Test8TestBodyEv"
       },
       {
-        "line_start": 214,
-        "line_end": 218,
+        "line_start": 235,
+        "line_end": 239,
         "line_count": 5,
         "line_hit": 5,
         "branch_count": 0,
@@ -13762,8 +13843,8 @@
         "function_name": "_ZN47OptionsParserTest_DistinctOptionsDoNotWarn_Test8TestBodyEv"
       },
       {
-        "line_start": 222,
-        "line_end": 228,
+        "line_start": 243,
+        "line_end": 249,
         "line_count": 7,
         "line_hit": 7,
         "branch_count": 0,
@@ -13771,8 +13852,8 @@
         "function_name": "_ZN73OptionsParserTest_InvalidDuplicateReportsErrorWithoutOverrideWarning_Test8TestBodyEv"
       },
       {
-        "line_start": 231,
-        "line_end": 243,
+        "line_start": 252,
+        "line_end": 264,
         "line_count": 11,
         "line_hit": 11,
         "branch_count": 0,
@@ -13780,8 +13861,8 @@
         "function_name": "_ZN58OptionsParserTest_ValidateAcceptsDefaultsAndEveryMode_Test8TestBodyEv"
       },
       {
-        "line_start": 245,
-        "line_end": 254,
+        "line_start": 266,
+        "line_end": 275,
         "line_count": 9,
         "line_hit": 9,
         "branch_count": 0,
@@ -13789,8 +13870,8 @@
         "function_name": "_ZN64OptionsParserTest_ValidateBudgetSpillRequiresOverflowCharge_Test8TestBodyEv"
       },
       {
-        "line_start": 256,
-        "line_end": 262,
+        "line_start": 277,
+        "line_end": 283,
         "line_count": 7,
         "line_hit": 7,
         "branch_count": 0,
@@ -13798,8 +13879,8 @@
         "function_name": "_ZN58OptionsParserTest_ValidateOverflowChargeOnlyWithSpill_Test8TestBodyEv"
       },
       {
-        "line_start": 264,
-        "line_end": 269,
+        "line_start": 285,
+        "line_end": 290,
         "line_count": 6,
         "line_hit": 6,
         "branch_count": 0,
@@ -13807,8 +13888,17 @@
         "function_name": "_ZN60OptionsParserTest_ValidateRejectsNonPositiveGranularity_Test8TestBodyEv"
       },
       {
-        "line_start": 271,
-        "line_end": 283,
+        "line_start": 292,
+        "line_end": 300,
+        "line_count": 8,
+        "line_hit": 8,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN60OptionsParserTest_ValidateRejectsNonPositiveHoursPerDay_Test8TestBodyEv"
+      },
+      {
+        "line_start": 302,
+        "line_end": 314,
         "line_count": 12,
         "line_hit": 12,
         "branch_count": 0,
@@ -13816,8 +13906,8 @@
         "function_name": "_ZN52OptionsParserTest_ValidateRejectsOutOfRangeEnum_Test8TestBodyEv"
       },
       {
-        "line_start": 286,
-        "line_end": 294,
+        "line_start": 317,
+        "line_end": 325,
         "line_count": 9,
         "line_hit": 9,
         "branch_count": 0,
@@ -13825,8 +13915,8 @@
         "function_name": "_ZN41OptionsParserTest_OptionsWithCharges_Test8TestBodyEv"
       },
       {
-        "line_start": 297,
-        "line_end": 305,
+        "line_start": 328,
+        "line_end": 336,
         "line_count": 9,
         "line_hit": 9,
         "branch_count": 0,

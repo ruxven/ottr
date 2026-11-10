@@ -8,7 +8,7 @@ var searchData=
   ['complex_20untested_5',['🚨 Top High Risk Functions (Complex + Untested)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md8',1,'']]],
   ['complexity_20analysis_6',['Code Complexity Analysis',['../md_COMPLEXITY.html',1,'']]],
   ['complexity_20guidelines_7',['Complexity Guidelines',['../md_COMPLEXITY.html#autotoc_md4',1,'']]],
-  ['configuration_8',['configuration',['../md_COMPLEXITY.html#autotoc_md1',1,'Configuration'],['../md_README.html#autotoc_md21',1,'Example Configuration']]],
+  ['configuration_8',['configuration',['../md_COMPLEXITY.html#autotoc_md1',1,'Configuration'],['../md_README.html#autotoc_md22',1,'Example Configuration']]],
   ['configuration_20options_9',['Configuration Options',['../md_README.html#autotoc_md14',1,'']]],
   ['coverage_10',['🔒 Top Security Risk Functions (Prioritized by coverage)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md9',1,'']]]
 ];

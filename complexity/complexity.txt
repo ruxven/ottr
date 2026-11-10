@@ -5,13 +5,15 @@
        4      4     32      1       4 ottr::in_range@19-22@src/options.cpp
        5      3     26      1       5 ottr::in_range@24-28@src/options.cpp
        4      4     32      1       4 ottr::in_range@30-33@src/options.cpp
-      31     10    146      1      31 ottr::CalculationOptions::validate@37-67@src/options.cpp
-      18      4     92      3      18 ottr::CalculationOptions::parse_rounding@69-86@src/options.cpp
-      21      5    110      3      21 ottr::CalculationOptions::parse_aggregation@88-108@src/options.cpp
-      18      4     92      3      18 ottr::CalculationOptions::parse_remainder@110-127@src/options.cpp
-      21      5    110      3      21 ottr::CalculationOptions::parse_budget@129-149@src/options.cpp
-      24      7    162      3      25 ottr::CalculationOptions::parse_granularity@151-175@src/options.cpp
-      12      3     65      3      12 ottr::CalculationOptions::parse_flag@177-188@src/options.cpp
+      24      7    179      4      25 ottr::parse_tick_hours@38-62@src/options.cpp
+      35     12    167      1      35 ottr::CalculationOptions::validate@66-100@src/options.cpp
+      18      4     92      3      18 ottr::CalculationOptions::parse_rounding@102-119@src/options.cpp
+      21      5    110      3      21 ottr::CalculationOptions::parse_aggregation@121-141@src/options.cpp
+      18      4     92      3      18 ottr::CalculationOptions::parse_remainder@143-160@src/options.cpp
+      21      5    110      3      21 ottr::CalculationOptions::parse_budget@162-182@src/options.cpp
+       4      1     35      3       4 ottr::CalculationOptions::parse_granularity@184-187@src/options.cpp
+       4      1     35      3       4 ottr::CalculationOptions::parse_hours_per_day@189-192@src/options.cpp
+      12      3     65      3      12 ottr::CalculationOptions::parse_flag@194-205@src/options.cpp
       18      4     98      4      18 ottr::quantize@21-38@src/alloc.cpp
       23     10    226      6      27 ottr::outranks@44-70@src/alloc.cpp
        7      3     45      1       7 ottr::total_weight@72-78@src/alloc.cpp
@@ -52,9 +54,10 @@
        9      2     64      2       9 ottr::OptionDirectiveParser::set_budget@363-371@src/parser.cpp
        8      2     48      2       8 ottr::OptionDirectiveParser::set_overflow_charge@373-380@src/parser.cpp
        9      2     64      2       9 ottr::OptionDirectiveParser::set_granularity@382-390@src/parser.cpp
-       9      2     66      2       9 ottr::OptionDirectiveParser::set_audit@392-400@src/parser.cpp
-      31     11    259      2      33 ottr::OptionDirectiveParser::parse@402-434@src/parser.cpp
-      10      4     82      1      10 ottr::DirectiveParser::ensure_day_closed@436-445@src/parser.cpp
+       9      2     64      2       9 ottr::OptionDirectiveParser::set_hours_per_day@392-400@src/parser.cpp
+       9      2     66      2       9 ottr::OptionDirectiveParser::set_audit@402-410@src/parser.cpp
+      33     12    277      2      35 ottr::OptionDirectiveParser::parse@412-446@src/parser.cpp
+      10      4     82      1      10 ottr::DirectiveParser::ensure_day_closed@448-457@src/parser.cpp
        5      1     46      1       6 ottr::hours_to_ticks@12-17@src/util.hpp
        6      2     65      4       6 ottr::add_allocation@29-34@src/engine.cpp
       11      3    109      9      11 ottr::apply_charge@36-46@src/engine.cpp
@@ -108,25 +111,27 @@
        5      2     48      2       5 ottr::try_parse_ll@33-37@src/util.cpp
        7      2     72      1       7 ottr::sorted_charge_ids@10-16@src/report.cpp
        5      1     53      1       5 ottr::ticks_to_fixed@18-22@src/report.cpp
-      39     11    482      4      43 ottr::compute_widths@24-66@src/report.cpp
-      11      3    150      3      11 ottr::append_row@68-78@src/report.cpp
-      46      9    474      2      51 ottr::render_full_table@80-130@src/report.cpp
-       9      9    122      1       9 ottr::trim_zeros@134-142@src/report.cpp
-       9      4     78      1       9 ottr::hours_delta@148-156@src/report.cpp
-       7      2     80      2       7 ottr::hours_exact@159-165@src/report.cpp
-      22     12    266      1      25 ottr::rounding_note@171-195@src/report.cpp
-      11      2     92      1      11 ottr::render_audit@197-207@src/report.cpp
-      31      7    365      3      37 ottr::render_single_day_table@209-245@src/report.cpp
+       9      3     78      2       9 ottr::total_remaining@25-33@src/report.cpp
+      13      2    129      3      13 ottr::render_summary@36-48@src/report.cpp
+      40     11    511      4      44 ottr::compute_widths@50-93@src/report.cpp
+      11      3    150      3      11 ottr::append_row@95-105@src/report.cpp
+      47      9    494      2      52 ottr::render_full_table@107-158@src/report.cpp
+       9      9    122      1       9 ottr::trim_zeros@162-170@src/report.cpp
+       9      4     78      1       9 ottr::hours_delta@176-184@src/report.cpp
+       7      2     80      2       7 ottr::hours_exact@187-193@src/report.cpp
+      22     12    266      1      25 ottr::rounding_note@199-223@src/report.cpp
+      11      2     92      1      11 ottr::render_audit@225-235@src/report.cpp
+      31      7    365      3      37 ottr::render_single_day_table@237-273@src/report.cpp
 19 file analyzed.
 ==============================================================
 NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
 --------------------------------------------------------------
-    173      14.7     4.7       81.2        11     src/options.cpp
+    185      13.4     4.3       77.0        13     src/options.cpp
     162      21.0     7.6      190.9         7     src/alloc.cpp
      29       0.0     0.0        0.0         0     src/alloc.hpp
-    388      10.4     3.0       87.4        36     src/parser.cpp
+    399      10.5     3.0       87.2        37     src/parser.cpp
      13       5.0     1.0       46.0         1     src/util.hpp
-    132       0.0     0.0        0.0         0     src/parser.hpp
+    133       0.0     0.0        0.0         0     src/parser.hpp
     301      14.6     4.1      147.9        19     src/engine.cpp
       7       0.0     0.0        0.0         0     src/report.hpp
      27       4.8     2.0       51.0         5     src/aggregator.cpp
@@ -137,8 +142,8 @@ NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
      13       0.0     0.0        0.0         0     src/engine.hpp
      18       1.0     1.0        9.0         2     src/aggregator.hpp
      33       9.0     5.3      103.3         3     src/util.cpp
-    206      17.9     5.6      203.1        11     src/report.cpp
-     48       0.0     0.0        0.0         0     src/options.hpp
+    230      17.0     5.2      191.5        13     src/report.cpp
+     51       0.0     0.0        0.0         0     src/options.hpp
      18       0.0     0.0        0.0         0     src/validate.hpp
 
 ========================================================================================================
@@ -157,4 +162,4 @@ NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
 ==========================================================================================
 Total nloc   Avg.NLOC  AvgCCN  Avg.token   Fun Cnt  Warning cnt   Fun Rt   nloc Rt
 ------------------------------------------------------------------------------------------
-      1875      12.3     3.9      108.9      116            8      0.07    0.13
+      1926      12.2     3.8      108.1      121            8      0.07    0.12

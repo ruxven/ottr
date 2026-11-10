@@ -206,39 +206,41 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classottr_1_1DirectiveParser.html">ottr::DirectiveParser</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00402">402</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  403</span>{</div>
-<div class="line"><span class="lineno">  404</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 3) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;opt requires: opt &lt;key&gt; &lt;value&gt;&quot;</span>);</div>
-<div class="line"><span class="lineno">  405</span>    <span class="keyword">const</span> std::string&amp; opt_key = tokens[1].text;</div>
-<div class="line"><span class="lineno">  406</span>    <span class="keyword">const</span> std::string&amp; opt_value = tokens[2].text;</div>
-<div class="line"><span class="lineno">  407</span> </div>
-<div class="line"><span class="lineno">  408</span>    <span class="keywordtype">bool</span> applied = <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  409</span>    <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;rounding&quot;</span>) {</div>
-<div class="line"><span class="lineno">  410</span>        applied = set_rounding(line_no, opt_value);</div>
-<div class="line"><span class="lineno">  411</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;aggregation&quot;</span>) {</div>
-<div class="line"><span class="lineno">  412</span>        applied = set_aggregation(line_no, opt_value);</div>
-<div class="line"><span class="lineno">  413</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;remainder&quot;</span>) {</div>
-<div class="line"><span class="lineno">  414</span>        applied = set_remainder(line_no, opt_value);</div>
-<div class="line"><span class="lineno">  415</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;budget&quot;</span>) {</div>
-<div class="line"><span class="lineno">  416</span>        applied = set_budget(line_no, opt_value);</div>
-<div class="line"><span class="lineno">  417</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;overflow_charge&quot;</span>) {</div>
-<div class="line"><span class="lineno">  418</span>        applied = set_overflow_charge(line_no, tokens[2]);</div>
-<div class="line"><span class="lineno">  419</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;granularity&quot;</span>) {</div>
-<div class="line"><span class="lineno">  420</span>        applied = set_granularity(line_no, opt_value);</div>
-<div class="line"><span class="lineno">  421</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;audit&quot;</span>) {</div>
-<div class="line"><span class="lineno">  422</span>        applied = set_audit(line_no, opt_value);</div>
-<div class="line"><span class="lineno">  423</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><span class="lineno">  424</span>        <span class="keywordflow">return</span> log.log_error(source_name, line_no,</div>
-<div class="line"><span class="lineno">  425</span>            <span class="stringliteral">&quot;unknown option key: &#39;&quot;</span> + opt_key +</div>
-<div class="line"><span class="lineno">  426</span>            <span class="stringliteral">&quot;&#39;. Valid keys: rounding, aggregation, remainder, budget, &quot;</span></div>
-<div class="line"><span class="lineno">  427</span>            <span class="stringliteral">&quot;overflow_charge, granularity, audit&quot;</span>);</div>
-<div class="line"><span class="lineno">  428</span>    }</div>
-<div class="line"><span class="lineno">  429</span> </div>
-<div class="line"><span class="lineno">  430</span>    <span class="keywordflow">if</span> (!applied) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><span class="lineno">  431</span>    <span class="keywordflow">if</span> (seen_keys_.count(opt_key) &gt; 0) warn_override(line_no, opt_key);</div>
-<div class="line"><span class="lineno">  432</span>    seen_keys_.insert(opt_key);</div>
-<div class="line"><span class="lineno">  433</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">  434</span>}</div>
+<p class="definition">Definition at line <a class="el" href="parser_8cpp_source.html#l00412">412</a> of file <a class="el" href="parser_8cpp_source.html">parser.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  413</span>{</div>
+<div class="line"><span class="lineno">  414</span>    <span class="keywordflow">if</span> (tokens.size() &lt; 3) <span class="keywordflow">return</span> log.log_error(source_name, line_no, <span class="stringliteral">&quot;opt requires: opt &lt;key&gt; &lt;value&gt;&quot;</span>);</div>
+<div class="line"><span class="lineno">  415</span>    <span class="keyword">const</span> std::string&amp; opt_key = tokens[1].text;</div>
+<div class="line"><span class="lineno">  416</span>    <span class="keyword">const</span> std::string&amp; opt_value = tokens[2].text;</div>
+<div class="line"><span class="lineno">  417</span> </div>
+<div class="line"><span class="lineno">  418</span>    <span class="keywordtype">bool</span> applied = <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  419</span>    <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;rounding&quot;</span>) {</div>
+<div class="line"><span class="lineno">  420</span>        applied = set_rounding(line_no, opt_value);</div>
+<div class="line"><span class="lineno">  421</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;aggregation&quot;</span>) {</div>
+<div class="line"><span class="lineno">  422</span>        applied = set_aggregation(line_no, opt_value);</div>
+<div class="line"><span class="lineno">  423</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;remainder&quot;</span>) {</div>
+<div class="line"><span class="lineno">  424</span>        applied = set_remainder(line_no, opt_value);</div>
+<div class="line"><span class="lineno">  425</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;budget&quot;</span>) {</div>
+<div class="line"><span class="lineno">  426</span>        applied = set_budget(line_no, opt_value);</div>
+<div class="line"><span class="lineno">  427</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;overflow_charge&quot;</span>) {</div>
+<div class="line"><span class="lineno">  428</span>        applied = set_overflow_charge(line_no, tokens[2]);</div>
+<div class="line"><span class="lineno">  429</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;granularity&quot;</span>) {</div>
+<div class="line"><span class="lineno">  430</span>        applied = set_granularity(line_no, opt_value);</div>
+<div class="line"><span class="lineno">  431</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;hours_per_day&quot;</span>) {</div>
+<div class="line"><span class="lineno">  432</span>        applied = set_hours_per_day(line_no, opt_value);</div>
+<div class="line"><span class="lineno">  433</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (opt_key == <span class="stringliteral">&quot;audit&quot;</span>) {</div>
+<div class="line"><span class="lineno">  434</span>        applied = set_audit(line_no, opt_value);</div>
+<div class="line"><span class="lineno">  435</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><span class="lineno">  436</span>        <span class="keywordflow">return</span> log.log_error(source_name, line_no,</div>
+<div class="line"><span class="lineno">  437</span>            <span class="stringliteral">&quot;unknown option key: &#39;&quot;</span> + opt_key +</div>
+<div class="line"><span class="lineno">  438</span>            <span class="stringliteral">&quot;&#39;. Valid keys: rounding, aggregation, remainder, budget, &quot;</span></div>
+<div class="line"><span class="lineno">  439</span>            <span class="stringliteral">&quot;overflow_charge, granularity, hours_per_day, audit&quot;</span>);</div>
+<div class="line"><span class="lineno">  440</span>    }</div>
+<div class="line"><span class="lineno">  441</span> </div>
+<div class="line"><span class="lineno">  442</span>    <span class="keywordflow">if</span> (!applied) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><span class="lineno">  443</span>    <span class="keywordflow">if</span> (seen_keys_.count(opt_key) &gt; 0) warn_override(line_no, opt_key);</div>
+<div class="line"><span class="lineno">  444</span>    seen_keys_.insert(opt_key);</div>
+<div class="line"><span class="lineno">  445</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><span class="lineno">  446</span>}</div>
 </div><!-- fragment -->
 </div>
 </div>

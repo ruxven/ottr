@@ -2,7 +2,7 @@ var searchData=
 [
   ['date_0',['Date',['../structottr_1_1Date.html',1,'ottr']]],
   ['datefilter_1',['DateFilter',['../structottr_1_1DateFilter.html',1,'ottr']]],
-  ['day_2',['Day',['../structottr_1_1Day.html',1,'ottr']]],
+  ['day_2',['day',['../structottr_1_1Day.html',1,'ottr::Day'],['../md_README.html#autotoc_md19',1,'Expected Hours Per Day']]],
   ['daydirectiveparser_3',['DayDirectiveParser',['../classottr_1_1DayDirectiveParser.html',1,'ottr']]],
   ['developer_20pain_20point_20report_4',['Developer Pain Point Report',['../md_pain-point-analysis_2pain__points__report.html',1,'']]],
   ['development_20workflow_5',['Integration with Development Workflow',['../md_COMPLEXITY.html#autotoc_md6',1,'']]],

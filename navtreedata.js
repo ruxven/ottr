@@ -46,14 +46,15 @@ var NAVTREE =
         [ "Aggregation Mode", "md_README.html#autotoc_md16", null ],
         [ "Remainder Policy", "md_README.html#autotoc_md17", null ],
         [ "Charge Granularity", "md_README.html#autotoc_md18", null ],
-        [ "Budget Policy", "md_README.html#autotoc_md19", null ],
-        [ "Audit Output", "md_README.html#autotoc_md20", null ],
-        [ "Example Configuration", "md_README.html#autotoc_md21", null ]
+        [ "Expected Hours Per Day", "md_README.html#autotoc_md19", null ],
+        [ "Budget Policy", "md_README.html#autotoc_md20", null ],
+        [ "Audit Output", "md_README.html#autotoc_md21", null ],
+        [ "Example Configuration", "md_README.html#autotoc_md22", null ]
       ] ],
-      [ "Building", "md_README.html#autotoc_md22", [
-        [ "Windows 10", "md_README.html#autotoc_md23", null ]
+      [ "Building", "md_README.html#autotoc_md23", [
+        [ "Windows 10", "md_README.html#autotoc_md24", null ]
       ] ],
-      [ "TODO", "md_README.html#autotoc_md24", null ]
+      [ "TODO", "md_README.html#autotoc_md25", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

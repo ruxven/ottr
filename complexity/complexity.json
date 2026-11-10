@@ -39,19 +39,28 @@
         "parameter_count": 1
       },
       {
+        "name": "ottr::parse_tick_hours",
+        "cyclomatic_complexity": 7,
+        "start_line": 38,
+        "end_line": 62,
+        "nloc": 24,
+        "token_count": 179,
+        "parameter_count": 4
+      },
+      {
         "name": "ottr::CalculationOptions::validate",
-        "cyclomatic_complexity": 10,
-        "start_line": 37,
-        "end_line": 67,
-        "nloc": 31,
-        "token_count": 146,
+        "cyclomatic_complexity": 12,
+        "start_line": 66,
+        "end_line": 100,
+        "nloc": 35,
+        "token_count": 167,
         "parameter_count": 1
       },
       {
         "name": "ottr::CalculationOptions::parse_rounding",
         "cyclomatic_complexity": 4,
-        "start_line": 69,
-        "end_line": 86,
+        "start_line": 102,
+        "end_line": 119,
         "nloc": 18,
         "token_count": 92,
         "parameter_count": 3
@@ -59,8 +68,8 @@
       {
         "name": "ottr::CalculationOptions::parse_aggregation",
         "cyclomatic_complexity": 5,
-        "start_line": 88,
-        "end_line": 108,
+        "start_line": 121,
+        "end_line": 141,
         "nloc": 21,
         "token_count": 110,
         "parameter_count": 3
@@ -68,8 +77,8 @@
       {
         "name": "ottr::CalculationOptions::parse_remainder",
         "cyclomatic_complexity": 4,
-        "start_line": 110,
-        "end_line": 127,
+        "start_line": 143,
+        "end_line": 160,
         "nloc": 18,
         "token_count": 92,
         "parameter_count": 3
@@ -77,26 +86,35 @@
       {
         "name": "ottr::CalculationOptions::parse_budget",
         "cyclomatic_complexity": 5,
-        "start_line": 129,
-        "end_line": 149,
+        "start_line": 162,
+        "end_line": 182,
         "nloc": 21,
         "token_count": 110,
         "parameter_count": 3
       },
       {
         "name": "ottr::CalculationOptions::parse_granularity",
-        "cyclomatic_complexity": 7,
-        "start_line": 151,
-        "end_line": 175,
-        "nloc": 24,
-        "token_count": 162,
+        "cyclomatic_complexity": 1,
+        "start_line": 184,
+        "end_line": 187,
+        "nloc": 4,
+        "token_count": 35,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::CalculationOptions::parse_hours_per_day",
+        "cyclomatic_complexity": 1,
+        "start_line": 189,
+        "end_line": 192,
+        "nloc": 4,
+        "token_count": 35,
         "parameter_count": 3
       },
       {
         "name": "ottr::CalculationOptions::parse_flag",
         "cyclomatic_complexity": 3,
-        "start_line": 177,
-        "end_line": 188,
+        "start_line": 194,
+        "end_line": 205,
         "nloc": 12,
         "token_count": 65,
         "parameter_count": 3
@@ -472,28 +490,37 @@
         "parameter_count": 2
       },
       {
-        "name": "ottr::OptionDirectiveParser::set_audit",
+        "name": "ottr::OptionDirectiveParser::set_hours_per_day",
         "cyclomatic_complexity": 2,
         "start_line": 392,
         "end_line": 400,
+        "nloc": 9,
+        "token_count": 64,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::OptionDirectiveParser::set_audit",
+        "cyclomatic_complexity": 2,
+        "start_line": 402,
+        "end_line": 410,
         "nloc": 9,
         "token_count": 66,
         "parameter_count": 2
       },
       {
         "name": "ottr::OptionDirectiveParser::parse",
-        "cyclomatic_complexity": 11,
-        "start_line": 402,
-        "end_line": 434,
-        "nloc": 31,
-        "token_count": 259,
+        "cyclomatic_complexity": 12,
+        "start_line": 412,
+        "end_line": 446,
+        "nloc": 33,
+        "token_count": 277,
         "parameter_count": 2
       },
       {
         "name": "ottr::DirectiveParser::ensure_day_closed",
         "cyclomatic_complexity": 4,
-        "start_line": 436,
-        "end_line": 445,
+        "start_line": 448,
+        "end_line": 457,
         "nloc": 10,
         "token_count": 82,
         "parameter_count": 1
@@ -1021,19 +1048,37 @@
         "parameter_count": 1
       },
       {
+        "name": "ottr::total_remaining",
+        "cyclomatic_complexity": 3,
+        "start_line": 25,
+        "end_line": 33,
+        "nloc": 9,
+        "token_count": 78,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::render_summary",
+        "cyclomatic_complexity": 2,
+        "start_line": 36,
+        "end_line": 48,
+        "nloc": 13,
+        "token_count": 129,
+        "parameter_count": 3
+      },
+      {
         "name": "ottr::compute_widths",
         "cyclomatic_complexity": 11,
-        "start_line": 24,
-        "end_line": 66,
-        "nloc": 39,
-        "token_count": 482,
+        "start_line": 50,
+        "end_line": 93,
+        "nloc": 40,
+        "token_count": 511,
         "parameter_count": 4
       },
       {
         "name": "ottr::append_row",
         "cyclomatic_complexity": 3,
-        "start_line": 68,
-        "end_line": 78,
+        "start_line": 95,
+        "end_line": 105,
         "nloc": 11,
         "token_count": 150,
         "parameter_count": 3
@@ -1041,17 +1086,17 @@
       {
         "name": "ottr::render_full_table",
         "cyclomatic_complexity": 9,
-        "start_line": 80,
-        "end_line": 130,
-        "nloc": 46,
-        "token_count": 474,
+        "start_line": 107,
+        "end_line": 158,
+        "nloc": 47,
+        "token_count": 494,
         "parameter_count": 2
       },
       {
         "name": "ottr::trim_zeros",
         "cyclomatic_complexity": 9,
-        "start_line": 134,
-        "end_line": 142,
+        "start_line": 162,
+        "end_line": 170,
         "nloc": 9,
         "token_count": 122,
         "parameter_count": 1
@@ -1059,8 +1104,8 @@
       {
         "name": "ottr::hours_delta",
         "cyclomatic_complexity": 4,
-        "start_line": 148,
-        "end_line": 156,
+        "start_line": 176,
+        "end_line": 184,
         "nloc": 9,
         "token_count": 78,
         "parameter_count": 1
@@ -1068,8 +1113,8 @@
       {
         "name": "ottr::hours_exact",
         "cyclomatic_complexity": 2,
-        "start_line": 159,
-        "end_line": 165,
+        "start_line": 187,
+        "end_line": 193,
         "nloc": 7,
         "token_count": 80,
         "parameter_count": 2
@@ -1077,8 +1122,8 @@
       {
         "name": "ottr::rounding_note",
         "cyclomatic_complexity": 12,
-        "start_line": 171,
-        "end_line": 195,
+        "start_line": 199,
+        "end_line": 223,
         "nloc": 22,
         "token_count": 266,
         "parameter_count": 1
@@ -1086,8 +1131,8 @@
       {
         "name": "ottr::render_audit",
         "cyclomatic_complexity": 2,
-        "start_line": 197,
-        "end_line": 207,
+        "start_line": 225,
+        "end_line": 235,
         "nloc": 11,
         "token_count": 92,
         "parameter_count": 1
@@ -1095,8 +1140,8 @@
       {
         "name": "ottr::render_single_day_table",
         "cyclomatic_complexity": 7,
-        "start_line": 209,
-        "end_line": 245,
+        "start_line": 237,
+        "end_line": 273,
         "nloc": 31,
         "token_count": 365,
         "parameter_count": 3
