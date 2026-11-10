@@ -132,6 +132,27 @@ TEST_F(OptionsParserTest, InvalidGranularity) {
     parse_string_expect_error("opt granularity 25.0\n");
 }
 
+// Hours per day (summary line)
+TEST_F(OptionsParserTest, ParseHoursPerDay) {
+    parse_string("opt hours_per_day 7.5\n");
+    EXPECT_EQ(world.options.hours_per_day, 75);
+
+    parse_string("opt hours_per_day 8.0\n");
+    EXPECT_EQ(world.options.hours_per_day, 80);
+}
+
+TEST_F(OptionsParserTest, HoursPerDayDefaultsToEight) {
+    EXPECT_EQ(world.options.hours_per_day, 80);
+}
+
+TEST_F(OptionsParserTest, InvalidHoursPerDay) {
+    parse_string_expect_error("opt hours_per_day 0\n");
+    parse_string_expect_error("opt hours_per_day -1\n");
+    parse_string_expect_error("opt hours_per_day abc\n");
+    parse_string_expect_error("opt hours_per_day 25.0\n");
+    parse_string_expect_error("opt hours_per_day 0.25\n");
+}
+
 // Audit flag
 TEST_F(OptionsParserTest, ParseAuditFlag) {
     parse_string("opt audit on\n");
@@ -265,6 +286,16 @@ TEST_F(OptionsParserTest, ValidateRejectsNonPositiveGranularity) {
     CalculationOptions opts;
     std::string error;
     opts.granularity = 0;
+    EXPECT_FALSE(opts.validate(error));
+}
+
+TEST_F(OptionsParserTest, ValidateRejectsNonPositiveHoursPerDay) {
+    CalculationOptions opts;
+    std::string error;
+    opts.hours_per_day = 0;
+    EXPECT_FALSE(opts.validate(error));
+
+    opts.hours_per_day = 25 * 10;
     EXPECT_FALSE(opts.validate(error));
 }
 

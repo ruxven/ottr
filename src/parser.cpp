@@ -389,6 +389,16 @@ bool OptionDirectiveParser::set_granularity(const int line_no, const std::string
     return true;
 }
 
+bool OptionDirectiveParser::set_hours_per_day(const int line_no, const std::string& value) {
+    Tick ticks;
+    std::string error_msg;
+    if (!CalculationOptions::parse_hours_per_day(value, ticks, error_msg)) {
+        return log.log_error(source_name, line_no, error_msg);
+    }
+    world.options.hours_per_day = ticks;
+    return true;
+}
+
 bool OptionDirectiveParser::set_audit(const int line_no, const std::string& value) {
     bool enabled = false;
     std::string error_msg;
@@ -418,13 +428,15 @@ bool OptionDirectiveParser::parse(const int line_no, const std::vector<Token>& t
         applied = set_overflow_charge(line_no, tokens[2]);
     } else if (opt_key == "granularity") {
         applied = set_granularity(line_no, opt_value);
+    } else if (opt_key == "hours_per_day") {
+        applied = set_hours_per_day(line_no, opt_value);
     } else if (opt_key == "audit") {
         applied = set_audit(line_no, opt_value);
     } else {
         return log.log_error(source_name, line_no,
             "unknown option key: '" + opt_key +
             "'. Valid keys: rounding, aggregation, remainder, budget, "
-            "overflow_charge, granularity, audit");
+            "overflow_charge, granularity, hours_per_day, audit");
     }
 
     if (!applied) return false;

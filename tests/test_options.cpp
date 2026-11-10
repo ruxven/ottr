@@ -68,6 +68,7 @@ TEST(OptionsTest, DefaultOptions) {
     CalculationOptions opts;
     EXPECT_EQ(opts.rounding, RoundingMode::Truncate);
     EXPECT_EQ(opts.aggregation, AggregationMode::PerEvent);
+    EXPECT_EQ(opts.hours_per_day, 80);
 }
 
 // Test CalculationOptions validation

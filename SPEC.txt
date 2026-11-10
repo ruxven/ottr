@@ -79,6 +79,7 @@ Directives
        - largest_frac: Largest fractional part first, then priority and the remaining tie-breaks.
        - round_robin: Cycle through eligible charges in order, ignoring priority.
      - granularity <hours>: Charge quantum in hours. Must be a positive multiple of 0.1 hour, at most 24.0. Default 0.1. Quarter-hour (0.25) is not representable in the internal tenth-hour unit and is rejected.
+     - hours_per_day <hours>: Expected hours per included day, used by the summary line under the multi-day table. Must be a positive multiple of 0.1 hour, at most 24.0. Default 8.0.
      - budget <policy>: Controls enforcement of each charge's declared hours.
        - ignore (default): Allocate normally; Rem may go negative.
        - warn: Allocate normally and print an overrun warning to stderr.
@@ -166,9 +167,13 @@ Sorting and presentation
   - One row per charge number.
   - Per-day columns show hours allocated to that charge on that day (0.0 if none).
   - Total = sum across included days. Rem = declared hours - Total (blank if not declared; but declarations are required for all referenced charge numbers, so this cell should exist).
-  - Final row: | Total   | <sum per day> ... | <grand total> |       |
+  - Final row: | Total   | <sum per day> ... | <grand total> | <sum of Rem> |
     - Per-day sums are the sum across charges for that day (i.e., total charged hours per day, excluding uncharged slices).
     - Grand total is the sum of the per-charge Total column.
+    - The final Rem cell is the sum of the per-charge Rem column (total declared hours minus grand total).
+  - After the table, a summary line reports expected hours from the included day count and opt hours_per_day:
+    `Timecard: <N> day(s) x <hours_per_day> h = <expected> h expected | <grand total> h charged | <expected - grand total> h remaining`
+    The day count is the number of days included by the CLI date filter.
 
 Single-day quick table (when a single date is specified)
 - After the full table, also print a compact table:

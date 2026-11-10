@@ -159,6 +159,7 @@ private:
     bool set_budget(const int line_no, const std::string& value);
     bool set_overflow_charge(const int line_no, const Token& token);
     bool set_granularity(const int line_no, const std::string& value);
+    bool set_hours_per_day(const int line_no, const std::string& value);
     bool set_audit(const int line_no, const std::string& value);
 
     // Track which keys have been set so we can warn on any duplicate, regardless

@@ -40,6 +40,7 @@ struct CalculationOptions {
   BudgetPolicy budget = BudgetPolicy::Ignore;
   std::string overflow_charge;  // required by, and only meaningful for, Spill
   Tick granularity = 1;         // charge quantum in ticks; 1 = 0.1 hour
+  Tick hours_per_day = 80;      // expected hours per included day; 80 = 8.0 hours
   bool audit = false;           // record per-allocation detail
 
   // Validate options and return error message if invalid
@@ -65,6 +66,11 @@ struct CalculationOptions {
   // multiple of 0.1 hour.
   static bool parse_granularity(const std::string& s, Tick& out,
                                 std::string& error_message);
+
+  // Parse expected hours per day into ticks; must be a positive multiple of
+  // 0.1 hour and at most 24.0 hours.
+  static bool parse_hours_per_day(const std::string& s, Tick& out,
+                                  std::string& error_message);
 
   // Parse an on/off flag
   static bool parse_flag(const std::string& s, bool& out,

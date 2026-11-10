@@ -121,11 +121,17 @@ ottr my_timecard-2025.09.01.txt
 Which will output a table of values, organized by charge code id and day:
 
 ```
-| Charge  | 09/02 | 09/03 | 09/04 |  Rem |
-| 1234.01 |   4.2 |   2.3 |   6.3 | 99.0 |
-| 1234.02 |   0.4 |   1.2 |   2.2 | 80 0 |
-| Total   |   6.0 |   4.0 |   9.5 |      |
+| Charge  | 09/02 | 09/03 | 09/04 | Total |   Rem |
+| 1234.01 |   4.2 |   2.3 |   6.3 |  12.8 |  99.0 |
+| 1234.02 |   0.4 |   1.2 |   2.2 |   3.8 |  80.0 |
+| Total   |   4.6 |   3.5 |   8.5 |  16.6 | 179.0 |
+Timecard: 3 days x 8.0 h = 24.0 h expected | 16.6 h charged | 7.4 h remaining
 ```
+
+The `Total` row's `Rem` cell is the sum of the per-charge `Rem` column.
+The summary line under the table compares the timecard total against the
+expected hours: the number of included days times `opt hours_per_day`
+(8.0 by default).
 
 Or to view the values of a specific day:
 
@@ -216,6 +222,28 @@ internal unit is one tenth of an hour.
 Example:
 ```
 opt granularity 0.5
+```
+
+### Expected Hours Per Day
+
+Controls the expected hours per included day, used by the summary line under
+the multi-day table.
+
+```
+opt hours_per_day <hours>
+```
+
+The value must be a positive multiple of 0.1 hour, at most 24.0. The default is
+8.0. The summary multiplies this by the number of days included by the CLI date
+filter and compares the result to the grand total:
+
+```
+Timecard: 3 days x 8.0 h = 24.0 h expected | 16.6 h charged | 7.4 h remaining
+```
+
+Example:
+```
+opt hours_per_day 7.5
 ```
 
 ### Budget Policy

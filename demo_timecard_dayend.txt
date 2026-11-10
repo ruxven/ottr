@@ -33,10 +33,11 @@ log 9.0 alpha "work"
 log 10.0
 
 # expected output of command: ottr demo_timecard_dayend.txt
-# | Charge | 09/02 | Total |  Rem |
-# | 1234.a |   0.8 |   0.8 | 99.2 |
-# | 1234.b |   0.2 |   0.2 | 99.8 |
-# | Total  |   1.0 |   1.0 |      |
+# | Charge | 09/02 | Total |   Rem |
+# | 1234.a |   0.8 |   0.8 |  99.2 |
+# | 1234.b |   0.2 |   0.2 |  99.8 |
+# | Total  |   1.0 |   1.0 | 199.0 |
+# Timecard: 1 day x 8.0 h = 8.0 h expected | 1.0 h charged | 7.0 h remaining
 
 # expected audit trail on stderr
 # 1234.a was rounded up from its exact 0.75 share to 0.8 and kept the 0.1.

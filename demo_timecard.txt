@@ -81,7 +81,8 @@ log 17.5
 # | 1234.b  |   1.0 |   0.0 |   0.0 |   1.0 |  19.0 |
 # | 1234.c  |   0.8 |   0.0 |   0.0 |   0.8 |  79.2 |
 # | illness |   0.0 |   0.0 |   8.0 |   8.0 | 112.0 |
-# | Total   |   6.0 |   0.0 |   8.0 |  14.0 |       |
+# | Total   |   6.0 |   0.0 |   8.0 |  14.0 | 306.0 |
+# Timecard: 3 days x 8.0 h = 24.0 h expected | 14.0 h charged | 10.0 h remaining
 
 # expected output of command ottr timecard.txt "09/02"
 # | Charge  | 09/02 | Total |   Rem |
@@ -89,7 +90,8 @@ log 17.5
 # | 1234.b  |   1.0 |   1.0 |  19.0 |
 # | 1234.c  |   0.8 |   0.8 |  79.2 |
 # | illness |   0.0 |   0.0 | 120.0 |
-# | Total   |   6.0 |   6.0 |       |
+# | Total   |   6.0 |   6.0 | 314.0 |
+# Timecard: 1 day x 8.0 h = 8.0 h expected | 6.0 h charged | 2.0 h remaining
 #
 # | Charge  | 09/02 |
 # | 1234.a  |   4.2 |

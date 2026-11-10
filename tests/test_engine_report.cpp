@@ -65,7 +65,8 @@ TEST(Report, FullAndSingleDayTables) {
     exp << "| Charge | 09/01 | Total | Rem |\n";
     exp << "| C1     |   0.5 |   0.5 | 1.5 |\n";
     exp << "| C2     |   0.5 |   0.5 | 0.5 |\n";
-    exp << "| Total  |   1.0 |   1.0 |     |\n";
+    exp << "| Total  |   1.0 |   1.0 | 2.0 |\n";
+    exp << "Timecard: 1 day x 8.0 h = 8.0 h expected | 1.0 h charged | 7.0 h remaining\n";
     EXPECT_EQ(full, exp.str());
 
     std::string single = render_single_day_table(w, agg, agg.dates_in_order[0]);
@@ -75,6 +76,33 @@ TEST(Report, FullAndSingleDayTables) {
     exp2 << "| C2     |   0.5 |\n";
     exp2 << "| Total  |   1.0 |\n";
     EXPECT_EQ(single, exp2.str());
+}
+
+TEST(Report, SummaryUsesHoursPerDay) {
+    std::string txt =
+        "cn C1 \"A\" 10\n"
+        "task t \"x\"\n"
+        "wt t C1 1\n"
+        "opt hours_per_day 2.0\n"
+        "day 09/01\n"
+        "log 9.0 t\n"
+        "log 10.0\n"
+        "day 09/02\n"
+        "log 9.0 t\n"
+        "log 10.0\n";
+    ParserLogger log; std::string err_str; World w; std::istringstream iss(txt);
+    Validator v;
+    ASSERT_TRUE(parse_istream(iss, "mem:summary", w, log)) << err_str;
+    ASSERT_TRUE(v.validate_world("mem:summary", w));
+
+    EngineOptions opts{};
+    Aggregation agg; std::string emsg; ASSERT_TRUE(process_world(w, opts, agg, emsg));
+    ASSERT_EQ(agg.dates_in_order.size(), 2u);
+
+    std::string full = render_full_table(w, agg);
+    EXPECT_NE(full.find("Timecard: 2 days x 2.0 h = 4.0 h expected | "
+                        "2.0 h charged | 2.0 h remaining"),
+              std::string::npos);
 }
 
 TEST(Smoke, DemoTimecardInMemoryParses) {

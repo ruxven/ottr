@@ -21,6 +21,32 @@ static std::string ticks_to_fixed(Tick t) {
     return oss.str();
 }
 
+// Sum of the per-charge Rem column: total declared budget minus total charged.
+static Tick total_remaining(const World& world, const Aggregation& agg) {
+    Tick sum = 0;
+    for (const auto& kv : world.charges) {
+        auto it = agg.totals_by_charge.find(kv.first);
+        Tick charged = it == agg.totals_by_charge.end() ? 0 : it->second;
+        sum += kv.second.budget_ticks - charged;
+    }
+    return sum;
+}
+
+// Summary line: expected hours from the included day count and opt hours_per_day.
+static std::string render_summary(const World& world, const Aggregation& agg,
+                                  Tick charged) {
+    const size_t days = agg.dates_in_order.size();
+    const Tick expected = static_cast<Tick>(days) * world.options.hours_per_day;
+    const Tick remaining = expected - charged;
+    std::ostringstream oss;
+    oss << "Timecard: " << days << (days == 1 ? " day" : " days")
+        << " x " << ticks_to_fixed(world.options.hours_per_day) << " h = "
+        << ticks_to_fixed(expected) << " h expected | "
+        << ticks_to_fixed(charged) << " h charged | "
+        << ticks_to_fixed(remaining) << " h remaining\n";
+    return oss.str();
+}
+
 static void compute_widths(const World& world, const Aggregation& agg, std::map<std::string, size_t>& colw, std::vector<std::string>& headers) {
     headers.clear();
     headers.push_back("Charge");
@@ -63,6 +89,7 @@ static void compute_widths(const World& world, const Aggregation& agg, std::map<
     auto grand = 0ll;
     for (const auto& kv : agg.totals_by_charge) grand += kv.second;
     colw["Total"] = std::max(colw["Total"], ticks_to_fixed(grand).size());
+    colw["Rem"] = std::max(colw["Rem"], ticks_to_fixed(total_remaining(world, agg)).size());
 }
 
 static void append_row(std::ostringstream& oss, const std::vector<std::pair<std::string, std::string>>& cols, const std::map<std::string, size_t>& colw) {
@@ -123,9 +150,10 @@ std::string render_full_table(const World& world, const Aggregation& agg) {
         grand += s;
     }
     tcols.push_back({"Total", ticks_to_fixed(grand)});
-    tcols.push_back({"Rem", ""});
+    tcols.push_back({"Rem", ticks_to_fixed(total_remaining(world, agg))});
     append_row(oss, tcols, colw);
 
+    oss << render_summary(world, agg, grand);
     return oss.str();
 }
 

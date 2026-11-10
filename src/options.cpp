@@ -32,6 +32,35 @@ bool in_range(BudgetPolicy policy) {
          policy == BudgetPolicy::Cap || policy == BudgetPolicy::Spill;
 }
 
+// Parse decimal hours into ticks (tenths of an hour). The value must be
+// positive, a whole number of tenths, and between 0.1 and 24.0 hours. The
+// label is used in error messages (e.g. "granularity", "hours_per_day").
+bool parse_tick_hours(const std::string& label, const std::string& s, Tick& out,
+                      std::string& error_message) {
+  double hours = 0.0;
+  if (!try_parse_double(s, hours) || !std::isfinite(hours) || hours <= 0.0) {
+    error_message = "Invalid " + label + ": '" + s +
+                    "'. Expected a positive number of hours";
+    return false;
+  }
+  // Ticks are tenths of an hour, so the value must be a whole number of them.
+  const double scaled = hours * 10.0;
+  const double rounded = std::round(scaled);
+  if (std::fabs(scaled - rounded) > 1e-6) {
+    error_message = "Invalid " + label + ": '" + s +
+                    "'. Must be a multiple of 0.1 hour";
+    return false;
+  }
+  const long long ticks = static_cast<long long>(rounded);
+  if (ticks < 1 || ticks > 24 * 10) {
+    error_message = "Invalid " + label + ": '" + s +
+                    "'. Must be between 0.1 and 24.0 hours";
+    return false;
+  }
+  out = static_cast<Tick>(ticks);
+  return true;
+}
+
 } // namespace
 
 bool CalculationOptions::validate(std::string& error_message) const {
@@ -53,6 +82,10 @@ bool CalculationOptions::validate(std::string& error_message) const {
   }
   if (granularity <= 0) {
     error_message = "granularity must be a positive number of hours";
+    return false;
+  }
+  if (hours_per_day <= 0 || hours_per_day > 24 * 10) {
+    error_message = "hours_per_day must be between 0.1 and 24.0 hours";
     return false;
   }
   if (budget == BudgetPolicy::Spill && overflow_charge.empty()) {
@@ -150,28 +183,12 @@ bool CalculationOptions::parse_budget(const std::string& s,
 
 bool CalculationOptions::parse_granularity(const std::string& s, Tick& out,
                                            std::string& error_message) {
-  double hours = 0.0;
-  if (!try_parse_double(s, hours) || !std::isfinite(hours) || hours <= 0.0) {
-    error_message = "Invalid granularity: '" + s +
-                    "'. Expected a positive number of hours";
-    return false;
-  }
-  // Ticks are tenths of an hour, so a quantum must be a whole number of them.
-  const double scaled = hours * 10.0;
-  const double rounded = std::round(scaled);
-  if (std::fabs(scaled - rounded) > 1e-6) {
-    error_message = "Invalid granularity: '" + s +
-                    "'. Must be a multiple of 0.1 hour";
-    return false;
-  }
-  const long long ticks = static_cast<long long>(rounded);
-  if (ticks < 1 || ticks > 24 * 10) {
-    error_message = "Invalid granularity: '" + s +
-                    "'. Must be between 0.1 and 24.0 hours";
-    return false;
-  }
-  out = static_cast<Tick>(ticks);
-  return true;
+  return parse_tick_hours("granularity", s, out, error_message);
+}
+
+bool CalculationOptions::parse_hours_per_day(const std::string& s, Tick& out,
+                                             std::string& error_message) {
+  return parse_tick_hours("hours_per_day", s, out, error_message);
 }
 
 bool CalculationOptions::parse_flag(const std::string& s, bool& out,
