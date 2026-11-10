@@ -12081,6 +12081,29 @@
     ]
   },
   {
+    "filename": "/home/runner/work/ottr/ottr/src/cli.cpp",
+    "function_coverage": [
+      {
+        "line_start": 7,
+        "line_end": 37,
+        "line_count": 31,
+        "line_hit": 31,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr9help_textERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      },
+      {
+        "line_start": 40,
+        "line_end": 90,
+        "line_count": 47,
+        "line_hit": 47,
+        "branch_count": 30,
+        "branch_hit": 30,
+        "function_name": "_ZN4ottr9parse_cliERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS6_EERNS_10CliOptionsERS6_"
+      }
+    ]
+  },
+  {
     "filename": "/home/runner/work/ottr/ottr/src/engine.cpp",
     "function_coverage": [
       {
@@ -13375,6 +13398,137 @@
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN17AuditRoundingTest3runERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/tests/test_cli.cpp",
+    "function_coverage": [
+      {
+        "line_start": 26,
+        "line_end": 31,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN25Cli_HelpLongAndShort_Test8TestBodyEv"
+      },
+      {
+        "line_start": 33,
+        "line_end": 38,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN35Cli_HelpWinsOverOtherArguments_Test8TestBodyEv"
+      },
+      {
+        "line_start": 40,
+        "line_end": 45,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN19Cli_SingleFile_Test8TestBodyEv"
+      },
+      {
+        "line_start": 47,
+        "line_end": 54,
+        "line_count": 8,
+        "line_hit": 8,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN18Cli_SingleDay_Test8TestBodyEv"
+      },
+      {
+        "line_start": 56,
+        "line_end": 62,
+        "line_count": 7,
+        "line_hit": 7,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN18Cli_DateRange_Test8TestBodyEv"
+      },
+      {
+        "line_start": 64,
+        "line_end": 66,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN20Cli_MissingFile_Test8TestBodyEv"
+      },
+      {
+        "line_start": 68,
+        "line_end": 71,
+        "line_count": 4,
+        "line_hit": 4,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN25Cli_TooManyArguments_Test8TestBodyEv"
+      },
+      {
+        "line_start": 73,
+        "line_end": 75,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN22Cli_UnknownOption_Test8TestBodyEv"
+      },
+      {
+        "line_start": 77,
+        "line_end": 82,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN21Cli_InvalidDates_Test8TestBodyEv"
+      },
+      {
+        "line_start": 84,
+        "line_end": 88,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN37Cli_DoubleDashAllowsDashFilename_Test8TestBodyEv"
+      },
+      {
+        "line_start": 90,
+        "line_end": 96,
+        "line_count": 7,
+        "line_hit": 7,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN34Cli_HelpTextDescribesRunModes_Test8TestBodyEv"
+      },
+      {
+        "line_start": 98,
+        "line_end": 102,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN30Cli_HelpTextLinksToReadme_Test8TestBodyEv"
+      },
+      {
+        "line_start": 10,
+        "line_end": 15,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "test_cli.cpp:_ZN12_GLOBAL__N_18parse_okERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS6_EE"
+      },
+      {
+        "line_start": 17,
+        "line_end": 22,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "test_cli.cpp:_ZN12_GLOBAL__N_111parse_errorERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS6_EE"
       }
     ]
   },

@@ -898,28 +898,10 @@
     "filename": "src/main.cpp",
     "function_list": [
       {
-        "name": "print_usage",
-        "cyclomatic_complexity": 1,
-        "start_line": 17,
-        "end_line": 22,
-        "nloc": 6,
-        "token_count": 37,
-        "parameter_count": 1
-      },
-      {
-        "name": "parse_args",
-        "cyclomatic_complexity": 7,
-        "start_line": 25,
-        "end_line": 51,
-        "nloc": 26,
-        "token_count": 150,
-        "parameter_count": 4
-      },
-      {
         "name": "print_lines",
         "cyclomatic_complexity": 2,
-        "start_line": 53,
-        "end_line": 57,
+        "start_line": 15,
+        "end_line": 19,
         "nloc": 5,
         "token_count": 39,
         "parameter_count": 1
@@ -927,8 +909,8 @@
       {
         "name": "print_debug_if_enabled",
         "cyclomatic_complexity": 3,
-        "start_line": 59,
-        "end_line": 63,
+        "start_line": 21,
+        "end_line": 25,
         "nloc": 5,
         "token_count": 46,
         "parameter_count": 1
@@ -936,8 +918,8 @@
       {
         "name": "run",
         "cyclomatic_complexity": 5,
-        "start_line": 66,
-        "end_line": 100,
+        "start_line": 28,
+        "end_line": 62,
         "nloc": 32,
         "token_count": 212,
         "parameter_count": 4
@@ -945,8 +927,8 @@
       {
         "name": "print_single_day",
         "cyclomatic_complexity": 5,
-        "start_line": 102,
-        "end_line": 111,
+        "start_line": 64,
+        "end_line": 73,
         "nloc": 10,
         "token_count": 78,
         "parameter_count": 3
@@ -954,19 +936,19 @@
       {
         "name": "print_audit",
         "cyclomatic_complexity": 2,
-        "start_line": 114,
-        "end_line": 117,
+        "start_line": 76,
+        "end_line": 79,
         "nloc": 4,
         "token_count": 35,
         "parameter_count": 2
       },
       {
         "name": "main",
-        "cyclomatic_complexity": 3,
-        "start_line": 121,
-        "end_line": 135,
-        "nloc": 13,
-        "token_count": 97,
+        "cyclomatic_complexity": 6,
+        "start_line": 83,
+        "end_line": 109,
+        "nloc": 24,
+        "token_count": 211,
         "parameter_count": 2
       }
     ]
@@ -1144,6 +1126,29 @@
         "end_line": 273,
         "nloc": 31,
         "token_count": 365,
+        "parameter_count": 3
+      }
+    ]
+  },
+  {
+    "filename": "src/cli.cpp",
+    "function_list": [
+      {
+        "name": "ottr::help_text",
+        "cyclomatic_complexity": 1,
+        "start_line": 7,
+        "end_line": 37,
+        "nloc": 31,
+        "token_count": 128,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::parse_cli",
+        "cyclomatic_complexity": 16,
+        "start_line": 39,
+        "end_line": 90,
+        "nloc": 48,
+        "token_count": 319,
         "parameter_count": 3
       }
     ]

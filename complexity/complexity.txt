@@ -96,14 +96,12 @@
       12      3     76      1      12 ottr::Validator::find_err@108-119@src/validate.cpp
        6      8     72      1       6 ottr::DateFilter::includes@5-10@src/model.cpp
        3      1     14      0       3 ottr::World::current_day@12-14@src/model.cpp
-       6      1     37      1       6 print_usage@17-22@src/main.cpp
-      26      7    150      4      27 parse_args@25-51@src/main.cpp
-       5      2     39      1       5 print_lines@53-57@src/main.cpp
-       5      3     46      1       5 print_debug_if_enabled@59-63@src/main.cpp
-      32      5    212      4      35 run@66-100@src/main.cpp
-      10      5     78      3      10 print_single_day@102-111@src/main.cpp
-       4      2     35      2       4 print_audit@114-117@src/main.cpp
-      13      3     97      2      15 main@121-135@src/main.cpp
+       5      2     39      1       5 print_lines@15-19@src/main.cpp
+       5      3     46      1       5 print_debug_if_enabled@21-25@src/main.cpp
+      32      5    212      4      35 run@28-62@src/main.cpp
+      10      5     78      3      10 print_single_day@64-73@src/main.cpp
+       4      2     35      2       4 print_audit@76-79@src/main.cpp
+      24      6    211      2      27 main@83-109@src/main.cpp
        1      1      9      0       1 ottr::Aggregator::dates@14-14@src/aggregator.hpp
        1      1      9      0       1 ottr::Aggregator::snapshot@16-16@src/aggregator.hpp
       17     12    217      2      18 ottr::parse_mmdd@8-25@src/util.cpp
@@ -122,13 +120,16 @@
       22     12    266      1      25 ottr::rounding_note@199-223@src/report.cpp
       11      2     92      1      11 ottr::render_audit@225-235@src/report.cpp
       31      7    365      3      37 ottr::render_single_day_table@237-273@src/report.cpp
-19 file analyzed.
+      31      1    128      1      31 ottr::help_text@7-37@src/cli.cpp
+      48     16    319      3      52 ottr::parse_cli@39-90@src/cli.cpp
+21 file analyzed.
 ==============================================================
 NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
 --------------------------------------------------------------
     185      13.4     4.3       77.0        13     src/options.cpp
     162      21.0     7.6      190.9         7     src/alloc.cpp
      29       0.0     0.0        0.0         0     src/alloc.hpp
+     17       0.0     0.0        0.0         0     src/cli.hpp
     399      10.5     3.0       87.2        37     src/parser.cpp
      13       5.0     1.0       46.0         1     src/util.hpp
     133       0.0     0.0        0.0         0     src/parser.hpp
@@ -138,19 +139,21 @@ NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
     106       9.0     3.0       73.7        11     src/validate.cpp
      74       0.0     0.0        0.0         0     src/model.hpp
      12       4.5     4.5       43.0         2     src/model.cpp
-    115      12.6     3.5       86.8         8     src/main.cpp
+     92      13.3     3.8      103.5         6     src/main.cpp
      13       0.0     0.0        0.0         0     src/engine.hpp
      18       1.0     1.0        9.0         2     src/aggregator.hpp
      33       9.0     5.3      103.3         3     src/util.cpp
     230      17.0     5.2      191.5        13     src/report.cpp
      51       0.0     0.0        0.0         0     src/options.hpp
      18       0.0     0.0        0.0         0     src/validate.hpp
+     84      39.5     8.5      223.5         2     src/cli.cpp
 
 ========================================================================================================
 !!!! Warnings (cyclomatic_complexity > 15 or length > 100 or nloc > 1000000 or parameter_count > 5) !!!!
 ================================================
   NLOC    CCN   token  PARAM  length  location  
 ------------------------------------------------
+      48     16    319      3      52 ottr::parse_cli@39-90@src/cli.cpp
       27     12    242      6      31 ottr::distribute_ranked@98-128@src/alloc.cpp
       23     10    226      6      27 ottr::outranks@44-70@src/alloc.cpp
       22      9    260      8      24 ottr::allocate_task@207-230@src/engine.cpp
@@ -162,4 +165,4 @@ NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
 ==========================================================================================
 Total nloc   Avg.NLOC  AvgCCN  Avg.token   Fun Cnt  Warning cnt   Fun Rt   nloc Rt
 ------------------------------------------------------------------------------------------
-      1926      12.2     3.8      108.1      121            8      0.07    0.12
+      2004      12.7     3.9      111.2      121            9      0.07    0.15
