@@ -39,6 +39,7 @@ add_library(ottr_core
   src/aggregator.cpp
   src/report.cpp
   src/util.cpp
+  src/cli.cpp
 )
 
 target_include_directories(ottr_core PUBLIC src)
@@ -101,6 +102,7 @@ if(BUILD_TESTING)
     tests/test_rounding_modes.cpp
     tests/test_aggregation_modes.cpp
     tests/test_audit_rounding.cpp
+    tests/test_cli.cpp
   )
   target_link_libraries(ottr_tests PRIVATE ottr_core GTest::gtest_main)
   target_include_directories(ottr_tests PRIVATE src)

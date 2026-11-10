@@ -19,6 +19,30 @@ TL;DR: `ottr ./demo_timecard.txt 09/02`
 
 Have fun :)
 
+### Command-line usage
+
+Run `ottr --help` (or `-h`) to see the available run modes:
+
+```
+Usage:
+  ottr FILE
+  ottr FILE START
+  ottr FILE START END
+  ottr --help
+
+Run modes:
+  FILE            Report every day in the timecard.
+  FILE START      Report the full table filtered to START, plus a
+                  compact single-day table for quick copy/paste.
+  FILE START END  Report every day from START through END, inclusive.
+```
+
+Dates use `MM/DD` format. Help goes to stdout and exits 0; command-line
+errors go to stderr and exit 2. Use `--` before a file name that begins
+with a dash. Calculation options such as rounding and aggregation are set
+inside the timecard with `opt` directives; see
+[Configuration Options](#configuration-options).
+
 ## No really, how do I use it?
 
 `ottr` uses a plain text file that defines:

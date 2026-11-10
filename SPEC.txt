@@ -11,11 +11,16 @@ Command-line interface
   - ottr FILE
   - ottr FILE START_DATE
   - ottr FILE START_DATE END_DATE
+  - ottr --help
 - Parameters:
   - FILE: path to the timecard source file.
   - START_DATE, END_DATE: date filters in MM/DD format; when only START_DATE is provided, it behaves as a single-day filter; when both are provided, include all days D such that START_DATE <= D <= END_DATE (inclusive). If no dates are provided, include all days in the file.
+  - -h, --help: print the usage, run modes, and options to stdout and exit 0. Help takes precedence over any other arguments.
+  - --: treat all following arguments as positional, allowing a FILE whose name begins with a dash.
+- Unknown options and excess arguments are reported on stderr and exit with code 2.
 - Exit codes:
-  - 0 on success.
+  - 0 on success (including --help).
+  - 2 on command-line errors.
   - Non-zero on validation or parsing errors.
 
 Input file format

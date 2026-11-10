@@ -1,54 +1,16 @@
-#include <cmath>
 #include <string>
 #include <vector>
+#include "cli.hpp"
 #include "parser.hpp"
 #include "validate.hpp"
 #include "engine.hpp"
 #include "report.hpp"
-#include "util.hpp"
 #include <cstdlib>
-#include <iomanip>
 #include <iostream>
 
 using namespace ottr;
 
 namespace {
-
-void print_usage(const char* prog) {
-    std::cerr << "Usage:\n"
-                 "  " << prog << " FILE\n"
-                 "  " << prog << " FILE START\n"
-                 "  " << prog << " FILE START END\n";
-}
-
-// Returns 0 on success, or the process exit code.
-int parse_args(int argc, char** argv, std::string& path, DateFilter& filter) {
-    if (argc < 2 || argc > 4) {
-        print_usage(argv[0]);
-        return 2;
-    }
-
-    path = argv[1];
-    if (argc >= 3) {
-        Date start;
-        if (!parse_mmdd(argv[2], start)) {
-            std::cerr << "Invalid START date (MM/DD)\n";
-            return 2;
-        }
-        filter.has_start = true;
-        filter.start = start;
-    }
-    if (argc == 4) {
-        Date end;
-        if (!parse_mmdd(argv[3], end)) {
-            std::cerr << "Invalid END date (MM/DD)\n";
-            return 2;
-        }
-        filter.has_end = true;
-        filter.end = end;
-    }
-    return 0;
-}
 
 void print_lines(const std::vector<std::string>& lines) {
     for (const std::string& line : lines) {
@@ -119,17 +81,29 @@ void print_audit(const World& world, const Aggregation& agg) {
 } // namespace
 
 int main(int argc, char** argv) {
-    std::string path;
-    DateFilter filter;
-    const int arg_status = parse_args(argc, argv, path, filter);
-    if (arg_status != 0) return arg_status;
+    std::vector<std::string> args;
+    args.reserve(static_cast<size_t>(argc > 0 ? argc - 1 : 0));
+    for (int i = 1; i < argc; ++i) args.emplace_back(argv[i]);
+
+    CliOptions cli;
+    std::string cli_error;
+    const CliStatus status = parse_cli(args, cli, cli_error);
+    if (status == CliStatus::Help) {
+        std::cout << help_text(argv[0]);
+        return 0;
+    }
+    if (status == CliStatus::Error) {
+        std::cerr << "ottr: " << cli_error << "\n"
+                  << "Try '" << argv[0] << " --help' for more information.\n";
+        return 2;
+    }
 
     World world;
     Aggregation agg;
-    if (!run(path, filter, world, agg)) return 1;
+    if (!run(cli.path, cli.filter, world, agg)) return 1;
 
     std::cout << render_full_table(world, agg);
-    print_single_day(filter, world, agg);
+    print_single_day(cli.filter, world, agg);
     print_audit(world, agg);
     return 0;
 }
