@@ -7,6 +7,7 @@ var hierarchy =
     [ "ottr::AllocationResultEntry", "structottr_1_1AllocationResultEntry.html", null ],
     [ "ottr::AuditEntry", "structottr_1_1AuditEntry.html", null ],
     [ "ottr::CalculationOptions", "structottr_1_1CalculationOptions.html", null ],
+    [ "ottr::CalendarDate", "structottr_1_1CalendarDate.html", null ],
     [ "ottr::ChargeNumber", "structottr_1_1ChargeNumber.html", null ],
     [ "ottr::CliOptions", "structottr_1_1CliOptions.html", null ],
     [ "ottr::Date", "structottr_1_1Date.html", null ],

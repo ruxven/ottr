@@ -12085,20 +12085,20 @@
     "function_coverage": [
       {
         "line_start": 7,
-        "line_end": 37,
-        "line_count": 31,
-        "line_hit": 31,
+        "line_end": 45,
+        "line_count": 39,
+        "line_hit": 39,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN4ottr9help_textERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
-        "line_start": 40,
-        "line_end": 90,
-        "line_count": 47,
-        "line_hit": 47,
-        "branch_count": 30,
-        "branch_hit": 30,
+        "line_start": 48,
+        "line_end": 120,
+        "line_count": 68,
+        "line_hit": 68,
+        "branch_count": 42,
+        "branch_hit": 42,
         "function_name": "_ZN4ottr9parse_cliERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS6_EERNS_10CliOptionsERS6_"
       }
     ]
@@ -12303,6 +12303,155 @@
         "branch_count": 8,
         "branch_hit": 4,
         "function_name": "engine.cpp:_ZN4ottr12_GLOBAL__N_115allocate_directERKNS_5WorldERKNS_13EngineOptionsERKNS_4DateERKNS0_5SliceERNS0_13RunningTotalsERNS_11AggregationEPSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaISN_EE"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/src/generate.cpp",
+    "function_coverage": [
+      {
+        "line_start": 98,
+        "line_end": 102,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 4,
+        "branch_hit": 2,
+        "function_name": "_ZN4ottrltERKNS_12CalendarDateES2_"
+      },
+      {
+        "line_start": 104,
+        "line_end": 106,
+        "line_count": 3,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottrleERKNS_12CalendarDateES2_"
+      },
+      {
+        "line_start": 109,
+        "line_end": 147,
+        "line_count": 36,
+        "line_hit": 36,
+        "branch_count": 30,
+        "branch_hit": 26,
+        "function_name": "_ZN4ottr19parse_calendar_dateERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiRNS_12CalendarDateE"
+      },
+      {
+        "line_start": 149,
+        "line_end": 154,
+        "line_count": 6,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN4ottr12current_yearEv"
+      },
+      {
+        "line_start": 159,
+        "line_end": 176,
+        "line_count": 18,
+        "line_hit": 18,
+        "branch_count": 6,
+        "branch_hit": 6,
+        "function_name": "_ZN4ottr20parse_generate_rangeERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES7_iRNS_12CalendarDateES9_RS5_"
+      },
+      {
+        "line_start": 179,
+        "line_end": 206,
+        "line_count": 25,
+        "line_hit": 25,
+        "branch_count": 6,
+        "branch_hit": 6,
+        "function_name": "_ZN4ottr17generate_timecardB5cxx11ERKNS_12CalendarDateES2_"
+      },
+      {
+        "line_start": 88,
+        "line_end": 94,
+        "line_count": 7,
+        "line_hit": 7,
+        "branch_count": 6,
+        "branch_hit": 5,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_110all_digitsERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
+      },
+      {
+        "line_start": 17,
+        "line_end": 22,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 4,
+        "branch_hit": 4,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_113days_in_monthEii"
+      },
+      {
+        "line_start": 13,
+        "line_end": 15,
+        "line_count": 3,
+        "line_hit": 3,
+        "branch_count": 6,
+        "branch_hit": 6,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_112is_leap_yearEi"
+      },
+      {
+        "line_start": 74,
+        "line_end": 79,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_110format_ymdB5cxx11ERKNS_12CalendarDateE"
+      },
+      {
+        "line_start": 26,
+        "line_end": 34,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 6,
+        "branch_hit": 5,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_115days_from_civilEiii"
+      },
+      {
+        "line_start": 36,
+        "line_end": 48,
+        "line_count": 13,
+        "line_hit": 13,
+        "branch_count": 6,
+        "branch_hit": 5,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_115civil_from_daysExRiS1_S1_"
+      },
+      {
+        "line_start": 51,
+        "line_end": 55,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 2,
+        "branch_hit": 1,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_111iso_weekdayEx"
+      },
+      {
+        "line_start": 59,
+        "line_end": 67,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_18iso_weekEiii"
+      },
+      {
+        "line_start": 69,
+        "line_end": 72,
+        "line_count": 4,
+        "line_hit": 4,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_111day_of_yearEiii"
+      },
+      {
+        "line_start": 81,
+        "line_end": 86,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "generate.cpp:_ZN4ottr12_GLOBAL__N_19format_mdB5cxx11ERKNS_12CalendarDateE"
       }
     ]
   },
@@ -13513,6 +13662,42 @@
         "function_name": "_ZN30Cli_HelpTextLinksToReadme_Test8TestBodyEv"
       },
       {
+        "line_start": 104,
+        "line_end": 110,
+        "line_count": 7,
+        "line_hit": 7,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN34Cli_GenerateModeTakesTwoDates_Test8TestBodyEv"
+      },
+      {
+        "line_start": 112,
+        "line_end": 117,
+        "line_count": 6,
+        "line_hit": 6,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN34Cli_GenerateRequiresBothDates_Test8TestBodyEv"
+      },
+      {
+        "line_start": 119,
+        "line_end": 123,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN38Cli_GenerateRejectsExtraArguments_Test8TestBodyEv"
+      },
+      {
+        "line_start": 125,
+        "line_end": 129,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN34Cli_HelpTextDescribesGenerate_Test8TestBodyEv"
+      },
+      {
         "line_start": 10,
         "line_end": 15,
         "line_count": 6,
@@ -13584,6 +13769,128 @@
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN37Smoke_DemoTimecardInMemoryParses_Test8TestBodyEv"
+      }
+    ]
+  },
+  {
+    "filename": "/home/runner/work/ottr/ottr/tests/test_generate.cpp",
+    "function_coverage": [
+      {
+        "line_start": 11,
+        "line_end": 17,
+        "line_count": 7,
+        "line_hit": 7,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN27Generate_ParseFullDate_Test8TestBodyEv"
+      },
+      {
+        "line_start": 19,
+        "line_end": 29,
+        "line_count": 10,
+        "line_hit": 10,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN43Generate_ParseShortDateUsesDefaultYear_Test8TestBodyEv"
+      },
+      {
+        "line_start": 31,
+        "line_end": 43,
+        "line_count": 13,
+        "line_hit": 13,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN38Generate_ParseRejectsInvalidDates_Test8TestBodyEv"
+      },
+      {
+        "line_start": 45,
+        "line_end": 51,
+        "line_count": 7,
+        "line_hit": 7,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN36Generate_ParseRespectsLeapYears_Test8TestBodyEv"
+      },
+      {
+        "line_start": 53,
+        "line_end": 66,
+        "line_count": 12,
+        "line_hit": 12,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN39Generate_RangeRequiresOrderedDates_Test8TestBodyEv"
+      },
+      {
+        "line_start": 68,
+        "line_end": 79,
+        "line_count": 11,
+        "line_hit": 11,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN44Generate_RangeReportsWhichDateIsInvalid_Test8TestBodyEv"
+      },
+      {
+        "line_start": 81,
+        "line_end": 108,
+        "line_count": 27,
+        "line_hit": 27,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN41Generate_SkipsWeekendsAndEmitsBlocks_Test8TestBodyEv"
+      },
+      {
+        "line_start": 110,
+        "line_end": 118,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN44Generate_WeekendOnlyRangeHasNoDayBlocks_Test8TestBodyEv"
+      },
+      {
+        "line_start": 120,
+        "line_end": 132,
+        "line_count": 12,
+        "line_hit": 12,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN38Generate_WeekCommentOnlyOnMondays_Test8TestBodyEv"
+      },
+      {
+        "line_start": 134,
+        "line_end": 149,
+        "line_count": 14,
+        "line_hit": 14,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN42Generate_IsoWeekRollsOverAtTheNewYear_Test8TestBodyEv"
+      },
+      {
+        "line_start": 151,
+        "line_end": 159,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN39Generate_DayOfYearHandlesLeapYears_Test8TestBodyEv"
+      },
+      {
+        "line_start": 161,
+        "line_end": 169,
+        "line_count": 9,
+        "line_hit": 9,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN41Generate_HeaderUsesTheRequestedRange_Test8TestBodyEv"
+      },
+      {
+        "line_start": 171,
+        "line_end": 192,
+        "line_count": 18,
+        "line_hit": 18,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN48Generate_GeneratedSkeletonParsesAsATimecard_Test8TestBodyEv"
       }
     ]
   },

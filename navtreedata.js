@@ -40,23 +40,24 @@ var NAVTREE =
     [ "OTTR - One Tenth Time Reporter", "md_README.html", [
       [ "What is this?", "md_README.html#autotoc_md11", null ],
       [ "How do I use it?", "md_README.html#autotoc_md12", [
-        [ "Command-line usage", "md_README.html#autotoc_md13", null ]
+        [ "Command-line usage", "md_README.html#autotoc_md13", null ],
+        [ "Generating a timecard skeleton", "md_README.html#autotoc_md14", null ]
       ] ],
-      [ "No really, how do I use it?", "md_README.html#autotoc_md14", null ],
-      [ "Configuration Options", "md_README.html#autotoc_md15", [
-        [ "Rounding Mode", "md_README.html#autotoc_md16", null ],
-        [ "Aggregation Mode", "md_README.html#autotoc_md17", null ],
-        [ "Remainder Policy", "md_README.html#autotoc_md18", null ],
-        [ "Charge Granularity", "md_README.html#autotoc_md19", null ],
-        [ "Expected Hours Per Day", "md_README.html#autotoc_md20", null ],
-        [ "Budget Policy", "md_README.html#autotoc_md21", null ],
-        [ "Audit Output", "md_README.html#autotoc_md22", null ],
-        [ "Example Configuration", "md_README.html#autotoc_md23", null ]
+      [ "No really, how do I use it?", "md_README.html#autotoc_md15", null ],
+      [ "Configuration Options", "md_README.html#autotoc_md16", [
+        [ "Rounding Mode", "md_README.html#autotoc_md17", null ],
+        [ "Aggregation Mode", "md_README.html#autotoc_md18", null ],
+        [ "Remainder Policy", "md_README.html#autotoc_md19", null ],
+        [ "Charge Granularity", "md_README.html#autotoc_md20", null ],
+        [ "Expected Hours Per Day", "md_README.html#autotoc_md21", null ],
+        [ "Budget Policy", "md_README.html#autotoc_md22", null ],
+        [ "Audit Output", "md_README.html#autotoc_md23", null ],
+        [ "Example Configuration", "md_README.html#autotoc_md24", null ]
       ] ],
-      [ "Building", "md_README.html#autotoc_md24", [
-        [ "Windows 10", "md_README.html#autotoc_md25", null ]
+      [ "Building", "md_README.html#autotoc_md25", [
+        [ "Windows 10", "md_README.html#autotoc_md26", null ]
       ] ],
-      [ "TODO", "md_README.html#autotoc_md26", null ]
+      [ "TODO", "md_README.html#autotoc_md27", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

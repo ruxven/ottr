@@ -109,6 +109,7 @@ Command-line usage</h2>
 <div class="line">  ottr FILE</div>
 <div class="line">  ottr FILE START</div>
 <div class="line">  ottr FILE START END</div>
+<div class="line">  ottr --generate START END</div>
 <div class="line">  ottr --help</div>
 <div class="line"> </div>
 <div class="line">Run modes:</div>
@@ -116,8 +117,30 @@ Command-line usage</h2>
 <div class="line">  FILE START      Report the full table filtered to START, plus a</div>
 <div class="line">                  compact single-day table for quick copy/paste.</div>
 <div class="line">  FILE START END  Report every day from START through END, inclusive.</div>
-</div><!-- fragment --><p>Dates use <code>MM/DD</code> format. Help goes to stdout and exits 0; command-line errors go to stderr and exit 2. Use <code>--</code> before a file name that begins with a dash. Calculation options such as rounding and aggregation are set inside the timecard with <code>opt</code> directives; see Configuration Options.</p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<div class="line">  --generate START END</div>
+<div class="line">                  Write a timecard skeleton for every weekday from</div>
+<div class="line">                  START through END, inclusive. Saturdays and</div>
+<div class="line">                  Sundays are skipped.</div>
+</div><!-- fragment --><p>Dates use <code>MM/DD</code> format when reporting. Help goes to stdout and exits 0; command-line errors go to stderr and exit 2. Use <code>--</code> before a file name that begins with a dash. Calculation options such as rounding and aggregation are set inside the timecard with <code>opt</code> directives; see Configuration Options.</p>
+<h2><a class="anchor" id="autotoc_md14"></a>
+Generating a timecard skeleton</h2>
+<p><code>--generate</code> writes a starting point for a new timecard instead of reading one. It accepts <code>yyyy/mm/dd</code> or <code>mm/dd</code>; a short date uses the current year.</p>
+<div class="fragment"><div class="line">ottr --generate 2026/09/01 2026/09/30</div>
+</div><!-- fragment --><div class="fragment"><div class="line"># 2026/09/01 - 2026/09/30</div>
+<div class="line"> </div>
+<div class="line"># day 244</div>
+<div class="line">day 09/01</div>
+<div class="line">log 9.0</div>
+<div class="line">log 17.0</div>
+<div class="line"> </div>
+<div class="line"># day 245</div>
+<div class="line">day 09/02</div>
+<div class="line">log 9.0</div>
+<div class="line">log 17.0</div>
+<div class="line"> </div>
+<div class="line">...</div>
+</div><!-- fragment --><p>Every weekday from the start through the end date gets a day block with a 9:00 start and a 17:00 end. Saturdays and Sundays are skipped; holidays are not considered. Mondays also get an ISO-8601 week comment (<code># week 37</code>), and every block is labelled with its day of the year (<code># day 250</code>). Add your own <code>cn</code>, <code>task</code>, and <code>wt</code> directives and a task reference on each <code>log</code> line to turn the skeleton into a reportable timecard.</p>
+<h1><a class="anchor" id="autotoc_md15"></a>
 No really, how do I use it?</h1>
 <p><code>ottr</code> uses a plain text file that defines:</p>
 <ul>
@@ -187,10 +210,10 @@ No really, how do I use it?</h1>
 <div class="line">| 1234.01 |   2.3 |</div>
 <div class="line">| 1234.02 |   1.2 |</div>
 <div class="line">| Total   |   4.0 |</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md16"></a>
 Configuration Options</h1>
 <p>OTTR supports configuration options that control how timecard values are calculated. Options are specified using the <code>opt</code> directive in the timecard file.</p>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md17"></a>
 Rounding Mode</h2>
 <p>Controls how base allocations are rounded before remainder distribution.</p>
 <div class="fragment"><div class="line">opt rounding &lt;mode&gt;</div>
@@ -201,7 +224,7 @@ Rounding Mode</h2>
 </ul>
 <p>Example: </p><div class="fragment"><div class="line">opt rounding round</div>
 </div><!-- fragment --><p>When rounding causes allocations to exceed the slice total, the negative remainder is subtracted from lowest-priority charges.</p>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Aggregation Mode</h2>
 <p>Controls when task-based allocations are computed.</p>
 <div class="fragment"><div class="line">opt aggregation &lt;mode&gt;</div>
@@ -212,7 +235,7 @@ Aggregation Mode</h2>
 <li><code>off</code>: Explicit alias for <code>per_event</code></li>
 </ul>
 <p>Example: </p><div class="fragment"><div class="line">opt aggregation per_day</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md18"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
 Remainder Policy</h2>
 <p>Controls which charge receives leftover quanta after base allocation.</p>
 <div class="fragment"><div class="line">opt remainder &lt;policy&gt;</div>
@@ -222,20 +245,20 @@ Remainder Policy</h2>
 <li><code>round_robin</code>: Cycle through eligible charges in order, ignoring priority</li>
 </ul>
 <p>Example: </p><div class="fragment"><div class="line">opt remainder round_robin</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
 Charge Granularity</h2>
 <p>Controls the quantum used for charge allocation, in hours.</p>
 <div class="fragment"><div class="line">opt granularity &lt;hours&gt;</div>
 </div><!-- fragment --><p>The value must be a positive multiple of 0.1 hour (0.2, 0.5, 1.0, and so on). The default is 0.1. A quarter-hour quantum (0.25) is not supported because the internal unit is one tenth of an hour.</p>
 <p>Example: </p><div class="fragment"><div class="line">opt granularity 0.5</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
 Expected Hours Per Day</h2>
 <p>Controls the expected hours per included day, used by the summary line under the multi-day table.</p>
 <div class="fragment"><div class="line">opt hours_per_day &lt;hours&gt;</div>
 </div><!-- fragment --><p>The value must be a positive multiple of 0.1 hour, at most 24.0. The default is 8.0. The summary multiplies this by the number of days included by the CLI date filter and compares the result to the grand total:</p>
 <div class="fragment"><div class="line">Timecard: 3 days x 8.0 h = 24.0 h expected | 16.6 h charged | 7.4 h remaining</div>
 </div><!-- fragment --><p>Example: </p><div class="fragment"><div class="line">opt hours_per_day 7.5</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
 Budget Policy</h2>
 <p>Controls what happens when an allocation would exceed a charge's declared hours.</p>
 <div class="fragment"><div class="line">opt budget &lt;policy&gt;</div>
@@ -249,7 +272,7 @@ Budget Policy</h2>
 <p><code>overflow_charge</code> is required with <code>spill</code>, is only valid with <code>spill</code>, and must name a declared charge.</p>
 <p>Example: </p><div class="fragment"><div class="line">opt budget spill</div>
 <div class="line">opt overflow_charge 9999.z</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md22"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md23"></a>
 Audit Output</h2>
 <div class="fragment"><div class="line">opt audit on</div>
 </div><!-- fragment --><p>Records every applied allocation (date, source, charge, and hours) and prints the trail to stderr after the table. <code>off</code> is the default.</p>
@@ -267,7 +290,7 @@ Audit Output</h2>
 </ul>
 <p>Fields that did not move are omitted. An allocation that needed no adjustment at all carries no breakdown, so direct charges and exact splits stay uncluttered.</p>
 <p><code>demo_timecard_dayend.txt</code> is a worked example of the common end-of-day case: a weighted split whose tenths do not add up, where the 0.1 hour has to be moved between charge numbers. The <code>cn</code> priority parameter decides which charge number gives it back, so it can be pointed at the same time code a spreadsheet appends it to by hand.</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 Example Configuration</h2>
 <div class="fragment"><div class="line">cn 1234.a &quot;Project A&quot; 100.0</div>
 <div class="line">cn 1234.b &quot;Project B&quot; 100.0</div>
@@ -283,7 +306,7 @@ Example Configuration</h2>
 <div class="line">log 08.0</div>
 <div class="line">log 10.0 mytask</div>
 <div class="line">log 17.0</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md24"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md25"></a>
 Building</h1>
 <p><code>ottr</code> is built using CMake and can be installed locally:</p>
 <div class="fragment"><div class="line">mkdir build</div>
@@ -294,7 +317,7 @@ Building</h1>
 </div><!-- fragment --><p>Or using Docker:</p>
 <div class="fragment"><div class="line">docker build -t ottr-dev .</div>
 <div class="line">docker run --rm -v $(pwd):/workspace ottr-dev bash -c &quot;cd /workspace/ottr/build &amp;&amp; cmake .. &amp;&amp; make&quot;</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md25"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
 Windows 10</h2>
 <p>Windows builds are cross-compiled from Linux with MinGW-w64. Install the cross compiler:</p>
 <div class="fragment"><div class="line">sudo pacman -S mingw-w64-gcc</div>
@@ -309,13 +332,13 @@ Windows 10</h2>
 </div><!-- fragment --><p>To package the executable with the existing install rules:</p>
 <div class="fragment"><div class="line">cmake --install build_windows --prefix dist/windows-x64</div>
 </div><!-- fragment --><p>The GitHub Actions workflow also cross-builds the Windows executable on Ubuntu and builds and tests it natively on <code>windows-latest</code> with MSVC.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 TODO</h1>
 <ul>
 <li>✅ Add configuration options (rounding and aggregation modes)</li>
 <li>✅ Configure rounding to either truncation, normal rounding, or ceiling</li>
 <li>✅ Summarize task data charges per day or per event (aggregation modes)</li>
-<li>Generate a timecard using a specified date range.</li>
+<li>✅ Generate a timecard using a specified date range.</li>
 <li>✅ Handle cases where decihours need to be deducted from total time on task for event or day.</li>
 <li>✅ Audit mode: show the per-day allocation and remainder assignments per event or per day.</li>
 <li>✅ Audit mode: show the rounding breakdown (exact share, rounding, remainder, cap, net) per allocation.</li>

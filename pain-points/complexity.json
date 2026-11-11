@@ -718,6 +718,155 @@
     ]
   },
   {
+    "filename": "src/generate.cpp",
+    "function_list": [
+      {
+        "name": "ottr::is_leap_year",
+        "cyclomatic_complexity": 3,
+        "start_line": 13,
+        "end_line": 15,
+        "nloc": 3,
+        "token_count": 28,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::days_in_month",
+        "cyclomatic_complexity": 3,
+        "start_line": 17,
+        "end_line": 22,
+        "nloc": 6,
+        "token_count": 65,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::days_from_civil",
+        "cyclomatic_complexity": 4,
+        "start_line": 26,
+        "end_line": 34,
+        "nloc": 9,
+        "token_count": 129,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::civil_from_days",
+        "cyclomatic_complexity": 4,
+        "start_line": 36,
+        "end_line": 48,
+        "nloc": 13,
+        "token_count": 194,
+        "parameter_count": 4
+      },
+      {
+        "name": "ottr::iso_weekday",
+        "cyclomatic_complexity": 2,
+        "start_line": 51,
+        "end_line": 55,
+        "nloc": 5,
+        "token_count": 38,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::iso_week",
+        "cyclomatic_complexity": 1,
+        "start_line": 59,
+        "end_line": 67,
+        "nloc": 9,
+        "token_count": 102,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::day_of_year",
+        "cyclomatic_complexity": 1,
+        "start_line": 69,
+        "end_line": 72,
+        "nloc": 4,
+        "token_count": 40,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::format_ymd",
+        "cyclomatic_complexity": 1,
+        "start_line": 74,
+        "end_line": 79,
+        "nloc": 6,
+        "token_count": 76,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::format_md",
+        "cyclomatic_complexity": 1,
+        "start_line": 81,
+        "end_line": 86,
+        "nloc": 6,
+        "token_count": 60,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::all_digits",
+        "cyclomatic_complexity": 4,
+        "start_line": 88,
+        "end_line": 94,
+        "nloc": 7,
+        "token_count": 54,
+        "parameter_count": 1
+      },
+      {
+        "name": "ottr::operator <",
+        "cyclomatic_complexity": 3,
+        "start_line": 98,
+        "end_line": 102,
+        "nloc": 5,
+        "token_count": 62,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::operator <=",
+        "cyclomatic_complexity": 1,
+        "start_line": 104,
+        "end_line": 106,
+        "nloc": 3,
+        "token_count": 23,
+        "parameter_count": 2
+      },
+      {
+        "name": "ottr::parse_calendar_date",
+        "cyclomatic_complexity": 17,
+        "start_line": 108,
+        "end_line": 147,
+        "nloc": 37,
+        "token_count": 348,
+        "parameter_count": 3
+      },
+      {
+        "name": "ottr::current_year",
+        "cyclomatic_complexity": 2,
+        "start_line": 149,
+        "end_line": 154,
+        "nloc": 6,
+        "token_count": 49,
+        "parameter_count": 0
+      },
+      {
+        "name": "ottr::parse_generate_range",
+        "cyclomatic_complexity": 4,
+        "start_line": 156,
+        "end_line": 176,
+        "nloc": 21,
+        "token_count": 115,
+        "parameter_count": 6
+      },
+      {
+        "name": "ottr::generate_timecard",
+        "cyclomatic_complexity": 4,
+        "start_line": 178,
+        "end_line": 206,
+        "nloc": 26,
+        "token_count": 235,
+        "parameter_count": 2
+      }
+    ]
+  },
+  {
     "filename": "src/aggregator.cpp",
     "function_list": [
       {
@@ -900,8 +1049,8 @@
       {
         "name": "print_lines",
         "cyclomatic_complexity": 2,
-        "start_line": 15,
-        "end_line": 19,
+        "start_line": 16,
+        "end_line": 20,
         "nloc": 5,
         "token_count": 39,
         "parameter_count": 1
@@ -909,8 +1058,8 @@
       {
         "name": "print_debug_if_enabled",
         "cyclomatic_complexity": 3,
-        "start_line": 21,
-        "end_line": 25,
+        "start_line": 22,
+        "end_line": 26,
         "nloc": 5,
         "token_count": 46,
         "parameter_count": 1
@@ -918,8 +1067,8 @@
       {
         "name": "run",
         "cyclomatic_complexity": 5,
-        "start_line": 28,
-        "end_line": 62,
+        "start_line": 29,
+        "end_line": 63,
         "nloc": 32,
         "token_count": 212,
         "parameter_count": 4
@@ -927,8 +1076,8 @@
       {
         "name": "print_single_day",
         "cyclomatic_complexity": 5,
-        "start_line": 64,
-        "end_line": 73,
+        "start_line": 65,
+        "end_line": 74,
         "nloc": 10,
         "token_count": 78,
         "parameter_count": 3
@@ -936,19 +1085,19 @@
       {
         "name": "print_audit",
         "cyclomatic_complexity": 2,
-        "start_line": 76,
-        "end_line": 79,
+        "start_line": 77,
+        "end_line": 80,
         "nloc": 4,
         "token_count": 35,
         "parameter_count": 2
       },
       {
         "name": "main",
-        "cyclomatic_complexity": 6,
-        "start_line": 83,
-        "end_line": 109,
-        "nloc": 24,
-        "token_count": 211,
+        "cyclomatic_complexity": 8,
+        "start_line": 84,
+        "end_line": 124,
+        "nloc": 37,
+        "token_count": 303,
         "parameter_count": 2
       }
     ]
@@ -1137,18 +1286,18 @@
         "name": "ottr::help_text",
         "cyclomatic_complexity": 1,
         "start_line": 7,
-        "end_line": 37,
-        "nloc": 31,
-        "token_count": 128,
+        "end_line": 45,
+        "nloc": 39,
+        "token_count": 158,
         "parameter_count": 1
       },
       {
         "name": "ottr::parse_cli",
-        "cyclomatic_complexity": 16,
-        "start_line": 39,
-        "end_line": 90,
-        "nloc": 48,
-        "token_count": 319,
+        "cyclomatic_complexity": 22,
+        "start_line": 47,
+        "end_line": 120,
+        "nloc": 69,
+        "token_count": 428,
         "parameter_count": 3
       }
     ]

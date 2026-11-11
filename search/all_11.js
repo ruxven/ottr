@@ -5,8 +5,9 @@ var searchData=
   ['tenth_20time_20reporter_2',['OTTR - One Tenth Time Reporter',['../md_README.html',1,'']]],
   ['this_3',['What is this?',['../md_README.html#autotoc_md11',1,'']]],
   ['time_20reporter_4',['OTTR - One Tenth Time Reporter',['../md_README.html',1,'']]],
-  ['todo_5',['TODO',['../md_README.html#autotoc_md26',1,'']]],
-  ['token_6',['Token',['../structottr_1_1Token.html',1,'ottr']]],
-  ['top_20high_20risk_20functions_20complex_20untested_7',['🚨 Top High Risk Functions (Complex + Untested)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md8',1,'']]],
-  ['top_20security_20risk_20functions_20prioritized_20by_20coverage_8',['🔒 Top Security Risk Functions (Prioritized by coverage)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md9',1,'']]]
+  ['timecard_20skeleton_5',['Generating a timecard skeleton',['../md_README.html#autotoc_md14',1,'']]],
+  ['todo_6',['TODO',['../md_README.html#autotoc_md27',1,'']]],
+  ['token_7',['Token',['../structottr_1_1Token.html',1,'ottr']]],
+  ['top_20high_20risk_20functions_20complex_20untested_8',['🚨 Top High Risk Functions (Complex + Untested)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md8',1,'']]],
+  ['top_20security_20risk_20functions_20prioritized_20by_20coverage_9',['🔒 Top Security Risk Functions (Prioritized by coverage)',['../md_pain-point-analysis_2pain__points__report.html#autotoc_md9',1,'']]]
 ];

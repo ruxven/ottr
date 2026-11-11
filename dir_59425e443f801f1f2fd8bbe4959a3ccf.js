@@ -6,6 +6,7 @@ var dir_59425e443f801f1f2fd8bbe4959a3ccf =
     [ "test_cli.cpp", "test__cli_8cpp_source.html", null ],
     [ "test_day_parser.cpp", "test__day__parser_8cpp_source.html", null ],
     [ "test_engine_report.cpp", "test__engine__report_8cpp_source.html", null ],
+    [ "test_generate.cpp", "test__generate_8cpp_source.html", null ],
     [ "test_log_parser.cpp", "test__log__parser_8cpp_source.html", null ],
     [ "test_options.cpp", "test__options_8cpp_source.html", null ],
     [ "test_options_parser.cpp", "test__options__parser_8cpp_source.html", null ],

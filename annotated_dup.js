@@ -8,6 +8,7 @@ var annotated_dup =
       [ "AllocationResultEntry", "structottr_1_1AllocationResultEntry.html", null ],
       [ "AuditEntry", "structottr_1_1AuditEntry.html", null ],
       [ "CalculationOptions", "structottr_1_1CalculationOptions.html", null ],
+      [ "CalendarDate", "structottr_1_1CalendarDate.html", null ],
       [ "ChargeDirectiveParser", "classottr_1_1ChargeDirectiveParser.html", null ],
       [ "ChargeNumber", "structottr_1_1ChargeNumber.html", null ],
       [ "CliOptions", "structottr_1_1CliOptions.html", null ],
