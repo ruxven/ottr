@@ -5,14 +5,22 @@
 
 namespace ottr {
 
+enum class CliMode {
+    Report,   // read FILE and render a report
+    Generate  // write a timecard skeleton for a date range
+};
+
 // Parsed command-line arguments.
 struct CliOptions {
-    std::string path;   // timecard source file
-    DateFilter filter;  // optional single-day or range filter
+    CliMode mode = CliMode::Report;
+    std::string path;   // timecard source file (Report mode)
+    DateFilter filter;  // optional single-day or range filter (Report mode)
+    std::string generate_start;  // raw START text (Generate mode)
+    std::string generate_end;    // raw END text (Generate mode)
 };
 
 enum class CliStatus {
-    Ok,     // options parsed; run the report
+    Ok,     // options parsed; run the requested mode
     Help,   // caller should print help_text and exit 0
     Error   // caller should print `error` and exit non-zero
 };

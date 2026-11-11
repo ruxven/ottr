@@ -100,3 +100,30 @@ TEST(Cli, HelpTextLinksToReadme) {
     EXPECT_NE(text.find("https://github.com/ruxven/ottr/blob/main/README.md"),
               std::string::npos);
 }
+
+TEST(Cli, GenerateModeTakesTwoDates) {
+    CliOptions out = parse_ok({"--generate", "2026/09/01", "09/30"});
+    EXPECT_EQ(out.mode, CliMode::Generate);
+    EXPECT_EQ(out.generate_start, "2026/09/01");
+    EXPECT_EQ(out.generate_end, "09/30");
+    EXPECT_TRUE(out.path.empty());
+}
+
+TEST(Cli, GenerateRequiresBothDates) {
+    EXPECT_NE(parse_error({"--generate"}).find("missing START and END"),
+              std::string::npos);
+    EXPECT_NE(parse_error({"--generate", "09/01"}).find("missing END"),
+              std::string::npos);
+}
+
+TEST(Cli, GenerateRejectsExtraArguments) {
+    EXPECT_NE(parse_error({"--generate", "09/01", "09/02", "09/03"})
+                  .find("too many"),
+              std::string::npos);
+}
+
+TEST(Cli, HelpTextDescribesGenerate) {
+    const std::string text = help_text("ottr");
+    EXPECT_NE(text.find("--generate START END"), std::string::npos);
+    EXPECT_NE(text.find("yyyy/mm/dd"), std::string::npos);
+}

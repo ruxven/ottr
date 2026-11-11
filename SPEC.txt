@@ -11,17 +11,33 @@ Command-line interface
   - ottr FILE
   - ottr FILE START_DATE
   - ottr FILE START_DATE END_DATE
+  - ottr --generate START_DATE END_DATE
   - ottr --help
 - Parameters:
   - FILE: path to the timecard source file.
   - START_DATE, END_DATE: date filters in MM/DD format; when only START_DATE is provided, it behaves as a single-day filter; when both are provided, include all days D such that START_DATE <= D <= END_DATE (inclusive). If no dates are provided, include all days in the file.
+  - --generate START_DATE END_DATE: write a timecard skeleton for the range instead of reading FILE. Dates may be yyyy/mm/dd or mm/dd; a short date uses the current local year. Both dates are required and END_DATE must not precede START_DATE.
   - -h, --help: print the usage, run modes, and options to stdout and exit 0. Help takes precedence over any other arguments.
   - --: treat all following arguments as positional, allowing a FILE whose name begins with a dash.
 - Unknown options and excess arguments are reported on stderr and exit with code 2.
 - Exit codes:
   - 0 on success (including --help).
-  - 2 on command-line errors.
+  - 2 on command-line errors, including an invalid or reversed --generate range.
   - Non-zero on validation or parsing errors.
+
+Generated timecard skeleton (--generate)
+- Output the range header, then one block per weekday from START_DATE through END_DATE, inclusive.
+- Saturdays and Sundays are skipped; holidays are not considered.
+- Block format:
+  - On Mondays, first emit an ISO-8601 week comment: # week <ww> followed by a blank line. Week 1 is the week containing the first Thursday of the year; weeks start on Monday.
+  - Then emit:
+    # day <doy>
+    day <MM/DD>
+    log 9.0
+    log 17.0
+    where <doy> is the day of the year (1-366).
+- The output begins with: # <yyyy/mm/dd> - <yyyy/mm/dd>
+- Blank lines separate the header and each block. No charge numbers, tasks, weights, or task references are emitted, so the skeleton charges nothing until the user adds them.
 
 Input file format
 - The file is UTF-8 text, read line by line. Lines may be blank.

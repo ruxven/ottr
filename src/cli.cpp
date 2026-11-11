@@ -12,6 +12,7 @@ std::string help_text(const std::string& prog) {
         << "  " << prog << " FILE\n"
         << "  " << prog << " FILE START\n"
         << "  " << prog << " FILE START END\n"
+        << "  " << prog << " --generate START END\n"
         << "  " << prog << " --help\n"
         << "\n"
         << "Run modes:\n"
@@ -19,14 +20,21 @@ std::string help_text(const std::string& prog) {
         << "  FILE START      Report the full table filtered to START, plus a\n"
         << "                  compact single-day table for quick copy/paste.\n"
         << "  FILE START END  Report every day from START through END, inclusive.\n"
+        << "  --generate START END\n"
+        << "                  Write a timecard skeleton for every weekday from\n"
+        << "                  START through END, inclusive. Saturdays and\n"
+        << "                  Sundays are skipped.\n"
         << "\n"
         << "Arguments:\n"
         << "  FILE   Path to the timecard source file.\n"
-        << "  START  First day to include, in MM/DD format.\n"
-        << "  END    Last day to include, in MM/DD format.\n"
+        << "  START  First day to include, in MM/DD format when reporting.\n"
+        << "  END    Last day to include, in MM/DD format when reporting.\n"
+        << "         --generate accepts yyyy/mm/dd or mm/dd; mm/dd uses the\n"
+        << "         current year.\n"
         << "\n"
         << "Options:\n"
         << "  -h, --help  Show this help and exit.\n"
+        << "  --generate  Write a timecard skeleton instead of reading a file.\n"
         << "  --          Treat all following arguments as positional.\n"
         << "\n"
         << "Calculation options are set inside the timecard with 'opt'\n"
@@ -40,6 +48,7 @@ CliStatus parse_cli(const std::vector<std::string>& args, CliOptions& out,
                     std::string& error) {
     std::vector<std::string> positional;
     bool end_of_options = false;
+    bool generate = false;
 
     for (const std::string& arg : args) {
         if (!end_of_options && arg == "--") {
@@ -49,11 +58,33 @@ CliStatus parse_cli(const std::vector<std::string>& args, CliOptions& out,
         if (!end_of_options && (arg == "-h" || arg == "--help")) {
             return CliStatus::Help;
         }
+        if (!end_of_options && arg == "--generate") {
+            generate = true;
+            continue;
+        }
         if (!end_of_options && arg.size() > 1 && arg[0] == '-') {
             error = "unknown option: '" + arg + "'";
             return CliStatus::Error;
         }
         positional.push_back(arg);
+    }
+
+    out = CliOptions{};
+    if (generate) {
+        out.mode = CliMode::Generate;
+        if (positional.size() < 2) {
+            error = positional.empty()
+                        ? "missing START and END dates for --generate"
+                        : "missing END date for --generate";
+            return CliStatus::Error;
+        }
+        if (positional.size() > 2) {
+            error = "too many arguments (expected --generate START END)";
+            return CliStatus::Error;
+        }
+        out.generate_start = positional[0];
+        out.generate_end = positional[1];
+        return CliStatus::Ok;
     }
 
     if (positional.empty()) {
@@ -65,7 +96,6 @@ CliStatus parse_cli(const std::vector<std::string>& args, CliOptions& out,
         return CliStatus::Error;
     }
 
-    out = CliOptions{};
     out.path = positional[0];
 
     if (positional.size() >= 2) {

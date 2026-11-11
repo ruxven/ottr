@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include "cli.hpp"
+#include "generate.hpp"
 #include "parser.hpp"
 #include "validate.hpp"
 #include "engine.hpp"
@@ -96,6 +97,20 @@ int main(int argc, char** argv) {
         std::cerr << "ottr: " << cli_error << "\n"
                   << "Try '" << argv[0] << " --help' for more information.\n";
         return 2;
+    }
+
+    if (cli.mode == CliMode::Generate) {
+        CalendarDate start;
+        CalendarDate end;
+        std::string range_error;
+        if (!parse_generate_range(cli.generate_start, cli.generate_end,
+                                  current_year(), start, end, range_error)) {
+            std::cerr << "ottr: " << range_error << "\n"
+                      << "Try '" << argv[0] << " --help' for more information.\n";
+            return 2;
+        }
+        std::cout << generate_timecard(start, end);
+        return 0;
     }
 
     World world;

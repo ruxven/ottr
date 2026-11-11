@@ -28,6 +28,7 @@ Usage:
   ottr FILE
   ottr FILE START
   ottr FILE START END
+  ottr --generate START END
   ottr --help
 
 Run modes:
@@ -35,13 +36,49 @@ Run modes:
   FILE START      Report the full table filtered to START, plus a
                   compact single-day table for quick copy/paste.
   FILE START END  Report every day from START through END, inclusive.
+  --generate START END
+                  Write a timecard skeleton for every weekday from
+                  START through END, inclusive. Saturdays and
+                  Sundays are skipped.
 ```
 
-Dates use `MM/DD` format. Help goes to stdout and exits 0; command-line
-errors go to stderr and exit 2. Use `--` before a file name that begins
-with a dash. Calculation options such as rounding and aggregation are set
-inside the timecard with `opt` directives; see
+Dates use `MM/DD` format when reporting. Help goes to stdout and exits 0;
+command-line errors go to stderr and exit 2. Use `--` before a file name
+that begins with a dash. Calculation options such as rounding and
+aggregation are set inside the timecard with `opt` directives; see
 [Configuration Options](#configuration-options).
+
+### Generating a timecard skeleton
+
+`--generate` writes a starting point for a new timecard instead of reading
+one. It accepts `yyyy/mm/dd` or `mm/dd`; a short date uses the current year.
+
+```
+ottr --generate 2026/09/01 2026/09/30
+```
+
+```
+# 2026/09/01 - 2026/09/30
+
+# day 244
+day 09/01
+log 9.0
+log 17.0
+
+# day 245
+day 09/02
+log 9.0
+log 17.0
+
+...
+```
+
+Every weekday from the start through the end date gets a day block with a
+9:00 start and a 17:00 end. Saturdays and Sundays are skipped; holidays are
+not considered. Mondays also get an ISO-8601 week comment (`# week 37`),
+and every block is labelled with its day of the year (`# day 250`). Add
+your own `cn`, `task`, and `wt` directives and a task reference on each
+`log` line to turn the skeleton into a reportable timecard.
 
 ## No really, how do I use it?
 
@@ -413,7 +450,7 @@ Ubuntu and builds and tests it natively on `windows-latest` with MSVC.
 - ✅ Add configuration options (rounding and aggregation modes)
 - ✅ Configure rounding to either truncation, normal rounding, or ceiling
 - ✅ Summarize task data charges per day or per event (aggregation modes)
-- Generate a timecard using a specified date range.
+- ✅ Generate a timecard using a specified date range.
 - ✅ Handle cases where decihours need to be deducted from total time on task for event or day.
 - ✅ Audit mode: show the per-day allocation and remainder assignments per event or per day.
 - ✅ Audit mode: show the rounding breakdown (exact share, rounding, remainder, cap, net) per allocation.
