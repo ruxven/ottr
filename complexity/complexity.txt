@@ -1,6 +1,89 @@
 ================================================
   NLOC    CCN   token  PARAM  length  location  
 ------------------------------------------------
+       6      2     63      3       6 ottr::Aggregator::add@5-10@src/aggregator.cpp
+       4      2     43      1       4 ottr::Aggregator::total_for_charge@12-15@src/aggregator.cpp
+       6      3     77      2       6 ottr::Aggregator::by_day_for_charge@17-22@src/aggregator.cpp
+       4      2     43      1       4 ottr::Aggregator::total_for_day@24-27@src/aggregator.cpp
+       4      1     29      1       4 ottr::Aggregator::set_dates@29-32@src/aggregator.cpp
+       6      8     72      1       6 ottr::DateFilter::includes@5-10@src/model.cpp
+       3      1     14      0       3 ottr::World::current_day@12-14@src/model.cpp
+       7      2     72      1       7 ottr::sorted_charge_ids@10-16@src/report.cpp
+       5      1     53      1       5 ottr::ticks_to_fixed@18-22@src/report.cpp
+       9      3     78      2       9 ottr::total_remaining@25-33@src/report.cpp
+      13      2    129      3      13 ottr::render_summary@36-48@src/report.cpp
+      40     11    511      4      44 ottr::compute_widths@50-93@src/report.cpp
+      11      3    150      3      11 ottr::append_row@95-105@src/report.cpp
+      47      9    494      2      52 ottr::render_full_table@107-158@src/report.cpp
+       9      9    122      1       9 ottr::trim_zeros@162-170@src/report.cpp
+       9      4     78      1       9 ottr::hours_delta@176-184@src/report.cpp
+       7      2     80      2       7 ottr::hours_exact@187-193@src/report.cpp
+      22     12    266      1      25 ottr::rounding_note@199-223@src/report.cpp
+      11      2     92      1      11 ottr::render_audit@225-235@src/report.cpp
+      31      7    365      3      37 ottr::render_single_day_table@237-273@src/report.cpp
+       8      3     75      3       8 ottr::validate_spill_target@9-16@src/validate.cpp
+      13      4    100      3      13 ottr::validate_task_weights@18-30@src/validate.cpp
+      18      7    162      4      18 ottr::validate_log_ref@32-49@src/validate.cpp
+      18      6    151      4      18 ottr::validate_day@52-69@src/validate.cpp
+       9      5     92      2       9 ottr::Validator::validate_world@73-81@src/validate.cpp
+       6      1     60      3       6 ottr::Validator::log_debug@83-88@src/validate.cpp
+       6      1     60      3       6 ottr::Validator::log_error@89-94@src/validate.cpp
+       3      1     10      0       3 ottr::Validator::get_errors@96-98@src/validate.cpp
+       3      1     10      0       3 ottr::Validator::get_debug@100-102@src/validate.cpp
+       3      1     15      0       3 ottr::Validator::empty_err@104-106@src/validate.cpp
+      12      3     76      1      12 ottr::Validator::find_err@108-119@src/validate.cpp
+       1      1      9      0       1 ottr::Aggregator::dates@14-14@src/aggregator.hpp
+       1      1      9      0       1 ottr::Aggregator::snapshot@16-16@src/aggregator.hpp
+       6      2     65      4       6 ottr::add_allocation@29-34@src/engine.cpp
+      11      3    109      9      11 ottr::apply_charge@36-46@src/engine.cpp
+       9      1     53      1       9 ottr::detail_from@51-59@src/engine.cpp
+       8      3     90      3       8 ottr::remaining_budget@61-68@src/engine.cpp
+       6      1     53      1       6 ottr::hours_text@70-75@src/engine.cpp
+       9      6    115      2      10 ottr::classify_ref@77-86@src/engine.cpp
+      15      5    152      2      15 ottr::day_slices@89-103@src/engine.cpp
+      20      5    167      1      20 ottr::group_day_slices@108-127@src/engine.cpp
+      21      3    194      4      22 ottr::build_request@129-150@src/engine.cpp
+       9      2     95      5       9 ottr::warn_overrun@152-160@src/engine.cpp
+       8      1     68      5       8 ottr::allocate_unbounded@164-171@src/engine.cpp
+      29      7    296      7      30 ottr::allocate_budgeted@176-205@src/engine.cpp
+      22      9    260      8      24 ottr::allocate_task@207-230@src/engine.cpp
+      31      8    313      7      36 ottr::allocate_direct@232-267@src/engine.cpp
+      11      3    125      7      11 ottr::allocate_slice@269-279@src/engine.cpp
+      10      3    118      2      10 ottr::included_days@281-290@src/engine.cpp
+       1      1     16      1       1 ottr::month_of@292-292@src/engine.cpp
+      30      9    303      6      32 ottr::process_months@297-328@src/engine.cpp
+      22      6    218      5      26 ottr::process_world@332-357@src/engine.cpp
+      18      4     98      4      18 ottr::quantize@21-38@src/alloc.cpp
+      23     10    226      6      27 ottr::outranks@44-70@src/alloc.cpp
+       7      3     45      1       7 ottr::total_weight@72-78@src/alloc.cpp
+      14      3    157      4      14 ottr::build_work@80-93@src/alloc.cpp
+      27     12    242      6      31 ottr::distribute_ranked@98-128@src/alloc.cpp
+      24     11    221      4      25 ottr::distribute_round_robin@133-157@src/alloc.cpp
+      34     10    347      4      42 ottr::allocate_weighted@161-202@src/alloc.cpp
+       3      3     28      1       3 ottr::is_leap_year@13-15@src/generate.cpp
+       6      3     65      2       6 ottr::days_in_month@17-22@src/generate.cpp
+       9      4    129      3       9 ottr::days_from_civil@26-34@src/generate.cpp
+      13      4    194      4      13 ottr::civil_from_days@36-48@src/generate.cpp
+       5      2     38      1       5 ottr::iso_weekday@51-55@src/generate.cpp
+       9      1    102      3       9 ottr::iso_week@59-67@src/generate.cpp
+       4      1     40      3       4 ottr::day_of_year@69-72@src/generate.cpp
+       6      1     76      1       6 ottr::format_ymd@74-79@src/generate.cpp
+       6      1     60      1       6 ottr::format_md@81-86@src/generate.cpp
+       7      4     54      1       7 ottr::all_digits@88-94@src/generate.cpp
+       5      3     62      2       5 ottr::operator <@98-102@src/generate.cpp
+       3      1     23      2       3 ottr::operator <=@104-106@src/generate.cpp
+      37     17    348      3      40 ottr::parse_calendar_date@108-147@src/generate.cpp
+       6      2     49      0       6 ottr::current_year@149-154@src/generate.cpp
+      21      4    115      6      21 ottr::parse_generate_range@156-176@src/generate.cpp
+      26      4    235      2      29 ottr::generate_timecard@178-206@src/generate.cpp
+       5      2     39      1       5 print_lines@16-20@src/main.cpp
+       5      3     46      1       5 print_debug_if_enabled@22-26@src/main.cpp
+      32      5    212      4      35 run@29-63@src/main.cpp
+      10      5     78      3      10 print_single_day@65-74@src/main.cpp
+       4      2     35      2       4 print_audit@77-80@src/main.cpp
+      37      8    303      2      41 main@84-124@src/main.cpp
+      39      1    158      1      39 ottr::help_text@7-45@src/cli.cpp
+      69     22    428      3      74 ottr::parse_cli@47-120@src/cli.cpp
        4      3     26      1       4 ottr::in_range@14-17@src/options.cpp
        4      4     32      1       4 ottr::in_range@19-22@src/options.cpp
        5      3     26      1       5 ottr::in_range@24-28@src/options.cpp
@@ -14,13 +97,9 @@
        4      1     35      3       4 ottr::CalculationOptions::parse_granularity@184-187@src/options.cpp
        4      1     35      3       4 ottr::CalculationOptions::parse_hours_per_day@189-192@src/options.cpp
       12      3     65      3      12 ottr::CalculationOptions::parse_flag@194-205@src/options.cpp
-      18      4     98      4      18 ottr::quantize@21-38@src/alloc.cpp
-      23     10    226      6      27 ottr::outranks@44-70@src/alloc.cpp
-       7      3     45      1       7 ottr::total_weight@72-78@src/alloc.cpp
-      14      3    157      4      14 ottr::build_work@80-93@src/alloc.cpp
-      27     12    242      6      31 ottr::distribute_ranked@98-128@src/alloc.cpp
-      24     11    221      4      25 ottr::distribute_round_robin@133-157@src/alloc.cpp
-      34     10    347      4      42 ottr::allocate_weighted@161-202@src/alloc.cpp
+      17     12    217      2      18 ottr::parse_mmdd@8-25@src/util.cpp
+       5      2     45      2       5 ottr::try_parse_double@27-31@src/util.cpp
+       5      2     48      2       5 ottr::try_parse_ll@33-37@src/util.cpp
        5      3     56      4       5 ottr::push_token@14-18@src/parser.cpp
       33      8    182      5      34 ottr::consume_char@22-55@src/parser.cpp
       12      5     93      1      15 ottr::tokenize_line@59-73@src/parser.cpp
@@ -59,112 +138,33 @@
       33     12    277      2      35 ottr::OptionDirectiveParser::parse@412-446@src/parser.cpp
       10      4     82      1      10 ottr::DirectiveParser::ensure_day_closed@448-457@src/parser.cpp
        5      1     46      1       6 ottr::hours_to_ticks@12-17@src/util.hpp
-       6      2     65      4       6 ottr::add_allocation@29-34@src/engine.cpp
-      11      3    109      9      11 ottr::apply_charge@36-46@src/engine.cpp
-       9      1     53      1       9 ottr::detail_from@51-59@src/engine.cpp
-       8      3     90      3       8 ottr::remaining_budget@61-68@src/engine.cpp
-       6      1     53      1       6 ottr::hours_text@70-75@src/engine.cpp
-       9      6    115      2      10 ottr::classify_ref@77-86@src/engine.cpp
-      15      5    152      2      15 ottr::day_slices@89-103@src/engine.cpp
-      20      5    167      1      20 ottr::group_day_slices@108-127@src/engine.cpp
-      21      3    194      4      22 ottr::build_request@129-150@src/engine.cpp
-       9      2     95      5       9 ottr::warn_overrun@152-160@src/engine.cpp
-       8      1     68      5       8 ottr::allocate_unbounded@164-171@src/engine.cpp
-      29      7    296      7      30 ottr::allocate_budgeted@176-205@src/engine.cpp
-      22      9    260      8      24 ottr::allocate_task@207-230@src/engine.cpp
-      31      8    313      7      36 ottr::allocate_direct@232-267@src/engine.cpp
-      11      3    125      7      11 ottr::allocate_slice@269-279@src/engine.cpp
-      10      3    118      2      10 ottr::included_days@281-290@src/engine.cpp
-       1      1     16      1       1 ottr::month_of@292-292@src/engine.cpp
-      30      9    303      6      32 ottr::process_months@297-328@src/engine.cpp
-      22      6    218      5      26 ottr::process_world@332-357@src/engine.cpp
-       3      3     28      1       3 ottr::is_leap_year@13-15@src/generate.cpp
-       6      3     65      2       6 ottr::days_in_month@17-22@src/generate.cpp
-       9      4    129      3       9 ottr::days_from_civil@26-34@src/generate.cpp
-      13      4    194      4      13 ottr::civil_from_days@36-48@src/generate.cpp
-       5      2     38      1       5 ottr::iso_weekday@51-55@src/generate.cpp
-       9      1    102      3       9 ottr::iso_week@59-67@src/generate.cpp
-       4      1     40      3       4 ottr::day_of_year@69-72@src/generate.cpp
-       6      1     76      1       6 ottr::format_ymd@74-79@src/generate.cpp
-       6      1     60      1       6 ottr::format_md@81-86@src/generate.cpp
-       7      4     54      1       7 ottr::all_digits@88-94@src/generate.cpp
-       5      3     62      2       5 ottr::operator <@98-102@src/generate.cpp
-       3      1     23      2       3 ottr::operator <=@104-106@src/generate.cpp
-      37     17    348      3      40 ottr::parse_calendar_date@108-147@src/generate.cpp
-       6      2     49      0       6 ottr::current_year@149-154@src/generate.cpp
-      21      4    115      6      21 ottr::parse_generate_range@156-176@src/generate.cpp
-      26      4    235      2      29 ottr::generate_timecard@178-206@src/generate.cpp
-       6      2     63      3       6 ottr::Aggregator::add@5-10@src/aggregator.cpp
-       4      2     43      1       4 ottr::Aggregator::total_for_charge@12-15@src/aggregator.cpp
-       6      3     77      2       6 ottr::Aggregator::by_day_for_charge@17-22@src/aggregator.cpp
-       4      2     43      1       4 ottr::Aggregator::total_for_day@24-27@src/aggregator.cpp
-       4      1     29      1       4 ottr::Aggregator::set_dates@29-32@src/aggregator.cpp
-       8      3     75      3       8 ottr::validate_spill_target@9-16@src/validate.cpp
-      13      4    100      3      13 ottr::validate_task_weights@18-30@src/validate.cpp
-      18      7    162      4      18 ottr::validate_log_ref@32-49@src/validate.cpp
-      18      6    151      4      18 ottr::validate_day@52-69@src/validate.cpp
-       9      5     92      2       9 ottr::Validator::validate_world@73-81@src/validate.cpp
-       6      1     60      3       6 ottr::Validator::log_debug@83-88@src/validate.cpp
-       6      1     60      3       6 ottr::Validator::log_error@89-94@src/validate.cpp
-       3      1     10      0       3 ottr::Validator::get_errors@96-98@src/validate.cpp
-       3      1     10      0       3 ottr::Validator::get_debug@100-102@src/validate.cpp
-       3      1     15      0       3 ottr::Validator::empty_err@104-106@src/validate.cpp
-      12      3     76      1      12 ottr::Validator::find_err@108-119@src/validate.cpp
-       6      8     72      1       6 ottr::DateFilter::includes@5-10@src/model.cpp
-       3      1     14      0       3 ottr::World::current_day@12-14@src/model.cpp
-       5      2     39      1       5 print_lines@16-20@src/main.cpp
-       5      3     46      1       5 print_debug_if_enabled@22-26@src/main.cpp
-      32      5    212      4      35 run@29-63@src/main.cpp
-      10      5     78      3      10 print_single_day@65-74@src/main.cpp
-       4      2     35      2       4 print_audit@77-80@src/main.cpp
-      37      8    303      2      41 main@84-124@src/main.cpp
-       1      1      9      0       1 ottr::Aggregator::dates@14-14@src/aggregator.hpp
-       1      1      9      0       1 ottr::Aggregator::snapshot@16-16@src/aggregator.hpp
-      17     12    217      2      18 ottr::parse_mmdd@8-25@src/util.cpp
-       5      2     45      2       5 ottr::try_parse_double@27-31@src/util.cpp
-       5      2     48      2       5 ottr::try_parse_ll@33-37@src/util.cpp
-       7      2     72      1       7 ottr::sorted_charge_ids@10-16@src/report.cpp
-       5      1     53      1       5 ottr::ticks_to_fixed@18-22@src/report.cpp
-       9      3     78      2       9 ottr::total_remaining@25-33@src/report.cpp
-      13      2    129      3      13 ottr::render_summary@36-48@src/report.cpp
-      40     11    511      4      44 ottr::compute_widths@50-93@src/report.cpp
-      11      3    150      3      11 ottr::append_row@95-105@src/report.cpp
-      47      9    494      2      52 ottr::render_full_table@107-158@src/report.cpp
-       9      9    122      1       9 ottr::trim_zeros@162-170@src/report.cpp
-       9      4     78      1       9 ottr::hours_delta@176-184@src/report.cpp
-       7      2     80      2       7 ottr::hours_exact@187-193@src/report.cpp
-      22     12    266      1      25 ottr::rounding_note@199-223@src/report.cpp
-      11      2     92      1      11 ottr::render_audit@225-235@src/report.cpp
-      31      7    365      3      37 ottr::render_single_day_table@237-273@src/report.cpp
-      39      1    158      1      39 ottr::help_text@7-45@src/cli.cpp
-      69     22    428      3      74 ottr::parse_cli@47-120@src/cli.cpp
 23 file analyzed.
 ==============================================================
 NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
 --------------------------------------------------------------
-    185      13.4     4.3       77.0        13     src/options.cpp
-    162      21.0     7.6      190.9         7     src/alloc.cpp
-     29       0.0     0.0        0.0         0     src/alloc.hpp
-     24       0.0     0.0        0.0         0     src/cli.hpp
-    399      10.5     3.0       87.2        37     src/parser.cpp
-     13       5.0     1.0       46.0         1     src/util.hpp
-    133       0.0     0.0        0.0         0     src/parser.hpp
-    301      14.6     4.1      147.9        19     src/engine.cpp
-      7       0.0     0.0        0.0         0     src/report.hpp
-    177      10.4     3.4      101.1        16     src/generate.cpp
      27       4.8     2.0       51.0         5     src/aggregator.cpp
+     12       4.5     4.5       43.0         2     src/model.cpp
+    230      17.0     5.2      191.5        13     src/report.cpp
+      7       0.0     0.0        0.0         0     src/report.hpp
     106       9.0     3.0       73.7        11     src/validate.cpp
      74       0.0     0.0        0.0         0     src/model.hpp
-     12       4.5     4.5       43.0         2     src/model.cpp
-    106      15.5     4.2      118.8         6     src/main.cpp
-     13       0.0     0.0        0.0         0     src/engine.hpp
      18       1.0     1.0        9.0         2     src/aggregator.hpp
-     19       0.0     0.0        0.0         0     src/generate.hpp
-     33       9.0     5.3      103.3         3     src/util.cpp
-    230      17.0     5.2      191.5        13     src/report.cpp
+     29       0.0     0.0        0.0         0     src/alloc.hpp
+    301      14.6     4.1      147.9        19     src/engine.cpp
+     13       0.0     0.0        0.0         0     src/engine.hpp
+     24       0.0     0.0        0.0         0     src/cli.hpp
+    133       0.0     0.0        0.0         0     src/parser.hpp
+    162      21.0     7.6      190.9         7     src/alloc.cpp
      51       0.0     0.0        0.0         0     src/options.hpp
      18       0.0     0.0        0.0         0     src/validate.hpp
+    177      10.4     3.4      101.1        16     src/generate.cpp
+    106      15.5     4.2      118.8         6     src/main.cpp
     113      54.0    11.5      293.0         2     src/cli.cpp
+     19       0.0     0.0        0.0         0     src/generate.hpp
+    185      13.4     4.3       77.0        13     src/options.cpp
+     33       9.0     5.3      103.3         3     src/util.cpp
+    399      10.5     3.0       87.2        37     src/parser.cpp
+     13       5.0     1.0       46.0         1     src/util.hpp
 
 ========================================================================================================
 !!!! Warnings (cyclomatic_complexity > 15 or length > 100 or nloc > 1000000 or parameter_count > 5) !!!!
