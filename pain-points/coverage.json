@@ -6,7 +6,7 @@
         "line_start": 181,
         "line_end": 181,
         "line_count": 1,
-        "line_hit": 1,
+        "line_hit": 0,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZNK7testing15AssertionResultcvbEv"
@@ -69,7 +69,7 @@
         "line_start": 168,
         "line_end": 168,
         "line_count": 1,
-        "line_hit": 1,
+        "line_hit": 0,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN7testing15AssertionResultC2IbEERKT_PNSt9enable_ifIXntsr3std14is_convertibleIS2_S0_EE5valueEvE4typeE"
@@ -2366,8 +2366,8 @@
         "line_end": 188,
         "line_count": 8,
         "line_hit": 7,
-        "branch_count": 4,
-        "branch_hit": 2,
+        "branch_count": 2,
+        "branch_hit": 1,
         "function_name": "_ZN7testing7MessagelsIcEERS0_RKPT_"
       },
       {
@@ -4047,6 +4047,15 @@
         "function_name": "_ZNK7testing18TestEventListeners21default_xml_generatorEv"
       },
       {
+        "line_start": 1424,
+        "line_end": 1426,
+        "line_count": 3,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN7testing8internal8EqHelper7CompareEPKcS3_xx"
+      },
+      {
         "line_start": 2084,
         "line_end": 2086,
         "line_count": 3,
@@ -4090,6 +4099,24 @@
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN7testing8internalneENS0_8faketypeES1_"
+      },
+      {
+        "line_start": 2334,
+        "line_end": 2334,
+        "line_count": 1,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_Z13RUN_ALL_TESTSv"
+      },
+      {
+        "line_start": 1393,
+        "line_end": 1399,
+        "line_count": 7,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
+        "function_name": "_ZN7testing8internal11CmpHelperEQIxxEENS_15AssertionResultEPKcS4_RKT_RKT0_"
       },
       {
         "line_start": 1376,
@@ -4348,7 +4375,7 @@
         "line_start": 470,
         "line_end": 470,
         "line_count": 1,
-        "line_hit": 1,
+        "line_hit": 0,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN7testing8internal12CodeLocationC2ENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEi"
@@ -4411,9 +4438,9 @@
         "line_start": 483,
         "line_end": 485,
         "line_count": 3,
-        "line_hit": 3,
-        "branch_count": 2,
-        "branch_hit": 1,
+        "line_hit": 0,
+        "branch_count": 0,
+        "branch_hit": 0,
         "function_name": "_ZN7testing8internal19GetNotDefaultOrNullEPFvvES2_"
       },
       {
@@ -4429,7 +4456,7 @@
         "line_start": 436,
         "line_end": 436,
         "line_count": 1,
-        "line_hit": 1,
+        "line_hit": 0,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "_ZN7testing8internal15TestFactoryBaseC2Ev"
@@ -4926,8 +4953,8 @@
         "line_end": 1101,
         "line_count": 8,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 2,
         "function_name": "_ZN7testing8internal12FlushInfoLogEv"
       },
       {
@@ -4962,8 +4989,8 @@
         "line_end": 2311,
         "line_count": 6,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN7testing8internal5posix5AbortEv"
       },
       {
@@ -5358,8 +5385,8 @@
         "line_end": 1808,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 4,
-        "branch_hit": 2,
+        "branch_count": 2,
+        "branch_hit": 1,
         "function_name": "_ZN7testing8internal11ThreadLocalISt6vectorINS0_9TraceInfoESaIS3_EEE9CreateKeyEv"
       },
       {
@@ -6359,8 +6386,8 @@
         "line_end": 409,
         "line_count": 14,
         "line_hit": 14,
-        "branch_count": 10,
-        "branch_hit": 8,
+        "branch_count": 8,
+        "branch_hit": 7,
         "function_name": "_ZN7testing8internal8FilePath9NormalizeEv"
       },
       {
@@ -6481,7 +6508,7 @@
         "line_end": 696,
         "line_count": 12,
         "line_hit": 12,
-        "branch_count": 8,
+        "branch_count": 6,
         "branch_hit": 5,
         "function_name": "_ZN7testing8internal12UnitTestImpl11AddTestInfoEPFvvES3_PNS_8TestInfoE"
       },
@@ -6949,8 +6976,8 @@
         "line_end": 284,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 10,
-        "branch_hit": 9,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN7testing8internal7CountIfISt6vectorIPNS_8TestInfoESaIS4_EEPFbPKS3_EEEiRKT_T0_"
       },
       {
@@ -9688,8 +9715,8 @@
         "line_end": 3886,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 24,
-        "branch_hit": 18,
+        "branch_count": 4,
+        "branch_hit": 3,
         "function_name": "_ZN7testing8internal17TestEventRepeater27OnEnvironmentsTearDownStartERKNS_8UnitTestE"
       },
       {
@@ -9742,8 +9769,8 @@
         "line_end": 3896,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 24,
-        "branch_hit": 18,
+        "branch_count": 4,
+        "branch_hit": 3,
         "function_name": "_ZN7testing8internal17TestEventRepeater16OnTestProgramEndERKNS_8UnitTestE"
       },
       {
@@ -10606,8 +10633,8 @@
         "line_end": 5876,
         "line_count": 23,
         "line_hit": 18,
-        "branch_count": 10,
-        "branch_hit": 8,
+        "branch_count": 8,
+        "branch_hit": 6,
         "function_name": "_ZN7testing8internal12UnitTestImpl12GetTestSuiteERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEPKcPFvvESD_"
       },
       {
@@ -11866,8 +11893,8 @@
         "line_end": 2724,
         "line_count": 22,
         "line_hit": 8,
-        "branch_count": 8,
-        "branch_hit": 4,
+        "branch_count": 2,
+        "branch_hit": 1,
         "function_name": "_ZN7testing8internal35HandleExceptionsInMethodIfSupportedINS0_12UnitTestImplEbEET0_PT_MS4_FS3_vEPKc"
       },
       {
@@ -11986,8 +12013,8 @@
       {
         "line_start": 61,
         "line_end": 65,
-        "line_count": 5,
-        "line_hit": 5,
+        "line_count": 4,
+        "line_hit": 4,
         "branch_count": 0,
         "branch_hit": 0,
         "function_name": "main"
@@ -12332,8 +12359,8 @@
         "line_end": 147,
         "line_count": 36,
         "line_hit": 36,
-        "branch_count": 30,
-        "branch_hit": 26,
+        "branch_count": 32,
+        "branch_hit": 27,
         "function_name": "_ZN4ottr19parse_calendar_dateERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEiRNS_12CalendarDateE"
       },
       {
@@ -13255,8 +13282,8 @@
         "line_end": 60,
         "line_count": 17,
         "line_hit": 17,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN49AggregationModesTest_PerEventMode_SingleTask_Test8TestBodyEv"
       },
       {
@@ -13264,8 +13291,8 @@
         "line_end": 89,
         "line_count": 21,
         "line_hit": 21,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN53AggregationModesTest_PerEventMode_MultipleSlices_Test8TestBodyEv"
       },
       {
@@ -13273,8 +13300,8 @@
         "line_end": 112,
         "line_count": 17,
         "line_hit": 17,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN47AggregationModesTest_PerDayMode_SingleTask_Test8TestBodyEv"
       },
       {
@@ -13282,8 +13309,8 @@
         "line_end": 142,
         "line_count": 21,
         "line_hit": 21,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN51AggregationModesTest_PerDayMode_MultipleSlices_Test8TestBodyEv"
       },
       {
@@ -13291,8 +13318,8 @@
         "line_end": 184,
         "line_count": 34,
         "line_hit": 34,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN67AggregationModesTest_PerDayMode_AllocationOrderIsDeterministic_Test8TestBodyEv"
       },
       {
@@ -13300,8 +13327,8 @@
         "line_end": 208,
         "line_count": 18,
         "line_hit": 18,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN54AggregationModesTest_PerDayMode_WithDirectCharges_Test8TestBodyEv"
       },
       {
@@ -13309,8 +13336,8 @@
         "line_end": 237,
         "line_count": 22,
         "line_hit": 22,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN67AggregationModesTest_PerDayMode_InterleavedDirectAndTaskSlices_Test8TestBodyEv"
       },
       {
@@ -13318,8 +13345,8 @@
         "line_end": 268,
         "line_count": 25,
         "line_hit": 25,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN62AggregationModesTest_PerDayMode_AccumulationResetsEachDay_Test8TestBodyEv"
       },
       {
@@ -13327,8 +13354,8 @@
         "line_end": 292,
         "line_count": 19,
         "line_hit": 19,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN48AggregationModesTest_OffMode_SameAsPerEvent_Test8TestBodyEv"
       },
       {
@@ -13336,8 +13363,8 @@
         "line_end": 327,
         "line_count": 24,
         "line_hit": 24,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN49AggregationModesTest_PerDayMode_MultipleDays_Test8TestBodyEv"
       },
       {
@@ -13345,8 +13372,8 @@
         "line_end": 352,
         "line_count": 19,
         "line_hit": 19,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN47AggregationModesTest_PerDayMode_AuditTrail_Test8TestBodyEv"
       },
       {
@@ -13354,8 +13381,8 @@
         "line_end": 381,
         "line_count": 19,
         "line_hit": 19,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN51AggregationModesTest_PerDayMode_UnequalWeights_Test8TestBodyEv"
       },
       {
@@ -13363,8 +13390,8 @@
         "line_end": 416,
         "line_count": 28,
         "line_hit": 28,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN61AggregationModesTest_PerMonthMode_AccumulatesWithinMonth_Test8TestBodyEv"
       },
       {
@@ -13372,8 +13399,8 @@
         "line_end": 438,
         "line_count": 17,
         "line_hit": 17,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN65AggregationModesTest_BudgetCapRedistributesToRemainingBudget_Test8TestBodyEv"
       },
       {
@@ -13381,8 +13408,8 @@
         "line_end": 463,
         "line_count": 20,
         "line_hit": 20,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN64AggregationModesTest_BudgetSpillSendsExcessToOverflowCharge_Test8TestBodyEv"
       },
       {
@@ -13390,8 +13417,8 @@
         "line_end": 489,
         "line_count": 21,
         "line_hit": 21,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN75AggregationModesTest_BudgetWarnReportsOverrunWithoutChangingAllocation_Test8TestBodyEv"
       },
       {
@@ -13399,8 +13426,8 @@
         "line_end": 510,
         "line_count": 17,
         "line_hit": 17,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN60AggregationModesTest_GranularityAppliesToTaskAllocation_Test8TestBodyEv"
       },
       {
@@ -13408,17 +13435,17 @@
         "line_end": 541,
         "line_count": 27,
         "line_hit": 27,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 14,
+        "branch_hit": 14,
         "function_name": "_ZN62AggregationModesTest_AuditRecordsDirectAndTaskAllocations_Test8TestBodyEv"
       },
       {
         "line_start": 544,
         "line_end": 558,
-        "line_count": 14,
-        "line_hit": 14,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "line_count": 13,
+        "line_hit": 13,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN48AggregationModesTest_AuditDisabledByDefault_Test8TestBodyEv"
       },
       {
@@ -13426,8 +13453,8 @@
         "line_end": 35,
         "line_count": 17,
         "line_hit": 17,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN20AggregationModesTest17parse_and_processERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEN4ottr15AggregationModeERNS8_11AggregationEPSt6vectorIS5_SaIS5_EE"
       }
     ]
@@ -13440,8 +13467,8 @@
         "line_end": 22,
         "line_count": 12,
         "line_hit": 12,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN36Allocator_ExactSplitNoRemainder_Test8TestBodyEv"
       },
       {
@@ -13449,8 +13476,8 @@
         "line_end": 63,
         "line_count": 32,
         "line_hit": 32,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 16,
+        "branch_hit": 16,
         "function_name": "_ZN58Allocator_RemainderPriorityThenBudgetThenFracThenLexi_Test8TestBodyEv"
       },
       {
@@ -13472,8 +13499,8 @@
         "line_end": 70,
         "line_count": 26,
         "line_hit": 26,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 22,
+        "branch_hit": 22,
         "function_name": "_ZN43AuditRoundingTest_ExactShareIsRecorded_Test8TestBodyEv"
       },
       {
@@ -13481,8 +13508,8 @@
         "line_end": 96,
         "line_count": 20,
         "line_hit": 20,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN56AuditRoundingTest_RenderAuditShowsRoundingBreakdown_Test8TestBodyEv"
       },
       {
@@ -13490,8 +13517,8 @@
         "line_end": 122,
         "line_count": 18,
         "line_hit": 18,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN56AuditRoundingTest_RenderAuditShowsRemainderMovement_Test8TestBodyEv"
       },
       {
@@ -13499,8 +13526,8 @@
         "line_end": 173,
         "line_count": 32,
         "line_hit": 32,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 30,
+        "branch_hit": 30,
         "function_name": "_ZN56AuditRoundingTest_DayEndAppendOnRoundedDistribution_Test8TestBodyEv"
       },
       {
@@ -13508,8 +13535,8 @@
         "line_end": 209,
         "line_count": 26,
         "line_hit": 26,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 18,
+        "branch_hit": 18,
         "function_name": "_ZN66AuditRoundingTest_PriorityDecidesWhichChargeGivesBackTheTenth_Test8TestBodyEv"
       },
       {
@@ -13517,8 +13544,8 @@
         "line_end": 230,
         "line_count": 17,
         "line_hit": 17,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN47AuditRoundingTest_ExactSplitHasNoBreakdown_Test8TestBodyEv"
       },
       {
@@ -13526,8 +13553,8 @@
         "line_end": 253,
         "line_count": 18,
         "line_hit": 18,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 14,
+        "branch_hit": 14,
         "function_name": "_ZN49AuditRoundingTest_DirectChargeHasNoBreakdown_Test8TestBodyEv"
       },
       {
@@ -13535,8 +13562,8 @@
         "line_end": 285,
         "line_count": 23,
         "line_hit": 23,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 14,
+        "branch_hit": 14,
         "function_name": "_ZN48AuditRoundingTest_RenderAuditShowsBudgetCap_Test8TestBodyEv"
       },
       {
@@ -13544,8 +13571,8 @@
         "line_end": 34,
         "line_count": 16,
         "line_hit": 16,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN17AuditRoundingTest3runERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       }
     ]
@@ -13558,8 +13585,8 @@
         "line_end": 31,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN25Cli_HelpLongAndShort_Test8TestBodyEv"
       },
       {
@@ -13567,8 +13594,8 @@
         "line_end": 38,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN35Cli_HelpWinsOverOtherArguments_Test8TestBodyEv"
       },
       {
@@ -13576,8 +13603,8 @@
         "line_end": 45,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN19Cli_SingleFile_Test8TestBodyEv"
       },
       {
@@ -13585,8 +13612,8 @@
         "line_end": 54,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN18Cli_SingleDay_Test8TestBodyEv"
       },
       {
@@ -13594,8 +13621,8 @@
         "line_end": 62,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN18Cli_DateRange_Test8TestBodyEv"
       },
       {
@@ -13603,8 +13630,8 @@
         "line_end": 66,
         "line_count": 3,
         "line_hit": 3,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN20Cli_MissingFile_Test8TestBodyEv"
       },
       {
@@ -13612,8 +13639,8 @@
         "line_end": 71,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN25Cli_TooManyArguments_Test8TestBodyEv"
       },
       {
@@ -13621,8 +13648,8 @@
         "line_end": 75,
         "line_count": 3,
         "line_hit": 3,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN22Cli_UnknownOption_Test8TestBodyEv"
       },
       {
@@ -13630,8 +13657,8 @@
         "line_end": 82,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN21Cli_InvalidDates_Test8TestBodyEv"
       },
       {
@@ -13639,8 +13666,8 @@
         "line_end": 88,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN37Cli_DoubleDashAllowsDashFilename_Test8TestBodyEv"
       },
       {
@@ -13648,8 +13675,8 @@
         "line_end": 96,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN34Cli_HelpTextDescribesRunModes_Test8TestBodyEv"
       },
       {
@@ -13657,8 +13684,8 @@
         "line_end": 102,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN30Cli_HelpTextLinksToReadme_Test8TestBodyEv"
       },
       {
@@ -13666,8 +13693,8 @@
         "line_end": 110,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN34Cli_GenerateModeTakesTwoDates_Test8TestBodyEv"
       },
       {
@@ -13675,8 +13702,8 @@
         "line_end": 117,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN34Cli_GenerateRequiresBothDates_Test8TestBodyEv"
       },
       {
@@ -13684,8 +13711,8 @@
         "line_end": 123,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN38Cli_GenerateRejectsExtraArguments_Test8TestBodyEv"
       },
       {
@@ -13693,8 +13720,8 @@
         "line_end": 129,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN34Cli_HelpTextDescribesGenerate_Test8TestBodyEv"
       },
       {
@@ -13702,8 +13729,8 @@
         "line_end": 15,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "test_cli.cpp:_ZN12_GLOBAL__N_18parse_okERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS6_EE"
       },
       {
@@ -13711,8 +13738,8 @@
         "line_end": 22,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "test_cli.cpp:_ZN12_GLOBAL__N_111parse_errorERKSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS6_EE"
       }
     ]
@@ -13725,8 +13752,8 @@
         "line_end": 24,
         "line_count": 14,
         "line_hit": 14,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN24DayParser_HappyPath_Test8TestBodyEv"
       }
     ]
@@ -13739,8 +13766,8 @@
         "line_end": 43,
         "line_count": 30,
         "line_hit": 30,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 16,
+        "branch_hit": 16,
         "function_name": "_ZN44Engine_DirectAndTaskAllocationAndFilter_Test8TestBodyEv"
       },
       {
@@ -13748,8 +13775,8 @@
         "line_end": 79,
         "line_count": 32,
         "line_hit": 32,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN34Report_FullAndSingleDayTables_Test8TestBodyEv"
       },
       {
@@ -13757,8 +13784,8 @@
         "line_end": 106,
         "line_count": 24,
         "line_hit": 24,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN34Report_SummaryUsesHoursPerDay_Test8TestBodyEv"
       },
       {
@@ -13766,8 +13793,8 @@
         "line_end": 133,
         "line_count": 24,
         "line_hit": 24,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN37Smoke_DemoTimecardInMemoryParses_Test8TestBodyEv"
       }
     ]
@@ -13780,8 +13807,8 @@
         "line_end": 17,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN27Generate_ParseFullDate_Test8TestBodyEv"
       },
       {
@@ -13789,8 +13816,8 @@
         "line_end": 29,
         "line_count": 10,
         "line_hit": 10,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 14,
+        "branch_hit": 14,
         "function_name": "_ZN43Generate_ParseShortDateUsesDefaultYear_Test8TestBodyEv"
       },
       {
@@ -13798,8 +13825,8 @@
         "line_end": 43,
         "line_count": 13,
         "line_hit": 13,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 20,
+        "branch_hit": 20,
         "function_name": "_ZN38Generate_ParseRejectsInvalidDates_Test8TestBodyEv"
       },
       {
@@ -13807,8 +13834,8 @@
         "line_end": 51,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN36Generate_ParseRespectsLeapYears_Test8TestBodyEv"
       },
       {
@@ -13816,8 +13843,8 @@
         "line_end": 66,
         "line_count": 12,
         "line_hit": 12,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN39Generate_RangeRequiresOrderedDates_Test8TestBodyEv"
       },
       {
@@ -13825,8 +13852,8 @@
         "line_end": 79,
         "line_count": 11,
         "line_hit": 11,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN44Generate_RangeReportsWhichDateIsInvalid_Test8TestBodyEv"
       },
       {
@@ -13834,8 +13861,8 @@
         "line_end": 108,
         "line_count": 27,
         "line_hit": 27,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN41Generate_SkipsWeekendsAndEmitsBlocks_Test8TestBodyEv"
       },
       {
@@ -13843,8 +13870,8 @@
         "line_end": 118,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN44Generate_WeekendOnlyRangeHasNoDayBlocks_Test8TestBodyEv"
       },
       {
@@ -13852,8 +13879,8 @@
         "line_end": 132,
         "line_count": 12,
         "line_hit": 12,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN38Generate_WeekCommentOnlyOnMondays_Test8TestBodyEv"
       },
       {
@@ -13861,8 +13888,8 @@
         "line_end": 149,
         "line_count": 14,
         "line_hit": 14,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN42Generate_IsoWeekRollsOverAtTheNewYear_Test8TestBodyEv"
       },
       {
@@ -13870,8 +13897,8 @@
         "line_end": 159,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN39Generate_DayOfYearHandlesLeapYears_Test8TestBodyEv"
       },
       {
@@ -13879,8 +13906,8 @@
         "line_end": 169,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN41Generate_HeaderUsesTheRequestedRange_Test8TestBodyEv"
       },
       {
@@ -13888,8 +13915,8 @@
         "line_end": 192,
         "line_count": 18,
         "line_hit": 18,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 12,
+        "branch_hit": 12,
         "function_name": "_ZN48Generate_GeneratedSkeletonParsesAsATimecard_Test8TestBodyEv"
       }
     ]
@@ -13902,8 +13929,8 @@
         "line_end": 47,
         "line_count": 34,
         "line_hit": 34,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN24LogParser_HappyPath_Test8TestBodyEv"
       }
     ]
@@ -13916,8 +13943,8 @@
         "line_end": 12,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN38OptionsTest_ParseRoundingTruncate_Test8TestBodyEv"
       },
       {
@@ -13925,8 +13952,8 @@
         "line_end": 19,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN35OptionsTest_ParseRoundingRound_Test8TestBodyEv"
       },
       {
@@ -13934,8 +13961,8 @@
         "line_end": 26,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN34OptionsTest_ParseRoundingCeil_Test8TestBodyEv"
       },
       {
@@ -13943,8 +13970,8 @@
         "line_end": 34,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN37OptionsTest_ParseRoundingInvalid_Test8TestBodyEv"
       },
       {
@@ -13952,8 +13979,8 @@
         "line_end": 42,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN41OptionsTest_ParseAggregationPerEvent_Test8TestBodyEv"
       },
       {
@@ -13961,8 +13988,8 @@
         "line_end": 49,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN39OptionsTest_ParseAggregationPerDay_Test8TestBodyEv"
       },
       {
@@ -13970,8 +13997,8 @@
         "line_end": 56,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN36OptionsTest_ParseAggregationOff_Test8TestBodyEv"
       },
       {
@@ -13979,8 +14006,8 @@
         "line_end": 64,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN40OptionsTest_ParseAggregationInvalid_Test8TestBodyEv"
       },
       {
@@ -13988,8 +14015,8 @@
         "line_end": 72,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN31OptionsTest_DefaultOptions_Test8TestBodyEv"
       },
       {
@@ -13997,8 +14024,8 @@
         "line_end": 79,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN32OptionsTest_ValidateOptions_Test8TestBodyEv"
       },
       {
@@ -14006,17 +14033,17 @@
         "line_end": 86,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN32OptionsTest_SetRoundingMode_Test8TestBodyEv"
       },
       {
         "line_start": 88,
         "line_end": 92,
-        "line_count": 5,
-        "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "line_count": 4,
+        "line_hit": 4,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN35OptionsTest_SetAggregationMode_Test8TestBodyEv"
       }
     ]
@@ -14029,8 +14056,8 @@
         "line_end": 41,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN44OptionsParserTest_ParseRoundingTruncate_Test8TestBodyEv"
       },
       {
@@ -14038,8 +14065,8 @@
         "line_end": 46,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN41OptionsParserTest_ParseRoundingRound_Test8TestBodyEv"
       },
       {
@@ -14047,8 +14074,8 @@
         "line_end": 51,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN40OptionsParserTest_ParseRoundingCeil_Test8TestBodyEv"
       },
       {
@@ -14056,8 +14083,8 @@
         "line_end": 57,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN47OptionsParserTest_ParseAggregationPerEvent_Test8TestBodyEv"
       },
       {
@@ -14065,8 +14092,8 @@
         "line_end": 62,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN45OptionsParserTest_ParseAggregationPerDay_Test8TestBodyEv"
       },
       {
@@ -14074,8 +14101,8 @@
         "line_end": 67,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN42OptionsParserTest_ParseAggregationOff_Test8TestBodyEv"
       },
       {
@@ -14083,8 +14110,8 @@
         "line_end": 79,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN45OptionsParserTest_ParseRemainderPolicies_Test8TestBodyEv"
       },
       {
@@ -14101,8 +14128,8 @@
         "line_end": 95,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN42OptionsParserTest_ParseBudgetPolicies_Test8TestBodyEv"
       },
       {
@@ -14110,8 +14137,8 @@
         "line_end": 101,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN57OptionsParserTest_ParseBudgetSpillWithOverflowCharge_Test8TestBodyEv"
       },
       {
@@ -14137,8 +14164,8 @@
         "line_end": 121,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN45OptionsParserTest_ParseGranularityTenths_Test8TestBodyEv"
       },
       {
@@ -14164,8 +14191,8 @@
         "line_end": 142,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN39OptionsParserTest_ParseHoursPerDay_Test8TestBodyEv"
       },
       {
@@ -14173,8 +14200,8 @@
         "line_end": 146,
         "line_count": 3,
         "line_hit": 3,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN49OptionsParserTest_HoursPerDayDefaultsToEight_Test8TestBodyEv"
       },
       {
@@ -14191,8 +14218,8 @@
         "line_end": 163,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN37OptionsParserTest_ParseAuditFlag_Test8TestBodyEv"
       },
       {
@@ -14209,8 +14236,8 @@
         "line_end": 173,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN47OptionsParserTest_ParseAggregationPerMonth_Test8TestBodyEv"
       },
       {
@@ -14254,8 +14281,8 @@
         "line_end": 200,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN38OptionsParserTest_MultipleOptions_Test8TestBodyEv"
       },
       {
@@ -14263,8 +14290,8 @@
         "line_end": 206,
         "line_count": 4,
         "line_hit": 4,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN37OptionsParserTest_OptionOverride_Test8TestBodyEv"
       },
       {
@@ -14272,8 +14299,8 @@
         "line_end": 217,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN66OptionsParserTest_DuplicateOptionWarnsWhenFirstValueIsDefault_Test8TestBodyEv"
       },
       {
@@ -14281,8 +14308,8 @@
         "line_end": 224,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN65OptionsParserTest_DuplicateOptionWarnsEvenWhenValueUnchanged_Test8TestBodyEv"
       },
       {
@@ -14290,8 +14317,8 @@
         "line_end": 233,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN50OptionsParserTest_DuplicateWarnsOncePerRepeat_Test8TestBodyEv"
       },
       {
@@ -14299,8 +14326,8 @@
         "line_end": 239,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN47OptionsParserTest_DistinctOptionsDoNotWarn_Test8TestBodyEv"
       },
       {
@@ -14308,8 +14335,8 @@
         "line_end": 249,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN73OptionsParserTest_InvalidDuplicateReportsErrorWithoutOverrideWarning_Test8TestBodyEv"
       },
       {
@@ -14317,8 +14344,8 @@
         "line_end": 264,
         "line_count": 11,
         "line_hit": 11,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN58OptionsParserTest_ValidateAcceptsDefaultsAndEveryMode_Test8TestBodyEv"
       },
       {
@@ -14326,8 +14353,8 @@
         "line_end": 275,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN64OptionsParserTest_ValidateBudgetSpillRequiresOverflowCharge_Test8TestBodyEv"
       },
       {
@@ -14335,8 +14362,8 @@
         "line_end": 283,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN58OptionsParserTest_ValidateOverflowChargeOnlyWithSpill_Test8TestBodyEv"
       },
       {
@@ -14344,8 +14371,8 @@
         "line_end": 290,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN60OptionsParserTest_ValidateRejectsNonPositiveGranularity_Test8TestBodyEv"
       },
       {
@@ -14353,8 +14380,8 @@
         "line_end": 300,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN60OptionsParserTest_ValidateRejectsNonPositiveHoursPerDay_Test8TestBodyEv"
       },
       {
@@ -14362,8 +14389,8 @@
         "line_end": 314,
         "line_count": 12,
         "line_hit": 12,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN52OptionsParserTest_ValidateRejectsOutOfRangeEnum_Test8TestBodyEv"
       },
       {
@@ -14371,8 +14398,8 @@
         "line_end": 325,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN41OptionsParserTest_OptionsWithCharges_Test8TestBodyEv"
       },
       {
@@ -14380,8 +14407,8 @@
         "line_end": 336,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN39OptionsParserTest_OptionsWithTasks_Test8TestBodyEv"
       },
       {
@@ -14389,8 +14416,8 @@
         "line_end": 15,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN17OptionsParserTest12parse_stringERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
@@ -14398,8 +14425,8 @@
         "line_end": 22,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN17OptionsParserTest25parse_string_expect_errorERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       },
       {
@@ -14407,8 +14434,8 @@
         "line_end": 32,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN17OptionsParserTest28parse_string_expect_warningsERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE"
       }
     ]
@@ -14421,8 +14448,8 @@
         "line_end": 37,
         "line_count": 28,
         "line_hit": 24,
-        "branch_count": 2,
-        "branch_hit": 1,
+        "branch_count": 18,
+        "branch_hit": 17,
         "function_name": "_ZN21Parser_HappyPath_Test8TestBodyEv"
       },
       {
@@ -14430,8 +14457,8 @@
         "line_end": 64,
         "line_count": 26,
         "line_hit": 26,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 16,
+        "branch_hit": 16,
         "function_name": "_ZN18Parser_Errors_Test8TestBodyEv"
       },
       {
@@ -14439,8 +14466,8 @@
         "line_end": 83,
         "line_count": 18,
         "line_hit": 18,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN26Validator_UnknownRefs_Test8TestBodyEv"
       },
       {
@@ -14448,8 +14475,8 @@
         "line_end": 103,
         "line_count": 19,
         "line_hit": 19,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN40Validator_SpillTargetMustBeDeclared_Test8TestBodyEv"
       }
     ]
@@ -14462,8 +14489,8 @@
         "line_end": 58,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN45RoundingModesTest_TruncateMode_EvenSplit_Test8TestBodyEv"
       },
       {
@@ -14471,8 +14498,8 @@
         "line_end": 71,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN49RoundingModesTest_TruncateMode_WithRemainder_Test8TestBodyEv"
       },
       {
@@ -14480,8 +14507,8 @@
         "line_end": 80,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN48RoundingModesTest_TruncateMode_OddRemainder_Test8TestBodyEv"
       },
       {
@@ -14489,8 +14516,8 @@
         "line_end": 91,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN42RoundingModesTest_RoundMode_EvenSplit_Test8TestBodyEv"
       },
       {
@@ -14498,8 +14525,8 @@
         "line_end": 102,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN41RoundingModesTest_RoundMode_RoundsUp_Test8TestBodyEv"
       },
       {
@@ -14507,8 +14534,8 @@
         "line_end": 112,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN43RoundingModesTest_RoundMode_RoundsDown_Test8TestBodyEv"
       },
       {
@@ -14516,8 +14543,8 @@
         "line_end": 123,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN41RoundingModesTest_CeilMode_EvenSplit_Test8TestBodyEv"
       },
       {
@@ -14525,8 +14552,8 @@
         "line_end": 134,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN40RoundingModesTest_CeilMode_RoundsUp_Test8TestBodyEv"
       },
       {
@@ -14534,8 +14561,8 @@
         "line_end": 158,
         "line_count": 19,
         "line_hit": 19,
-        "branch_count": 4,
-        "branch_hit": 4,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN48RoundingModesTest_TruncateMode_ThreeCharges_Test8TestBodyEv"
       },
       {
@@ -14543,8 +14570,8 @@
         "line_end": 168,
         "line_count": 5,
         "line_hit": 5,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN49RoundingModesTest_CeilMode_NegativeRemainder_Test8TestBodyEv"
       },
       {
@@ -14552,8 +14579,8 @@
         "line_end": 180,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN56RoundingModesTest_TotalAllocationPreserved_Truncate_Test8TestBodyEv"
       },
       {
@@ -14561,8 +14588,8 @@
         "line_end": 191,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN53RoundingModesTest_TotalAllocationPreserved_Round_Test8TestBodyEv"
       },
       {
@@ -14570,8 +14597,8 @@
         "line_end": 202,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN52RoundingModesTest_TotalAllocationPreserved_Ceil_Test8TestBodyEv"
       },
       {
@@ -14579,8 +14606,8 @@
         "line_end": 213,
         "line_count": 8,
         "line_hit": 8,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN57RoundingModesTest_RemainderSpreadsAcrossThreeCharges_Test8TestBodyEv"
       },
       {
@@ -14588,8 +14615,8 @@
         "line_end": 224,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN56RoundingModesTest_RemainderSpreadsAcrossFourCharges_Test8TestBodyEv"
       },
       {
@@ -14597,8 +14624,8 @@
         "line_end": 239,
         "line_count": 11,
         "line_hit": 11,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN57RoundingModesTest_CeilMode_OvershootStaysNonNegative_Test8TestBodyEv"
       },
       {
@@ -14606,8 +14633,8 @@
         "line_end": 252,
         "line_count": 11,
         "line_hit": 11,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN60RoundingModesTest_CeilMode_ThreeChargesStaysNonNegative_Test8TestBodyEv"
       },
       {
@@ -14615,8 +14642,8 @@
         "line_end": 273,
         "line_count": 17,
         "line_hit": 17,
-        "branch_count": 4,
-        "branch_hit": 4,
+        "branch_count": 12,
+        "branch_hit": 12,
         "function_name": "_ZN59RoundingModesTest_PriorityWinsRemainderBeforeSpreading_Test8TestBodyEv"
       },
       {
@@ -14624,8 +14651,8 @@
         "line_end": 286,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN63RoundingModesTest_Granularity_DefaultMatchesTickAllocation_Test8TestBodyEv"
       },
       {
@@ -14633,8 +14660,8 @@
         "line_end": 296,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN52RoundingModesTest_Granularity_HalfHourEvenSplit_Test8TestBodyEv"
       },
       {
@@ -14642,8 +14669,8 @@
         "line_end": 310,
         "line_count": 11,
         "line_hit": 11,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN54RoundingModesTest_Granularity_HalfHourUnevenSplit_Test8TestBodyEv"
       },
       {
@@ -14651,8 +14678,8 @@
         "line_end": 325,
         "line_count": 13,
         "line_hit": 13,
-        "branch_count": 4,
-        "branch_hit": 4,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN56RoundingModesTest_Granularity_AllModesPreserveTotal_Test8TestBodyEv"
       },
       {
@@ -14660,8 +14687,8 @@
         "line_end": 338,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN60RoundingModesTest_Granularity_SubQuantumTailIsPreserved_Test8TestBodyEv"
       },
       {
@@ -14669,8 +14696,8 @@
         "line_end": 352,
         "line_count": 10,
         "line_hit": 10,
-        "branch_count": 2,
-        "branch_hit": 2,
+        "branch_count": 6,
+        "branch_hit": 6,
         "function_name": "_ZN64RoundingModesTest_Granularity_CeilOvershootStaysNonNegative_Test8TestBodyEv"
       },
       {
@@ -14678,8 +14705,8 @@
         "line_end": 384,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN63RoundingModesTest_RemainderPriorityWinsOverLargestFraction_Test8TestBodyEv"
       },
       {
@@ -14687,8 +14714,8 @@
         "line_end": 395,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN63RoundingModesTest_RemainderLargestFractionWinsOverPriority_Test8TestBodyEv"
       },
       {
@@ -14696,8 +14723,8 @@
         "line_end": 406,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN57RoundingModesTest_RemainderRoundRobinIgnoresPriority_Test8TestBodyEv"
       },
       {
@@ -14705,8 +14732,8 @@
         "line_end": 418,
         "line_count": 9,
         "line_hit": 9,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN54RoundingModesTest_RemainderRoundRobinCyclesEvenly_Test8TestBodyEv"
       },
       {
@@ -14714,8 +14741,8 @@
         "line_end": 434,
         "line_count": 15,
         "line_hit": 15,
-        "branch_count": 4,
-        "branch_hit": 4,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN53RoundingModesTest_RemainderPoliciesPreserveTotal_Test8TestBodyEv"
       },
       {
@@ -14723,17 +14750,17 @@
         "line_end": 443,
         "line_count": 6,
         "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN44RoundingModesTest_LargeNumbers_Truncate_Test8TestBodyEv"
       },
       {
         "line_start": 445,
         "line_end": 451,
-        "line_count": 6,
-        "line_hit": 6,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "line_count": 5,
+        "line_hit": 5,
+        "branch_count": 2,
+        "branch_hit": 2,
         "function_name": "_ZN41RoundingModesTest_LargeNumbers_Round_Test8TestBodyEv"
       },
       {
@@ -14773,8 +14800,8 @@
         "line_end": 23,
         "line_count": 13,
         "line_hit": 13,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 4,
+        "branch_hit": 4,
         "function_name": "_ZN25TaskParser_HappyPath_Test8TestBodyEv"
       }
     ]
@@ -14787,8 +14814,8 @@
         "line_end": 13,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 10,
+        "branch_hit": 10,
         "function_name": "_ZN23Utils_HoursToTicks_Test8TestBodyEv"
       },
       {
@@ -14796,8 +14823,8 @@
         "line_end": 21,
         "line_count": 7,
         "line_hit": 7,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN20Utils_ParseMMDD_Test8TestBodyEv"
       },
       {
@@ -14805,8 +14832,8 @@
         "line_end": 34,
         "line_count": 11,
         "line_hit": 11,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 14,
+        "branch_hit": 14,
         "function_name": "_ZN42Tokenizer_QuotedAndEscapesAndComments_Test8TestBodyEv"
       }
     ]
@@ -14819,8 +14846,8 @@
         "line_end": 29,
         "line_count": 19,
         "line_hit": 19,
-        "branch_count": 0,
-        "branch_hit": 0,
+        "branch_count": 8,
+        "branch_hit": 8,
         "function_name": "_ZN27WeightParser_HappyPath_Test8TestBodyEv"
       }
     ]
